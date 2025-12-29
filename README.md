@@ -30,10 +30,22 @@ An automated RSS news aggregation system that fetches RSS feeds, analyzes storie
 
 ## Quick Installation
 
-Run this single command on a fresh Raspberry Pi:
+**Note**: The repository must exist on GitHub first. If you get a 404 error, the repository hasn't been created yet.
 
+### If Repository Exists:
 ```bash
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
+```
+
+### If Repository Doesn't Exist (Bootstrap Method):
+```bash
+# 1. Run bootstrap installation
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/bootstrap_install.sh | bash
+
+# 2. Create GitHub repository at https://github.com/new
+# 3. Upload all project files
+# 4. Complete installation
+/home/pi/rss_aggregator/complete_installation.sh
 ```
 
 This will:

@@ -16,10 +16,72 @@
 
 ## Deployment Steps
 
-### Step 1: Quick Installation
+## Deployment Steps
+
+### Option A: Full Installation (Repository Must Exist)
+**IMPORTANT**: This only works after the GitHub repository is created and files are uploaded.
+
 ```bash
-# On your Raspberry Pi, run:
+# On your Raspberry Pi, run (only after repository is created):
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
+```
+
+### Option B: Bootstrap Installation (Repository Doesn't Exist Yet)
+If you're getting a 404 error, use this bootstrap method:
+
+1. **Run Bootstrap Script**:
+```bash
+# This prepares the system and installs dependencies
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/bootstrap_install.sh | bash
+```
+
+2. **Create GitHub Repository**:
+   - Go to https://github.com/new
+   - Repository name: `TheWirelessMonitor`
+   - Make it public
+   - Initialize with README
+
+3. **Upload Project Files**:
+   - Upload all files from your Kiro workspace to the repository
+   - Ensure all files are in the correct directory structure
+
+4. **Complete Installation**:
+```bash
+# Run this after uploading files to GitHub
+/home/pi/rss_aggregator/complete_installation.sh
+```
+
+### Option C: Manual Installation
+For complete manual control:
+
+```bash
+# 1. Prepare system
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv git curl wget sqlite3 nginx
+
+# 2. Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+sudo systemctl enable ollama
+sudo systemctl start ollama
+ollama pull llama2:7b-chat
+
+# 3. Create directory
+sudo mkdir -p /home/pi/rss_aggregator
+sudo chown pi:pi /home/pi/rss_aggregator
+cd /home/pi/rss_aggregator
+
+# 4. Copy project files manually or clone when repository exists
+# git clone https://github.com/Drew-CodeRGV/TheWirelessMonitor.git .
+
+# 5. Continue with Python setup
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 6. Initialize database
+python3 -c "from app.models import init_db; init_db()"
+
+# 7. Set up services (see full install.sh for complete steps)
 ```
 
 ### Step 2: Verify Installation
