@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 INSTALL_DIR="/home/pi/rss_aggregator"
-REPO_URL="https://github.com/YOUR_USERNAME/rpi-news-aggregator.git"
+REPO_URL="https://github.com/Drew-CodeRGV/TheWirelessMonitor.git"
 SERVICE_NAME="rss-aggregator"
 
 # Function to print colored output

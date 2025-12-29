@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class SystemUpdater:
     def __init__(self):
         self.install_dir = "/home/pi/rss_aggregator"
-        self.repo_url = "https://api.github.com/repos/YOUR_USERNAME/rpi-news-aggregator"
+        self.repo_url = "https://api.github.com/repos/Drew-CodeRGV/TheWirelessMonitor"
         self.current_version = self.get_current_version()
         
     def get_current_version(self):

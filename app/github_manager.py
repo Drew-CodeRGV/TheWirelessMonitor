@@ -62,7 +62,7 @@ class GitHubManager:
             conn.execute('''
                 INSERT OR REPLACE INTO github_config (id, github_token, github_username, github_repo, updated_at)
                 VALUES (1, ?, ?, ?, CURRENT_TIMESTAMP)
-            ''', (token, username, repo_name))
+            ''', (token, username, repo_name or 'TheWirelessMonitor'))
             
             conn.commit()
             conn.close()

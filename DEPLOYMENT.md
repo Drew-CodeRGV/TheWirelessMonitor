@@ -1,4 +1,4 @@
-# Deployment Guide for RSS News Aggregator
+# Deployment Guide for The Wireless Monitor
 
 ## Pre-Deployment Checklist
 
@@ -19,7 +19,7 @@
 ### Step 1: Quick Installation
 ```bash
 # On your Raspberry Pi, run:
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/rpi-news-aggregator/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
 ```
 
 ### Step 2: Verify Installation
@@ -208,7 +208,7 @@ For issues:
 ---
 
 **Remember to:**
-- Replace `YOUR_USERNAME` with your actual GitHub username
 - Test thoroughly before production deployment
 - Keep system updated regularly
 - Monitor resource usage
+- The repository is now live at https://github.com/Drew-CodeRGV/TheWirelessMonitor

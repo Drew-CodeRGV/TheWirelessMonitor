@@ -2,6 +2,7 @@
     "version": "1.0.0",
     "build_date": "2025-01-01",
     "commit_hash": "initial",
+    "repository": "https://github.com/Drew-CodeRGV/TheWirelessMonitor",
     "features": [
         "RSS feed aggregation",
         "AI-powered relevance analysis", 
@@ -10,9 +11,11 @@
         "Admin console",
         "Bulk RSS management",
         "Entertainment story detection",
-        "Podcast script generation"
+        "Podcast script generation",
+        "Social media sharing",
+        "GitHub integration"
     ],
     "changelog": {
-        "1.0.0": "Initial release with full feature set"
+        "1.0.0": "Initial release with full feature set including GitHub integration"
     }
 }

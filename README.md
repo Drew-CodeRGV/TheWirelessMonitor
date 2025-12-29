@@ -1,6 +1,6 @@
-# RSS News Aggregator for Raspberry Pi
+# The Wireless Monitor
 
-An automated news aggregation system that fetches RSS feeds, analyzes stories using AI, and provides a web interface for viewing top stories in the Wi-Fi/wireless industry.
+An automated RSS news aggregation system that fetches RSS feeds, analyzes stories using AI, and provides a web interface for viewing top stories in the Wi-Fi/wireless industry with classic 1990s newspaper styling.
 
 ## Features
 
@@ -33,7 +33,7 @@ An automated news aggregation system that fetches RSS feeds, analyzes stories us
 Run this single command on a fresh Raspberry Pi:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/rpi-news-aggregator/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
 ```
 
 This will:
@@ -51,8 +51,8 @@ If you prefer to install manually or customize the setup:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/rpi-news-aggregator.git
-cd rpi-news-aggregator
+git clone https://github.com/Drew-CodeRGV/TheWirelessMonitor.git
+cd TheWirelessMonitor
 ```
 
 2. Run the installation script:
@@ -81,6 +81,7 @@ The system automatically:
 │   ├── rss_fetcher.py       # RSS feed processing
 │   ├── ai_analyzer.py       # AI analysis + entertainment detection + podcast scripts
 │   ├── updater.py           # Auto-update system
+│   ├── github_manager.py    # GitHub integration
 │   └── templates/           # HTML templates including admin console
 ├── static/                  # CSS, JS, images
 ├── config/
