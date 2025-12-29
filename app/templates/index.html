@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}The Wireless Monitor - Front Page{% endblock %}
+
+{% block content %}
+<!-- Top Stories Header Section -->
+<div class="top-stories-header">
+    <div class="section-header">Breaking News in Wireless Technology</div>
+</div>
+
+<!-- Three Column Top Stories -->
+<div class="top-stories-grid">
+    {% set top_stories = stories[:3] %}
+    {% for story in top_stories %}
+    <div class="headline-story">
+        {% if story.image_url %}
+        <img src="{{ story.image_url }}" alt="Story image" class="story-image">
+        {% endif %}
+        
+        <div class="story-meta">
+            <i class="fas fa-wifi"></i> Wireless Tech • 
+            {{ moment(story.published_date).fromNow() if story.published_date else 'Recent' }}
+        </div>
+        
+        <h2><a href="{{ url_for('view_article', article_id=story.id) }}">{{ story.title }}</a></h2>
+        
+        <div class="story-badges">
+            {% if story.relevance_score > 0.8 %}
+                <span class="newspaper-badge badge-high">Breaking</span>
+            {% elif story.relevance_score > 0.6 %}
+                <span class="newspaper-badge badge-relevance">Important</span>
+            {% endif %}
+            
+            {% if story.entertainment_score and story.entertainment_score > 0.5 %}
+                <span class="newspaper-badge badge-entertainment">Featured</span>
+            {% endif %}
+        </div>
+        
+        <div class="story-excerpt">
+            {{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}
+        </div>
+        
+        <div class="story-meta">
+            <strong>Relevance:</strong> {{ "%.0f"|format(story.relevance_score * 100) }}%
+            {% if story.entertainment_score %}
+            • <strong>Interest:</strong> {{ "%.0f"|format(story.entertainment_score * 100) }}%
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Main Content Grid -->
+<div class="articles-grid">
+    <!-- Main Articles Column -->
+    <div class="main-articles">
+        <div class="section-header">Today's Wireless Industry News</div>
+        
+        {% for story in stories[3:] %}
+        <article class="newspaper-article">
+            <h3 class="article-headline">
+                <a href="{{ url_for('view_article', article_id=story.id) }}">{{ story.title }}</a>
+            </h3>
+            
+            <div class="article-byline">
+                <i class="fas fa-clock"></i> {{ moment(story.published_date).fromNow() if story.published_date else 'Recent' }} • 
+                <i class="fas fa-signal"></i> {{ "%.0f"|format(story.relevance_score * 100) }}% Relevant
+                {% if story.entertainment_score and story.entertainment_score > 0.3 %}
+                • <i class="fas fa-star"></i> {{ "%.0f"|format(story.entertainment_score * 100) }}% Interest
+                {% endif %}
+            </div>
+            
+            {% if story.image_url %}
+            <img src="{{ story.image_url }}" alt="Article image" style="float: left; width: 150px; height: 100px; object-fit: cover; margin: 0 15px 10px 0; border: 1px solid #ccc;">
+            {% endif %}
+            
+            <div class="article-text">
+                {{ story.description }}
+                
+                {% if story.wifi_keywords %}
+                <div style="margin-top: 10px; clear: both;">
+                    <a href="{{ url_for('view_article', article_id=story.id) }}" style="color: #000080; font-weight: bold;">
+                        » Read Full Story
+                    </a>
+                    <span style="margin: 0 10px;">|</span>
+                    <a href="{{ story.url }}" target="_blank" style="color: #8B0000;">
+                        Original Source
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div style="clear: both;"></div>
+        </article>
+        {% endfor %}
+        
+        {% if not stories %}
+        <div style="text-align: center; padding: 40px; border: 2px dashed #ccc;">
+            <h3>No Stories Available</h3>
+            <p>Check back later for the latest wireless technology news.</p>
+            <button onclick="fetchNow()" style="background: #000; color: white; border: none; padding: 10px 20px; cursor: pointer;">
+                Update News Feed
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Quick Stats -->
+        <div class="sidebar-box">
+            <div class="sidebar-header">Today's Edition</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <strong>{{ stories|length }}</strong> Stories Published
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ stories|selectattr('relevance_score', '>', 0.8)|list|length }}</strong> Breaking News
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ stories|selectattr('entertainment_score', '>', 0.5)|list|length }}</strong> Featured Stories
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ (stories|map(attribute='relevance_score')|sum / stories|length * 100)|round(1) if stories else 0 }}%</strong> Avg. Relevance
+                </div>
+            </div>
+        </div>
+        
+        <!-- Entertainment Stories -->
+        {% if entertainment_stories %}
+        <div class="sidebar-box">
+            <div class="sidebar-header">Fun & Interesting</div>
+            <div class="sidebar-content">
+                {% for story in entertainment_stories[:5] %}
+                <div class="sidebar-item">
+                    <a href="{{ url_for('view_article', article_id=story.id) }}">{{ story.title[:60] }}{% if story.title|length > 60 %}...{% endif %}</a>
+                    <br><small><i class="fas fa-laugh"></i> {{ "%.0f"|format(story.entertainment_score * 100) }}% Fun Factor</small>
+                </div>
+                {% endfor %}
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="{{ url_for('entertainment_stories') }}" style="color: #000080; font-weight: bold;">» More Fun Stories</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Quick Links -->
+        <div class="sidebar-box">
+            <div class="sidebar-header">Sections</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <a href="{{ url_for('weekly_digest') }}">📰 Weekly Review</a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="{{ url_for('podcast_script') }}">🎙️ Podcast Scripts</a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="{{ url_for('manage_feeds') }}">📡 News Sources</a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="{{ url_for('admin_console') }}">⚙️ Admin Desk</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Info -->
+        <div class="sidebar-box">
+            <div class="sidebar-header">System Status</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <strong>Version:</strong> {{ version.version if version else '1.0.0' }}
+                </div>
+                <div class="sidebar-item">
+                    <strong>Last Update:</strong> {{ moment().format('HH:mm') }}
+                </div>
+                <div class="sidebar-item">
+                    <strong>AI Engine:</strong> Ollama/Llama2
+                </div>
+                <div class="sidebar-item">
+                    <strong>Platform:</strong> Raspberry Pi
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function moment(date) {
+        if (!date) return { fromNow: () => 'Recent' };
+        
+        const now = new Date();
+        const then = new Date(date);
+        const diffMs = now - then;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMins / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        
+        if (diffMins < 1) return { fromNow: () => 'Just now' };
+        if (diffMins < 60) return { fromNow: () => `${diffMins} min ago` };
+        if (diffHours < 24) return { fromNow: () => `${diffHours} hr ago` };
+        if (diffDays < 7) return { fromNow: () => `${diffDays} days ago` };
+        
+        return { fromNow: () => then.toLocaleDateString() };
+    }
+</script>
+{% endblock %}

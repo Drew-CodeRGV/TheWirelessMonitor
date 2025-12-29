@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}Waves Wireless Podcast Script Generator{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-microphone"></i> Waves Wireless Podcast Script</h1>
+            <div class="text-muted">
+                <i class="fas fa-user"></i> In the voice of Drew Lentz
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            <strong>AI-Generated Script:</strong> This script is generated in the style and voice of Drew Lentz, 
+            the Wireless Nerd, based on analysis of his speaking patterns, expertise, and podcast style.
+        </div>
+    </div>
+</div>
+
+<!-- Script Generation Controls -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-cogs"></i> Script Generation</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="weekSelect" class="form-label">Select Week:</label>
+                        <input type="date" class="form-control" id="weekSelect" value="{{ week_start }}">
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button class="btn btn-primary me-2" onclick="generateScript()">
+                            <i class="fas fa-magic"></i> Generate Script
+                        </button>
+                        <button class="btn btn-outline-secondary" onclick="copyScript()">
+                            <i class="fas fa-copy"></i> Copy Script
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Drew Lentz Voice Profile -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-user-tie"></i> Drew Lentz Voice Profile</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Speaking Style:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Conversational and approachable</li>
+                            <li><i class="fas fa-check text-success"></i> Explains complex concepts simply</li>
+                            <li><i class="fas fa-check text-success"></i> Uses real-world examples</li>
+                            <li><i class="fas fa-check text-success"></i> Candid about technology</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Background & Expertise:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-wifi text-primary"></i> 20+ years in data delivery</li>
+                            <li><i class="fas fa-broadcast-tower text-primary"></i> Decade in wireless deployments</li>
+                            <li><i class="fas fa-tools text-primary"></i> Field deployment experience</li>
+                            <li><i class="fas fa-comments text-primary"></i> Trade show and meeting room expertise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generated Script -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-file-alt"></i> Generated Podcast Script</h5>
+                <div>
+                    <span class="badge bg-primary">Week of {{ week_start }}</span>
+                    <button class="btn btn-sm btn-outline-primary ms-2" onclick="downloadScript()">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="scriptContent" class="border rounded p-3" style="background-color: #f8f9fa; min-height: 400px; white-space: pre-wrap; font-family: 'Courier New', monospace;">
+                    {% if script %}
+{{ script }}
+                    {% else %}
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-microphone fa-3x mb-3"></i>
+                        <h5>No script generated yet</h5>
+                        <p>Select a week and click "Generate Script" to create a podcast script in Drew's voice.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div id="generationStatus" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script Tips -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> Podcast Script Tips</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-microphone text-primary"></i> Drew's Catchphrases:</h6>
+                        <ul class="list-unstyled">
+                            <li>"Making waves in the wireless world"</li>
+                            <li>"At the end of the day"</li>
+                            <li>"Real-world applications"</li>
+                            <li>"Field deployment experience"</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-cogs text-success"></i> Technical Focus:</h6>
+                        <ul class="list-unstyled">
+                            <li>Practical problem-solving</li>
+                            <li>Infrastructure deployment</li>
+                            <li>Wireless security concerns</li>
+                            <li>Industry standards and trends</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-users text-info"></i> Audience Engagement:</h6>
+                        <ul class="list-unstyled">
+                            <li>Community involvement</li>
+                            <li>Listener questions</li>
+                            <li>Industry event mentions</li>
+                            <li>Practical advice sharing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Generate podcast script
+async function generateScript() {
+    const weekSelect = document.getElementById('weekSelect');
+    const statusDiv = document.getElementById('generationStatus');
+    const scriptContent = document.getElementById('scriptContent');
+    
+    const weekStart = weekSelect.value;
+    
+    if (!weekStart) {
+        alert('Please select a week first');
+        return;
+    }
+    
+    statusDiv.innerHTML = `
+        <div class="alert alert-info">
+            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+            Generating podcast script in Drew's voice... This may take a minute.
+        </div>
+    `;
+    
+    scriptContent.innerHTML = `
+        <div class="text-center text-muted py-5">
+            <div class="spinner-border mb-3" role="status"></div>
+            <h5>Generating Script...</h5>
+            <p>AI is analyzing the week's stories and crafting a script in Drew Lentz's voice.</p>
+        </div>
+    `;
+    
+    try {
+        const response = await fetch('/api/generate_podcast', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                week_start: weekStart
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            scriptContent.textContent = data.script;
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    Script generated successfully for week of ${data.week_start}
+                </div>
+            `;
+        } else {
+            scriptContent.innerHTML = `
+                <div class="text-center text-danger py-5">
+                    <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                    <h5>Generation Failed</h5>
+                    <p>${data.error}</p>
+                </div>
+            `;
+            statusDiv.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-times-circle"></i>
+                    Error: ${data.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        scriptContent.innerHTML = `
+            <div class="text-center text-danger py-5">
+                <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                <h5>Network Error</h5>
+                <p>${error.message}</p>
+            </div>
+        `;
+        statusDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-times-circle"></i>
+                Network error: ${error.message}
+            </div>
+        `;
+    }
+}
+
+// Copy script to clipboard
+function copyScript() {
+    const scriptContent = document.getElementById('scriptContent');
+    const text = scriptContent.textContent;
+    
+    if (!text || text.trim() === '') {
+        alert('No script to copy. Generate a script first.');
+        return;
+    }
+    
+    navigator.clipboard.writeText(text).then(() => {
+        // Show temporary success message
+        const originalContent = scriptContent.innerHTML;
+        const overlay = document.createElement('div');
+        overlay.className = 'position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-success bg-opacity-75 text-white';
+        overlay.innerHTML = '<h4><i class="fas fa-check"></i> Script Copied!</h4>';
+        
+        scriptContent.style.position = 'relative';
+        scriptContent.appendChild(overlay);
+        
+        setTimeout(() => {
+            scriptContent.removeChild(overlay);
+        }, 2000);
+    }).catch(err => {
+        alert('Failed to copy script: ' + err.message);
+    });
+}
+
+// Download script as text file
+function downloadScript() {
+    const scriptContent = document.getElementById('scriptContent');
+    const weekSelect = document.getElementById('weekSelect');
+    const text = scriptContent.textContent;
+    
+    if (!text || text.trim() === '') {
+        alert('No script to download. Generate a script first.');
+        return;
+    }
+    
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `waves_podcast_script_${weekSelect.value}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Set default week to current week
+document.addEventListener('DOMContentLoaded', function() {
+    const weekSelect = document.getElementById('weekSelect');
+    if (!weekSelect.value) {
+        const today = new Date();
+        const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1));
+        weekSelect.value = monday.toISOString().split('T')[0];
+    }
+});
+</script>
+{% endblock %}

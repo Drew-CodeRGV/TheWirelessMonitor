@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}The Wireless Monitor - Fun & Tech Section{% endblock %}
+
+{% block content %}
+<div class="section-header">Fun & Entertaining Wireless Technology</div>
+
+<div class="articles-grid">
+    <div class="main-articles">
+        {% if stories %}
+            {% for story in stories %}
+            <article class="newspaper-article">
+                <h3 class="article-headline">
+                    <a href="{{ url_for('view_article', article_id=story.id) }}">{{ story.title }}</a>
+                </h3>
+                
+                <div class="article-byline">
+                    <i class="fas fa-laugh"></i> {{ "%.0f"|format(story.entertainment_score * 100) }}% Fun Factor • 
+                    <i class="fas fa-wifi"></i> {{ "%.0f"|format(story.relevance_score * 100) }}% Relevant • 
+                    <i class="fas fa-clock"></i> {{ moment(story.published_date).fromNow() if story.published_date else 'Recent' }}
+                </div>
+                
+                {% if story.image_url %}
+                <img src="{{ story.image_url }}" alt="Article image" style="float: left; width: 200px; height: 130px; object-fit: cover; margin: 0 20px 15px 0; border: 2px solid #000;">
+                {% endif %}
+                
+                <div class="article-text">
+                    {{ story.description }}
+                    
+                    <div style="margin-top: 15px;">
+                        {% if story.entertainment_score > 0.8 %}
+                            <span class="newspaper-badge badge-high">Must Read!</span>
+                        {% elif story.entertainment_score > 0.6 %}
+                            <span class="newspaper-badge badge-entertainment">Highly Entertaining</span>
+                        {% else %}
+                            <span class="newspaper-badge">Fun Read</span>
+                        {% endif %}
+                        
+                        <a href="{{ url_for('view_article', article_id=story.id) }}" style="margin-left: 10px; color: #000080; font-weight: bold;">
+                            » Read Full Story
+                        </a>
+                    </div>
+                </div>
+                
+                <div style="clear: both;"></div>
+            </article>
+            {% endfor %}
+        {% else %}
+            <div style="text-align: center; padding: 60px; border: 3px dashed #ccc;">
+                <h2>No Fun Stories Found</h2>
+                <p style="font-size: 1.1rem; color: #666;">
+                    Our entertainment detection system is looking for more amusing wireless content. 
+                    Check back later for the latest funny, viral, and creative tech stories!
+                </p>
+                <button onclick="fetchNow()" style="background: #000; color: white; border: none; padding: 15px 30px; cursor: pointer; font-size: 1rem; margin-top: 20px;">
+                    Search for New Stories
+                </button>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="sidebar">
+        <!-- Entertainment Categories -->
+        <div class="sidebar-box">
+            <div class="sidebar-header">Fun Categories</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <strong>🚀 Viral Tech</strong><br>
+                    <small>Stories that broke the internet</small>
+                </div>
+                <div class="sidebar-item">
+                    <strong>💡 Creative Hacks</strong><br>
+                    <small>Innovative wireless solutions</small>
+                </div>
+                <div class="sidebar-item">
+                    <strong>🏆 Record Breakers</strong><br>
+                    <small>Speed, distance, and size records</small>
+                </div>
+                <div class="sidebar-item">
+                    <strong>🐛 Epic Fails</strong><br>
+                    <small>When wireless goes wrong</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats -->
+        {% if stories %}
+        <div class="sidebar-box">
+            <div class="sidebar-header">Entertainment Stats</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <strong>{{ stories|length }}</strong> Fun Stories
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ stories|selectattr('entertainment_score', '>', 0.8)|list|length }}</strong> Highly Entertaining
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ (stories|map(attribute='entertainment_score')|sum / stories|length * 100)|round(1) }}%</strong> Avg Fun Score
+                </div>
+                <div class="sidebar-item">
+                    <strong>{{ stories|selectattr('image_url')|list|length }}</strong> With Images
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Navigation -->
+        <div class="sidebar-box">
+            <div class="sidebar-header">Other Sections</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <a href="{{ url_for('index') }}">📰 Front Page</a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="{{ url_for('weekly_digest') }}">📅 Weekly Review</a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="{{ url_for('podcast_script') }}">🎙️ Podcast Scripts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function moment(date) {
+        if (!date) return { fromNow: () => 'Recent' };
+        
+        const now = new Date();
+        const then = new Date(date);
+        const diffMs = now - then;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMins / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        
+        if (diffMins < 1) return { fromNow: () => 'Just now' };
+        if (diffMins < 60) return { fromNow: () => `${diffMins} min ago` };
+        if (diffHours < 24) return { fromNow: () => `${diffHours} hr ago` };
+        if (diffDays < 7) return { fromNow: () => `${diffDays} days ago` };
+        
+        return { fromNow: () => then.toLocaleDateString() };
+    }
+</script>
+{% endblock %}

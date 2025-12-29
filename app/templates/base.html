@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Wireless Herald{% endblock %}</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Newspaper Header -->
+    <header class="newspaper-header">
+        <div class="newspaper-container">
+            <div class="newspaper-masthead">
+                <h1 class="newspaper-title">The Wireless Monitor</h1>
+                <p class="newspaper-subtitle">Your Daily Source for Wi-Fi & Wireless Technology News</p>
+            </div>
+            <div class="newspaper-date-info">
+                <div>
+                    <strong>{{ moment().format('dddd, MMMM Do, YYYY') }}</strong> • 
+                    Edition {{ version.version if version else '1.0.0' }} • 
+                    Powered by AI Analysis
+                </div>
+                <div>
+                    <i class="fas fa-wifi"></i> Wireless Industry Focus • 
+                    <i class="fas fa-robot"></i> AI-Enhanced Content
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Bar -->
+        <nav class="newspaper-nav">
+            <div class="newspaper-container">
+                <a href="{{ url_for('index') }}">Front Page</a>
+                <a href="{{ url_for('entertainment_stories') }}">Fun & Tech</a>
+                <a href="{{ url_for('weekly_digest') }}">Weekly Review</a>
+                <a href="{{ url_for('podcast_script') }}">Podcast Scripts</a>
+                <a href="{{ url_for('manage_feeds') }}">News Sources</a>
+                <a href="{{ url_for('admin_console') }}">Admin Desk</a>
+                <a href="{{ url_for('social_media_config') }}">Social Media</a>
+                <a href="{{ url_for('github_config') }}">GitHub</a>
+                <a href="#" onclick="fetchNow(); return false;">Update Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="newspaper-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="newspaper-footer">
+        <div class="newspaper-container">
+            <p>
+                <strong>The Wireless Monitor</strong> • 
+                Established 2025 • 
+                Raspberry Pi Powered • 
+                Last Updated: <span id="lastUpdate">{{ moment().format('HH:mm') }}</span>
+            </p>
+            <p>
+                <small>
+                    Automated RSS Aggregation • AI Content Analysis • 
+                    Drew Lentz Podcast Integration • Real-time Updates
+                </small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+        // Newspaper-specific JavaScript
+        function fetchNow() {
+            const originalText = event.target.textContent;
+            event.target.textContent = 'Updating...';
+            event.target.style.background = '#8B0000';
+
+            fetch('/api/fetch_now')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`BREAKING: Fetched ${data.fetched} new stories, analyzed ${data.analyzed} articles`);
+                        location.reload();
+                    } else {
+                        alert(`UPDATE FAILED: ${data.error}`);
+                    }
+                })
+                .catch(error => {
+                    alert(`WIRE ERROR: ${error.message}`);
+                })
+                .finally(() => {
+                    event.target.textContent = originalText;
+                    event.target.style.background = '';
+                });
+        }
+
+        // Update timestamp every minute
+        setInterval(() => {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }, 60000);
+
+        // Add moment.js-like functionality
+        function moment() {
+            const now = new Date();
+            return {
+                format: function(format) {
+                    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                  'July', 'August', 'September', 'October', 'November', 'December'];
+                    
+                    if (format === 'dddd, MMMM Do, YYYY') {
+                        const day = days[now.getDay()];
+                        const month = months[now.getMonth()];
+                        const date = now.getDate();
+                        const year = now.getFullYear();
+                        const suffix = date === 1 || date === 21 || date === 31 ? 'st' :
+                                     date === 2 || date === 22 ? 'nd' :
+                                     date === 3 || date === 23 ? 'rd' : 'th';
+                        return `${day}, ${month} ${date}${suffix}, ${year}`;
+                    } else if (format === 'HH:mm') {
+                        return now.toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        });
+                    }
+                    return now.toISOString();
+                }
+            };
+        }
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

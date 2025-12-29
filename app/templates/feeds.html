@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block title %}Manage RSS Feeds{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-rss"></i> RSS Feed Management</h1>
+        <p class="text-muted">Add and manage RSS feeds for Wi-Fi and wireless technology news.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-plus"></i> Add New Feed</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_feed') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Feed Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required 
+                               placeholder="e.g., TechCrunch">
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">RSS URL</label>
+                        <input type="url" class="form-control" id="url" name="url" required 
+                               placeholder="https://example.com/feed.xml">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Feed
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-plus-circle"></i> Bulk Add Feeds</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_bulk_feeds') }}">
+                    <div class="mb-3">
+                        <label for="bulk_feeds" class="form-label">RSS Feed List</label>
+                        <textarea class="form-control" id="bulk_feeds" name="bulk_feeds" rows="8" 
+                                  placeholder="Enter RSS feeds, one per line:
+TechCrunch|https://techcrunch.com/feed/
+https://feeds.arstechnica.com/arstechnica/index
+Wireless Week|https://www.wirelessweek.com/rss.xml
+
+# Lines starting with # are ignored
+# Format: Name|URL or just URL"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-upload"></i> Add All Feeds
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> Suggested Wi-Fi & Wireless Feeds</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Industry News:</h6>
+                        <div class="suggested-feeds">
+                            <div class="feed-suggestion mb-2">
+                                <strong>Fierce Wireless</strong><br>
+                                <small class="text-muted">https://www.fiercewireless.com/rss/xml</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('Fierce Wireless', 'https://www.fiercewireless.com/rss/xml')">Add</button>
+                            </div>
+                            <div class="feed-suggestion mb-2">
+                                <strong>Mobile World Live</strong><br>
+                                <small class="text-muted">https://www.mobileworldlive.com/feed/</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('Mobile World Live', 'https://www.mobileworldlive.com/feed/')">Add</button>
+                            </div>
+                            <div class="feed-suggestion mb-2">
+                                <strong>Network World</strong><br>
+                                <small class="text-muted">https://www.networkworld.com/index.rss</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('Network World', 'https://www.networkworld.com/index.rss')">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Technical Resources:</h6>
+                        <div class="suggested-feeds">
+                            <div class="feed-suggestion mb-2">
+                                <strong>CommScope Blog</strong><br>
+                                <small class="text-muted">https://www.commscope.com/blog/rss/</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('CommScope Blog', 'https://www.commscope.com/blog/rss/')">Add</button>
+                            </div>
+                            <div class="feed-suggestion mb-2">
+                                <strong>Cisco Wireless</strong><br>
+                                <small class="text-muted">https://blogs.cisco.com/wireless/feed</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('Cisco Wireless', 'https://blogs.cisco.com/wireless/feed')">Add</button>
+                            </div>
+                            <div class="feed-suggestion mb-2">
+                                <strong>Ubiquiti Community</strong><br>
+                                <small class="text-muted">https://community.ui.com/rss</small>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="addSuggestedFeed('Ubiquiti Community', 'https://community.ui.com/rss')">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <button class="btn btn-success" onclick="addAllSuggested()">
+                        <i class="fas fa-plus-circle"></i> Add All Suggested Feeds
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-list"></i> Current Feeds ({{ feeds|length }})</h5>
+                <small class="text-muted">
+                    Active: {{ feeds|selectattr('active', 'equalto', 1)|list|length }}
+                </small>
+            </div>
+            <div class="card-body">
+                {% if feeds %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>URL</th>
+                                    <th>Last Fetched</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for feed in feeds %}
+                                <tr>
+                                    <td>
+                                        {% if feed.active %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check"></i> Active
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-pause"></i> Inactive
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <strong>{{ feed.name }}</strong>
+                                    </td>
+                                    <td>
+                                        <a href="{{ feed.url }}" target="_blank" class="text-decoration-none">
+                                            <small>{{ feed.url[:50] }}{% if feed.url|length > 50 %}...{% endif %}</small>
+                                            <i class="fas fa-external-link-alt fa-xs"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if feed.last_fetched %}
+                                            <small class="text-muted">
+                                                {{ moment(feed.last_fetched).fromNow() }}
+                                            </small>
+                                        {% else %}
+                                            <small class="text-muted">Never</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ url_for('toggle_feed', feed_id=feed.id) }}" 
+                                               class="btn btn-outline-primary">
+                                                {% if feed.active %}
+                                                    <i class="fas fa-pause"></i>
+                                                {% else %}
+                                                    <i class="fas fa-play"></i>
+                                                {% endif %}
+                                            </a>
+                                            <button class="btn btn-outline-danger" 
+                                                    onclick="deleteFeed({{ feed.id }}, '{{ feed.name }}')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-rss fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No RSS feeds configured</h5>
+                        <p class="text-muted">Add your first RSS feed to get started.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if feeds %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Feed Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <h4 class="text-primary">{{ feeds|length }}</h4>
+                        <small class="text-muted">Total Feeds</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-success">{{ feeds|selectattr('active', 'equalto', 1)|list|length }}</h4>
+                        <small class="text-muted">Active Feeds</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-info">{{ feeds|selectattr('last_fetched')|list|length }}</h4>
+                        <small class="text-muted">Ever Fetched</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-warning">
+                            {{ feeds|rejectattr('last_fetched')|list|length }}
+                        </h4>
+                        <small class="text-muted">Never Fetched</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script>
+    function deleteFeed(feedId, feedName) {
+        if (confirm(`Are you sure you want to delete the feed "${feedName}"?`)) {
+            // In a real implementation, you'd make an AJAX call to delete
+            alert('Delete functionality would be implemented here');
+        }
+    }
+
+    function moment(date) {
+        return {
+            fromNow: () => moment(date).fromNow()
+        };
+    }
+    
+    // Add suggested feed
+    function addSuggestedFeed(name, url) {
+        document.getElementById('name').value = name;
+        document.getElementById('url').value = url;
+        
+        // Scroll to form
+        document.getElementById('name').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('name').focus();
+    }
+    
+    // Add all suggested feeds to bulk textarea
+    function addAllSuggested() {
+        const suggestedFeeds = [
+            'Fierce Wireless|https://www.fiercewireless.com/rss/xml',
+            'Mobile World Live|https://www.mobileworldlive.com/feed/',
+            'Network World|https://www.networkworld.com/index.rss',
+            'CommScope Blog|https://www.commscope.com/blog/rss/',
+            'Cisco Wireless|https://blogs.cisco.com/wireless/feed',
+            'Ubiquiti Community|https://community.ui.com/rss'
+        ];
+        
+        const textarea = document.getElementById('bulk_feeds');
+        const currentValue = textarea.value.trim();
+        const newValue = currentValue ? currentValue + '\n' + suggestedFeeds.join('\n') : suggestedFeeds.join('\n');
+        
+        textarea.value = newValue;
+        textarea.scrollIntoView({ behavior: 'smooth' });
+        textarea.focus();
+    }
+</script>
+{% endblock %}
