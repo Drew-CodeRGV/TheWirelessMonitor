@@ -6,7 +6,10 @@ Runs every 8 hours to check for and install updates
 
 import sys
 import os
-sys.path.append('/home/pi/rss_aggregator')
+
+# Add the user's rss_aggregator directory to Python path
+user_home = os.path.expanduser("~")
+sys.path.append(os.path.join(user_home, 'rss_aggregator'))
 
 from app.updater import SystemUpdater
 import logging

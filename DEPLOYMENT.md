@@ -18,38 +18,31 @@
 
 ## Deployment Steps
 
-### Option A: Full Installation (Repository Must Exist)
-**IMPORTANT**: This only works after the GitHub repository is created and files are uploaded.
+### Option A: Universal Installation (Works with Any User)
+**Recommended**: This works on any Linux system or macOS with any username:
 
 ```bash
-# On your Raspberry Pi, run (only after repository is created):
+# Works with any user on Linux or macOS
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/universal_install.sh | bash
+```
+
+### Option B: Raspberry Pi Installation (Requires 'pi' user)
+**Traditional**: This is the original Raspberry Pi specific installation:
+
+```bash
+# Only works with 'pi' user on Raspberry Pi
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
 ```
 
-### Option B: Bootstrap Installation (Repository Doesn't Exist Yet)
+### Option C: Bootstrap Installation (Repository Doesn't Exist Yet)
 If you're getting a 404 error, use this bootstrap method:
 
-1. **Run Bootstrap Script**:
 ```bash
 # This prepares the system and installs dependencies
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/bootstrap_install.sh | bash
 ```
 
-2. **Create GitHub Repository**:
-   - Go to https://github.com/new
-   - Repository name: `TheWirelessMonitor`
-   - Make it public
-   - Initialize with README
-
-3. **Upload Project Files**:
-   - Upload all files from your Kiro workspace to the repository
-   - Ensure all files are in the correct directory structure
-
-4. **Complete Installation**:
-```bash
-# Run this after uploading files to GitHub
-/home/pi/rss_aggregator/complete_installation.sh
-```
+Then follow the steps to create the repository and upload files.
 
 ### Option C: Manual Installation
 For complete manual control:

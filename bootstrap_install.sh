@@ -31,10 +31,17 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as pi user
+# Check if running as pi user or allow other users
 if [ "$USER" != "pi" ]; then
-    print_error "This script should be run as the 'pi' user"
-    exit 1
+    print_warning "This script is designed for the 'pi' user on Raspberry Pi"
+    print_warning "Current user: $USER"
+    read -p "Continue anyway? (y/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        print_error "Installation cancelled"
+        exit 1
+    fi
+    print_status "Continuing with user: $USER"
 fi
 
 print_status "Starting bootstrap installation..."
@@ -81,10 +88,12 @@ print_status "Downloading AI model (this may take a while)..."
 ollama pull llama2:7b-chat
 
 # Create installation directory
-INSTALL_DIR="/home/pi/rss_aggregator"
-print_status "Creating installation directory..."
+CURRENT_USER=$(whoami)
+USER_HOME=$(eval echo ~$CURRENT_USER)
+INSTALL_DIR="$USER_HOME/rss_aggregator"
+print_status "Creating installation directory at $INSTALL_DIR..."
 sudo mkdir -p $INSTALL_DIR
-sudo chown pi:pi $INSTALL_DIR
+sudo chown $CURRENT_USER:$CURRENT_USER $INSTALL_DIR
 
 print_success "Bootstrap installation completed!"
 echo ""

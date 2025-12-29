@@ -7,7 +7,9 @@ import sqlite3
 import os
 from datetime import datetime
 
-DB_PATH = '/home/pi/rss_aggregator/data/news.db'
+# Get current user's home directory
+USER_HOME = os.path.expanduser("~")
+DB_PATH = os.path.join(USER_HOME, 'rss_aggregator', 'data', 'news.db')
 
 def init_db():
     """Initialize the database with required tables"""

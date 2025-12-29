@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# RSS News Aggregator Installation Script for Raspberry Pi
-# This script sets up the complete system on a fresh Raspberry Pi
+# The Wireless Monitor Installation Script for 'wifi' user
+# Specifically designed for Raspberry Pi with 'wifi' username
 
 set -e
 
-echo "🚀 Starting RSS News Aggregator installation..."
+echo "🚀 Starting The Wireless Monitor installation for user 'wifi'..."
 
 # Colors for output
 RED='\033[0;31m'
@@ -14,14 +14,6 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Configuration
-CURRENT_USER=$(whoami)
-USER_HOME=$(eval echo ~$CURRENT_USER)
-INSTALL_DIR="$USER_HOME/rss_aggregator"
-REPO_URL="https://github.com/Drew-CodeRGV/TheWirelessMonitor.git"
-SERVICE_NAME="rss-aggregator"
-
-# Function to print colored output
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
 }
@@ -38,18 +30,23 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as pi user or allow other users
-if [ "$USER" != "pi" ]; then
-    print_warning "This script is designed for the 'pi' user on Raspberry Pi"
-    print_warning "Current user: $USER"
-    read -p "Continue anyway? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_error "Installation cancelled"
-        exit 1
-    fi
-    print_status "Continuing with user: $USER"
+# Configuration for 'wifi' user
+CURRENT_USER="wifi"
+USER_HOME="/home/wifi"
+INSTALL_DIR="$USER_HOME/rss_aggregator"
+REPO_URL="https://github.com/Drew-CodeRGV/TheWirelessMonitor.git"
+SERVICE_NAME="rss-aggregator"
+
+# Verify we're running as the wifi user
+if [ "$USER" != "wifi" ]; then
+    print_error "This script should be run as the 'wifi' user"
+    print_error "Current user: $USER"
+    print_error "Please run: su - wifi"
+    exit 1
 fi
+
+print_status "Installing for user: $CURRENT_USER"
+print_status "Installation directory: $INSTALL_DIR"
 
 # Update system
 print_status "Updating system packages..."
@@ -95,7 +92,7 @@ ollama pull llama2:7b-chat
 # Create installation directory
 print_status "Creating installation directory..."
 sudo mkdir -p $INSTALL_DIR
-sudo chown $CURRENT_USER:$CURRENT_USER $INSTALL_DIR
+sudo chown wifi:wifi $INSTALL_DIR
 
 # Clone repository
 print_status "Cloning repository..."
@@ -140,7 +137,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=pi
+User=wifi
 WorkingDirectory=$INSTALL_DIR
 Environment=PATH=$INSTALL_DIR/venv/bin
 ExecStart=$INSTALL_DIR/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 2 app.main:app
@@ -196,7 +193,7 @@ Daily RSS fetch and analysis script
 """
 import sys
 import os
-sys.path.append('/home/pi/rss_aggregator')
+sys.path.append('/home/wifi/rss_aggregator')
 
 from app.rss_fetcher import RSSFetcher
 from app.ai_analyzer import AIAnalyzer
@@ -241,7 +238,7 @@ Weekly digest generation script
 """
 import sys
 import os
-sys.path.append('/home/pi/rss_aggregator')
+sys.path.append('/home/wifi/rss_aggregator')
 
 from app.ai_analyzer import AIAnalyzer
 import logging
@@ -322,11 +319,5 @@ echo ""
 print_warning "The system will automatically start on boot."
 print_warning "Visit the web interface to add your RSS feeds!"
 
-# Reboot prompt
 echo ""
-read -p "Would you like to reboot now to ensure all services start properly? (y/N): " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    print_status "Rebooting system..."
-    sudo reboot
-fi
+print_success "Installation complete! Your Wireless Monitor is ready to use."
