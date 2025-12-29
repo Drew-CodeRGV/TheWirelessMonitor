@@ -45,7 +45,7 @@ curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main
 # 2. Create GitHub repository at https://github.com/new
 # 3. Upload all project files
 # 4. Complete installation
-/home/pi/rss_aggregator/complete_installation.sh
+/home/wifi/rss_aggregator/complete_installation.sh
 ```
 
 This will:
@@ -176,7 +176,7 @@ The system automatically:
 
 ### Customization
 
-Edit `/home/pi/rss_aggregator/config/settings.py` to:
+Edit `/home/wifi/rss_aggregator/config/settings.py` to:
 - Modify Wi-Fi keywords for better relevance detection
 - Adjust fetch intervals
 - Configure email notifications
@@ -190,10 +190,10 @@ sudo systemctl status rss-aggregator
 
 # View logs
 journalctl -u rss-aggregator -f
-tail -f /home/pi/rss_aggregator/logs/cron.log
+tail -f /home/wifi/rss_aggregator/logs/cron.log
 
 # Manual operations
-cd /home/pi/rss_aggregator
+cd /home/wifi/rss_aggregator
 source venv/bin/activate
 python scripts/daily_fetch.py      # Manual RSS fetch
 python scripts/weekly_digest.py    # Generate weekly digest
@@ -220,7 +220,7 @@ python scripts/weekly_digest.py    # Generate weekly digest
 
 3. **Database issues**:
    ```bash
-   cd /home/pi/rss_aggregator
+   cd /home/wifi/rss_aggregator
    python3 -c "from app.models import init_db; init_db()"
    ```
 

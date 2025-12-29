@@ -251,7 +251,7 @@ class GitHubManager:
             return {'success': False, 'error': 'Repository not configured'}
         
         try:
-            project_root = '/home/pi/rss_aggregator'
+            project_root = '/home/wifi/rss_aggregator'
             results = []
             
             # Files to publish

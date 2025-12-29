@@ -76,8 +76,8 @@ LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 # System paths
-PYTHON_PATH = '/home/pi/rss_aggregator/venv/bin/python'
-SCRIPT_PATH = '/home/pi/rss_aggregator/scripts'
+PYTHON_PATH = '/home/wifi/rss_aggregator/venv/bin/python'
+SCRIPT_PATH = '/home/wifi/rss_aggregator/scripts'
 
 # Default RSS feeds for Wi-Fi/Wireless industry
 DEFAULT_RSS_FEEDS = [

@@ -26,11 +26,11 @@
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/universal_install.sh | bash
 ```
 
-### Option B: Raspberry Pi Installation (Requires 'pi' user)
-**Traditional**: This is the original Raspberry Pi specific installation:
+### Option B: WiFi User Installation (For 'wifi' user)
+**For systems with 'wifi' user**:
 
 ```bash
-# Only works with 'pi' user on Raspberry Pi
+# Works with 'wifi' user
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
 ```
 
@@ -59,9 +59,9 @@ sudo systemctl start ollama
 ollama pull llama2:7b-chat
 
 # 3. Create directory
-sudo mkdir -p /home/pi/rss_aggregator
-sudo chown pi:pi /home/pi/rss_aggregator
-cd /home/pi/rss_aggregator
+sudo mkdir -p /home/wifi/rss_aggregator
+sudo chown wifi:wifi /home/wifi/rss_aggregator
+cd /home/wifi/rss_aggregator
 
 # 4. Copy project files manually or clone when repository exists
 # git clone https://github.com/Drew-CodeRGV/TheWirelessMonitor.git .
@@ -101,7 +101,7 @@ curl -I http://localhost
 crontab -l
 
 # Test manual fetch
-cd /home/pi/rss_aggregator
+cd /home/wifi/rss_aggregator
 source venv/bin/activate
 python scripts/daily_fetch.py
 ```
@@ -121,7 +121,7 @@ ollama pull llama2:7b-chat-q4_0  # Quantized version
 ```
 
 ### Performance Tuning
-Edit `/home/pi/rss_aggregator/config/settings.py`:
+Edit `/home/wifi/rss_aggregator/config/settings.py`:
 ```python
 # Reduce fetch frequency for slower Pi
 RSS_FETCH_INTERVAL = timedelta(hours=12)
@@ -138,7 +138,7 @@ AI_ANALYSIS_TIMEOUT = 30
 ### Health Monitoring
 ```bash
 # Add monitor script to cron
-(crontab -l; echo "*/15 * * * * /home/pi/rss_aggregator/scripts/monitor.sh") | crontab -
+(crontab -l; echo "*/15 * * * * /home/wifi/rss_aggregator/scripts/monitor.sh") | crontab -
 ```
 
 ### Log Management
@@ -147,16 +147,16 @@ AI_ANALYSIS_TIMEOUT = 30
 journalctl -u rss-aggregator -f
 
 # View cron logs
-tail -f /home/pi/rss_aggregator/logs/cron.log
+tail -f /home/wifi/rss_aggregator/logs/cron.log
 
 # View monitor logs
-tail -f /home/pi/rss_aggregator/logs/monitor.log
+tail -f /home/wifi/rss_aggregator/logs/monitor.log
 ```
 
 ### Updates
 ```bash
 # Update system
-cd /home/pi/rss_aggregator
+cd /home/wifi/rss_aggregator
 ./update.sh
 ```
 
@@ -178,7 +178,7 @@ ollama list  # Check if model is installed
 
 **Database errors:**
 ```bash
-cd /home/pi/rss_aggregator
+cd /home/wifi/rss_aggregator
 python3 -c "from app.models import init_db; init_db()"
 ```
 
@@ -225,17 +225,17 @@ sudo ufw allow 80  # HTTP
 ### Database Backup
 ```bash
 # Create backup script
-cat > /home/pi/backup_db.sh << 'EOF'
+cat > /home/wifi/backup_db.sh << 'EOF'
 #!/bin/bash
 DATE=$(date +%Y%m%d_%H%M%S)
-cp /home/pi/rss_aggregator/data/news.db /home/pi/backups/news_${DATE}.db
-find /home/pi/backups -name "news_*.db" -mtime +7 -delete
+cp /home/wifi/rss_aggregator/data/news.db /home/wifi/backups/news_${DATE}.db
+find /home/wifi/backups -name "news_*.db" -mtime +7 -delete
 EOF
 
-chmod +x /home/pi/backup_db.sh
+chmod +x /home/wifi/backup_db.sh
 
 # Add to cron
-(crontab -l; echo "0 2 * * * /home/pi/backup_db.sh") | crontab -
+(crontab -l; echo "0 2 * * * /home/wifi/backup_db.sh") | crontab -
 ```
 
 ## Production Checklist

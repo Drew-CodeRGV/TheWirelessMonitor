@@ -38,18 +38,9 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as pi user or allow other users
-if [ "$USER" != "pi" ]; then
-    print_warning "This script is designed for the 'pi' user on Raspberry Pi"
-    print_warning "Current user: $USER"
-    read -p "Continue anyway? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_error "Installation cancelled"
-        exit 1
-    fi
-    print_status "Continuing with user: $USER"
-fi
+# Allow any user - no longer restricted to 'pi'
+print_status "Installing for user: $USER"
+print_status "Installation directory: $INSTALL_DIR"
 
 # Update system
 print_status "Updating system packages..."
@@ -140,7 +131,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=pi
+User=$CURRENT_USER
 WorkingDirectory=$INSTALL_DIR
 Environment=PATH=$INSTALL_DIR/venv/bin
 ExecStart=$INSTALL_DIR/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 2 app.main:app
@@ -196,7 +187,7 @@ Daily RSS fetch and analysis script
 """
 import sys
 import os
-sys.path.append('/home/pi/rss_aggregator')
+sys.path.append('$USER_HOME/rss_aggregator')
 
 from app.rss_fetcher import RSSFetcher
 from app.ai_analyzer import AIAnalyzer
@@ -241,7 +232,7 @@ Weekly digest generation script
 """
 import sys
 import os
-sys.path.append('/home/pi/rss_aggregator')
+sys.path.append('$USER_HOME/rss_aggregator')
 
 from app.ai_analyzer import AIAnalyzer
 import logging

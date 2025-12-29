@@ -23,7 +23,7 @@ init_db()
 # Get version info
 def get_version_info():
     try:
-        with open('/home/pi/rss_aggregator/version.json', 'r') as f:
+        with open('/home/wifi/rss_aggregator/version.json', 'r') as f:
             return json.load(f)
     except:
         return {'version': '1.0.0', 'build_date': '2025-01-01'}
@@ -277,7 +277,7 @@ def system_status():
             service_status[service] = result.stdout.strip() == 'active'
         
         # Check disk space
-        result = subprocess.run(['df', '/home/pi/rss_aggregator'], 
+        result = subprocess.run(['df', '/home/wifi/rss_aggregator'], 
                               capture_output=True, text=True)
         disk_usage = result.stdout.split('\n')[1].split()[4] if result.returncode == 0 else 'unknown'
         

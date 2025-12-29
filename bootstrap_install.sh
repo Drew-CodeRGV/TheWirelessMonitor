@@ -31,18 +31,8 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as pi user or allow other users
-if [ "$USER" != "pi" ]; then
-    print_warning "This script is designed for the 'pi' user on Raspberry Pi"
-    print_warning "Current user: $USER"
-    read -p "Continue anyway? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_error "Installation cancelled"
-        exit 1
-    fi
-    print_status "Continuing with user: $USER"
-fi
+# Allow any user - no longer restricted to 'pi'
+print_status "Installing for user: $USER"
 
 print_status "Starting bootstrap installation..."
 

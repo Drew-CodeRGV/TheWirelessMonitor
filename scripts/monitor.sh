@@ -3,7 +3,7 @@
 # RSS News Aggregator System Monitor
 # Checks system health and restarts services if needed
 
-INSTALL_DIR="/home/pi/rss_aggregator"
+INSTALL_DIR="/home/wifi/rss_aggregator"
 LOG_FILE="$INSTALL_DIR/logs/monitor.log"
 
 # Colors
