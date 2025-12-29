@@ -164,6 +164,22 @@ cd /home/wifi/rss_aggregator
 
 ### Common Issues
 
+**Pillow build errors during installation:**
+```bash
+# Install additional image processing libraries
+sudo apt update
+sudo apt install -y libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev \
+    libtiff5-dev libopenjp2-7-dev libwebp-dev libharfbuzz-dev \
+    libfribidi-dev libxcb1-dev pkg-config
+
+# Then retry the installation
+cd /home/wifi/rss_aggregator
+source venv/bin/activate
+pip install --upgrade pip setuptools wheel
+pip install --upgrade Pillow
+pip install -r requirements.txt
+```
+
 **Web interface not loading:**
 ```bash
 sudo systemctl restart nginx

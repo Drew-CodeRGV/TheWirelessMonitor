@@ -70,9 +70,18 @@ sudo apt install -y \
     libxml2-dev \
     libxslt1-dev \
     libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libtiff5-dev \
+    libopenjp2-7-dev \
+    libwebp-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    libxcb1-dev \
     zlib1g-dev \
     libffi-dev \
-    libssl-dev
+    libssl-dev \
+    pkg-config
 
 # Install Ollama for AI analysis
 print_status "Installing Ollama for AI analysis..."
@@ -111,7 +120,9 @@ source venv/bin/activate
 
 # Install Python dependencies
 print_status "Installing Python dependencies..."
-pip install --upgrade pip
+pip install --upgrade pip setuptools wheel
+# Install Pillow dependencies first to avoid build issues
+pip install --upgrade Pillow
 pip install -r requirements.txt
 
 # Download NLTK data
