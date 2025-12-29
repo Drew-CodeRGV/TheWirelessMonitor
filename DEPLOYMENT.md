@@ -164,6 +164,18 @@ cd /home/wifi/rss_aggregator
 
 ### Common Issues
 
+**Scikit-learn compilation errors (Cython errors):**
+```bash
+# This is common on Raspberry Pi due to memory/CPU limitations
+# Use the lightweight installation instead
+cd /home/wifi/rss_aggregator
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/fix_sklearn_install.sh | bash
+
+# Or install manually without scikit-learn
+source venv/bin/activate
+pip install -r requirements-lite.txt
+```
+
 **Pillow build errors during installation:**
 ```bash
 # Install additional image processing libraries

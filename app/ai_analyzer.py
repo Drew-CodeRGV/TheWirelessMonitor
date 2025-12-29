@@ -7,10 +7,9 @@ import requests
 import json
 import logging
 from models import get_db_connection
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 import re
+from collections import Counter
+import math
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -162,8 +161,7 @@ class AIAnalyzer:
         base_score = min(entertainment_matches * 0.1, 0.6)  # Up to 0.6 from keywords
         pattern_boost = min(pattern_matches * 0.15, 0.4)    # Up to 0.4 from patterns
         
-        final_score = min(base_score + pattern_boost, 1.0)
-        return round(final_score, 3)
+    def extract_matching_keywords(self, text):
         """Extract keywords that match from the text"""
         text_lower = text.lower()
         matching = []
@@ -243,36 +241,6 @@ class AIAnalyzer:
         conn.close()
         
         return digest_text
-    def calculate_entertainment_score(self, text):
-        """Calculate entertainment value score for wireless/tech stories"""
-        text_lower = text.lower()
-        
-        # Count entertainment keyword matches
-        entertainment_matches = 0
-        for keyword in self.entertainment_keywords:
-            if keyword in text_lower:
-                entertainment_matches += 1
-        
-        # Look for entertainment patterns
-        entertainment_patterns = [
-            r'\b(went viral|breaking the internet|social media buzz)\b',
-            r'\b(record.{0,20}(speed|distance|size))\b',
-            r'\b(fail|epic|amazing|incredible|unbelievable)\b',
-            r'\b(creative|innovative|genius|brilliant)\s+(hack|solution|idea)\b',
-            r'\b(funny|hilarious|bizarre|weird)\s+(story|incident|case)\b'
-        ]
-        
-        pattern_matches = 0
-        for pattern in entertainment_patterns:
-            if re.search(pattern, text_lower):
-                pattern_matches += 1
-        
-        # Calculate entertainment score (0.0 to 1.0)
-        base_score = min(entertainment_matches * 0.1, 0.6)  # Up to 0.6 from keywords
-        pattern_boost = min(pattern_matches * 0.15, 0.4)    # Up to 0.4 from patterns
-        
-        final_score = min(base_score + pattern_boost, 1.0)
-        return round(final_score, 3)
 
     def generate_podcast_script(self, week_start_date):
         """Generate podcast script in Drew Lentz's voice for weekly stories"""

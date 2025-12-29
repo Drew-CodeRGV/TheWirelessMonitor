@@ -121,9 +121,17 @@ source venv/bin/activate
 # Install Python dependencies
 print_status "Installing Python dependencies..."
 pip install --upgrade pip setuptools wheel
-# Install Pillow dependencies first to avoid build issues
+
+# Try to install scientific packages first (may fail on some systems)
+print_status "Installing core packages..."
 pip install --upgrade Pillow
-pip install -r requirements.txt
+
+# Install main requirements with fallback to lite version
+print_status "Installing application requirements..."
+if ! pip install -r requirements.txt; then
+    print_warning "Full requirements failed, trying lightweight version..."
+    pip install -r requirements-lite.txt
+fi
 
 # Download NLTK data
 print_status "Downloading NLTK data..."

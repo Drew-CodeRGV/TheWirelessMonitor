@@ -75,7 +75,12 @@ sudo apt install -y \
     zlib1g-dev \
     libffi-dev \
     libssl-dev \
-    pkg-config
+    pkg-config \
+    gfortran \
+    libopenblas-dev \
+    liblapack-dev \
+    python3-numpy \
+    python3-scipy
 
 # Install Ollama for AI analysis
 print_status "Installing Ollama for AI analysis..."
@@ -114,10 +119,37 @@ source venv/bin/activate
 
 # Install Python dependencies
 print_status "Installing Python dependencies..."
+
+# Increase swap space temporarily for compilation (Raspberry Pi)
+if [ -f /proc/device-tree/model ] && grep -q "Raspberry Pi" /proc/device-tree/model; then
+    print_status "Detected Raspberry Pi - increasing swap space for compilation..."
+    sudo dphys-swapfile swapoff || true
+    sudo sed -i 's/CONF_SWAPSIZE=.*/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile || true
+    sudo dphys-swapfile setup || true
+    sudo dphys-swapfile swapon || true
+fi
+
 pip install --upgrade pip setuptools wheel
-# Install Pillow dependencies first to avoid build issues
+
+# Try to install scientific packages first (may fail on some systems)
+print_status "Installing core packages..."
 pip install --upgrade Pillow
-pip install -r requirements.txt
+
+# Install main requirements with fallback to lite version
+print_status "Installing application requirements..."
+if ! pip install -r requirements.txt; then
+    print_warning "Full requirements failed, trying lightweight version..."
+    pip install -r requirements-lite.txt
+fi
+
+# Restore original swap size (Raspberry Pi)
+if [ -f /proc/device-tree/model ] && grep -q "Raspberry Pi" /proc/device-tree/model; then
+    print_status "Restoring original swap size..."
+    sudo dphys-swapfile swapoff || true
+    sudo sed -i 's/CONF_SWAPSIZE=.*/CONF_SWAPSIZE=100/' /etc/dphys-swapfile || true
+    sudo dphys-swapfile setup || true
+    sudo dphys-swapfile swapon || true
+fi
 
 # Download NLTK data
 print_status "Downloading NLTK data..."
