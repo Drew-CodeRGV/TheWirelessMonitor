@@ -3,9 +3,9 @@
 ## Pre-Deployment Checklist
 
 ### 1. Repository Setup
-- [ ] Create GitHub repository: `rpi-news-aggregator`
+- [ ] Create GitHub repository: `TheWirelessMonitor`
 - [ ] Upload all project files
-- [ ] Update `REPO_URL` in `scripts/install.sh` with your GitHub username
+- [ ] Repository URL: https://github.com/Drew-CodeRGV/TheWirelessMonitor
 - [ ] Test installation script on clean Raspberry Pi
 
 ### 2. Raspberry Pi Preparation
