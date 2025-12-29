@@ -28,24 +28,59 @@ An automated RSS news aggregation system that fetches RSS feeds, analyzes storie
 - **Health Monitoring**: Automatic service monitoring and recovery
 - **Auto-start**: systemd service with nginx reverse proxy
 
-## Quick Installation
+## Installation Options
 
-**Note**: The repository must exist on GitHub first. If you get a 404 error, the repository hasn't been created yet.
+### Smart Installation (Recommended for Development)
+The smart installer detects existing installations and gives you options:
 
-### If Repository Exists:
+```bash
+# Smart installer with detection and options
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/smart_install.sh | bash
+```
+
+**Installation Types:**
+- **Clean Install**: Remove everything, start fresh (with optional data backup)
+- **Upgrade Install**: Keep data, update code and configuration  
+- **Quick Fix**: Fix common issues without reinstalling
+- **Fresh Install**: First-time installation
+
+### Development Reset (Fast Iteration)
+For development and testing - keeps system packages, resets application:
+
+```bash
+# Quick reset for development
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/dev_reset.sh | bash
+```
+
+**Options:**
+- Keep or reset database
+- Preserve working Python environment
+- Update code from repository
+- Restart services
+
+### Status Checker
+Check what's installed and working:
+
+```bash
+# Check system status
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/check_status.sh | bash
+```
+
+### Traditional Installation Methods
+
+**Standard Installation:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/scripts/install.sh | bash
 ```
 
-### If Repository Doesn't Exist (Bootstrap Method):
+**Universal Installation (any user/OS):**
 ```bash
-# 1. Run bootstrap installation
-curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/bootstrap_install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/universal_install.sh | bash
+```
 
-# 2. Create GitHub repository at https://github.com/new
-# 3. Upload all project files
-# 4. Complete installation
-/home/wifi/rss_aggregator/complete_installation.sh
+**WiFi User Specific:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/install_wifi_user.sh | bash
 ```
 
 This will:
@@ -56,6 +91,32 @@ This will:
 - Configure nginx reverse proxy
 - Set up automated cron jobs
 - Initialize the database with default RSS feeds
+
+## Why Use Smart Installation?
+
+### 🚀 **Development Friendly**
+- **No more wiping your Pi**: Keep system packages between installs
+- **Fast iteration**: Reset just the app, not the entire system
+- **Data preservation**: Choose to keep or reset your database
+- **Intelligent detection**: Knows what's already installed
+
+### 🛠 **Installation Types**
+- **Clean Install**: Fresh start with optional data backup
+- **Upgrade Install**: Update code while preserving data
+- **Quick Fix**: Repair common issues without full reinstall
+- **Status Check**: See exactly what's installed and working
+
+### ⚡ **Time Savings**
+- **System packages**: Skip reinstalling Python, nginx, ollama if already present
+- **Python environment**: Reuse working virtual environments
+- **Configuration**: Smart service and config management
+- **Testing**: Quick reset between development iterations
+
+### 🔧 **Smart Features**
+- **Automatic backup**: Preserves data during upgrades
+- **Service management**: Proper cleanup and restart of services
+- **Error recovery**: Fix common path and import issues
+- **Status monitoring**: Know exactly what's working
 
 ## Manual Installation
 

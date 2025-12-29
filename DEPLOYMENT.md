@@ -164,6 +164,17 @@ cd /home/wifi/rss_aggregator
 
 ### Common Issues
 
+**Python import errors (ModuleNotFoundError):**
+```bash
+# Fix Python path issues in scripts
+cd /home/wifi/rss_aggregator
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/fix_python_paths.sh | bash
+
+# Or fix manually
+source venv/bin/activate
+PYTHONPATH=/home/wifi/rss_aggregator python3 scripts/daily_fetch.py
+```
+
 **Scikit-learn compilation errors (Cython errors):**
 ```bash
 # This is common on Raspberry Pi due to memory/CPU limitations

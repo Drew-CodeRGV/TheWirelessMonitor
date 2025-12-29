@@ -198,9 +198,9 @@ sudo nginx -t && sudo systemctl reload nginx
 # Create cron jobs for automation
 print_status "Setting up automated tasks..."
 (crontab -l 2>/dev/null; echo "# RSS Aggregator automated tasks") | crontab -
-(crontab -l 2>/dev/null; echo "0 */6 * * * cd $INSTALL_DIR && ./venv/bin/python scripts/daily_fetch.py >> logs/cron.log 2>&1") | crontab -
-(crontab -l 2>/dev/null; echo "0 8 * * 1 cd $INSTALL_DIR && ./venv/bin/python scripts/weekly_digest.py >> logs/cron.log 2>&1") | crontab -
-(crontab -l 2>/dev/null; echo "0 */8 * * * cd $INSTALL_DIR && ./venv/bin/python scripts/auto_update.py >> logs/update.log 2>&1") | crontab -
+(crontab -l 2>/dev/null; echo "0 */6 * * * cd $INSTALL_DIR && PYTHONPATH=$INSTALL_DIR ./venv/bin/python scripts/daily_fetch.py >> logs/cron.log 2>&1") | crontab -
+(crontab -l 2>/dev/null; echo "0 8 * * 1 cd $INSTALL_DIR && PYTHONPATH=$INSTALL_DIR ./venv/bin/python scripts/weekly_digest.py >> logs/cron.log 2>&1") | crontab -
+(crontab -l 2>/dev/null; echo "0 */8 * * * cd $INSTALL_DIR && PYTHONPATH=$INSTALL_DIR ./venv/bin/python scripts/auto_update.py >> logs/update.log 2>&1") | crontab -
 (crontab -l 2>/dev/null; echo "*/15 * * * * $INSTALL_DIR/scripts/monitor.sh >> logs/monitor.log 2>&1") | crontab -
 
 # Create fetch script
@@ -212,7 +212,10 @@ Daily RSS fetch and analysis script
 """
 import sys
 import os
-sys.path.append('/home/wifi/rss_aggregator')
+
+# Add the project directory to Python path
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_dir)
 
 from app.rss_fetcher import RSSFetcher
 from app.ai_analyzer import AIAnalyzer
@@ -257,7 +260,10 @@ Weekly digest generation script
 """
 import sys
 import os
-sys.path.append('/home/wifi/rss_aggregator')
+
+# Add the project directory to Python path
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_dir)
 
 from app.ai_analyzer import AIAnalyzer
 import logging
@@ -315,7 +321,7 @@ chmod +x $INSTALL_DIR/update.sh
 print_status "Running initial data fetch..."
 cd $INSTALL_DIR
 source venv/bin/activate
-python3 scripts/daily_fetch.py
+PYTHONPATH=$INSTALL_DIR python3 scripts/daily_fetch.py
 
 # Display completion message
 print_success "🎉 Installation completed successfully!"

@@ -299,7 +299,7 @@ chmod +x $INSTALL_DIR/update.sh
 
 # Run initial data fetch
 print_status "Running initial data fetch..."
-python3 scripts/daily_fetch.py || print_warning "Initial fetch failed - you can run it later"
+PYTHONPATH=$INSTALL_DIR python3 scripts/daily_fetch.py || print_warning "Initial fetch failed - you can run it later"
 
 # Display completion message
 print_success "🎉 Installation completed successfully!"
