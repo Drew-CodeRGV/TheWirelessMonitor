@@ -56,7 +56,7 @@ source venv/bin/activate
 # Install minimal Python dependencies
 print_status "Installing Python packages..."
 pip install --upgrade pip
-pip install -r requirements-minimal.txt
+pip install -r requirements.txt
 
 # Create directories
 mkdir -p data logs
@@ -74,7 +74,7 @@ User=$CURRENT_USER
 WorkingDirectory=$INSTALL_DIR
 Environment=PATH=$INSTALL_DIR/venv/bin
 Environment=PYTHONPATH=$INSTALL_DIR
-ExecStart=$INSTALL_DIR/venv/bin/python app/simple_main.py
+ExecStart=$INSTALL_DIR/venv/bin/python app/main.py
 Restart=always
 RestartSec=10
 StandardOutput=append:$INSTALL_DIR/logs/app.log
