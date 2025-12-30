@@ -5,8 +5,24 @@
 {% block content %}
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
     <h2>📰 Today's Wireless Technology Headlines</h2>
-    <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
+    <div style="display: flex; gap: 10px;">
+        {% if not show_all and total_articles > (stories|length) %}
+            <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+        {% elif show_all %}
+            <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only</a>
+        {% endif %}
+        <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
+    </div>
 </div>
+
+{% if show_all and stories %}
+<div style="{% if view_mode == 'reader' %}padding: 10px 20px; background: #fff3cd; border-bottom: 1px solid #ffeaa7; margin: 0 -40px 0 -40px;{% else %}background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #f39c12;{% endif %}">
+    <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: 0.9rem; color: #856404; margin: 0;">
+        <strong>📋 Showing all {{ stories|length }} articles</strong> - including low relevance items. 
+        <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only</a>
+    </p>
+</div>
+{% endif %}
 
 <div id="fetch-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
 
@@ -16,15 +32,40 @@
         <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
         <div class="article-meta">
             Published: {{ story.published_date[:16] }}
-            <span class="relevance-score">{{ "%.0f"|format(story.relevance_score * 100) }}% Relevant</span>
+            <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                {{ "%.0f"|format(story.relevance_score * 100) }}% Relevant
+            </span>
+            {% if story.relevance_score < 0.3 %}
+                <span style="font-size: 0.75rem; color: #e74c3c; margin-left: 8px;">⚠️ Low Relevance</span>
+            {% endif %}
         </div>
         <p>{{ story.description[:400] }}{% if story.description|length > 400 %}...{% endif %}</p>
+        
+        {% if show_all and story.relevance_score < 0.5 %}
+        <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 8px; font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %};">
+            <strong>Why low relevance?</strong> 
+            {% if story.relevance_score < 0.1 %}
+                No wireless technology keywords found in title or description.
+            {% elif story.relevance_score < 0.3 %}
+                Few wireless technology keywords detected.
+            {% else %}
+                Some wireless keywords found but not highly relevant.
+            {% endif %}
+        </div>
+        {% endif %}
     </article>
     {% endfor %}
 {% else %}
     <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
         <h3 style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Times New Roman', serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📡 No Stories Available</h3>
-        <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">Click "Fetch Now" to get the latest wireless technology news from your RSS feeds</p>
+        <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+            {% if total_articles > 0 %}
+                Found {{ total_articles }} articles but none meet the relevance threshold. 
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2980b9; text-decoration: underline;">Show all articles</a>
+            {% else %}
+                Click "Fetch Now" to get the latest wireless technology news from your RSS feeds
+            {% endif %}
+        </p>
         <button onclick="fetchNow()" class="btn" style="font-size: {% if view_mode == 'reader' %}0.9rem; padding: 8px 16px{% else %}1.1rem; padding: 15px 30px{% endif %};">🔄 Fetch RSS Feeds</button>
     </div>
 {% endif %}

@@ -5,10 +5,10 @@
 {% block content %}
 <h2>📡 RSS Feed Management</h2>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 35px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-top: 35px;">
     <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
         <h3 style="margin-bottom: 20px; color: #2c3e50;">Add Single RSS Feed</h3>
-        <form method="POST" action="{{ url_for('add_feed') }}">
+        <form method="POST" action="{{ url_for('add_feed', view=view_mode) }}">
             <div class="form-group">
                 <label for="name">Feed Name:</label>
                 <input type="text" id="name" name="name" required placeholder="e.g., TechCrunch">
@@ -22,31 +22,58 @@
     </div>
     
     <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
+        <h3 style="margin-bottom: 20px; color: #2c3e50;">Google News by Keyword</h3>
+        <form method="POST" action="{{ url_for('add_google_news', view=view_mode) }}">
+            <div class="form-group">
+                <label for="keyword">Search Keyword:</label>
+                <input type="text" id="keyword" name="keyword" required placeholder="e.g., 5G, WiFi 6, IoT">
+            </div>
+            <div style="font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; font-family: 'Inter', sans-serif;">
+                Creates: Google News: [keyword]<br>
+                URL: news.google.com/rss/search?q=[keyword]
+            </div>
+            <button type="submit" class="btn" style="background: #4285f4;">🔍 Add Google News</button>
+        </form>
+    </div>
+    
+    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
         <h3 style="margin-bottom: 20px; color: #2c3e50;">Bulk Import RSS Feeds</h3>
-        <form method="POST" action="{{ url_for('bulk_import') }}">
+        <form method="POST" action="{{ url_for('bulk_import', view=view_mode) }}">
             <div class="form-group">
                 <label for="urls">RSS URLs (one per line):</label>
-                <textarea id="urls" name="urls" rows="6" placeholder="https://example1.com/feed.xml
-https://example2.com/rss
-https://example3.com/feed"></textarea>
+                <textarea id="urls" name="urls" rows="4" placeholder="https://example1.com/feed.xml
+https://example2.com/rss"></textarea>
             </div>
             <button type="submit" class="btn">📥 Bulk Import</button>
         </form>
         <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 12px; font-family: 'Inter', sans-serif;">
-            Feed names will be automatically detected from the RSS feeds
+            Feed names auto-detected
         </p>
     </div>
 </div>
 
 <div style="margin-top: 35px; background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
     <h3 style="margin-bottom: 20px; color: #2c3e50;">Quick Add Suggestions</h3>
-    <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e;">Popular wireless technology feeds:</p>
-    <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
-        <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
-        <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
-        <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
-        <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
-        <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+        <div>
+            <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e; font-weight: 600;">Wireless Technology Feeds:</p>
+            <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
+                <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
+                <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
+                <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
+                <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
+                <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
+            </div>
+        </div>
+        <div>
+            <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e; font-weight: 600;">Popular Google News Keywords:</p>
+            <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
+                <strong>Wireless:</strong> "5G", "WiFi 6", "wireless technology"<br>
+                <strong>IoT:</strong> "Internet of Things", "smart home", "IoT security"<br>
+                <strong>Mobile:</strong> "smartphone", "mobile network", "cellular"<br>
+                <strong>Tech:</strong> "wireless charging", "Bluetooth", "NFC"<br>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -59,9 +86,16 @@ https://example3.com/feed"></textarea>
         <div style="flex: 1;">
             <h4 style="margin-bottom: 8px; font-family: 'Inter', sans-serif; font-weight: 600;">
                 {% if feed.active %}
-                    <span style="color: #27ae60;">✅</span> {{ feed.name }}
+                    <span style="color: #27ae60;">✅</span> 
                 {% else %}
-                    <span style="color: #e74c3c;">❌</span> {{ feed.name }} <span style="color: #7f8c8d; font-weight: 400;">(Disabled)</span>
+                    <span style="color: #e74c3c;">❌</span> 
+                {% endif %}
+                {{ feed.name }}
+                {% if not feed.active %}
+                    <span style="color: #7f8c8d; font-weight: 400;">(Disabled)</span>
+                {% endif %}
+                {% if 'news.google.com' in feed.url %}
+                    <span style="background: #4285f4; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; margin-left: 8px;">Google News</span>
                 {% endif %}
             </h4>
             <div style="font-size: 0.9rem; color: #7f8c8d; font-family: 'Inter', sans-serif; line-height: 1.5;">
@@ -70,7 +104,7 @@ https://example3.com/feed"></textarea>
             </div>
         </div>
         <div style="margin-left: 20px;">
-            <a href="{{ url_for('toggle_feed', feed_id=feed.id) }}" 
+            <a href="{{ url_for('toggle_feed', feed_id=feed.id, view=view_mode) }}" 
                class="btn {% if feed.active %}btn-danger{% endif %}" 
                style="white-space: nowrap;">
                 {% if feed.active %}🔇 Disable{% else %}🔊 Enable{% endif %}

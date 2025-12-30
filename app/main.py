@@ -162,27 +162,53 @@ class WirelessMonitor:
             
             # Get view mode from query parameter (default to newspaper)
             view_mode = request.args.get('view', 'newspaper')
+            show_all = request.args.get('show_all', 'false').lower() == 'true'
             
             # Get today's top stories
             today = datetime.now().strftime('%Y-%m-%d')
-            stories = conn.execute('''
-                SELECT * FROM articles 
-                WHERE DATE(published_date) = ? AND relevance_score > 0.3
-                ORDER BY relevance_score DESC, published_date DESC
-                LIMIT 20
-            ''', (today,)).fetchall()
             
-            # Get recent stories if no stories today
-            if not stories:
+            if show_all:
+                # Show all articles regardless of relevance
                 stories = conn.execute('''
                     SELECT * FROM articles 
-                    WHERE DATE(published_date) >= DATE('now', '-3 days') AND relevance_score > 0.3
+                    WHERE DATE(published_date) = ?
+                    ORDER BY relevance_score DESC, published_date DESC
+                    LIMIT 100
+                ''', (today,)).fetchall()
+                
+                # Get recent stories if no stories today
+                if not stories:
+                    stories = conn.execute('''
+                        SELECT * FROM articles 
+                        WHERE DATE(published_date) >= DATE('now', '-3 days')
+                        ORDER BY relevance_score DESC, published_date DESC
+                        LIMIT 100
+                    ''').fetchall()
+            else:
+                # Show only relevant articles (score > 0.3)
+                stories = conn.execute('''
+                    SELECT * FROM articles 
+                    WHERE DATE(published_date) = ? AND relevance_score > 0.3
                     ORDER BY relevance_score DESC, published_date DESC
                     LIMIT 20
-                ''').fetchall()
+                ''', (today,)).fetchall()
+                
+                # Get recent stories if no stories today
+                if not stories:
+                    stories = conn.execute('''
+                        SELECT * FROM articles 
+                        WHERE DATE(published_date) >= DATE('now', '-3 days') AND relevance_score > 0.3
+                        ORDER BY relevance_score DESC, published_date DESC
+                        LIMIT 20
+                    ''').fetchall()
+            
+            # Get total article count for today
+            total_today = conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) = ?', (today,)).fetchone()[0]
+            if total_today == 0:
+                total_today = conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) >= DATE("now", "-3 days")').fetchone()[0]
             
             conn.close()
-            return render_template('index.html', stories=stories, date=today, view_mode=view_mode)
+            return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
         
         @self.app.route('/feeds')
         def manage_feeds():
@@ -205,6 +231,31 @@ class WirelessMonitor:
                 flash(f'Successfully added feed: {name}', 'success')
             except sqlite3.IntegrityError:
                 flash(f'Feed URL already exists: {url}', 'error')
+            finally:
+                conn.close()
+            
+            return redirect(url_for('manage_feeds', view=view_mode))
+        
+        @self.app.route('/add_google_news', methods=['POST'])
+        def add_google_news():
+            keyword = request.form['keyword'].strip()
+            view_mode = request.args.get('view', 'newspaper')
+            
+            if not keyword:
+                flash('Please enter a keyword', 'error')
+                return redirect(url_for('manage_feeds', view=view_mode))
+            
+            # Create Google News RSS URL
+            google_news_url = f"https://news.google.com/news/rss/search?q={keyword}&hl=en"
+            feed_name = f"Google News: {keyword}"
+            
+            conn = self.get_db_connection()
+            try:
+                conn.execute('INSERT INTO rss_feeds (name, url, active) VALUES (?, ?, 1)', (feed_name, google_news_url))
+                conn.commit()
+                flash(f'Successfully added Google News feed for "{keyword}"', 'success')
+            except sqlite3.IntegrityError:
+                flash(f'Google News feed for "{keyword}" already exists', 'error')
             finally:
                 conn.close()
             
