@@ -380,6 +380,81 @@ class WirelessMonitor:
                 current_user = os.getenv('USER', 'wifi')
                 project_dir = f'/home/{current_user}/wireless_monitor'
                 
+                # First, stash any local changes
+                stash_result = subprocess.run(['git', 'stash', 'push', '-m', 'Auto-stash before update'], 
+                                            cwd=project_dir, 
+                                            capture_output=True, 
+                                            text=True, 
+                                            timeout=30)
+                
+                # Pull latest changes
+                result = subprocess.run(['git', 'pull', 'origin', 'main'], 
+                                      cwd=project_dir, 
+                                      capture_output=True, 
+                                      text=True, 
+                                      timeout=30)
+                
+                if result.returncode == 0:
+                    # Try to restore stashed changes if there were any
+                    if 'No local changes to save' not in stash_result.stdout:
+                        # There were changes stashed, try to apply them
+                        pop_result = subprocess.run(['git', 'stash', 'pop'], 
+                                                  cwd=project_dir, 
+                                                  capture_output=True, 
+                                                  text=True, 
+                                                  timeout=30)
+                        
+                        if pop_result.returncode != 0:
+                            # Stash pop failed, keep the stash for manual resolution
+                            message = f'Update successful but local changes were stashed. Check "git stash list" for your changes. {result.stdout}'
+                        else:
+                            message = f'Update successful and local changes restored. {result.stdout}'
+                    else:
+                        message = f'Update successful. {result.stdout}'
+                    
+                    # Restart service after update
+                    subprocess.run(['sudo', 'systemctl', 'restart', 'wireless-monitor'], 
+                                 timeout=10)
+                    
+                    return jsonify({
+                        'success': True, 
+                        'message': message
+                    })
+                else:
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Git pull failed: {result.stderr}'
+                    })
+                    
+            except subprocess.TimeoutExpired:
+                return jsonify({'success': False, 'error': 'Update timed out'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/force_update_system', methods=['POST'])
+        def force_update_system():
+            """Force update system - discards all local changes"""
+            try:
+                import subprocess
+                import os
+                
+                # Get current user and project directory
+                current_user = os.getenv('USER', 'wifi')
+                project_dir = f'/home/{current_user}/wireless_monitor'
+                
+                # Reset to remote state (discards all local changes)
+                reset_result = subprocess.run(['git', 'reset', '--hard', 'origin/main'], 
+                                            cwd=project_dir, 
+                                            capture_output=True, 
+                                            text=True, 
+                                            timeout=30)
+                
+                if reset_result.returncode != 0:
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Git reset failed: {reset_result.stderr}'
+                    })
+                
                 # Pull latest changes
                 result = subprocess.run(['git', 'pull', 'origin', 'main'], 
                                       cwd=project_dir, 
@@ -394,17 +469,16 @@ class WirelessMonitor:
                     
                     return jsonify({
                         'success': True, 
-                        'message': 'System updated successfully. Service restarting...',
-                        'output': result.stdout
+                        'message': 'System force updated successfully. All local changes discarded. Service restarting...'
                     })
                 else:
                     return jsonify({
                         'success': False, 
-                        'error': f'Git pull failed: {result.stderr}'
+                        'error': f'Git pull failed after reset: {result.stderr}'
                     })
                     
             except subprocess.TimeoutExpired:
-                return jsonify({'success': False, 'error': 'Update timed out'})
+                return jsonify({'success': False, 'error': 'Force update timed out'})
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         

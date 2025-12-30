@@ -35,8 +35,15 @@
         
         <h3 style="margin-top: 30px;">🔄 System Management</h3>
         <div style="display: flex; flex-direction: column; gap: 15px;">
-            <button onclick="updateSystem()" class="btn" style="background: #28a745;">🔄 Update System</button>
-            <button onclick="resetSystem()" class="btn btn-danger" style="background: #dc3545;">⚠️ Reset System (Wipe All Data)</button>
+            <button onclick="updateSystem()" class="btn" style="background: #28a745;">🔄 Update System (Safe)</button>
+            <button onclick="forceUpdateSystem()" class="btn" style="background: #fd7e14;">⚠️ Force Update (Discard Changes)</button>
+            <button onclick="resetSystem()" class="btn btn-danger" style="background: #dc3545;">🚨 Reset System (Wipe All Data)</button>
+        </div>
+        
+        <div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 12px; line-height: 1.4;">
+            <strong>Safe Update:</strong> Preserves local changes by stashing them<br>
+            <strong>Force Update:</strong> Discards all local changes and pulls fresh code<br>
+            <strong>Reset System:</strong> Complete wipe and fresh installation
         </div>
         
         <div id="action-status" style="margin-top: 20px;"></div>
@@ -100,17 +107,50 @@
 </div>
 
 <script>
+async function forceUpdateSystem() {
+    const statusDiv = document.getElementById('action-status');
+    const button = event.target;
+    
+    if (!confirm('⚠️ WARNING: This will DISCARD ALL LOCAL CHANGES and force update from GitHub. Any customizations will be lost. Continue?')) {
+        return;
+    }
+    
+    button.disabled = true;
+    button.textContent = '⏳ Force Updating...';
+    statusDiv.innerHTML = '<div class="alert alert-success">⚠️ Force updating system - discarding local changes...</div>';
+    
+    try {
+        const response = await fetch('/api/force_update_system', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ ${data.message}</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML += '<div class="alert alert-success">🔄 Page will reload in 10 seconds...</div>';
+                setTimeout(() => location.reload(), 10000);
+            }, 2000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Force update failed: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '⚠️ Force Update (Discard Changes)';
+    }
+}
+
 async function updateSystem() {
     const statusDiv = document.getElementById('action-status');
     const button = event.target;
     
-    if (!confirm('This will update the system from GitHub and restart the service. Continue?')) {
+    if (!confirm('This will update the system from GitHub and restart the service. Local changes will be stashed if needed. Continue?')) {
         return;
     }
     
     button.disabled = true;
     button.textContent = '⏳ Updating...';
-    statusDiv.innerHTML = '<div class="alert alert-success">🔄 Updating system from GitHub...</div>';
+    statusDiv.innerHTML = '<div class="alert alert-success">🔄 Updating system from GitHub (stashing local changes if needed)...</div>';
     
     try {
         const response = await fetch('/api/update_system', { method: 'POST' });
@@ -124,12 +164,15 @@ async function updateSystem() {
             }, 2000);
         } else {
             statusDiv.innerHTML = `<div class="alert alert-error">❌ Update failed: ${data.error}</div>`;
+            if (data.error.includes('overwritten by merge')) {
+                statusDiv.innerHTML += '<div class="alert alert-error">💡 Try "Force Update" to discard local changes, or use the command line to resolve conflicts.</div>';
+            }
         }
     } catch (error) {
         statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
     } finally {
         button.disabled = false;
-        button.textContent = '🔄 Update System';
+        button.textContent = '🔄 Update System (Safe)';
     }
 }
 
