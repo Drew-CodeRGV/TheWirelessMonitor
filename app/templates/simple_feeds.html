@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}RSS Feeds - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<h2>📡 RSS Feed Management</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+    <div>
+        <h3>Add New RSS Feed</h3>
+        <form method="POST" action="{{ url_for('add_feed') }}">
+            <div class="form-group">
+                <label for="name">Feed Name:</label>
+                <input type="text" id="name" name="name" required placeholder="e.g., TechCrunch">
+            </div>
+            <div class="form-group">
+                <label for="url">RSS URL:</label>
+                <input type="url" id="url" name="url" required placeholder="https://example.com/feed.xml">
+            </div>
+            <button type="submit" class="btn">➕ Add Feed</button>
+        </form>
+    </div>
+    
+    <div>
+        <h3>Quick Add Suggestions</h3>
+        <p style="margin-bottom: 15px;">Popular wireless technology feeds:</p>
+        <div style="font-size: 0.9rem; line-height: 1.8;">
+            <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
+            <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
+            <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
+            <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
+            <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
+        </div>
+    </div>
+</div>
+
+<h3 style="margin-top: 40px;">Current RSS Feeds</h3>
+
+{% if feeds %}
+<div style="margin-top: 20px;">
+    {% for feed in feeds %}
+    <div class="article" style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="flex: 1;">
+            <h4 style="margin-bottom: 5px;">
+                {% if feed.active %}
+                    ✅ {{ feed.name }}
+                {% else %}
+                    ❌ {{ feed.name }} (Disabled)
+                {% endif %}
+            </h4>
+            <div style="font-size: 0.9rem; color: #666;">
+                <strong>URL:</strong> {{ feed.url }}<br>
+                <strong>Last Fetched:</strong> {{ feed.last_fetched or 'Never' }}
+            </div>
+        </div>
+        <div>
+            <a href="{{ url_for('toggle_feed', feed_id=feed.id) }}" 
+               class="btn {% if feed.active %}btn-danger{% endif %}" 
+               style="margin-left: 10px;">
+                {% if feed.active %}🔇 Disable{% else %}🔊 Enable{% endif %}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div style="text-align: center; padding: 50px; color: #666;">
+    <h3>📡 No RSS feeds configured</h3>
+    <p>Add your first RSS feed using the form above</p>
+</div>
+{% endif %}
+
+{% endblock %}
