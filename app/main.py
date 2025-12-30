@@ -183,7 +183,7 @@ class WirelessMonitor:
             
             if show_all:
                 # Show all articles regardless of relevance
-                stories = conn.execute('''
+                stories_raw = conn.execute('''
                     SELECT a.*, f.name as feed_name, f.url as feed_url
                     FROM articles a 
                     JOIN rss_feeds f ON a.feed_id = f.id
@@ -193,8 +193,8 @@ class WirelessMonitor:
                 ''', (today,)).fetchall()
                 
                 # Get recent stories if no stories today
-                if not stories:
-                    stories = conn.execute('''
+                if not stories_raw:
+                    stories_raw = conn.execute('''
                         SELECT a.*, f.name as feed_name, f.url as feed_url
                         FROM articles a 
                         JOIN rss_feeds f ON a.feed_id = f.id
@@ -204,7 +204,7 @@ class WirelessMonitor:
                     ''').fetchall()
             else:
                 # Show only relevant articles (score > 0.3)
-                stories = conn.execute('''
+                stories_raw = conn.execute('''
                     SELECT a.*, f.name as feed_name, f.url as feed_url
                     FROM articles a 
                     JOIN rss_feeds f ON a.feed_id = f.id
@@ -214,8 +214,8 @@ class WirelessMonitor:
                 ''', (today,)).fetchall()
                 
                 # Get recent stories if no stories today
-                if not stories:
-                    stories = conn.execute('''
+                if not stories_raw:
+                    stories_raw = conn.execute('''
                         SELECT a.*, f.name as feed_name, f.url as feed_url
                         FROM articles a 
                         JOIN rss_feeds f ON a.feed_id = f.id
@@ -223,6 +223,12 @@ class WirelessMonitor:
                         ORDER BY a.relevance_score DESC, a.published_date DESC
                         LIMIT 20
                     ''').fetchall()
+            
+            # Convert Row objects to dictionaries for JSON serialization
+            stories = []
+            for row in stories_raw:
+                story_dict = dict(row)
+                stories.append(story_dict)
             
             # Get total article count for today
             total_today = conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) = ?', (today,)).fetchone()[0]
