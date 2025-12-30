@@ -410,7 +410,7 @@ class WirelessMonitor:
                     LIMIT 100
                 ''').fetchall()
             else:
-                # Get top articles from last 5 days (above the fold)
+                # Get top articles from last 5 days (minimum 12, but get more if available)
                 top_stories_raw = conn.execute('''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
@@ -418,9 +418,9 @@ class WirelessMonitor:
                     JOIN rss_feeds f ON a.feed_id = f.id
                     LEFT JOIN event_articles ea ON a.id = ea.article_id
                     LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
-                    WHERE DATE(a.published_date) >= DATE('now', '-5 days') AND a.relevance_score > 0.2
+                    WHERE DATE(a.published_date) >= DATE('now', '-5 days') AND a.relevance_score > 0.1
                     ORDER BY a.relevance_score DESC, a.published_date DESC
-                    LIMIT 20
+                    LIMIT 50
                 ''').fetchall()
                 
                 # Use the top stories directly (already from 5 days)
@@ -2906,4 +2906,4 @@ class WirelessMonitor:
 
 if __name__ == '__main__':
     monitor = WirelessMonitor()
-    monitor.run(port=80)
+    monitor.run(port=8080)

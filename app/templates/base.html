@@ -524,6 +524,85 @@
             background: #f1f1f1;
         }
         
+        /* Classic Internet Meme Animations */
+        @keyframes badgerDance {
+            0%, 20% { content: "🦡"; }
+            21%, 40% { content: "🍄"; }
+            41%, 60% { content: "🐍"; }
+            61%, 80% { content: "🦡"; }
+            81%, 100% { content: "🍄"; }
+        }
+        
+        @keyframes nyanCat {
+            0% { transform: translateX(-20px); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(-20px); }
+        }
+        
+        @keyframes keyboardCat {
+            0%, 50% { content: "🐱"; }
+            51%, 100% { content: "⌨️"; }
+        }
+        
+        @keyframes flyingToasters {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .meme-animation {
+            font-size: 3rem;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+        
+        .badger-animation {
+            animation-name: badgerDance;
+        }
+        
+        .nyan-animation {
+            animation-name: nyanCat;
+        }
+        
+        .nyan-animation::before {
+            content: "🌈";
+            position: absolute;
+            left: -30px;
+        }
+        
+        .nyan-animation::after {
+            content: "🐱";
+        }
+        
+        .keyboard-animation {
+            animation-name: keyboardCat;
+        }
+        
+        .toaster-animation {
+            animation-name: flyingToasters;
+        }
+        
+        .toaster-animation::after {
+            content: "🍞";
+        }
+        
+        /* Spinning hourglass animation for image loading */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .image-loading-placeholder {
+            animation: spin 2s linear infinite !important;
+        }
+        
+        .secondary-image-placeholder {
+            animation: spin 2s linear infinite !important;
+        }
+        
         /* Al Jazeera Style Hero Layout */
         .hero-section {
             /* Hero section styling handled by inline styles for flexibility */
@@ -550,11 +629,26 @@
         }
         
         /* Al Jazeera Style Responsive Adjustments */
+        @media (max-width: 1400px) {
+            /* Stack to 2 columns on medium screens */
+            .hero-layout {
+                grid-template-columns: 2fr 1fr !important;
+            }
+            
+            .top-stories-col-2 {
+                display: none !important;
+            }
+        }
+        
         @media (max-width: 1200px) {
             /* Stack hero and secondary grid on smaller screens */
             .hero-layout {
                 grid-template-columns: 1fr !important;
                 gap: 20px !important;
+            }
+            
+            .top-stories-col-2 {
+                display: block !important;
             }
         }
         
@@ -564,7 +658,7 @@
             }
             
             .secondary-story img {
-                height: 150px !important;
+                height: 120px !important;
             }
         }
         
