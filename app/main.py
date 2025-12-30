@@ -2811,52 +2811,19 @@ class WirelessMonitor:
             return False
     
     def create_photorealistic_prompt_from_headline(self, title, description):
-        """Create a detailed Stable Diffusion prompt for photorealistic scenes based on headline words"""
+        """Create a Stable Diffusion prompt using the exact headline text for photorealistic scene generation"""
         
-        # Extract key words from title for scene creation
-        title_words = title.lower()
+        # Use the exact headline text as the main subject
+        main_prompt = f"Create a photorealistic scene that shows: {title}"
         
-        # Base photorealistic style
-        base_style = "professional photography, photorealistic, high quality, cinematic lighting, detailed, sharp focus, "
+        # Add professional photography style
+        style_prompt = "professional photography, photorealistic, high quality, cinematic lighting, detailed, sharp focus, commercial photography style"
         
-        # Create scene based on actual title content
-        if any(word in title_words for word in ['chatgpt', 'openai', 'ai', 'artificial intelligence']):
-            scene = "modern tech office with AI screens and holographic displays, futuristic workspace, person using advanced computer interface, "
-        elif any(word in title_words for word in ['netflix', 'streaming', 'trailer', 'series', 'show']):
-            scene = "modern living room with large TV screen, streaming setup, cozy entertainment space, cinematic atmosphere, "
-        elif any(word in title_words for word in ['apple', 'iphone', 'ipad', 'mac', 'airpods']):
-            scene = "sleek Apple store interior, modern tech products on display, minimalist design, premium technology showcase, "
-        elif any(word in title_words for word in ['samsung', 'galaxy', 'phone', 'smartphone']):
-            scene = "modern smartphone on desk, tech workspace, mobile device photography, professional product shot, "
-        elif any(word in title_words for word in ['ces', 'tech conference', 'exhibition']):
-            scene = "large tech conference hall, exhibition booths, crowds viewing technology displays, convention center, "
-        elif any(word in title_words for word in ['gaming', 'game', 'xbox', 'playstation', 'nintendo']):
-            scene = "modern gaming setup, RGB lighting, gaming chair and desk, multiple monitors, esports environment, "
-        elif any(word in title_words for word in ['car', 'automotive', 'tesla', 'electric vehicle', 'ev']):
-            scene = "modern electric car in urban setting, charging station, sleek automotive design, city street, "
-        elif any(word in title_words for word in ['space', 'satellite', 'rocket', 'mars', 'nasa']):
-            scene = "space technology facility, satellite equipment, mission control center, aerospace engineering, "
-        elif any(word in title_words for word in ['security', 'hack', 'cyber', 'breach', 'privacy']):
-            scene = "cybersecurity operations center, multiple screens with code, security analysts at work, high-tech monitoring, "
-        elif any(word in title_words for word in ['robot', 'robotics', 'automation', 'drone']):
-            scene = "modern robotics laboratory, advanced robots, automation equipment, industrial tech facility, "
-        elif any(word in title_words for word in ['vr', 'virtual reality', 'ar', 'augmented reality', 'metaverse']):
-            scene = "person wearing VR headset in modern tech space, virtual reality setup, immersive technology, "
-        elif any(word in title_words for word in ['bitcoin', 'crypto', 'blockchain', 'nft']):
-            scene = "modern financial tech office, cryptocurrency trading screens, blockchain visualization, fintech workspace, "
-        elif any(word in title_words for word in ['cloud', 'server', 'data center', 'computing']):
-            scene = "massive data center with server racks, cloud computing facility, high-tech infrastructure, "
-        elif any(word in title_words for word in ['startup', 'funding', 'investment', 'venture']):
-            scene = "modern startup office, entrepreneurs in meeting, pitch presentation, innovative workspace, "
-        else:
-            # Generic tech scene for other topics
-            scene = "modern technology office, professionals working with computers, innovative workspace, contemporary business environment, "
-        
-        # Quality and technical specifications
-        quality = "8k resolution, professional photography, commercial quality, perfect lighting, highly detailed"
+        # Add technical quality specifications
+        quality_prompt = "8k resolution, professional studio lighting, highly detailed, perfect composition"
         
         # Combine all elements
-        full_prompt = f"{base_style}{scene}{quality}"
+        full_prompt = f"{main_prompt}. {style_prompt}, {quality_prompt}"
         
         return full_prompt
     
