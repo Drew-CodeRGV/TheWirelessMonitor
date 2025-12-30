@@ -12,6 +12,7 @@ import threading
 import time
 import logging
 import signal
+import hashlib
 from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
@@ -26,6 +27,17 @@ import requests
 import feedparser
 from bs4 import BeautifulSoup
 import schedule
+
+# Try to import optional dependencies
+try:
+    import psutil
+except ImportError:
+    psutil = None
+    
+try:
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+except ImportError:
+    Image = ImageDraw = ImageFont = ImageFilter = ImageEnhance = None
 
 # Configure logging with better error handling
 log_dir = 'logs'
@@ -56,6 +68,15 @@ class WirelessMonitor:
         self.db_path = 'data/wireless_monitor.db'
         self.running = True
         
+        # Wi-Fi keywords for relevance scoring
+        self.wifi_keywords = [
+            'wifi', 'wi-fi', 'wireless', '802.11', 'bluetooth', '5g', '6g', 'lte',
+            'cellular', 'antenna', 'spectrum', 'frequency', 'band', 'router',
+            'access point', 'mesh', 'networking', 'connectivity', 'broadband',
+            'telecommunications', 'radio', 'signal', 'interference', 'latency',
+            'bandwidth', 'throughput', 'iot', 'internet of things', 'smart home'
+        ]
+        
         # Ensure directories exist
         os.makedirs('data', exist_ok=True)
         os.makedirs('logs', exist_ok=True)
@@ -69,17 +90,40 @@ class WirelessMonitor:
         # Setup scheduler
         self.setup_scheduler()
         
-        # Add template functions
+        # Setup template functions
         self.setup_template_functions()
         
-        # Wi-Fi keywords for relevance scoring
-        self.wifi_keywords = [
-            'wifi', 'wi-fi', 'wireless', '802.11', 'bluetooth', '5g', '6g', 'lte',
-            'cellular', 'antenna', 'spectrum', 'frequency', 'band', 'router',
-            'access point', 'mesh', 'networking', 'connectivity', 'broadband',
-            'telecommunications', 'radio', 'signal', 'interference', 'latency',
-            'bandwidth', 'throughput', 'iot', 'internet of things', 'smart home'
-        ]
+    def setup_template_functions(self):
+        """Setup template helper functions"""
+        
+        @self.app.template_filter('get_feed_icon')
+        def get_feed_icon(feed_name, feed_url):
+            """Get icon and color for feed"""
+            feed_lower = feed_name.lower()
+            if 'ars technica' in feed_lower:
+                return '🔬', '#ff6600'
+            elif 'techcrunch' in feed_lower:
+                return '🚀', '#0f7b0f'
+            elif 'verge' in feed_lower:
+                return '⚡', '#fa4b2a'
+            elif 'ieee' in feed_lower:
+                return '🔬', '#00629b'
+            elif 'fierce' in feed_lower:
+                return '📡', '#c41e3a'
+            elif 'rcr' in feed_lower:
+                return '📶', '#1f4e79'
+            elif 'engadget' in feed_lower:
+                return '📱', '#00bcd4'
+            elif 'wired' in feed_lower:
+                return '🌐', '#000000'
+            else:
+                return '📰', '#666666'
+        
+        @self.app.context_processor
+        def inject_template_vars():
+            return {
+                'get_feed_icon': get_feed_icon
+            }
     
     def init_database(self):
         """Initialize SQLite database with all required tables"""
@@ -603,10 +647,85 @@ class WirelessMonitor:
                 'total_feeds': conn.execute('SELECT COUNT(*) FROM rss_feeds').fetchone()[0],
                 'active_feeds': conn.execute('SELECT COUNT(*) FROM rss_feeds WHERE active = 1').fetchone()[0],
                 'articles_today': conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) = DATE("now")').fetchone()[0],
+                'total_events': conn.execute('SELECT COUNT(*) FROM industry_events WHERE active = 1').fetchone()[0],
+                'total_wild_stories': conn.execute('SELECT COUNT(*) FROM wild_wifi_stories').fetchone()[0],
+                'digest_articles': conn.execute('SELECT COUNT(*) FROM weekly_digest').fetchone()[0],
+                'generated_images': len([f for f in os.listdir('static/generated_images') if f.endswith('.png')]) if os.path.exists('static/generated_images') else 0,
             }
+            
+            # Get AI model status
+            ai_status = self.get_ai_model_status()
+            
+            # Get system info
+            import psutil
+            system_info = {
+                'cpu_percent': psutil.cpu_percent(interval=1),
+                'memory_percent': psutil.virtual_memory().percent,
+                'disk_percent': psutil.disk_usage('/').percent,
+                'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
+            }
+            
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('admin.html', stats=stats, view_mode=view_mode)
+            return render_template('admin.html', stats=stats, ai_status=ai_status, system_info=system_info, view_mode=view_mode)
+        
+        @self.app.route('/api/update_ai_models', methods=['POST'])
+        def update_ai_models():
+            """Update AI models to latest versions"""
+            try:
+                results = self.update_ai_models()
+                return jsonify({'success': True, 'results': results})
+            except Exception as e:
+                logger.error(f"Error updating AI models: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/system_status')
+        def system_status():
+            """Get real-time system status"""
+            try:
+                import psutil
+                
+                status = {
+                    'cpu_percent': psutil.cpu_percent(interval=0.1),
+                    'memory_percent': psutil.virtual_memory().percent,
+                    'disk_percent': psutil.disk_usage('/').percent,
+                    'network_io': dict(psutil.net_io_counters()._asdict()),
+                    'process_count': len(psutil.pids()),
+                    'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0,
+                    'ai_models': self.get_ai_model_status()
+                }
+                
+                return jsonify({'success': True, 'status': status})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/clear_generated_images', methods=['POST'])
+        def clear_generated_images():
+            """Clear all generated images"""
+            try:
+                import shutil
+                
+                # Clear generated images
+                if os.path.exists('static/generated_images'):
+                    shutil.rmtree('static/generated_images')
+                os.makedirs('static/generated_images', exist_ok=True)
+                
+                if os.path.exists('app/static/generated_images'):
+                    shutil.rmtree('app/static/generated_images')
+                os.makedirs('app/static/generated_images', exist_ok=True)
+                
+                # Clear image URLs from database
+                conn = self.get_db_connection()
+                conn.execute('UPDATE articles SET image_url = NULL')
+                conn.commit()
+                conn.close()
+                
+                logger.info("Cleared all generated images")
+                return jsonify({'success': True, 'message': 'All generated images cleared'})
+                
+            except Exception as e:
+                logger.error(f"Error clearing images: {e}")
+                return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/api/fetch_now')
         def fetch_now():
@@ -2585,14 +2704,14 @@ class WirelessMonitor:
             return None
     
     def generate_ai_image_local(self, article_title, article_description):
-        """Generate photorealistic image using article content with WirelessNerd branding"""
+        """Generate photorealistic image using Stable Diffusion with article content"""
         try:
-            from PIL import Image, ImageDraw, ImageFont, ImageFilter
-            import io
-            import base64
             import hashlib
             import os
             import requests
+            import subprocess
+            import json
+            from datetime import datetime
             
             # Create a unique filename based on article content
             content_hash = hashlib.md5(f"{article_title}{article_description}".encode()).hexdigest()[:8]
@@ -2605,134 +2724,463 @@ class WirelessMonitor:
             if os.path.exists(image_path):
                 return f'/static/generated_images/article_{content_hash}.png'
             
-            # Create a 400x250 image with professional wireless/tech theme
-            img = Image.new('RGB', (400, 250), color='#f8f9fa')
+            logger.info(f"Generating AI image for: {article_title[:50]}...")
+            
+            # Try Stable Diffusion first (if available)
+            if self.try_stable_diffusion_generation(article_title, article_description, image_path):
+                return f'/static/generated_images/article_{content_hash}.png'
+            
+            # Try Ollama with vision model (if available)
+            if self.try_ollama_image_generation(article_title, article_description, image_path):
+                return f'/static/generated_images/article_{content_hash}.png'
+            
+            # Fallback to enhanced PIL generation
+            return self.generate_enhanced_pil_image(article_title, article_description, image_path, content_hash)
+            
+        except Exception as e:
+            logger.error(f"Error generating AI image: {e}")
+            return self.generate_fallback_svg()
+    
+    def try_stable_diffusion_generation(self, title, description, image_path):
+        """Try to generate image using Stable Diffusion"""
+        try:
+            # Check if we have Stable Diffusion available
+            result = subprocess.run(['which', 'python3'], capture_output=True, text=True)
+            if result.returncode != 0:
+                return False
+            
+            # Create a detailed prompt for wireless/tech news
+            prompt = self.create_sd_prompt(title, description)
+            
+            # Try to use diffusers library
+            try:
+                from diffusers import StableDiffusionPipeline
+                import torch
+                
+                # Use CPU-optimized model for Raspberry Pi
+                model_id = "runwayml/stable-diffusion-v1-5"
+                
+                # Check if we have a cached pipeline
+                if not hasattr(self, '_sd_pipeline'):
+                    logger.info("Loading Stable Diffusion model (this may take a few minutes on first run)...")
+                    self._sd_pipeline = StableDiffusionPipeline.from_pretrained(
+                        model_id,
+                        torch_dtype=torch.float32,  # Use float32 for CPU
+                        use_safetensors=True
+                    )
+                    # Optimize for CPU/low memory
+                    self._sd_pipeline.enable_attention_slicing()
+                    self._sd_pipeline.enable_sequential_cpu_offload()
+                
+                # Generate image
+                logger.info(f"Generating image with prompt: {prompt[:100]}...")
+                image = self._sd_pipeline(
+                    prompt,
+                    num_inference_steps=20,  # Reduced for speed
+                    guidance_scale=7.5,
+                    width=400,
+                    height=250
+                ).images[0]
+                
+                # Save image
+                image.save(image_path)
+                logger.info(f"✅ Stable Diffusion image saved: {image_path}")
+                return True
+                
+            except ImportError:
+                logger.info("Stable Diffusion not available, trying alternative...")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Stable Diffusion generation failed: {e}")
+            return False
+    
+    def try_ollama_image_generation(self, title, description, image_path):
+        """Try to generate image using Ollama with vision model"""
+        try:
+            # Check if Ollama is available
+            result = subprocess.run(['which', 'ollama'], capture_output=True, text=True)
+            if result.returncode != 0:
+                return False
+            
+            # Try to use llava or similar vision model for image generation
+            prompt = f"Create a photorealistic image for this wireless technology news article: {title}. {description[:200]}"
+            
+            # This is a placeholder - Ollama doesn't directly generate images yet
+            # But we can use it to create better descriptions for other tools
+            logger.info("Ollama image generation not yet implemented")
+            return False
+            
+        except Exception as e:
+            logger.error(f"Ollama image generation failed: {e}")
+            return False
+    
+    def create_sd_prompt(self, title, description):
+        """Create a detailed Stable Diffusion prompt for wireless tech news"""
+        
+        # Analyze content for key themes
+        content = f"{title} {description}".lower()
+        
+        base_prompt = "professional news photography, high quality, photorealistic, "
+        
+        if any(word in content for word in ['5g', '6g', 'cellular', 'mobile', 'tower']):
+            theme = "modern cellular tower with 5G equipment, urban skyline, technology infrastructure, "
+        elif any(word in content for word in ['wifi', 'wi-fi', 'wireless', 'router', 'mesh']):
+            theme = "modern wireless router with glowing LED indicators, home office setup, connectivity, "
+        elif any(word in content for word in ['ai', 'artificial intelligence', 'machine learning']):
+            theme = "futuristic AI technology, neural networks visualization, modern data center, "
+        elif any(word in content for word in ['iot', 'smart home', 'connected']):
+            theme = "smart home devices, IoT sensors, connected lifestyle, modern interior, "
+        elif any(word in content for word in ['security', 'privacy', 'encryption']):
+            theme = "cybersecurity concept, digital locks, secure network, professional office, "
+        elif any(word in content for word in ['satellite', 'space', 'starlink']):
+            theme = "satellite communication, space technology, earth from orbit, "
+        else:
+            theme = "modern technology office, wireless devices, professional workspace, "
+        
+        # Add quality and style modifiers
+        style = "clean composition, soft lighting, corporate photography style, technology focus, "
+        quality = "8k resolution, sharp focus, professional lighting, commercial photography"
+        
+        # Combine all elements
+        full_prompt = f"{base_prompt}{theme}{style}{quality}"
+        
+        # Add negative prompt elements
+        negative_elements = "blurry, low quality, cartoon, anime, text overlay, watermark, signature"
+        
+        return full_prompt
+    
+    def generate_enhanced_pil_image(self, article_title, article_description, image_path, content_hash):
+        """Generate enhanced PIL image with better graphics and composition"""
+        try:
+            from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+            import io
+            import requests
+            import random
+            import math
+            
+            # Create a 400x250 image with professional design
+            img = Image.new('RGB', (400, 250), color='#1a1a1a')
             draw = ImageDraw.Draw(img)
             
-            # Try to load fonts
+            # Load fonts with better fallbacks
             try:
-                font_title = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 20)
-                font_subtitle = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 14)
-                font_brand = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 12)
+                font_title = ImageFont.truetype('/System/Library/Fonts/SF-Pro-Display-Bold.ttf', 18)
+                font_subtitle = ImageFont.truetype('/System/Library/Fonts/SF-Pro-Display-Regular.ttf', 12)
             except:
                 try:
-                    font_title = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 20)
-                    font_subtitle = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
-                    font_brand = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 12)
+                    font_title = ImageFont.truetype('/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf', 18)
+                    font_subtitle = ImageFont.truetype('/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf', 12)
                 except:
                     font_title = ImageFont.load_default()
                     font_subtitle = ImageFont.load_default()
-                    font_brand = ImageFont.load_default()
             
-            # Create gradient background based on article content
-            if any(word in article_title.lower() for word in ['5g', '6g', 'cellular', 'mobile']):
-                # Mobile/Cellular theme - blue gradient
-                for y in range(250):
-                    color_intensity = int(255 - (y * 0.3))
-                    draw.rectangle([0, y, 400, y+1], fill=(30, 144, 255, color_intensity))
-            elif any(word in article_title.lower() for word in ['wifi', 'wi-fi', 'wireless', 'router']):
-                # Wi-Fi theme - green gradient  
-                for y in range(250):
-                    color_intensity = int(255 - (y * 0.3))
-                    draw.rectangle([0, y, 400, y+1], fill=(46, 204, 113, color_intensity))
-            elif any(word in article_title.lower() for word in ['ai', 'artificial', 'machine', 'smart']):
-                # AI theme - purple gradient
-                for y in range(250):
-                    color_intensity = int(255 - (y * 0.3))
-                    draw.rectangle([0, y, 400, y+1], fill=(155, 89, 182, color_intensity))
+            # Create sophisticated background based on content
+            content = f"{article_title} {article_description}".lower()
+            
+            if any(word in content for word in ['5g', '6g', 'cellular']):
+                # 5G/Cellular theme - dynamic wave pattern
+                self.draw_cellular_background(draw, img)
+            elif any(word in content for word in ['wifi', 'wi-fi', 'wireless']):
+                # Wi-Fi theme - signal waves
+                self.draw_wifi_background(draw, img)
+            elif any(word in content for word in ['ai', 'artificial', 'machine']):
+                # AI theme - neural network
+                self.draw_ai_background(draw, img)
             else:
-                # Tech theme - orange gradient
-                for y in range(250):
-                    color_intensity = int(255 - (y * 0.3))
-                    draw.rectangle([0, y, 400, y+1], fill=(230, 126, 34, color_intensity))
+                # Tech theme - circuit pattern
+                self.draw_tech_background(draw, img)
             
-            # Add subtle tech pattern overlay
-            for i in range(0, 400, 40):
-                for j in range(0, 250, 40):
-                    # Draw subtle circuit-like patterns
-                    draw.rectangle([i, j, i+20, j+2], fill=(255, 255, 255, 30))
-                    draw.rectangle([i, j, i+2, j+20], fill=(255, 255, 255, 30))
+            # Add WirelessNerd logo
+            self.add_logo_to_image(img, draw)
             
-            # Download and add WirelessNerd logo
+            # Add article title with better typography
+            self.add_title_to_image(draw, article_title, font_title, font_subtitle)
+            
+            # Add tech elements and indicators
+            self.add_tech_elements(draw, content)
+            
+            # Apply final enhancements
+            enhancer = ImageEnhance.Contrast(img)
+            img = enhancer.enhance(1.2)
+            
+            enhancer = ImageEnhance.Sharpness(img)
+            img = enhancer.enhance(1.1)
+            
+            # Save the image
+            img.save(image_path, 'PNG', quality=95)
+            logger.info(f"✅ Enhanced PIL image saved: {image_path}")
+            
+            return f'/static/generated_images/article_{content_hash}.png'
+            
+        except Exception as e:
+            logger.error(f"Enhanced PIL generation failed: {e}")
+            return self.generate_fallback_svg()
+    
+    def draw_cellular_background(self, draw, img):
+        """Draw cellular/5G themed background"""
+        # Gradient from dark blue to lighter blue
+        for y in range(250):
+            intensity = int(20 + (y * 0.3))
+            draw.rectangle([0, y, 400, y+1], fill=(intensity, intensity*2, intensity*3))
+        
+        # Add signal tower silhouette
+        tower_points = [(50, 200), (60, 50), (70, 200)]
+        draw.polygon(tower_points, fill=(100, 150, 255))
+        
+        # Add signal waves
+        for i in range(3):
+            radius = 30 + (i * 20)
+            draw.arc([60-radius, 50-radius, 60+radius, 50+radius], 0, 180, fill=(150, 200, 255), width=2)
+    
+    def draw_wifi_background(self, draw, img):
+        """Draw Wi-Fi themed background"""
+        # Gradient from dark green to lighter green
+        for y in range(250):
+            intensity = int(15 + (y * 0.4))
+            draw.rectangle([0, y, 400, y+1], fill=(intensity, intensity*3, intensity*2))
+        
+        # Add Wi-Fi symbol
+        center_x, center_y = 350, 60
+        for i in range(4):
+            radius = 15 + (i * 8)
+            draw.arc([center_x-radius, center_y-radius, center_x+radius, center_y+radius], 
+                    225, 315, fill=(100, 255, 150), width=3)
+        
+        # Add router shape
+        draw.rectangle([320, 80, 380, 100], fill=(80, 200, 120))
+        # Antennas
+        draw.rectangle([325, 70, 327, 80], fill=(120, 255, 160))
+        draw.rectangle([375, 70, 377, 80], fill=(120, 255, 160))
+    
+    def draw_ai_background(self, draw, img):
+        """Draw AI/neural network themed background"""
+        # Gradient from dark purple to lighter purple
+        for y in range(250):
+            intensity = int(25 + (y * 0.2))
+            draw.rectangle([0, y, 400, y+1], fill=(intensity*2, intensity, intensity*3))
+        
+        # Add neural network nodes
+        import random
+        random.seed(42)  # Consistent pattern
+        nodes = [(random.randint(50, 350), random.randint(50, 200)) for _ in range(8)]
+        
+        # Draw connections
+        for i, node1 in enumerate(nodes):
+            for j, node2 in enumerate(nodes[i+1:], i+1):
+                if random.random() > 0.6:  # Only some connections
+                    draw.line([node1, node2], fill=(150, 100, 255, 100), width=1)
+        
+        # Draw nodes
+        for node in nodes:
+            draw.ellipse([node[0]-5, node[1]-5, node[0]+5, node[1]+5], fill=(200, 150, 255))
+    
+    def draw_tech_background(self, draw, img):
+        """Draw general tech themed background"""
+        # Gradient from dark gray to blue-gray
+        for y in range(250):
+            intensity = int(30 + (y * 0.2))
+            draw.rectangle([0, y, 400, y+1], fill=(intensity, intensity*1.2, intensity*1.5))
+        
+        # Add circuit pattern
+        for x in range(0, 400, 40):
+            for y in range(0, 250, 40):
+                # Horizontal lines
+                draw.rectangle([x, y+15, x+25, y+17], fill=(100, 150, 200, 150))
+                # Vertical lines  
+                draw.rectangle([x+15, y, x+17, y+25], fill=(100, 150, 200, 150))
+                # Junction points
+                draw.ellipse([x+13, y+13, x+19, y+19], fill=(150, 200, 255))
+    
+    def add_logo_to_image(self, img, draw):
+        """Add WirelessNerd logo to image"""
+        try:
+            import requests
+            import io
+            
+            logo_response = requests.get(
+                'https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1', 
+                timeout=5
+            )
+            if logo_response.status_code == 200:
+                logo_img = Image.open(io.BytesIO(logo_response.content))
+                logo_img = logo_img.resize((35, 35), Image.Resampling.LANCZOS)
+                if logo_img.mode != 'RGBA':
+                    logo_img = logo_img.convert('RGBA')
+                
+                # Add subtle glow effect
+                glow = logo_img.filter(ImageFilter.GaussianBlur(radius=2))
+                img.paste(glow, (353, 8), glow)
+                img.paste(logo_img, (355, 10), logo_img)
+        except:
+            # Fallback: draw WN text logo
+            draw.ellipse([355, 10, 390, 45], fill=(255, 255, 255, 200), outline=(100, 150, 255), width=2)
+            draw.text((365, 22), "WN", fill=(50, 100, 200), font=ImageFont.load_default())
+    
+    def add_logo_to_image(self, img, draw):
+        """Add WirelessNerd logo to image"""
+        try:
+            import io
+            import requests
+            
+            logo_response = requests.get(
+                'https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1', 
+                timeout=5
+            )
+            if logo_response.status_code == 200:
+                logo_img = Image.open(io.BytesIO(logo_response.content))
+                logo_img = logo_img.resize((35, 35), Image.Resampling.LANCZOS)
+                if logo_img.mode != 'RGBA':
+                    logo_img = logo_img.convert('RGBA')
+                
+                # Add subtle glow effect
+                glow = logo_img.filter(ImageFilter.GaussianBlur(radius=2))
+                img.paste(glow, (353, 8), glow)
+                img.paste(logo_img, (355, 10), logo_img)
+        except:
+            # Fallback: draw WN text logo
+            draw.ellipse([355, 10, 390, 45], fill=(255, 255, 255, 200), outline=(100, 150, 255), width=2)
+            draw.text((365, 22), "WN", fill=(50, 100, 200), font=ImageFont.load_default())
+        """Add article title with professional typography"""
+        # Smart text wrapping
+        words = title.split()
+        lines = []
+        current_line = ""
+        
+        for word in words:
+            test_line = f"{current_line} {word}".strip()
+            bbox = draw.textbbox((0, 0), test_line, font=font_title)
+            if bbox[2] - bbox[0] < 320:  # Leave space for logo
+                current_line = test_line
+            else:
+                if current_line:
+                    lines.append(current_line)
+                current_line = word
+                if len(lines) >= 2:
+                    break
+        
+        if current_line and len(lines) < 2:
+            lines.append(current_line)
+        
+        # Draw title with professional styling
+        y_start = 160 if len(lines) == 1 else 150
+        
+        for i, line in enumerate(lines):
+            y_pos = y_start + (i * 25)
+            
+            # Text shadow for depth
+            draw.text((21, y_pos + 2), line, fill=(0, 0, 0, 180), font=font_title)
+            # Main text with slight glow
+            draw.text((20, y_pos), line, fill=(255, 255, 255), font=font_title)
+        
+        # Add "WIRELESS TECH NEWS" subtitle
+        subtitle_y = y_start + (len(lines) * 25) + 10
+        draw.text((21, subtitle_y + 1), "WIRELESS TECH NEWS", fill=(0, 0, 0, 120), font=font_subtitle)
+        draw.text((20, subtitle_y), "WIRELESS TECH NEWS", fill=(200, 220, 255), font=font_subtitle)
+    
+    def add_tech_elements(self, draw, content):
+        """Add technology-specific visual elements"""
+        try:
+            # Add signal strength indicator
+            for i in range(5):
+                height = 10 + (i * 3)
+                opacity = 255 if i < 3 else 100  # First 3 bars full, others dimmed
+                draw.rectangle([20 + (i * 6), 220 - height, 24 + (i * 6), 220], 
+                             fill=(100, 200, 255, opacity))
+            
+            # Add "LIVE" indicator for recent articles
+            draw.rectangle([320, 220, 360, 235], fill=(255, 50, 50))
+            draw.text((325, 223), "LIVE", fill=(255, 255, 255), font=ImageFont.load_default())
+            
+        except Exception as e:
+            logger.error(f"Error adding tech elements: {e}")
+    
+    def generate_ai_image_local(self, title, description):
+        """Generate AI image locally using enhanced PIL with photorealistic themes"""
+        try:
+            if not Image:
+                return self.get_placeholder_image()
+            
+            # Create content hash for caching
+            content = f"{title} {description}"
+            content_hash = hashlib.md5(content.encode()).hexdigest()[:12]
+            
+            # Ensure directories exist
+            os.makedirs('static/generated_images', exist_ok=True)
+            os.makedirs('app/static/generated_images', exist_ok=True)
+            
+            image_path = f'static/generated_images/article_{content_hash}.png'
+            
+            # Check if image already exists
+            if os.path.exists(image_path):
+                return f'/static/generated_images/article_{content_hash}.png'
+            
+            # Create enhanced photorealistic image
+            img = Image.new('RGB', (400, 250), color=(45, 55, 72))
+            draw = ImageDraw.Draw(img)
+            
+            # Determine theme based on content
+            content_lower = content.lower()
+            if any(word in content_lower for word in ['wifi', 'wi-fi', 'wireless', '802.11']):
+                gradient_colors = [(34, 197, 94), (59, 130, 246)]  # Green to blue
+                theme = "wireless"
+            elif any(word in content_lower for word in ['5g', '6g', 'cellular', 'lte']):
+                gradient_colors = [(59, 130, 246), (147, 51, 234)]  # Blue to purple
+                theme = "cellular"
+            elif any(word in content_lower for word in ['ai', 'artificial', 'machine', 'learning']):
+                gradient_colors = [(147, 51, 234), (236, 72, 153)]  # Purple to pink
+                theme = "ai"
+            else:
+                gradient_colors = [(249, 115, 22), (234, 179, 8)]  # Orange to yellow
+                theme = "tech"
+            
+            # Create gradient background
+            for y in range(250):
+                ratio = y / 250
+                r = int(gradient_colors[0][0] * (1 - ratio) + gradient_colors[1][0] * ratio)
+                g = int(gradient_colors[0][1] * (1 - ratio) + gradient_colors[1][1] * ratio)
+                b = int(gradient_colors[0][2] * (1 - ratio) + gradient_colors[1][2] * ratio)
+                draw.line([(0, y), (400, y)], fill=(r, g, b))
+            
+            # Add subtle overlay pattern
+            overlay = Image.new('RGBA', (400, 250), (255, 255, 255, 20))
+            overlay_draw = ImageDraw.Draw(overlay)
+            
+            # Add tech pattern based on theme
+            if theme == "wireless":
+                # WiFi signal rings
+                for i in range(3):
+                    radius = 30 + i * 20
+                    overlay_draw.arc([350 - radius, 20 - radius, 350 + radius, 20 + radius], 
+                                   start=225, end=315, fill=(255, 255, 255, 40), width=3)
+            elif theme == "cellular":
+                # Cell tower bars
+                for i in range(4):
+                    height = 15 + i * 8
+                    overlay_draw.rectangle([360 + i * 8, 50 - height, 365 + i * 8, 50], 
+                                         fill=(255, 255, 255, 60))
+            
+            img = Image.alpha_composite(img.convert('RGBA'), overlay).convert('RGB')
+            draw = ImageDraw.Draw(img)
+            
+            # Load fonts with fallbacks
             try:
-                logo_response = requests.get('https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1', timeout=10)
-                if logo_response.status_code == 200:
-                    logo_img = Image.open(io.BytesIO(logo_response.content))
-                    # Resize logo to fit
-                    logo_img = logo_img.resize((40, 40), Image.Resampling.LANCZOS)
-                    # Make logo semi-transparent
-                    if logo_img.mode != 'RGBA':
-                        logo_img = logo_img.convert('RGBA')
-                    # Add logo to top-right corner
-                    img.paste(logo_img, (350, 10), logo_img)
-            except Exception as e:
-                logger.debug(f"Could not add logo: {e}")
-                # Draw a simple wireless icon instead
-                draw.ellipse([350, 10, 390, 50], outline=(255, 255, 255), width=3)
-                draw.text((365, 25), "WN", fill=(255, 255, 255), font=font_brand)
+                font_title = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 18)
+                font_subtitle = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 12)
+                font_brand = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 10)
+            except:
+                font_title = ImageFont.load_default()
+                font_subtitle = ImageFont.load_default()
+                font_brand = ImageFont.load_default()
             
-            # Add article title (smart truncation)
-            title_words = article_title.split()
-            title_lines = []
-            current_line = ""
+            # Add title with smart wrapping
+            self.add_title_to_image(draw, title, font_title, font_subtitle)
             
-            for word in title_words:
-                test_line = f"{current_line} {word}".strip()
-                bbox = draw.textbbox((0, 0), test_line, font=font_title)
-                if bbox[2] - bbox[0] < 340:  # Leave margin for logo
-                    current_line = test_line
-                else:
-                    if current_line:
-                        title_lines.append(current_line)
-                    current_line = word
-                    if len(title_lines) >= 2:  # Max 2 lines
-                        break
+            # Add WirelessNerd logo
+            self.add_logo_to_image(img, draw)
             
-            if current_line and len(title_lines) < 2:
-                title_lines.append(current_line)
-            
-            # Draw title with shadow effect
-            y_offset = 80
-            for line in title_lines:
-                # Shadow
-                draw.text((21, y_offset + 1), line, fill=(0, 0, 0, 128), font=font_title)
-                # Main text
-                draw.text((20, y_offset), line, fill=(255, 255, 255), font=font_title)
-                y_offset += 25
-            
-            # Add description/subtitle
-            if article_description:
-                desc_words = article_description.split()[:15]  # First 15 words
-                description = ' '.join(desc_words)
-                if len(desc_words) == 15:
-                    description += "..."
-                
-                # Wrap description
-                desc_lines = []
-                current_line = ""
-                for word in desc_words:
-                    test_line = f"{current_line} {word}".strip()
-                    bbox = draw.textbbox((0, 0), test_line, font=font_subtitle)
-                    if bbox[2] - bbox[0] < 360:
-                        current_line = test_line
-                    else:
-                        if current_line:
-                            desc_lines.append(current_line)
-                        current_line = word
-                        if len(desc_lines) >= 2:  # Max 2 lines
-                            break
-                
-                if current_line and len(desc_lines) < 2:
-                    desc_lines.append(current_line)
-                
-                # Draw description
-                y_offset = 140
-                for line in desc_lines:
-                    # Shadow
-                    draw.text((21, y_offset + 1), line, fill=(0, 0, 0, 100), font=font_subtitle)
-                    # Main text
-                    draw.text((20, y_offset), line, fill=(255, 255, 255), font=font_subtitle)
-                    y_offset += 18
+            # Add tech elements
+            self.add_tech_elements(draw, content)
             
             # Add WirelessNerd branding at bottom
             brand_text = "WirelessNerd.net"
@@ -2800,6 +3248,115 @@ class WirelessMonitor:
         return self.get_or_create_article_image(article)
             
     
+    def get_ai_model_status(self):
+        """Get status of AI models"""
+        status = {
+            'stable_diffusion': {'available': False, 'version': 'Not installed', 'last_updated': None},
+            'ollama': {'available': False, 'version': 'Not installed', 'last_updated': None},
+            'transformers': {'available': False, 'version': 'Not installed', 'last_updated': None}
+        }
+        
+        try:
+            # Check Stable Diffusion
+            import subprocess
+            result = subprocess.run(['python3', '-c', 'import diffusers; print(diffusers.__version__)'], 
+                                  capture_output=True, text=True, timeout=10)
+            if result.returncode == 0:
+                status['stable_diffusion']['available'] = True
+                status['stable_diffusion']['version'] = result.stdout.strip()
+        except:
+            pass
+        
+        try:
+            # Check Ollama
+            result = subprocess.run(['ollama', '--version'], capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                status['ollama']['available'] = True
+                status['ollama']['version'] = result.stdout.strip()
+        except:
+            pass
+        
+        try:
+            # Check Transformers
+            import transformers
+            status['transformers']['available'] = True
+            status['transformers']['version'] = transformers.__version__
+        except:
+            pass
+        
+        return status
+    
+    def update_ai_models(self):
+        """Update AI models to latest versions"""
+        results = []
+        
+        try:
+            import subprocess
+            
+            # Update pip packages
+            packages_to_update = [
+                'diffusers',
+                'transformers', 
+                'torch',
+                'torchvision',
+                'accelerate',
+                'safetensors'
+            ]
+            
+            for package in packages_to_update:
+                try:
+                    logger.info(f"Updating {package}...")
+                    result = subprocess.run([
+                        'pip3', 'install', '--upgrade', package
+                    ], capture_output=True, text=True, timeout=300)
+                    
+                    if result.returncode == 0:
+                        results.append(f"✅ {package} updated successfully")
+                    else:
+                        results.append(f"❌ {package} update failed: {result.stderr}")
+                        
+                except subprocess.TimeoutExpired:
+                    results.append(f"⏰ {package} update timed out")
+                except Exception as e:
+                    results.append(f"❌ {package} update error: {str(e)}")
+            
+            # Update Ollama models if available
+            try:
+                result = subprocess.run(['ollama', 'pull', 'llama2'], 
+                                      capture_output=True, text=True, timeout=600)
+                if result.returncode == 0:
+                    results.append("✅ Ollama llama2 model updated")
+                else:
+                    results.append("❌ Ollama model update failed")
+            except:
+                results.append("ℹ️ Ollama not available for model updates")
+            
+            # Clear model cache to force reload
+            if hasattr(self, '_sd_pipeline'):
+                delattr(self, '_sd_pipeline')
+                results.append("🔄 Stable Diffusion pipeline cache cleared")
+            
+            logger.info(f"AI model update completed: {len(results)} operations")
+            return results
+            
+        except Exception as e:
+            logger.error(f"Error updating AI models: {e}")
+            return [f"❌ Update process failed: {str(e)}"]
+    
+    def setup_auto_model_updates(self):
+        """Setup automatic AI model updates"""
+        def update_models_job():
+            try:
+                logger.info("Starting automatic AI model update...")
+                results = self.update_ai_models()
+                logger.info(f"Automatic AI model update completed: {results}")
+            except Exception as e:
+                logger.error(f"Automatic AI model update failed: {e}")
+        
+        # Schedule weekly updates on Sundays at 3 AM
+        schedule.every().sunday.at("03:00").do(update_models_job)
+        logger.info("Scheduled automatic AI model updates for Sundays at 3 AM")
+    
     def setup_scheduler(self):
         """Setup background task scheduler"""
         # Schedule RSS fetching every 6 hours
@@ -2810,6 +3367,9 @@ class WirelessMonitor:
         
         # Schedule weekly digest generation every Tuesday at 8 AM Central Time
         schedule.every().tuesday.at("08:00").do(self.auto_generate_weekly_digest)
+        
+        # Setup automatic AI model updates
+        self.setup_auto_model_updates()
         
         # Initial fetch
         threading.Thread(target=self.fetch_rss_feeds, daemon=True).start()

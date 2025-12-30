@@ -1,0 +1,64 @@
+2025-12-30 15:04:49,190 - __main__ - INFO - Added social platform: Twitter
+2025-12-30 15:04:49,190 - __main__ - INFO - Added social platform: LinkedIn
+2025-12-30 15:04:49,190 - __main__ - INFO - Added social platform: Facebook
+2025-12-30 15:04:49,190 - __main__ - INFO - Added social platform: Mastodon
+2025-12-30 15:04:49,190 - __main__ - INFO - Added social platform: Instagram
+2025-12-30 15:04:49,190 - __main__ - INFO - Added CES 2026 event
+2025-12-30 15:04:49,190 - __main__ - INFO - Added NRF 2026 event
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: Ars Technica Technology
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: TechCrunch
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: The Verge
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: IEEE Spectrum
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: Fierce Wireless
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: RCR Wireless News
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: Engadget
+2025-12-30 15:04:49,190 - __main__ - INFO - Added default feed: Wired Technology
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Airport Wi-Fi Password Becomes Tourist Attraction
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Smart Doorbell Alerts Neighbor About Package Theft
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Coffee Shop Creates "Productivity Zones" Based on Wi-Fi Speed
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Retirement Home Residents Become Wi-Fi Troubleshooters
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Food Truck Uses Wi-Fi Heat Map to Find Best Parking Spots
+2025-12-30 15:04:49,190 - __main__ - INFO - Added Wild Wi-Fi story: Smart Home Goes Rogue During Power Outage
+2025-12-30 15:04:49,191 - __main__ - INFO - Database initialized
+2025-12-30 15:05:25,799 - __main__ - INFO - Database initialized
+2025-12-30 15:05:25,803 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:05:25,803 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:05:25,803 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:05:25,803 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:05:25,905 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:05:25,905 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:05:26,027 - __main__ - ERROR - Error fetching feed Ars Technica Technology: 'WirelessMonitor' object has no attribute 'wifi_keywords'
+2025-12-30 15:05:26,027 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:05:26,232 - __main__ - ERROR - Error fetching feed TechCrunch: 'WirelessMonitor' object has no attribute 'wifi_keywords'
+2025-12-30 15:05:26,232 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:05:26,426 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:05:26,630 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:05:26,840 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:05:27,232 - __main__ - ERROR - Error fetching feed RCR Wireless News: 'WirelessMonitor' object has no attribute 'wifi_keywords'
+2025-12-30 15:05:27,232 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:05:28,176 - __main__ - ERROR - Error fetching feed Engadget: 'WirelessMonitor' object has no attribute 'wifi_keywords'
+2025-12-30 15:05:28,176 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:05:33,814 - __main__ - ERROR - Error fetching feed Wired Technology: 'WirelessMonitor' object has no attribute 'wifi_keywords'
+2025-12-30 15:05:33,816 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:06:06,005 - __main__ - INFO - Database initialized
+2025-12-30 15:06:06,009 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:06:06,009 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:06:06,009 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:06:06,010 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:06:06,015 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:06:06,015 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:06:06,199 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:06:06,376 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:06:06,551 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:06:06,674 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:06:06,819 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:06:07,090 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:06:08,018 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:06:08,180 - __main__ - INFO - RSS fetch completed: 20 new articles
+2025-12-30 15:06:13,288 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:06:13] "GET / HTTP/1.1" 200 -
