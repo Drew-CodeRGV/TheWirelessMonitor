@@ -31,3 +31,20 @@
 2025-12-29 23:20:24,588 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:20:24] "GET /?view=reader HTTP/1.1" 200 -
 2025-12-29 23:20:34,742 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:20:34] "GET /?view=reader HTTP/1.1" 200 -
 2025-12-29 23:20:40,926 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:20:40] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-29 23:33:42,271 - __main__ - INFO - Database initialized
+2025-12-29 23:33:42,273 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-29 23:33:42,273 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-29 23:33:42,273 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-29 23:33:42,565 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.208.14:8080
+2025-12-29 23:33:42,565 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-29 23:33:42,676 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-29 23:33:43,064 - __main__ - INFO - Fetching feed: The Verge
+2025-12-29 23:33:43,481 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-29 23:33:43,894 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-29 23:33:44,263 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-29 23:33:44,719 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-29 23:33:45,580 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-29 23:33:46,707 - __main__ - INFO - RSS fetch completed: 0 new articles
