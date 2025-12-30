@@ -48,3 +48,233 @@
 2025-12-29 23:33:44,719 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
 2025-12-29 23:33:45,580 - __main__ - INFO - Fetching feed: Wireless Week
 2025-12-29 23:33:46,707 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-29 23:34:12,607 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:12] "GET / HTTP/1.1" 200 -
+2025-12-29 23:34:13,368 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-29 23:34:16,910 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-29 23:34:16,912 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-29 23:34:17,264 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-29 23:34:17,567 - __main__ - INFO - Fetching feed: The Verge
+2025-12-29 23:34:17,940 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-29 23:34:18,249 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-29 23:34:18,569 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-29 23:34:18,938 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-29 23:34:19,722 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-29 23:34:20,583 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-29 23:34:20,584 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:20] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-29 23:34:22,603 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:22] "GET / HTTP/1.1" 200 -
+2025-12-29 23:34:27,989 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:27] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2025-12-29 23:34:43,487 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:43] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-29 23:34:43,513 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:43] "GET /api/status HTTP/1.1" 200 -
+2025-12-29 23:34:50,364 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:50] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-29 23:34:52,068 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-29 23:34:52,069 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-29 23:34:52,436 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-29 23:34:52,731 - __main__ - INFO - Fetching feed: The Verge
+2025-12-29 23:34:53,136 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-29 23:34:53,419 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-29 23:34:53,729 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-29 23:34:54,047 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-29 23:34:54,780 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-29 23:34:55,598 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-29 23:34:55,598 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:55] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-29 23:34:57,623 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:34:57] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-29 23:35:00,492 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:00] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:07,212 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:07] "GET /insights?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:08,935 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:08] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:12,050 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-29 23:35:12,051 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-29 23:35:12,476 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-29 23:35:12,760 - __main__ - INFO - Fetching feed: The Verge
+2025-12-29 23:35:13,205 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-29 23:35:13,643 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-29 23:35:13,968 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-29 23:35:14,292 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-29 23:35:15,055 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-29 23:35:15,782 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-29 23:35:15,783 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:15] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-29 23:35:16,800 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:16] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:19,821 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:19] "GET /feeds?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:24,296 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:24] "[32mPOST /add_google_news?view=reader HTTP/1.1[0m" 302 -
+2025-12-29 23:35:24,304 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:24] "GET /feeds?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:26,313 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:26] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:27,262 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-29 23:35:27,264 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-29 23:35:27,602 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-29 23:35:27,926 - __main__ - INFO - Fetching feed: The Verge
+2025-12-29 23:35:28,211 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-29 23:35:28,563 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-29 23:35:28,880 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-29 23:35:29,204 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-29 23:35:29,970 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-29 23:35:30,659 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-29 23:35:31,821 - __main__ - INFO - RSS fetch completed: 19 new articles
+2025-12-29 23:35:31,821 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:31] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-29 23:35:32,842 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 233, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 581, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 58, in block 'content'
+    const articles = {{ stories|tojson }};
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/filters.py", line 1721, in do_tojson
+    return htmlsafe_json_dumps(value, dumps=dumps, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/utils.py", line 669, in htmlsafe_json_dumps
+    dumps(obj, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 234, in dumps
+    return cls(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Row is not JSON serializable
+2025-12-29 23:35:32,858 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:32] "[35m[1mGET /?view=reader HTTP/1.1[0m" 500 -
+2025-12-29 23:35:37,198 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 233, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 581, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 58, in block 'content'
+    const articles = {{ stories|tojson }};
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/filters.py", line 1721, in do_tojson
+    return htmlsafe_json_dumps(value, dumps=dumps, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/utils.py", line 669, in htmlsafe_json_dumps
+    dumps(obj, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 234, in dumps
+    return cls(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Row is not JSON serializable
+2025-12-29 23:35:37,200 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:37] "[35m[1mGET /?view=reader HTTP/1.1[0m" 500 -
+2025-12-29 23:35:39,189 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:39] "GET /feeds?view=reader HTTP/1.1" 200 -
+2025-12-29 23:35:41,829 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 233, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 581, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 58, in block 'content'
+    const articles = {{ stories|tojson }};
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/filters.py", line 1721, in do_tojson
+    return htmlsafe_json_dumps(value, dumps=dumps, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/utils.py", line 669, in htmlsafe_json_dumps
+    dumps(obj, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 234, in dumps
+    return cls(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Row is not JSON serializable
+2025-12-29 23:35:41,830 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:41] "[35m[1mGET /?view=reader HTTP/1.1[0m" 500 -
+2025-12-29 23:35:43,553 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 233, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 581, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 58, in block 'content'
+    const articles = {{ stories|tojson }};
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/filters.py", line 1721, in do_tojson
+    return htmlsafe_json_dumps(value, dumps=dumps, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/utils.py", line 669, in htmlsafe_json_dumps
+    dumps(obj, **kwargs)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 234, in dumps
+    return cls(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Row is not JSON serializable
+2025-12-29 23:35:43,555 - werkzeug - INFO - 127.0.0.1 - - [29/Dec/2025 23:35:43] "[35m[1mGET /?view=reader HTTP/1.1[0m" 500 -
