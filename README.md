@@ -5,12 +5,15 @@ A simplified, efficient RSS news aggregation system for Wi-Fi and wireless techn
 ## ✨ Features
 
 - **📡 RSS Feed Management**: Add, remove, and manage wireless technology news feeds
+- **📥 Bulk RSS Import**: Paste multiple RSS URLs and auto-detect feed names
 - **🤖 Smart Analysis**: Fast keyword-based relevance scoring for wireless content
-- **📰 Clean Interface**: Newspaper-style web interface optimized for readability
+- **📰 Clean Interface**: Newspaper-style web interface with modern fonts
 - **⚙️ Admin Dashboard**: System statistics and management tools
 - **🔄 Auto-Scheduling**: Built-in scheduler fetches feeds every 6 hours
 - **💾 Embedded Database**: SQLite database with automatic cleanup
 - **🚀 Single Service**: No nginx, no gunicorn, no cron - just one Python service
+- **🔄 System Management**: One-click updates and complete system reset
+- **📦 Auto-Backup**: Automatic backup during system reset operations
 
 ## 🎯 Why Streamlined?
 
@@ -50,6 +53,7 @@ After installation, access the web interface:
 
 ## 🔧 Management
 
+### Command Line
 ```bash
 # Check status
 sudo systemctl status wireless-monitor
@@ -63,11 +67,34 @@ journalctl -u wireless-monitor -f
 # Stop service
 sudo systemctl stop wireless-monitor
 
-# Update application
+# Manual update
 cd ~/wireless_monitor
 git pull origin main
 sudo systemctl restart wireless-monitor
 ```
+
+### Admin Panel Management
+Access the admin panel at `/admin` for web-based management:
+
+**🔄 System Updates**
+- **Update System**: Pull latest code from GitHub and restart service
+- **Reset System**: Complete wipe and fresh installation
+  - Backs up current data to `/tmp/wireless_monitor_backup_[timestamp]`
+  - Pulls latest code from repository
+  - Wipes all data, logs, and settings
+  - Reinstalls with default configuration
+  - Restarts service automatically
+
+**📊 System Monitoring**
+- Real-time service status
+- RSS feed statistics
+- Uptime tracking
+- Last fetch information
+
+**⚡ Quick Actions**
+- Manual RSS feed fetching
+- System status checks
+- Direct access to feed management
 
 ## 📁 File Structure
 

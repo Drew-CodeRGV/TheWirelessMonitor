@@ -287,6 +287,80 @@ class WirelessMonitor:
                 'last_fetch': last_fetch['value'] if last_fetch else 'Never',
                 'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
             })
+        
+        @self.app.route('/api/update_system', methods=['POST'])
+        def update_system():
+            """Update system from GitHub repository"""
+            try:
+                import subprocess
+                import os
+                
+                # Get current user and project directory
+                current_user = os.getenv('USER', 'wifi')
+                project_dir = f'/home/{current_user}/wireless_monitor'
+                
+                # Pull latest changes
+                result = subprocess.run(['git', 'pull', 'origin', 'main'], 
+                                      cwd=project_dir, 
+                                      capture_output=True, 
+                                      text=True, 
+                                      timeout=30)
+                
+                if result.returncode == 0:
+                    # Restart service after update
+                    subprocess.run(['sudo', 'systemctl', 'restart', 'wireless-monitor'], 
+                                 timeout=10)
+                    
+                    return jsonify({
+                        'success': True, 
+                        'message': 'System updated successfully. Service restarting...',
+                        'output': result.stdout
+                    })
+                else:
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Git pull failed: {result.stderr}'
+                    })
+                    
+            except subprocess.TimeoutExpired:
+                return jsonify({'success': False, 'error': 'Update timed out'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/reset_system', methods=['POST'])
+        def reset_system():
+            """Reset system to fresh state - wipe all data and reinstall"""
+            try:
+                import subprocess
+                import os
+                
+                # Get current user and project directory
+                current_user = os.getenv('USER', 'wifi')
+                project_dir = f'/home/{current_user}/wireless_monitor'
+                reset_script = f'{project_dir}/reset_system.sh'
+                
+                # Run the reset script
+                result = subprocess.run([reset_script], 
+                                      capture_output=True, 
+                                      text=True, 
+                                      timeout=120)
+                
+                if result.returncode == 0:
+                    return jsonify({
+                        'success': True, 
+                        'message': 'System reset completed. Service restarting...',
+                        'output': result.stdout
+                    })
+                else:
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Reset failed: {result.stderr}'
+                    })
+                    
+            except subprocess.TimeoutExpired:
+                return jsonify({'success': False, 'error': 'Reset timed out'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
     
     def fetch_rss_feeds(self):
         """Fetch and analyze RSS feeds"""

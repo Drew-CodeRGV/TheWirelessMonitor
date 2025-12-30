@@ -33,6 +33,12 @@
             <a href="{{ url_for('manage_feeds') }}" class="btn">📝 Manage RSS Feeds</a>
         </div>
         
+        <h3 style="margin-top: 30px;">🔄 System Management</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button onclick="updateSystem()" class="btn" style="background: #28a745;">🔄 Update System</button>
+            <button onclick="resetSystem()" class="btn btn-danger" style="background: #dc3545;">⚠️ Reset System (Wipe All Data)</button>
+        </div>
+        
         <div id="action-status" style="margin-top: 20px;"></div>
     </div>
     
@@ -80,10 +86,90 @@
                 <li>No external cron needed</li>
             </ul>
         </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+            <h4>🔄 System Management</h4>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>One-click system updates</li>
+                <li>Complete system reset option</li>
+                <li>Automatic service restart</li>
+                <li>Data backup during reset</li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script>
+async function updateSystem() {
+    const statusDiv = document.getElementById('action-status');
+    const button = event.target;
+    
+    if (!confirm('This will update the system from GitHub and restart the service. Continue?')) {
+        return;
+    }
+    
+    button.disabled = true;
+    button.textContent = '⏳ Updating...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🔄 Updating system from GitHub...</div>';
+    
+    try {
+        const response = await fetch('/api/update_system', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ ${data.message}</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML += '<div class="alert alert-success">🔄 Page will reload in 10 seconds...</div>';
+                setTimeout(() => location.reload(), 10000);
+            }, 2000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Update failed: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔄 Update System';
+    }
+}
+
+async function resetSystem() {
+    const statusDiv = document.getElementById('action-status');
+    const button = event.target;
+    
+    if (!confirm('⚠️ WARNING: This will WIPE ALL DATA and reset the system to a fresh state. This cannot be undone. Are you sure?')) {
+        return;
+    }
+    
+    if (!confirm('🚨 FINAL WARNING: All RSS feeds, articles, and settings will be permanently deleted. Type YES to continue.')) {
+        return;
+    }
+    
+    button.disabled = true;
+    button.textContent = '⏳ Resetting...';
+    statusDiv.innerHTML = '<div class="alert alert-error">🚨 Resetting system - this may take a few minutes...</div>';
+    
+    try {
+        const response = await fetch('/api/reset_system', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ ${data.message}</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML += '<div class="alert alert-success">🔄 System reset complete. Page will reload in 15 seconds...</div>';
+                setTimeout(() => location.reload(), 15000);
+            }, 2000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Reset failed: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '⚠️ Reset System (Wipe All Data)';
+    }
+}
+
 async function fetchNow() {
     const statusDiv = document.getElementById('action-status');
     const button = event.target;

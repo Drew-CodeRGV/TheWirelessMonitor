@@ -93,26 +93,13 @@ mkdir -p data logs
 
 # Create systemd service
 print_status "Creating systemd service..."
-sudo tee /etc/systemd/system/$SERVICE_NAME.service > /dev/null <<EOF
-[Unit]
-Description=The Wireless Monitor - Streamlined Edition
-After=network.target
+sudo cp wireless-monitor.service /etc/systemd/system/$SERVICE_NAME.service
 
-[Service]
-Type=simple
-User=$CURRENT_USER
-WorkingDirectory=$INSTALL_DIR
-Environment=PATH=$INSTALL_DIR/venv/bin
-Environment=PYTHONPATH=$INSTALL_DIR
-ExecStart=$INSTALL_DIR/venv/bin/python app/main.py
-Restart=always
-RestartSec=10
-StandardOutput=append:$INSTALL_DIR/logs/app.log
-StandardError=append:$INSTALL_DIR/logs/error.log
-
-[Install]
-WantedBy=multi-user.target
-EOF
+# Update service file with correct paths
+sudo sed -i "s|User=wifi|User=$CURRENT_USER|g" /etc/systemd/system/$SERVICE_NAME.service
+sudo sed -i "s|WorkingDirectory=/home/wifi/wireless_monitor|WorkingDirectory=$INSTALL_DIR|g" /etc/systemd/system/$SERVICE_NAME.service
+sudo sed -i "s|ExecStart=/usr/bin/python3 /home/wifi/wireless_monitor/app/main.py|ExecStart=$INSTALL_DIR/venv/bin/python $INSTALL_DIR/app/main.py|g" /etc/systemd/system/$SERVICE_NAME.service
+sudo sed -i "s|ReadWritePaths=/home/wifi/wireless_monitor|ReadWritePaths=$INSTALL_DIR|g" /etc/systemd/system/$SERVICE_NAME.service
 
 # Enable and start service
 print_status "Starting service..."

@@ -1,0 +1,29 @@
+[Unit]
+Description=The Wireless Monitor - RSS News Aggregation Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=wifi
+Group=wifi
+WorkingDirectory=/home/wifi/wireless_monitor
+ExecStart=/usr/bin/python3 /home/wifi/wireless_monitor/app/main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wireless-monitor
+
+# Environment variables
+Environment=PYTHONPATH=/home/wifi/wireless_monitor
+Environment=FLASK_ENV=production
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/wifi/wireless_monitor
+
+[Install]
+WantedBy=multi-user.target
