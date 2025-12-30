@@ -14,6 +14,7 @@ import logging
 import signal
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -125,16 +126,20 @@ class WirelessMonitor:
         feed_count = conn.execute('SELECT COUNT(*) FROM rss_feeds').fetchone()[0]
         if feed_count == 0:
             default_feeds = [
-                ('Ars Technica', 'https://feeds.arstechnica.com/arstechnica/index'),
+                ('Ars Technica Technology', 'https://feeds.arstechnica.com/arstechnica/technology-lab'),
                 ('TechCrunch', 'https://techcrunch.com/feed/'),
                 ('The Verge', 'https://www.theverge.com/rss/index.xml'),
                 ('IEEE Spectrum', 'https://spectrum.ieee.org/rss'),
                 ('Fierce Wireless', 'https://www.fiercewireless.com/rss/xml'),
+                ('RCR Wireless News', 'https://www.rcrwireless.com/feed'),
+                ('Wi-Fi Alliance News', 'https://www.wi-fi.org/news-events/newsroom/rss'),
+                ('Wireless Week', 'https://www.wirelessweek.com/rss.xml'),
             ]
             
             for name, url in default_feeds:
                 try:
                     conn.execute('INSERT INTO rss_feeds (name, url) VALUES (?, ?)', (name, url))
+                    logger.info(f"Added default feed: {name}")
                 except sqlite3.IntegrityError:
                     pass  # Feed already exists
         
@@ -197,6 +202,49 @@ class WirelessMonitor:
                 flash(f'Feed URL already exists: {url}', 'error')
             finally:
                 conn.close()
+            
+            return redirect(url_for('manage_feeds'))
+        
+        @self.app.route('/bulk_import', methods=['POST'])
+        def bulk_import():
+            urls_text = request.form['urls']
+            urls = [url.strip() for url in urls_text.split('\n') if url.strip()]
+            
+            conn = self.get_db_connection()
+            added_count = 0
+            error_count = 0
+            
+            for url in urls:
+                try:
+                    # Try to fetch the feed to get its title
+                    response = requests.get(url, timeout=10)
+                    parsed_feed = feedparser.parse(response.content)
+                    
+                    # Use feed title or fallback to domain name
+                    if parsed_feed.feed.get('title'):
+                        name = parsed_feed.feed.title
+                    else:
+                        # Extract domain name as fallback
+                        domain = urlparse(url).netloc
+                        name = domain.replace('www.', '').title()
+                    
+                    # Insert into database
+                    conn.execute('INSERT INTO rss_feeds (name, url, active) VALUES (?, ?, 1)', (name, url))
+                    added_count += 1
+                    
+                except sqlite3.IntegrityError:
+                    error_count += 1  # URL already exists
+                except Exception as e:
+                    logger.error(f"Error processing URL {url}: {e}")
+                    error_count += 1
+            
+            conn.commit()
+            conn.close()
+            
+            if added_count > 0:
+                flash(f'Successfully added {added_count} RSS feeds', 'success')
+            if error_count > 0:
+                flash(f'{error_count} feeds could not be added (duplicates or invalid URLs)', 'error')
             
             return redirect(url_for('manage_feeds'))
         

@@ -7,7 +7,7 @@
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
     <div>
-        <h3>Add New RSS Feed</h3>
+        <h3>Add Single RSS Feed</h3>
         <form method="POST" action="{{ url_for('add_feed') }}">
             <div class="form-group">
                 <label for="name">Feed Name:</label>
@@ -22,15 +22,31 @@
     </div>
     
     <div>
-        <h3>Quick Add Suggestions</h3>
-        <p style="margin-bottom: 15px;">Popular wireless technology feeds:</p>
-        <div style="font-size: 0.9rem; line-height: 1.8;">
-            <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
-            <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
-            <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
-            <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
-            <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
-        </div>
+        <h3>Bulk Import RSS Feeds</h3>
+        <form method="POST" action="{{ url_for('bulk_import') }}">
+            <div class="form-group">
+                <label for="urls">RSS URLs (one per line):</label>
+                <textarea id="urls" name="urls" rows="8" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.9rem;" placeholder="https://example1.com/feed.xml
+https://example2.com/rss
+https://example3.com/feed"></textarea>
+            </div>
+            <button type="submit" class="btn">📥 Bulk Import</button>
+        </form>
+        <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+            Feed names will be automatically detected from the RSS feeds
+        </p>
+    </div>
+</div>
+
+<div style="margin-top: 30px;">
+    <h3>Quick Add Suggestions</h3>
+    <p style="margin-bottom: 15px;">Popular wireless technology feeds:</p>
+    <div style="font-size: 0.9rem; line-height: 1.8; background: #f8f9fa; padding: 15px; border-radius: 5px;">
+        <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
+        <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
+        <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
+        <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
+        <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
     </div>
 </div>
 
@@ -66,7 +82,7 @@
 {% else %}
 <div style="text-align: center; padding: 50px; color: #666;">
     <h3>📡 No RSS feeds configured</h3>
-    <p>Add your first RSS feed using the form above</p>
+    <p>Add your first RSS feed using the forms above</p>
 </div>
 {% endif %}
 
