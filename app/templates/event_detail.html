@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event.name }} - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+        <div>
+            <h1 style="{% if view_mode == 'reader' %}font-family: 'Inter', sans-serif; font-size: 1.6rem; font-weight: 600; color: #333; margin-bottom: 10px;{% else %}font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: #000; margin-bottom: 15px;{% endif %}">
+                {{ event.name }}
+            </h1>
+            <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.85rem; color: #666; margin-bottom: 10px;{% else %}font-family: 'Inter', sans-serif; font-size: 1rem; color: #7f8c8d; margin-bottom: 15px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;{% endif %}">
+                <span><strong>📅</strong> {{ event.start_date }} to {{ event.end_date }}</span>
+                <span><strong>📍</strong> {{ event.location }}</span>
+            </div>
+            <p style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; color: #666;{% else %}font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #34495e; line-height: 1.6;{% endif %}">
+                {{ event.description }}
+            </p>
+        </div>
+        <div>
+            <a href="{{ url_for('events', view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px;{% endif %}">← Back to Events</a>
+        </div>
+    </div>
+</div>
+
+{% if event.hashtags %}
+<div style="{% if view_mode == 'reader' %}padding: 10px 20px; background: #fff; border-bottom: 1px solid #eee; margin: 0 -40px 0 -40px;{% else %}background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;{% endif %}">
+    <h3 style="{% if view_mode == 'reader' %}font-size: 0.9rem; margin-bottom: 8px; color: #333;{% else %}font-size: 1.2rem; margin-bottom: 15px; color: #2c3e50;{% endif %}">🏷️ Event Hashtags</h3>
+    <div>
+        {% for hashtag in event.hashtags.split(',') %}
+        <span style="display: inline-block; background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 15px; font-size: {% if view_mode == 'reader' %}0.75rem{% else %}0.85rem{% endif %}; margin: 3px 6px 3px 0; font-family: 'Inter', sans-serif; font-weight: 500;">{{ hashtag.strip() }}</span>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Event Coverage Section -->
+{% if event_articles %}
+<div style="{% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 20px -40px;{% else %}margin-bottom: 35px;{% endif %}">
+    <h2 style="{% if view_mode == 'reader' %}font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 600; color: #333; margin: 0;{% else %}font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: #000; margin-bottom: 25px;{% endif %}">📰 Event Coverage ({{ event_articles|length }})</h2>
+</div>
+
+{% if view_mode == 'reader' %}
+    <!-- Reader Mode: Three-pane style for event articles -->
+    <div class="reader-layout" style="height: 600px;">
+        <div class="feeds-pane">
+            <h3>📊 Coverage Stats</h3>
+            <div style="padding: 15px; font-size: 0.8rem; color: #666;">
+                <div style="margin-bottom: 10px;"><strong>Total Articles:</strong> {{ event_articles|length }}</div>
+                <div style="margin-bottom: 10px;"><strong>High Relevance:</strong> {{ event_articles|selectattr('event_relevance', '>', 0.5)|list|length }}</div>
+                <div style="margin-bottom: 10px;"><strong>Recent:</strong> {{ recent_articles|length }}</div>
+            </div>
+        </div>
+        
+        <div class="articles-pane">
+            <h3>📰 Event Articles</h3>
+            {% for article in event_articles %}
+            <div class="article-list-item" onclick="selectEventArticle({{ loop.index0 }})">
+                <h4>{{ article.title }}</h4>
+                <div class="snippet">{{ (article.description[:100] + '...') if article.description and article.description|length > 100 else (article.description or 'No preview available') }}</div>
+                <div class="meta">
+                    <span>{{ article.feed_name }}</span>
+                    <span>{{ "%.0f"|format(article.event_relevance * 100) }}% relevant</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="article-preview">
+            <div id="event-article-content">
+                <h2>Select an article to preview</h2>
+                <p style="color: #666; margin-top: 20px;">Click on any event-related article to see its content here.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const eventArticles = {{ event_articles|tojson }};
+        
+        function selectEventArticle(index) {
+            document.querySelectorAll('.article-list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.article-list-item')[index].classList.add('selected');
+            
+            const article = eventArticles[index];
+            const previewPane = document.getElementById('event-article-content');
+            
+            previewPane.innerHTML = `
+                <h2>${article.title}</h2>
+                <div class="preview-meta">
+                    <strong>Source:</strong> ${article.feed_name} | 
+                    <strong>Published:</strong> ${article.published_date.substring(0, 16)} | 
+                    <strong>Event Relevance:</strong> ${Math.round(article.event_relevance * 100)}%
+                </div>
+                <div class="content">
+                    ${article.content || article.description || 'No content available'}
+                    <br><br>
+                    <a href="${article.url}" target="_blank" class="btn">📖 Read Full Article</a>
+                </div>
+            `;
+        }
+    </script>
+
+{% else %}
+    <!-- Newspaper Mode: NY Magazine style grid -->
+    {% if event_articles|length > 0 %}
+    <div class="articles-grid" style="margin-bottom: 40px;">
+        <!-- Featured Event Article -->
+        {% set featured = event_articles[0] %}
+        <article class="featured-article">
+            <div class="article-meta">
+                {% set icon, color = get_feed_icon(featured.feed_name, featured.feed_url) %}
+                <span class="feed-source" style="border-color: {{ color }};">
+                    <span style="color: {{ color }};">{{ icon }}</span>
+                    {{ featured.feed_name }}
+                </span>
+                <span>{{ featured.published_date[:16] }}</span>
+                <span class="relevance-score" style="background: #ff9800;">
+                    {{ "%.0f"|format(featured.event_relevance * 100) }}% Event Relevant
+                </span>
+            </div>
+            <h3><a href="{{ featured.url }}" target="_blank">{{ featured.title }}</a></h3>
+            {% if featured.content and featured.content|length > 100 %}
+                <p>{{ featured.content[:300] }}{% if featured.content|length > 300 %}...{% endif %}</p>
+            {% elif featured.description %}
+                <p>{{ featured.description[:250] }}{% if featured.description|length > 250 %}...{% endif %}</p>
+            {% endif %}
+        </article>
+        
+        <!-- Secondary Event Articles -->
+        <div class="secondary-articles">
+            {% for article in event_articles[1:4] %}
+            <article class="article-card">
+                <div class="article-meta">
+                    {% set icon, color = get_feed_icon(article.feed_name, article.feed_url) %}
+                    <span class="feed-source" style="border-color: {{ color }};">
+                        <span style="color: {{ color }};">{{ icon }}</span>
+                        {{ article.feed_name }}
+                    </span>
+                    <span>{{ article.published_date[:10] }}</span>
+                    <span class="relevance-score" style="background: #ff9800;">
+                        {{ "%.0f"|format(article.event_relevance * 100) }}%
+                    </span>
+                </div>
+                <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                {% if article.description %}
+                    <p>{{ article.description[:150] }}{% if article.description|length > 150 %}...{% endif %}</p>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="secondary-articles">
+            {% for article in event_articles[4:7] %}
+            <article class="article-card">
+                <div class="article-meta">
+                    {% set icon, color = get_feed_icon(article.feed_name, article.feed_url) %}
+                    <span class="feed-source" style="border-color: {{ color }};">
+                        <span style="color: {{ color }};">{{ icon }}</span>
+                        {{ article.feed_name }}
+                    </span>
+                    <span>{{ article.published_date[:10] }}</span>
+                    <span class="relevance-score" style="background: #ff9800;">
+                        {{ "%.0f"|format(article.event_relevance * 100) }}%
+                    </span>
+                </div>
+                <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                {% if article.description %}
+                    <p>{{ article.description[:150] }}{% if article.description|length > 150 %}...{% endif %}</p>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Additional Event Articles -->
+    {% if event_articles|length > 7 %}
+    <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">More {{ event.name }} Coverage</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
+            {% for article in event_articles[7:] %}
+            <article class="article-card">
+                <div class="article-meta">
+                    {% set icon, color = get_feed_icon(article.feed_name, article.feed_url) %}
+                    <span class="feed-source" style="border-color: {{ color }};">
+                        <span style="color: {{ color }};">{{ icon }}</span>
+                        {{ article.feed_name }}
+                    </span>
+                    <span>{{ article.published_date[:10] }}</span>
+                    <span class="relevance-score" style="background: #ff9800;">
+                        {{ "%.0f"|format(article.event_relevance * 100) }}%
+                    </span>
+                </div>
+                <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                {% if article.description %}
+                    <p>{{ article.description[:200] }}{% if article.description|length > 200 %}...{% endif %}</p>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+{% endif %}
+
+{% else %}
+<div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
+    <h3 style="font-size: {% if view_mode == 'reader' %}1.2rem{% else %}1.8rem{% endif %}; margin-bottom: 15px;">📰 No Event Coverage Yet</h3>
+    <p style="font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1rem{% endif %}; margin-bottom: 20px;">
+        No articles have been categorized for this event yet. Try running the analysis to find related coverage.
+    </p>
+    <button onclick="window.history.back()" class="btn">← Go Back</button>
+</div>
+{% endif %}
+
+<!-- Recent Related Articles -->
+{% if recent_articles %}
+<div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
+    <h3 style="{% if view_mode == 'reader' %}font-family: 'Inter', sans-serif; font-size: 1.2rem; color: #333; margin-bottom: 20px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;{% endif %}">🔍 Potentially Related Articles</h3>
+    <div style="{% if view_mode == 'reader' %}{% else %}display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;{% endif %}">
+        {% for article in recent_articles[:6] %}
+        <article class="{% if view_mode == 'reader' %}article{% else %}article-card{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% endif %}">
+            <div class="article-meta">
+                {% set icon, color = get_feed_icon(article.feed_name, article.feed_url) %}
+                <span class="feed-source" style="border-color: {{ color }};">
+                    <span style="color: {{ color }};">{{ icon }}</span>
+                    {{ article.feed_name }}
+                </span>
+                <span>{{ article.published_date[:10] }}</span>
+                <span style="background: #6c757d; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem;">Unverified</span>
+            </div>
+            <h3 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1.1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% endif %}">
+                <a href="{{ article.url }}" target="_blank" style="{% if view_mode == 'reader' %}color: #1155cc; text-decoration: none;{% else %}color: #000; text-decoration: none;{% endif %}">{{ article.title }}</a>
+            </h3>
+            {% if article.description %}
+                <p style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.5; color: #666;{% endif %}">{{ article.description[:150] }}{% if article.description|length > 150 %}...{% endif %}</p>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

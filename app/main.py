@@ -136,6 +136,109 @@ class WirelessMonitor:
             )
         ''')
         
+        # Events table for tracking industry events
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS industry_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                hashtags TEXT,
+                start_date DATE,
+                end_date DATE,
+                location TEXT,
+                description TEXT,
+                active INTEGER DEFAULT 1,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        
+        # Event articles table for event-specific content
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS event_articles (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_id INTEGER,
+                article_id INTEGER,
+                relevance_score REAL DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (event_id) REFERENCES industry_events (id),
+                FOREIGN KEY (article_id) REFERENCES articles (id)
+            )
+        ''')
+        
+        # Add current events if they don't exist
+        current_date = datetime.now().date()
+        
+        # Update existing events to correct dates if they exist
+        conn.execute('''
+            UPDATE industry_events 
+            SET start_date = '2025-01-07', end_date = '2025-01-10'
+            WHERE name = 'CES 2025'
+        ''')
+        
+        conn.execute('''
+            UPDATE industry_events 
+            SET start_date = '2025-01-12', end_date = '2025-01-14'
+            WHERE name = 'NRF 2025'
+        ''')
+        
+        # Check for CES 2025
+        ces_exists = conn.execute('SELECT id FROM industry_events WHERE name = "CES 2025"').fetchone()
+        if not ces_exists:
+            conn.execute('''
+                INSERT INTO industry_events (name, hashtags, start_date, end_date, location, description, active)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                'CES 2025',
+                '#CES2025,#CES,#ConsumerElectronics,#TechShow,#Innovation,#AI,#IoT,#5G,#SmartHome',
+                '2026-01-07',
+                '2026-01-10',
+                'Las Vegas, NV',
+                'Consumer Electronics Show - The world\'s most influential technology event showcasing breakthrough technologies and global innovators.',
+                1
+            ))
+            logger.info("Added CES 2025 event")
+        
+        # Check for NRF 2025
+        nrf_exists = conn.execute('SELECT id FROM industry_events WHERE name = "NRF 2025"').fetchone()
+        if not nrf_exists:
+            conn.execute('''
+                INSERT INTO industry_events (name, hashtags, start_date, end_date, location, description, active)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                'NRF 2025',
+                '#NRF2025,#NRF,#RetailsBigShow,#RetailTech,#Retail,#Commerce,#DigitalTransformation,#CustomerExperience',
+                '2026-01-12',
+                '2026-01-14',
+                'New York City, NY',
+                'National Retail Federation - Retail\'s Big Show bringing together retailers to explore new technologies and retail innovations.',
+                1
+            ))
+            logger.info("Added NRF 2025 event")
+        
+        # Add Google News feeds for events
+        ces_feed_exists = conn.execute('SELECT id FROM rss_feeds WHERE name = "Google News: CES 2025"').fetchone()
+        if not ces_feed_exists:
+            conn.execute('''
+                INSERT INTO rss_feeds (name, url, active)
+                VALUES (?, ?, ?)
+            ''', (
+                'Google News: CES 2025',
+                'https://news.google.com/news/rss/search?q=CES+2025+consumer+electronics+show&hl=en',
+                1
+            ))
+            logger.info("Added Google News feed for CES 2025")
+        
+        nrf_feed_exists = conn.execute('SELECT id FROM rss_feeds WHERE name = "Google News: NRF 2025"').fetchone()
+        if not nrf_feed_exists:
+            conn.execute('''
+                INSERT INTO rss_feeds (name, url, active)
+                VALUES (?, ?, ?)
+            ''', (
+                'Google News: NRF 2025',
+                'https://news.google.com/news/rss/search?q=NRF+2025+retail+big+show&hl=en',
+                1
+            ))
+            logger.info("Added Google News feed for NRF 2025")
+        
         # Add default feeds if none exist
         feed_count = conn.execute('SELECT COUNT(*) FROM rss_feeds').fetchone()[0]
         if feed_count == 0:
@@ -437,6 +540,189 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/debug_events')
+        def debug_events():
+            """Debug route to check events in database"""
+            conn = self.get_db_connection()
+            
+            # Get current SQL date
+            sql_now = conn.execute('SELECT date("now")').fetchone()[0]
+            sql_plus_14 = conn.execute('SELECT date("now", "+14 days")').fetchone()[0]
+            
+            # Get all events
+            all_events = conn.execute('SELECT * FROM industry_events').fetchall()
+            events_list = [dict(row) for row in all_events]
+            
+            # Test the query used in events route
+            current_events = conn.execute('''
+                SELECT * FROM industry_events 
+                WHERE active = 1 
+                AND (
+                    (date(start_date) <= date('now', '+14 days') AND date(end_date) >= date('now'))
+                    OR (date(start_date) >= date('now') AND date(start_date) <= date('now', '+14 days'))
+                )
+                ORDER BY start_date
+            ''').fetchall()
+            current_events_list = [dict(row) for row in current_events]
+            
+            # Get current date info
+            from datetime import datetime
+            current_date = datetime.now().date()
+            
+            conn.close()
+            return jsonify({
+                'current_date': str(current_date),
+                'sql_now': sql_now,
+                'sql_plus_14': sql_plus_14,
+                'all_events': events_list,
+                'filtered_events': current_events_list
+            })
+        
+        @self.app.route('/events')
+        def events():
+            """Show current industry events"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get active events (show all active events for now)
+            current_events = conn.execute('''
+                SELECT * FROM industry_events 
+                WHERE active = 1 
+                ORDER BY start_date
+            ''').fetchall()
+            
+            conn.close()
+            return render_template('events.html', events=current_events, view_mode=view_mode)
+        
+        @self.app.route('/event/<int:event_id>')
+        def event_detail(event_id):
+            """Show detailed view of a specific event with related articles"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get event details
+            event = conn.execute('SELECT * FROM industry_events WHERE id = ?', (event_id,)).fetchone()
+            if not event:
+                flash('Event not found', 'error')
+                return redirect(url_for('events', view=view_mode))
+            
+            # Get event-related articles
+            event_articles_raw = conn.execute('''
+                SELECT a.*, f.name as feed_name, f.url as feed_url, ea.relevance_score as event_relevance
+                FROM event_articles ea
+                JOIN articles a ON ea.article_id = a.id
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE ea.event_id = ?
+                ORDER BY ea.relevance_score DESC, a.published_date DESC
+                LIMIT 50
+            ''', (event_id,)).fetchall()
+            
+            # Convert to dictionaries for JSON serialization
+            event_articles = [dict(row) for row in event_articles_raw]
+            
+            # Get recent articles that might be related to the event
+            hashtags = event['hashtags'].split(',') if event['hashtags'] else []
+            keywords = [tag.replace('#', '').lower() for tag in hashtags[:5]]  # Use first 5 hashtags as keywords
+            
+            if keywords:
+                # Use LIKE instead of REGEXP for SQLite compatibility
+                like_conditions = []
+                params = []
+                for keyword in keywords[:5]:
+                    like_conditions.append("(LOWER(a.title) LIKE ? OR LOWER(a.description) LIKE ?)")
+                    params.extend([f'%{keyword}%', f'%{keyword}%'])
+                
+                where_clause = " OR ".join(like_conditions)
+                
+                recent_articles_raw = conn.execute(f'''
+                    SELECT a.*, f.name as feed_name, f.url as feed_url
+                    FROM articles a
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE ({where_clause})
+                    AND DATE(a.published_date) >= DATE(?, '-3 days')
+                    AND DATE(a.published_date) <= DATE(?, '+3 days')
+                    AND a.id NOT IN (SELECT article_id FROM event_articles WHERE event_id = ?)
+                    ORDER BY a.published_date DESC
+                    LIMIT 20
+                ''', params + [event['start_date'], event['end_date'], event_id]).fetchall()
+                
+                recent_articles = [dict(row) for row in recent_articles_raw]
+            else:
+                recent_articles = []
+            
+            conn.close()
+            return render_template('event_detail.html', 
+                                 event=dict(event), 
+                                 event_articles=event_articles,
+                                 recent_articles=recent_articles,
+                                 view_mode=view_mode)
+        
+        @self.app.route('/api/analyze_event_articles', methods=['POST'])
+        def analyze_event_articles():
+            """Analyze and categorize articles for events"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get active events
+                events = conn.execute('''
+                    SELECT * FROM industry_events 
+                    WHERE active = 1 
+                    AND date(start_date) <= date('now', '+14 days')
+                    AND date(end_date) >= date('now', '-7 days')
+                ''').fetchall()
+                
+                total_categorized = 0
+                
+                for event in events:
+                    # Get hashtags/keywords for this event
+                    hashtags = event['hashtags'].split(',') if event['hashtags'] else []
+                    keywords = [tag.replace('#', '').lower().strip() for tag in hashtags]
+                    
+                    if not keywords:
+                        continue
+                    
+                    # Find articles that match event keywords
+                    for keyword in keywords[:10]:  # Limit to first 10 keywords
+                        articles = conn.execute('''
+                            SELECT id, title, description, relevance_score
+                            FROM articles
+                            WHERE (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)
+                            AND DATE(published_date) >= DATE(?, '-3 days')
+                            AND DATE(published_date) <= DATE(?, '+7 days')
+                            AND id NOT IN (SELECT article_id FROM event_articles WHERE event_id = ?)
+                        ''', (f'%{keyword}%', f'%{keyword}%', event['start_date'], event['end_date'], event['id'])).fetchall()
+                        
+                        for article in articles:
+                            # Calculate event relevance score
+                            title_matches = sum(1 for kw in keywords if kw in article['title'].lower())
+                            desc_matches = sum(1 for kw in keywords if kw in (article['description'] or '').lower())
+                            
+                            event_relevance = min((title_matches * 0.3 + desc_matches * 0.2) / len(keywords), 1.0)
+                            
+                            if event_relevance > 0.1:  # Only add if somewhat relevant
+                                # Check if already exists
+                                existing = conn.execute('''
+                                    SELECT id FROM event_articles 
+                                    WHERE event_id = ? AND article_id = ?
+                                ''', (event['id'], article['id'])).fetchone()
+                                
+                                if not existing:
+                                    conn.execute('''
+                                        INSERT INTO event_articles (event_id, article_id, relevance_score)
+                                        VALUES (?, ?, ?)
+                                    ''', (event['id'], article['id'], event_relevance))
+                                    total_categorized += 1
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'categorized': total_categorized})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
         @self.app.route('/insights')
         def insights():
             """AI-powered industry insights page"""
@@ -699,6 +985,11 @@ class WirelessMonitor:
         conn.close()
         
         logger.info(f"RSS fetch completed: {total_new_articles} new articles")
+        
+        # Automatically analyze new articles for event relevance
+        if total_new_articles > 0:
+            self.analyze_articles_for_events()
+        
         return total_new_articles
     
     def calculate_relevance_score(self, text):
@@ -721,6 +1012,68 @@ class WirelessMonitor:
         importance_boost = min(important_matches * 0.1, 0.2)  # Up to 0.2 boost
         
         return min(base_score + importance_boost, 1.0)
+    
+    def analyze_articles_for_events(self):
+        """Automatically analyze articles for event relevance"""
+        try:
+            conn = self.get_db_connection()
+            
+            # Get active events
+            events = conn.execute('''
+                SELECT * FROM industry_events 
+                WHERE active = 1 
+                AND date(start_date) <= date('now', '+14 days')
+                AND date(end_date) >= date('now', '-7 days')
+            ''').fetchall()
+            
+            if not events:
+                conn.close()
+                return
+            
+            total_categorized = 0
+            
+            for event in events:
+                # Get hashtags/keywords for this event
+                hashtags = event['hashtags'].split(',') if event['hashtags'] else []
+                keywords = [tag.replace('#', '').lower().strip() for tag in hashtags]
+                
+                if not keywords:
+                    continue
+                
+                # Find recent articles that match event keywords
+                for keyword in keywords[:8]:  # Limit to first 8 keywords for performance
+                    articles = conn.execute('''
+                        SELECT id, title, description, relevance_score
+                        FROM articles
+                        WHERE (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)
+                        AND DATE(published_date) >= DATE(?, '-3 days')
+                        AND DATE(published_date) <= DATE(?, '+7 days')
+                        AND id NOT IN (SELECT article_id FROM event_articles WHERE event_id = ?)
+                        AND created_at >= datetime('now', '-1 hour')
+                    ''', (f'%{keyword}%', f'%{keyword}%', event['start_date'], event['end_date'], event['id'])).fetchall()
+                    
+                    for article in articles:
+                        # Calculate event relevance score
+                        title_matches = sum(1 for kw in keywords if kw in article['title'].lower())
+                        desc_matches = sum(1 for kw in keywords if kw in (article['description'] or '').lower())
+                        
+                        event_relevance = min((title_matches * 0.4 + desc_matches * 0.3) / len(keywords), 1.0)
+                        
+                        if event_relevance > 0.15:  # Only add if reasonably relevant
+                            conn.execute('''
+                                INSERT INTO event_articles (event_id, article_id, relevance_score)
+                                VALUES (?, ?, ?)
+                            ''', (event['id'], article['id'], event_relevance))
+                            total_categorized += 1
+            
+            conn.commit()
+            conn.close()
+            
+            if total_categorized > 0:
+                logger.info(f"Auto-categorized {total_categorized} articles for events")
+                
+        except Exception as e:
+            logger.error(f"Error analyzing articles for events: {e}")
     
     def get_ai_insights(self, articles):
         """Get AI insights from cache or generate new ones"""

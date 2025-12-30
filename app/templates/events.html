@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Industry Events - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+    <h2>🎪 Current Industry Events</h2>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="analyzeEventArticles()" class="btn">🔍 Analyze Event Coverage</button>
+    </div>
+</div>
+
+<div id="analysis-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
+
+{% if events %}
+    {% for event in events %}
+    <div class="{% if view_mode == 'reader' %}article{% else %}article{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% else %}border: 2px solid #e1e5e9; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: linear-gradient(135deg, #f8f9fa, #ffffff);{% endif %}">
+        <div style="display: flex; justify-content: between; align-items: flex-start; gap: 20px;">
+            <div style="flex: 1;">
+                <h3 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1.1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: #000; margin-bottom: 15px;{% endif %}">
+                    <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" style="{% if view_mode == 'reader' %}color: #1155cc; text-decoration: none;{% else %}color: #000; text-decoration: none;{% endif %}">
+                        {{ event.name }}
+                    </a>
+                </h3>
+                
+                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.8rem; color: #999; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #7f8c8d; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;{% endif %}">
+                    <span><strong>📅 Dates:</strong> {{ event.start_date }} to {{ event.end_date }}</span>
+                    <span><strong>📍 Location:</strong> {{ event.location }}</span>
+                    <span style="background: #dc3545; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">🔴 LIVE EVENT</span>
+                </div>
+                
+                <p style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.5; color: #666; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.6; color: #34495e; margin-bottom: 15px;{% endif %}">
+                    {{ event.description }}
+                </p>
+                
+                {% if event.hashtags %}
+                <div style="margin-top: 10px;">
+                    <strong style="{% if view_mode == 'reader' %}font-size: 0.8rem; color: #999;{% else %}font-size: 0.9rem; color: #7f8c8d;{% endif %}">Hashtags:</strong>
+                    <div style="margin-top: 5px;">
+                        {% for hashtag in event.hashtags.split(',')[:8] %}
+                        <span style="display: inline-block; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin: 2px 4px 2px 0; font-family: 'Inter', sans-serif;">{{ hashtag.strip() }}</span>
+                        {% endfor %}
+                        {% if event.hashtags.split(',')|length > 8 %}
+                        <span style="color: #7f8c8d; font-size: 0.75rem;">+{{ event.hashtags.split(',')|length - 8 }} more</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div style="{% if view_mode == 'reader' %}margin-left: 15px;{% else %}margin-left: 20px;{% endif %}">
+                <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px;{% else %}font-size: 0.9rem; padding: 10px 20px;{% endif %}">
+                    📰 View Coverage
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
+        <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">🎪 No Current Events</h3>
+        <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+            No major industry events are currently happening or scheduled within the next 2 weeks.
+        </p>
+    </div>
+{% endif %}
+
+<script>
+async function analyzeEventArticles() {
+    const statusDiv = document.getElementById('analysis-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Analyzing...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🔍 Analyzing articles for event coverage...</div>';
+    
+    try {
+        const response = await fetch('/api/analyze_event_articles', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ Successfully categorized ${data.categorized} articles for current events!</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔍 Analyze Event Coverage';
+    }
+}
+</script>
+{% endblock %}
