@@ -69,7 +69,23 @@ source venv/bin/activate
 # Install Python dependencies
 print_status "Installing Python packages from requirements.txt..."
 pip install --upgrade pip
-pip install -r requirements.txt
+
+# Check Python version for compatibility
+PYTHON_VERSION=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+print_status "Detected Python version: $PYTHON_VERSION"
+
+if [[ "$PYTHON_VERSION" == "3.13" ]]; then
+    print_warning "Python 3.13 detected - using compatible package versions"
+    # Install packages individually for better compatibility
+    pip install "Flask>=3.0.0"
+    pip install "requests>=2.31.0"
+    pip install "feedparser>=6.0.11"
+    pip install "beautifulsoup4>=4.12.0"
+    pip install "schedule>=1.2.0"
+else
+    # Use requirements.txt for other Python versions
+    pip install -r requirements.txt
+fi
 
 # Create directories
 print_status "Creating data and log directories..."
