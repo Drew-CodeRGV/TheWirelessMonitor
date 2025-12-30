@@ -31,20 +31,34 @@
     <article class="article">
         <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
         <div class="article-meta">
-            Published: {{ story.published_date[:16] }}
+            {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+            <span class="feed-source" style="border-color: {{ color }};">
+                <span style="color: {{ color }};">{{ icon }}</span>
+                {{ story.feed_name }}
+            </span>
+            <span>Published: {{ story.published_date[:16] }}</span>
             <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
                 {{ "%.0f"|format(story.relevance_score * 100) }}% Relevant
             </span>
             {% if story.relevance_score < 0.3 %}
-                <span style="font-size: 0.75rem; color: #e74c3c; margin-left: 8px;">⚠️ Low Relevance</span>
+                <span style="font-size: 0.75rem; color: #e74c3c;">⚠️ Low Relevance</span>
             {% endif %}
         </div>
-        <p>{{ story.description[:400] }}{% if story.description|length > 400 %}...{% endif %}</p>
+        
+        {% if story.content and story.content|length > 100 %}
+            <p>{{ story.content[:500] }}{% if story.content|length > 500 %}...{% endif %}</p>
+        {% elif story.description %}
+            <p>{{ story.description[:400] }}{% if story.description|length > 400 %}...{% endif %}</p>
+        {% else %}
+            <p style="color: #7f8c8d; font-style: italic;">No content preview available</p>
+        {% endif %}
         
         {% if show_all and story.relevance_score < 0.5 %}
-        <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 8px; font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %};">
+        <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 8px; font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %};">
             <strong>Why low relevance?</strong> 
-            {% if story.relevance_score < 0.1 %}
+            {% if story.wifi_keywords %}
+                Found keywords: {{ story.wifi_keywords }}
+            {% elif story.relevance_score < 0.1 %}
                 No wireless technology keywords found in title or description.
             {% elif story.relevance_score < 0.3 %}
                 Few wireless technology keywords detected.
@@ -57,8 +71,8 @@
     {% endfor %}
 {% else %}
     <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
-        <h3 style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Times New Roman', serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📡 No Stories Available</h3>
-        <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+        <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📡 No Stories Available</h3>
+        <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
             {% if total_articles > 0 %}
                 Found {{ total_articles }} articles but none meet the relevance threshold. 
                 <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2980b9; text-decoration: underline;">Show all articles</a>

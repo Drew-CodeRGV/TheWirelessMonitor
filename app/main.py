@@ -69,6 +69,9 @@ class WirelessMonitor:
         # Setup scheduler
         self.setup_scheduler()
         
+        # Add template functions
+        self.setup_template_functions()
+        
         # Wi-Fi keywords for relevance scoring
         self.wifi_keywords = [
             'wifi', 'wi-fi', 'wireless', '802.11', 'bluetooth', '5g', '6g', 'lte',
@@ -112,6 +115,17 @@ class WirelessMonitor:
                 FOREIGN KEY (feed_id) REFERENCES rss_feeds (id)
             )
         ''')
+        
+        # Add new columns if they don't exist (for existing databases)
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN content TEXT')
+        except sqlite3.OperationalError:
+            pass  # Column already exists
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN wifi_keywords TEXT')
+        except sqlite3.OperationalError:
+            pass  # Column already exists
         
         # System settings table
         conn.execute('''
@@ -170,35 +184,43 @@ class WirelessMonitor:
             if show_all:
                 # Show all articles regardless of relevance
                 stories = conn.execute('''
-                    SELECT * FROM articles 
-                    WHERE DATE(published_date) = ?
-                    ORDER BY relevance_score DESC, published_date DESC
+                    SELECT a.*, f.name as feed_name, f.url as feed_url
+                    FROM articles a 
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE DATE(a.published_date) = ?
+                    ORDER BY a.relevance_score DESC, a.published_date DESC
                     LIMIT 100
                 ''', (today,)).fetchall()
                 
                 # Get recent stories if no stories today
                 if not stories:
                     stories = conn.execute('''
-                        SELECT * FROM articles 
-                        WHERE DATE(published_date) >= DATE('now', '-3 days')
-                        ORDER BY relevance_score DESC, published_date DESC
+                        SELECT a.*, f.name as feed_name, f.url as feed_url
+                        FROM articles a 
+                        JOIN rss_feeds f ON a.feed_id = f.id
+                        WHERE DATE(a.published_date) >= DATE('now', '-3 days')
+                        ORDER BY a.relevance_score DESC, a.published_date DESC
                         LIMIT 100
                     ''').fetchall()
             else:
                 # Show only relevant articles (score > 0.3)
                 stories = conn.execute('''
-                    SELECT * FROM articles 
-                    WHERE DATE(published_date) = ? AND relevance_score > 0.3
-                    ORDER BY relevance_score DESC, published_date DESC
+                    SELECT a.*, f.name as feed_name, f.url as feed_url
+                    FROM articles a 
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE DATE(a.published_date) = ? AND a.relevance_score > 0.3
+                    ORDER BY a.relevance_score DESC, a.published_date DESC
                     LIMIT 20
                 ''', (today,)).fetchall()
                 
                 # Get recent stories if no stories today
                 if not stories:
                     stories = conn.execute('''
-                        SELECT * FROM articles 
-                        WHERE DATE(published_date) >= DATE('now', '-3 days') AND relevance_score > 0.3
-                        ORDER BY relevance_score DESC, published_date DESC
+                        SELECT a.*, f.name as feed_name, f.url as feed_url
+                        FROM articles a 
+                        JOIN rss_feeds f ON a.feed_id = f.id
+                        WHERE DATE(a.published_date) >= DATE('now', '-3 days') AND a.relevance_score > 0.3
+                        ORDER BY a.relevance_score DESC, a.published_date DESC
                         LIMIT 20
                     ''').fetchall()
             
@@ -446,7 +468,25 @@ class WirelessMonitor:
                     
                     # Extract article data
                     title = entry.get('title', 'No Title')
-                    description = entry.get('summary', '')
+                    
+                    # Clean up description/summary - remove HTML tags
+                    description = entry.get('summary', entry.get('description', ''))
+                    if description:
+                        # Remove HTML tags and decode entities
+                        from bs4 import BeautifulSoup
+                        soup = BeautifulSoup(description, 'html.parser')
+                        description = soup.get_text().strip()
+                        # Remove extra whitespace
+                        description = ' '.join(description.split())
+                    
+                    # Try to get full content if available
+                    content = ''
+                    if hasattr(entry, 'content') and entry.content:
+                        content_html = entry.content[0].value if isinstance(entry.content, list) else entry.content
+                        soup = BeautifulSoup(content_html, 'html.parser')
+                        content = soup.get_text().strip()
+                        content = ' '.join(content.split())
+                    
                     published = entry.get('published_parsed')
                     
                     if published:
@@ -455,15 +495,19 @@ class WirelessMonitor:
                         published_date = datetime.now()
                     
                     # Calculate relevance score
-                    text = f"{title} {description}".lower()
+                    text = f"{title} {description} {content}".lower()
                     relevance_score = self.calculate_relevance_score(text)
                     
+                    # Extract keywords found for debugging
+                    found_keywords = [kw for kw in self.wifi_keywords if kw in text]
+                    keywords_str = ', '.join(found_keywords[:5])  # Store first 5 keywords found
+                    
                     # Only store articles with some relevance
-                    if relevance_score > 0.1:
+                    if relevance_score > 0.05:  # Lower threshold to capture more articles
                         conn.execute('''
-                            INSERT INTO articles (feed_id, title, url, description, published_date, relevance_score)
-                            VALUES (?, ?, ?, ?, ?, ?)
-                        ''', (feed['id'], title, entry.link, description, published_date, relevance_score))
+                            INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        ''', (feed['id'], title, entry.link, description, content, published_date, relevance_score, keywords_str))
                         
                         total_new_articles += 1
                 
@@ -513,6 +557,37 @@ class WirelessMonitor:
         
         if deleted > 0:
             logger.info(f"Cleaned up {deleted} old articles")
+    
+    def setup_template_functions(self):
+        """Setup template helper functions"""
+        def get_feed_icon(feed_name, feed_url):
+            """Get appropriate icon for feed source"""
+            feed_name_lower = feed_name.lower()
+            feed_url_lower = feed_url.lower()
+            
+            # Google News
+            if 'google' in feed_name_lower or 'news.google.com' in feed_url_lower:
+                return '🔍', '#4285f4'
+            # Tech sites
+            elif 'techcrunch' in feed_name_lower or 'techcrunch.com' in feed_url_lower:
+                return '🚀', '#0f7b0f'
+            elif 'verge' in feed_name_lower or 'theverge.com' in feed_url_lower:
+                return '⚡', '#fa4b2a'
+            elif 'ars technica' in feed_name_lower or 'arstechnica.com' in feed_url_lower:
+                return '🔬', '#ff6600'
+            elif 'ieee' in feed_name_lower or 'ieee.org' in feed_url_lower:
+                return '⚙️', '#00629b'
+            # Wireless specific
+            elif 'wireless' in feed_name_lower or 'wi-fi' in feed_name_lower:
+                return '📡', '#2980b9'
+            elif 'mobile' in feed_name_lower or 'cellular' in feed_name_lower:
+                return '📱', '#e74c3c'
+            # Default
+            else:
+                return '📰', '#7f8c8d'
+        
+        # Make function available to templates
+        self.app.jinja_env.globals['get_feed_icon'] = get_feed_icon
     
     def setup_scheduler(self):
         """Setup background task scheduler"""

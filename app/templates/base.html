@@ -38,10 +38,10 @@
         }
         
         .header h1 {
-            font-family: 'Times New Roman', serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 3.5rem;
-            font-weight: bold;
-            letter-spacing: 3px;
+            font-weight: 800;
+            letter-spacing: -1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             margin-bottom: 10px;
         }
@@ -50,9 +50,9 @@
             font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
             font-weight: 300;
-            font-style: italic;
+            font-style: normal;
             opacity: 0.9;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         /* Navigation */
@@ -86,7 +86,7 @@
             color: #d4af37;
         }
         
-        /* Main Content - Newspaper Style */
+        /* Main Content - Modern Style */
         .main-content {
             background: white;
             margin: 25px 0;
@@ -96,14 +96,13 @@
         }
         
         /* Headlines and Typography */
-        h1 {
-            font-family: 'Times New Roman', serif;
+        h1, h2, h3, h4 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         h2 {
-            font-family: 'Times New Roman', serif;
             font-size: 2.2rem;
-            font-weight: bold;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 25px;
             padding-bottom: 10px;
@@ -111,22 +110,20 @@
         }
         
         h3 {
-            font-family: 'Times New Roman', serif;
             font-size: 1.6rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 15px;
         }
         
         h4 {
-            font-family: 'Times New Roman', serif;
             font-size: 1.3rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #2c3e50;
             margin-bottom: 12px;
         }
         
-        /* Article Styling - Newspaper Columns */
+        /* Article Styling - Modern Layout */
         .article {
             border-bottom: 2px solid #e9ecef;
             padding: 25px 0;
@@ -139,9 +136,9 @@
         }
         
         .article h3 {
-            font-family: 'Times New Roman', serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 1.8rem;
-            font-weight: bold;
+            font-weight: 600;
             line-height: 1.3;
             margin-bottom: 12px;
             color: #1a1a1a;
@@ -163,7 +160,6 @@
             line-height: 1.7;
             color: #34495e;
             margin-bottom: 15px;
-            text-align: justify;
         }
         
         .article-meta {
@@ -172,22 +168,40 @@
             color: #7f8c8d;
             margin-bottom: 12px;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .feed-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        .feed-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            display: inline-block;
         }
         
         .relevance-score {
             display: inline-block;
-            background: linear-gradient(135deg, #2980b9, #3498db);
             color: white;
             padding: 4px 10px;
             border-radius: 15px;
             font-size: 0.75rem;
-            margin-left: 10px;
             font-weight: 600;
             font-family: 'Inter', sans-serif;
-            text-transform: none;
-            letter-spacing: 0;
         }
         
         /* Modern Buttons */
@@ -365,17 +379,17 @@
         }
         
         .reader-mode .header h1 {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 2.2rem;
-            font-weight: normal;
-            letter-spacing: 0;
+            font-weight: 600;
+            letter-spacing: -0.5px;
             text-shadow: none;
         }
         
         .reader-mode .header .tagline {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
-            font-weight: normal;
+            font-weight: 400;
             font-style: normal;
             opacity: 0.9;
         }
@@ -388,8 +402,8 @@
         
         .reader-mode .nav a {
             color: #333;
-            font-family: 'Arial', sans-serif;
-            font-weight: normal;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
             font-size: 0.9rem;
             padding: 12px 20px;
             border-right: 1px solid #ddd;
@@ -409,9 +423,9 @@
         }
         
         .reader-mode h2 {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #333;
             margin: 0;
             padding: 15px 20px;
