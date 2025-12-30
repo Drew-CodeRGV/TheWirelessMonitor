@@ -3,29 +3,29 @@
 {% block title %}The Wireless Monitor - Today's Headlines{% endblock %}
 
 {% block content %}
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
     <h2>📰 Today's Wireless Technology Headlines</h2>
     <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
 </div>
 
-<div id="fetch-status" style="margin-bottom: 20px;"></div>
+<div id="fetch-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
 
 {% if stories %}
     {% for story in stories %}
-    <div class="article">
+    <article class="article">
         <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
         <div class="article-meta">
             Published: {{ story.published_date[:16] }}
             <span class="relevance-score">{{ "%.0f"|format(story.relevance_score * 100) }}% Relevant</span>
         </div>
-        <p>{{ story.description[:300] }}{% if story.description|length > 300 %}...{% endif %}</p>
-    </div>
+        <p>{{ story.description[:400] }}{% if story.description|length > 400 %}...{% endif %}</p>
+    </article>
     {% endfor %}
 {% else %}
-    <div style="text-align: center; padding: 50px; color: #666;">
-        <h3>📡 No stories found for today</h3>
-        <p>Click "Fetch Now" to get the latest wireless technology news</p>
-        <button onclick="fetchNow()" class="btn" style="margin-top: 20px;">🔄 Fetch RSS Feeds</button>
+    <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
+        <h3 style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Times New Roman', serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📡 No Stories Available</h3>
+        <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">Click "Fetch Now" to get the latest wireless technology news from your RSS feeds</p>
+        <button onclick="fetchNow()" class="btn" style="font-size: {% if view_mode == 'reader' %}0.9rem; padding: 8px 16px{% else %}1.1rem; padding: 15px 30px{% endif %};">🔄 Fetch RSS Feeds</button>
     </div>
 {% endif %}
 

@@ -5,9 +5,9 @@
 {% block content %}
 <h2>📡 RSS Feed Management</h2>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
-    <div>
-        <h3>Add Single RSS Feed</h3>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 35px;">
+    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
+        <h3 style="margin-bottom: 20px; color: #2c3e50;">Add Single RSS Feed</h3>
         <form method="POST" action="{{ url_for('add_feed') }}">
             <div class="form-group">
                 <label for="name">Feed Name:</label>
@@ -21,27 +21,27 @@
         </form>
     </div>
     
-    <div>
-        <h3>Bulk Import RSS Feeds</h3>
+    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
+        <h3 style="margin-bottom: 20px; color: #2c3e50;">Bulk Import RSS Feeds</h3>
         <form method="POST" action="{{ url_for('bulk_import') }}">
             <div class="form-group">
                 <label for="urls">RSS URLs (one per line):</label>
-                <textarea id="urls" name="urls" rows="8" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.9rem;" placeholder="https://example1.com/feed.xml
+                <textarea id="urls" name="urls" rows="6" placeholder="https://example1.com/feed.xml
 https://example2.com/rss
 https://example3.com/feed"></textarea>
             </div>
             <button type="submit" class="btn">📥 Bulk Import</button>
         </form>
-        <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+        <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 12px; font-family: 'Inter', sans-serif;">
             Feed names will be automatically detected from the RSS feeds
         </p>
     </div>
 </div>
 
-<div style="margin-top: 30px;">
-    <h3>Quick Add Suggestions</h3>
-    <p style="margin-bottom: 15px;">Popular wireless technology feeds:</p>
-    <div style="font-size: 0.9rem; line-height: 1.8; background: #f8f9fa; padding: 15px; border-radius: 5px;">
+<div style="margin-top: 35px; background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
+    <h3 style="margin-bottom: 20px; color: #2c3e50;">Quick Add Suggestions</h3>
+    <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e;">Popular wireless technology feeds:</p>
+    <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
         <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
         <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
         <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
@@ -50,29 +50,29 @@ https://example3.com/feed"></textarea>
     </div>
 </div>
 
-<h3 style="margin-top: 40px;">Current RSS Feeds</h3>
+<h3 style="margin-top: 45px; margin-bottom: 25px;">Current RSS Feeds</h3>
 
 {% if feeds %}
-<div style="margin-top: 20px;">
+<div style="margin-top: 25px;">
     {% for feed in feeds %}
-    <div class="article" style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="article" style="display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #e9ecef;">
         <div style="flex: 1;">
-            <h4 style="margin-bottom: 5px;">
+            <h4 style="margin-bottom: 8px; font-family: 'Inter', sans-serif; font-weight: 600;">
                 {% if feed.active %}
-                    ✅ {{ feed.name }}
+                    <span style="color: #27ae60;">✅</span> {{ feed.name }}
                 {% else %}
-                    ❌ {{ feed.name }} (Disabled)
+                    <span style="color: #e74c3c;">❌</span> {{ feed.name }} <span style="color: #7f8c8d; font-weight: 400;">(Disabled)</span>
                 {% endif %}
             </h4>
-            <div style="font-size: 0.9rem; color: #666;">
-                <strong>URL:</strong> {{ feed.url }}<br>
+            <div style="font-size: 0.9rem; color: #7f8c8d; font-family: 'Inter', sans-serif; line-height: 1.5;">
+                <strong>URL:</strong> <span style="word-break: break-all;">{{ feed.url }}</span><br>
                 <strong>Last Fetched:</strong> {{ feed.last_fetched or 'Never' }}
             </div>
         </div>
-        <div>
+        <div style="margin-left: 20px;">
             <a href="{{ url_for('toggle_feed', feed_id=feed.id) }}" 
                class="btn {% if feed.active %}btn-danger{% endif %}" 
-               style="margin-left: 10px;">
+               style="white-space: nowrap;">
                 {% if feed.active %}🔇 Disable{% else %}🔊 Enable{% endif %}
             </a>
         </div>
@@ -80,9 +80,9 @@ https://example3.com/feed"></textarea>
     {% endfor %}
 </div>
 {% else %}
-<div style="text-align: center; padding: 50px; color: #666;">
-    <h3>📡 No RSS feeds configured</h3>
-    <p>Add your first RSS feed using the forms above</p>
+<div style="text-align: center; padding: 60px 20px; color: #7f8c8d; background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;">
+    <h3 style="font-family: 'Times New Roman', serif; font-size: 2rem; margin-bottom: 15px; color: #2c3e50;">📡 No RSS Feeds Configured</h3>
+    <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">Add your first RSS feed using the forms above</p>
 </div>
 {% endif %}
 

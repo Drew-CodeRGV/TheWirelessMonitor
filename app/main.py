@@ -160,6 +160,9 @@ class WirelessMonitor:
         def index():
             conn = self.get_db_connection()
             
+            # Get view mode from query parameter (default to newspaper)
+            view_mode = request.args.get('view', 'newspaper')
+            
             # Get today's top stories
             today = datetime.now().strftime('%Y-%m-%d')
             stories = conn.execute('''
@@ -179,19 +182,21 @@ class WirelessMonitor:
                 ''').fetchall()
             
             conn.close()
-            return render_template('index.html', stories=stories, date=today)
+            return render_template('index.html', stories=stories, date=today, view_mode=view_mode)
         
         @self.app.route('/feeds')
         def manage_feeds():
             conn = self.get_db_connection()
             feeds = conn.execute('SELECT * FROM rss_feeds ORDER BY name').fetchall()
+            view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('feeds.html', feeds=feeds)
+            return render_template('feeds.html', feeds=feeds, view_mode=view_mode)
         
         @self.app.route('/add_feed', methods=['POST'])
         def add_feed():
             name = request.form['name']
             url = request.form['url']
+            view_mode = request.args.get('view', 'newspaper')
             
             conn = self.get_db_connection()
             try:
@@ -203,12 +208,13 @@ class WirelessMonitor:
             finally:
                 conn.close()
             
-            return redirect(url_for('manage_feeds'))
+            return redirect(url_for('manage_feeds', view=view_mode))
         
         @self.app.route('/bulk_import', methods=['POST'])
         def bulk_import():
             urls_text = request.form['urls']
             urls = [url.strip() for url in urls_text.split('\n') if url.strip()]
+            view_mode = request.args.get('view', 'newspaper')
             
             conn = self.get_db_connection()
             added_count = 0
@@ -246,7 +252,7 @@ class WirelessMonitor:
             if error_count > 0:
                 flash(f'{error_count} feeds could not be added (duplicates or invalid URLs)', 'error')
             
-            return redirect(url_for('manage_feeds'))
+            return redirect(url_for('manage_feeds', view=view_mode))
         
         @self.app.route('/toggle_feed/<int:feed_id>')
         def toggle_feed(feed_id):
@@ -254,7 +260,8 @@ class WirelessMonitor:
             conn.execute('UPDATE rss_feeds SET active = CASE WHEN active = 1 THEN 0 ELSE 1 END WHERE id = ?', (feed_id,))
             conn.commit()
             conn.close()
-            return redirect(url_for('manage_feeds'))
+            view_mode = request.args.get('view', 'newspaper')
+            return redirect(url_for('manage_feeds', view=view_mode))
         
         @self.app.route('/admin')
         def admin():
@@ -265,8 +272,9 @@ class WirelessMonitor:
                 'active_feeds': conn.execute('SELECT COUNT(*) FROM rss_feeds WHERE active = 1').fetchone()[0],
                 'articles_today': conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) = DATE("now")').fetchone()[0],
             }
+            view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('admin.html', stats=stats)
+            return render_template('admin.html', stats=stats, view_mode=view_mode)
         
         @self.app.route('/api/fetch_now')
         def fetch_now():
