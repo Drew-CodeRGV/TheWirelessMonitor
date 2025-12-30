@@ -186,9 +186,9 @@
     <div id="fetch-status" style="margin-bottom: 25px;"></div>
 
     {% if stories %}
-        <!-- Al Jazeera Style Layout: Two Hero Stories + Top Stories Column -->
-        <div class="hero-layout" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-bottom: 40px;">
-            <!-- Left: Primary Hero Story -->
+        <!-- Al Jazeera Style Layout: Hero Story + Two Top Stories Columns -->
+        <div class="hero-layout" style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <!-- Left: Hero Story (Al Jazeera Style) -->
             <div class="hero-section">
                 {% set hero_article = stories[0] %}
                 <article class="hero-article" style="position: relative;">
@@ -196,20 +196,20 @@
                     <div class="hero-image" style="position: relative; margin-bottom: 20px;">
                         {% if hero_article.image_url %}
                             <img src="{{ hero_article.image_url }}" alt="{{ hero_article.title }}" 
-                                 style="width: 100%; height: 350px; object-fit: cover; border-radius: 0;">
+                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 0;">
                         {% else %}
-                            <div class="hero-image-placeholder" data-article-id="{{ hero_article.id }}" style="width: 100%; height: 350px; background: linear-gradient(135deg, #2c3e50, #34495e); border-radius: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all 0.3s ease;" 
+                            <div class="hero-image-placeholder" data-article-id="{{ hero_article.id }}" style="width: 100%; height: 400px; background: linear-gradient(135deg, #2c3e50, #34495e); border-radius: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all 0.3s ease;" 
                                  onclick="generateArticleImage({{ hero_article.id }}, this)">
                                 <div style="text-align: center; color: white;">
-                                    <div style="font-size: 2.5rem; margin-bottom: 12px;">🎨</div>
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Generate Hero Image</div>
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-bottom: 8px;">Professional news-style imagery</div>
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; opacity: 0.8;">Click to generate</div>
+                                    <div style="font-size: 3rem; margin-bottom: 15px;">🎨</div>
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">Generate Hero Image</div>
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 10px;">Professional news-style imagery</div>
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; opacity: 0.8;">Click to generate</div>
                                 </div>
                             </div>
                         {% endif %}
                         
-                        <!-- Category Badge -->
+                        <!-- Category Badge (Al Jazeera Style) -->
                         <div style="position: absolute; top: 15px; left: 15px;">
                             {% if hero_article.event_name %}
                                 <span style="background: #9c27b0; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -238,29 +238,29 @@
                             {{ hero_article.feed_name }} • {{ hero_article.published_date[:16] }}
                         </div>
                         
-                        <h1 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 15px; color: #2c3e50;">
+                        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 15px; color: #2c3e50;">
                             <a href="{{ hero_article.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ hero_article.title }}</a>
                         </h1>
                         
                         {% if hero_article.content and hero_article.content|length > 100 %}
-                            <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
-                                {{ hero_article.content[:200] }}{% if hero_article.content|length > 200 %}...{% endif %}
+                            <p style="font-size: 1.1rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
+                                {{ hero_article.content[:300] }}{% if hero_article.content|length > 300 %}...{% endif %}
                             </p>
                         {% elif hero_article.description %}
-                            <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
-                                {{ hero_article.description[:180] }}{% if hero_article.description|length > 180 %}...{% endif %}
+                            <p style="font-size: 1.1rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
+                                {{ hero_article.description[:280] }}{% if hero_article.description|length > 280 %}...{% endif %}
                             </p>
                         {% endif %}
                         
                         <!-- Hero Actions -->
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <a href="{{ hero_article.url }}" target="_blank" class="btn" style="background: #2c3e50; color: white; font-size: 0.85rem; padding: 8px 16px; text-decoration: none; font-weight: 600;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <a href="{{ hero_article.url }}" target="_blank" class="btn" style="background: #2c3e50; color: white; font-size: 0.9rem; padding: 10px 20px; text-decoration: none; font-weight: 600;">
                                 Read Full Story
                             </a>
-                            <button onclick="shareArticle({{ hero_article.id }})" class="btn" style="background: #1da1f2; font-size: 0.8rem; padding: 6px 12px;">
+                            <button onclick="shareArticle({{ hero_article.id }})" class="btn" style="background: #1da1f2; font-size: 0.85rem; padding: 8px 16px;">
                                 📤 Share
                             </button>
-                            <button onclick="addToDigest({{ hero_article.id }})" class="btn" style="background: #ff6b35; font-size: 0.8rem; padding: 6px 12px;">
+                            <button onclick="addToDigest({{ hero_article.id }})" class="btn" style="background: #ff6b35; font-size: 0.85rem; padding: 8px 16px;">
                                 📋 Digest
                             </button>
                         </div>
@@ -268,152 +268,126 @@
                 </article>
             </div>
             
-            <!-- Center: Secondary Hero Story -->
-            <div class="hero-section">
-                {% if stories|length > 1 %}
-                    {% set secondary_hero = stories[1] %}
-                    <article class="hero-article" style="position: relative;">
-                        <!-- Secondary Hero Image -->
-                        <div class="hero-image" style="position: relative; margin-bottom: 20px;">
-                            {% if secondary_hero.image_url %}
-                                <img src="{{ secondary_hero.image_url }}" alt="{{ secondary_hero.title }}" 
-                                     style="width: 100%; height: 350px; object-fit: cover; border-radius: 0;">
-                            {% else %}
-                                <div class="hero-image-placeholder" data-article-id="{{ secondary_hero.id }}" style="width: 100%; height: 350px; background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all 0.3s ease;" 
-                                     onclick="generateArticleImage({{ secondary_hero.id }}, this)">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🎨</div>
-                                        <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Generate Hero Image</div>
-                                        <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-bottom: 8px;">Professional news-style imagery</div>
-                                        <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; opacity: 0.8;">Click to generate</div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            
-                            <!-- Category Badge -->
-                            <div style="position: absolute; top: 15px; left: 15px;">
-                                {% if secondary_hero.event_name %}
-                                    <span style="background: #9c27b0; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-                                        🎪 {{ secondary_hero.event_name }}
-                                    </span>
-                                {% else %}
-                                    <span style="background: #3498db; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-                                        WIRELESS TECH
-                                    </span>
-                                {% endif %}
-                            </div>
-                            
-                            <!-- Relevance Score Badge -->
-                            <div style="position: absolute; top: 15px; right: 15px;">
-                                <span style="{% if secondary_hero.relevance_score < 0.3 %}background: #e74c3c;{% elif secondary_hero.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 4px 8px; font-size: 0.7rem; font-weight: 600; border-radius: 3px;">
-                                    {{ "%.0f"|format(secondary_hero.relevance_score * 100) }}%
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- Secondary Hero Content -->
-                        <div class="hero-content">
-                            <div class="hero-meta" style="margin-bottom: 12px; font-size: 0.85rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500;">
-                                {% set icon, color = get_feed_icon(secondary_hero.feed_name, secondary_hero.feed_url) %}
-                                <span style="color: {{ color }};">{{ icon }}</span>
-                                {{ secondary_hero.feed_name }} • {{ secondary_hero.published_date[:16] }}
-                            </div>
-                            
-                            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 15px; color: #2c3e50;">
-                                <a href="{{ secondary_hero.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ secondary_hero.title }}</a>
-                            </h2>
-                            
-                            {% if secondary_hero.content and secondary_hero.content|length > 100 %}
-                                <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
-                                    {{ secondary_hero.content[:200] }}{% if secondary_hero.content|length > 200 %}...{% endif %}
-                                </p>
-                            {% elif secondary_hero.description %}
-                                <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
-                                    {{ secondary_hero.description[:180] }}{% if secondary_hero.description|length > 180 %}...{% endif %}
-                                </p>
-                            {% endif %}
-                            
-                            <!-- Secondary Hero Actions -->
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <a href="{{ secondary_hero.url }}" target="_blank" class="btn" style="background: #2c3e50; color: white; font-size: 0.85rem; padding: 8px 16px; text-decoration: none; font-weight: 600;">
-                                    Read Full Story
-                                </a>
-                                <button onclick="shareArticle({{ secondary_hero.id }})" class="btn" style="background: #1da1f2; font-size: 0.8rem; padding: 6px 12px;">
-                                    📤 Share
-                                </button>
-                                <button onclick="addToDigest({{ secondary_hero.id }})" class="btn" style="background: #ff6b35; font-size: 0.8rem; padding: 6px 12px;">
-                                    📋 Digest
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                {% endif %}
-            </div>
-            
-            <!-- Right: Top Stories Section -->
-            <div style="display: flex; flex-direction: column;">
+            <!-- Right: Unified Top Stories Section -->
+            <div style="grid-column: 2 / 4; display: flex; flex-direction: column;">
                 <!-- Single Unified Header -->
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: #2c3e50; border-bottom: 2px solid #e52d27; padding-bottom: 8px;">
                     📰 Top Stories
                 </h3>
                 
-                <!-- Single Column for Stories -->
-                <div style="display: grid; grid-template-columns: 1fr; gap: 20px; flex: 1;">
-                    {% set secondary_stories = [] %}
-                    {% for story in stories[2:] %}
-                        {% if not story.event_name and secondary_stories|length < 8 %}
-                            {% set _ = secondary_stories.append(story) %}
-                        {% endif %}
-                    {% endfor %}
-                    
-                    {% for story in secondary_stories %}
-                        <article class="secondary-story" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
-                            <!-- Story Image -->
-                            <div style="width: 100%;">
-                                {% if story.image_url %}
-                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                         style="width: 100%; height: 120px; object-fit: cover; border-radius: 0;">
-                                {% else %}
-                                    <div data-article-id="{{ story.id }}" class="secondary-image-placeholder" style="width: 100%; height: 120px; background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
-                                         onclick="generateArticleImage({{ story.id }}, this)">
-                                        📸<br>Generate
-                                    </div>
+                <!-- Two Column Grid for Stories -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex: 1;">
+                    <!-- Left Column (Stories 2-5) -->
+                    <div class="top-stories-col-1">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                            {% set secondary_stories = [] %}
+                            {% for story in stories[1:] %}
+                                {% if not story.event_name and secondary_stories|length < 20 %}
+                                    {% set _ = secondary_stories.append(story) %}
                                 {% endif %}
-                            </div>
+                            {% endfor %}
                             
-                            <!-- Story Content -->
-                            <div style="flex: 1;">
-                                <div style="margin-bottom: 8px; font-size: 0.7rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
-                                    {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
-                                    <span style="color: {{ color }};">{{ icon }}</span>
-                                    {{ story.feed_name }} • {{ story.published_date[:10] }}
-                                </div>
-                                
-                                <h3 style="font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: #2c3e50;">
-                                    <a href="{{ story.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ story.title }}</a>
-                                </h3>
-                                
-                                {% if story.description %}
-                                    <p style="font-size: 0.8rem; line-height: 1.4; color: #666; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                                        {{ story.description[:80] }}{% if story.description|length > 80 %}...{% endif %}
-                                    </p>
-                                {% endif %}
-                                
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 3px 6px; font-size: 0.65rem; font-weight: 600; border-radius: 3px;">
-                                        {{ "%.0f"|format(story.relevance_score * 100) }}%
-                                    </span>
-                                    <div style="display: flex; gap: 4px;">
-                                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.65rem; padding: 3px 6px;">📤</button>
-                                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.65rem; padding: 3px 6px;">📋</button>
+                            {% for story in secondary_stories[:4] %}
+                                <article class="secondary-story" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
+                                    <!-- Story Image -->
+                                    <div style="width: 100%;">
+                                        {% if story.image_url %}
+                                            <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                                 style="width: 100%; height: 140px; object-fit: cover; border-radius: 0;">
+                                        {% else %}
+                                            <div data-article-id="{{ story.id }}" class="secondary-image-placeholder" style="width: 100%; height: 140px; background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
+                                                 onclick="generateArticleImage({{ story.id }}, this)">
+                                                📸<br>Generate
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                </div>
-                            </div>
-                        </article>
-                    {% endfor %}
+                                    
+                                    <!-- Story Content -->
+                                    <div style="flex: 1;">
+                                        <div style="margin-bottom: 8px; font-size: 0.7rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                                            <span style="color: {{ color }};">{{ icon }}</span>
+                                            {{ story.feed_name }} • {{ story.published_date[:10] }}
+                                        </div>
+                                        
+                                        <h3 style="font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: #2c3e50;">
+                                            <a href="{{ story.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ story.title }}</a>
+                                        </h3>
+                                        
+                                        {% if story.description %}
+                                            <p style="font-size: 0.8rem; line-height: 1.4; color: #666; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
+                                                {{ story.description[:100] }}{% if story.description|length > 100 %}...{% endif %}
+                                            </p>
+                                        {% endif %}
+                                        
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 3px 6px; font-size: 0.65rem; font-weight: 600; border-radius: 3px;">
+                                                {{ "%.0f"|format(story.relevance_score * 100) }}%
+                                            </span>
+                                            <div style="display: flex; gap: 4px;">
+                                                <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.65rem; padding: 3px 6px;">📤</button>
+                                                <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.65rem; padding: 3px 6px;">📋</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column (Stories 6-9) -->
+                    <div class="top-stories-col-2">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                            {% for story in secondary_stories[4:8] %}
+                                <article class="secondary-story" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
+                                    <!-- Story Image -->
+                                    <div style="width: 100%;">
+                                        {% if story.image_url %}
+                                            <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                                 style="width: 100%; height: 140px; object-fit: cover; border-radius: 0;">
+                                        {% else %}
+                                            <div data-article-id="{{ story.id }}" class="secondary-image-placeholder" style="width: 100%; height: 140px; background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
+                                                 onclick="generateArticleImage({{ story.id }}, this)">
+                                                📸<br>Generate
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Story Content -->
+                                    <div style="flex: 1;">
+                                        <div style="margin-bottom: 8px; font-size: 0.7rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                                            <span style="color: {{ color }};">{{ icon }}</span>
+                                            {{ story.feed_name }} • {{ story.published_date[:10] }}
+                                        </div>
+                                        
+                                        <h3 style="font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: #2c3e50;">
+                                            <a href="{{ story.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ story.title }}</a>
+                                        </h3>
+                                        
+                                        {% if story.description %}
+                                            <p style="font-size: 0.8rem; line-height: 1.4; color: #666; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
+                                                {{ story.description[:100] }}{% if story.description|length > 100 %}...{% endif %}
+                                            </p>
+                                        {% endif %}
+                                        
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 3px 6px; font-size: 0.65rem; font-weight: 600; border-radius: 3px;">
+                                                {{ "%.0f"|format(story.relevance_score * 100) }}%
+                                            </span>
+                                            <div style="display: flex; gap: 4px;">
+                                                <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.65rem; padding: 3px 6px;">📤</button>
+                                                <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.65rem; padding: 3px 6px;">📋</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- More Stories Link -->
+                <!-- Unified More Stories Link -->
                 <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e52d27;">
                     <a href="#more-stories" onclick="document.getElementById('more-stories').scrollIntoView({behavior: 'smooth'})" 
                        style="display: flex; align-items: center; justify-content: center; color: #2c3e50; text-decoration: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 8px 0;">
@@ -422,6 +396,68 @@
                     </a>
                 </div>
             </div>
+        </div>
+        
+        <!-- Event Coverage Row (Between Headlines and More Stories) -->
+        {% set event_articles = [] %}
+        {% for story in stories %}
+            {% if story.event_name %}
+                {% set _ = event_articles.append(story) %}
+            {% endif %}
+        {% endfor %}
+        
+        {% if event_articles %}
+        <div style="background: linear-gradient(135deg, #f8f4ff, #f0ebff); border: 2px solid #9c27b0; border-radius: 12px; padding: 25px; margin-bottom: 40px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #9c27b0; margin: 0; display: flex; align-items: center; gap: 10px;">
+                    🎪 Event Coverage
+                    <span style="font-size: 0.8rem; background: #9c27b0; color: white; padding: 3px 10px; border-radius: 15px; font-weight: 600;">LIVE</span>
+                </h3>
+                <a href="{{ url_for('events', view=view_mode) }}" class="btn" style="background: #9c27b0; font-size: 0.85rem; padding: 8px 16px;">
+                    View All Events
+                </a>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                {% for event_story in event_articles[:6] %}
+                    <article class="event-article" style="background: rgba(255,255,255,0.7); border-radius: 8px; padding: 15px; border: 1px solid #e1c7f7;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 10px;">
+                            <div style="flex-shrink: 0;">
+                                {% if event_story.image_url %}
+                                    <img src="{{ event_story.image_url }}" alt="{{ event_story.title }}" 
+                                         style="width: 80px; height: 60px; object-fit: cover; border-radius: 6px; border: 2px solid #9c27b0;">
+                                {% else %}
+                                    <div class="event-thumbnail-placeholder" data-article-id="{{ event_story.id }}" style="width: 80px; height: 60px; background: linear-gradient(135deg, #9c27b0, #8e24aa); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; color: white; text-align: center; font-weight: 600;" 
+                                         onclick="generateEventArticleImage({{ event_story.id }}, this)">
+                                        🎪<br>AI
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="margin-bottom: 8px;">
+                                    <span style="background: #9c27b0; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600;">
+                                        {{ event_story.event_name }}
+                                    </span>
+                                    <span style="font-size: 0.75rem; color: #666; margin-left: 10px;">{{ event_story.published_date[:10] }}</span>
+                                </div>
+                                <h4 style="font-size: 0.95rem; font-weight: 600; line-height: 1.3; margin-bottom: 8px;">
+                                    <a href="{{ event_story.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ event_story.title }}</a>
+                                </h4>
+                                {% if event_story.description %}
+                                    <p style="font-size: 0.8rem; color: #666; line-height: 1.4; margin-bottom: 10px;">{{ event_story.description[:120] }}{% if event_story.description|length > 120 %}...{% endif %}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                            <button onclick="shareArticle({{ event_story.id }})" class="btn" style="background: #9c27b0; font-size: 0.75rem; padding: 5px 10px;">📤 Share</button>
+                            <button onclick="addToDigest({{ event_story.id }})" class="btn" style="background: #ff6b35; font-size: 0.75rem; padding: 5px 10px;">📋 Digest</button>
+                            <a href="{{ url_for('event_detail', event_id=event_story.event_id, view=view_mode) }}" class="btn" style="background: #3498db; font-size: 0.75rem; padding: 5px 10px; text-decoration: none; color: white;">🎪 Details</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
         
         <!-- Event Coverage Row (Between Headlines and More Stories) -->
         {% set event_articles = [] %}
@@ -491,11 +527,11 @@
         {% endif %}
         
         <!-- More Stories Section -->
-        {% if stories|length > 10 %}
+        {% if stories|length > 9 %}
         <div id="more-stories" style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">More Stories</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
-                {% for story in stories[10:] %}
+                {% for story in stories[9:] %}
                     {% if not story.event_name %}
                     <article class="article-card">
                         <div class="article-meta">
@@ -538,6 +574,8 @@
         </div>
         {% endif %}
 
+    {% endif %}
+        
     {% else %}
         <div style="text-align: center; padding: 60px 20px; color: #7f8c8d; background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;">
             <h3 style="font-family: 'Inter', sans-serif; font-size: 2rem; margin-bottom: 15px; color: #2c3e50;">📡 No Stories Available</h3>
@@ -736,5 +774,4 @@
         }
     }
     </script>
-{% endif %}
 {% endblock %}

@@ -589,18 +589,23 @@
             content: "🍞";
         }
         
-        /* Spinning hourglass animation for image loading */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Gentle pulse animation for image loading instead of spinning */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
         
         .image-loading-placeholder {
-            animation: spin 2s linear infinite !important;
+            animation: pulse 2s ease-in-out infinite !important;
         }
         
         .secondary-image-placeholder {
-            animation: spin 2s linear infinite !important;
+            animation: pulse 2s ease-in-out infinite !important;
+        }
+        
+        .hero-image-placeholder {
+            animation: pulse 2s ease-in-out infinite !important;
         }
         
         /* Al Jazeera Style Hero Layout */
@@ -632,11 +637,7 @@
         @media (max-width: 1400px) {
             /* Stack to 2 columns on medium screens */
             .hero-layout {
-                grid-template-columns: 2fr 1fr !important;
-            }
-            
-            .top-stories-col-2 {
-                display: none !important;
+                grid-template-columns: 1fr 1fr !important;
             }
         }
         
@@ -645,10 +646,6 @@
             .hero-layout {
                 grid-template-columns: 1fr !important;
                 gap: 20px !important;
-            }
-            
-            .top-stories-col-2 {
-                display: block !important;
             }
         }
         

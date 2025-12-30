@@ -3017,30 +3017,7 @@ class WirelessMonitor:
             draw.ellipse([355, 10, 390, 45], fill=(255, 255, 255, 200), outline=(100, 150, 255), width=2)
             draw.text((365, 22), "WN", fill=(50, 100, 200), font=ImageFont.load_default())
     
-    def add_logo_to_image(self, img, draw):
-        """Add WirelessNerd logo to image"""
-        try:
-            import io
-            import requests
-            
-            logo_response = requests.get(
-                'https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1', 
-                timeout=5
-            )
-            if logo_response.status_code == 200:
-                logo_img = Image.open(io.BytesIO(logo_response.content))
-                logo_img = logo_img.resize((35, 35), Image.Resampling.LANCZOS)
-                if logo_img.mode != 'RGBA':
-                    logo_img = logo_img.convert('RGBA')
-                
-                # Add subtle glow effect
-                glow = logo_img.filter(ImageFilter.GaussianBlur(radius=2))
-                img.paste(glow, (353, 8), glow)
-                img.paste(logo_img, (355, 10), logo_img)
-        except:
-            # Fallback: draw WN text logo
-            draw.ellipse([355, 10, 390, 45], fill=(255, 255, 255, 200), outline=(100, 150, 255), width=2)
-            draw.text((365, 22), "WN", fill=(50, 100, 200), font=ImageFont.load_default())
+    def add_title_to_image(self, draw, title, font_title, font_subtitle):
         """Add article title with professional typography"""
         # Smart text wrapping
         words = title.split()
@@ -3096,9 +3073,12 @@ class WirelessMonitor:
             logger.error(f"Error adding tech elements: {e}")
     
     def generate_ai_image_local(self, title, description):
-        """Generate AI image locally using enhanced PIL with photorealistic themes"""
+        """Generate photorealistic AI image locally using enhanced PIL with wireless themes"""
         try:
+            logger.info(f"Generating AI image for title: {title[:50]}...")
+            
             if not Image:
+                logger.warning("PIL Image not available, using placeholder")
                 return self.get_placeholder_image()
             
             # Create content hash for caching
@@ -3115,83 +3095,58 @@ class WirelessMonitor:
             if os.path.exists(image_path):
                 return f'/static/generated_images/article_{content_hash}.png'
             
-            # Create enhanced photorealistic image
-            img = Image.new('RGB', (400, 250), color=(45, 55, 72))
+            # Create photorealistic wireless-themed image
+            img = Image.new('RGB', (400, 250), color=(20, 25, 35))
             draw = ImageDraw.Draw(img)
             
-            # Determine theme based on content
+            # Determine theme and create realistic background
             content_lower = content.lower()
+            
             if any(word in content_lower for word in ['wifi', 'wi-fi', 'wireless', '802.11']):
-                gradient_colors = [(34, 197, 94), (59, 130, 246)]  # Green to blue
-                theme = "wireless"
+                # WiFi theme - Circuit board pattern with signal waves
+                self.create_wifi_background(img, draw)
+                theme_color = (34, 197, 94)
+                accent_color = (59, 130, 246)
             elif any(word in content_lower for word in ['5g', '6g', 'cellular', 'lte']):
-                gradient_colors = [(59, 130, 246), (147, 51, 234)]  # Blue to purple
-                theme = "cellular"
+                # Cellular theme - Tower and signal pattern
+                self.create_cellular_background(img, draw)
+                theme_color = (59, 130, 246)
+                accent_color = (147, 51, 234)
             elif any(word in content_lower for word in ['ai', 'artificial', 'machine', 'learning']):
-                gradient_colors = [(147, 51, 234), (236, 72, 153)]  # Purple to pink
-                theme = "ai"
+                # AI theme - Neural network pattern
+                self.create_ai_background(img, draw)
+                theme_color = (147, 51, 234)
+                accent_color = (236, 72, 153)
             else:
-                gradient_colors = [(249, 115, 22), (234, 179, 8)]  # Orange to yellow
-                theme = "tech"
+                # Tech theme - Abstract geometric pattern
+                self.create_tech_background(img, draw)
+                theme_color = (249, 115, 22)
+                accent_color = (234, 179, 8)
             
-            # Create gradient background
-            for y in range(250):
-                ratio = y / 250
-                r = int(gradient_colors[0][0] * (1 - ratio) + gradient_colors[1][0] * ratio)
-                g = int(gradient_colors[0][1] * (1 - ratio) + gradient_colors[1][1] * ratio)
-                b = int(gradient_colors[0][2] * (1 - ratio) + gradient_colors[1][2] * ratio)
-                draw.line([(0, y), (400, y)], fill=(r, g, b))
+            # Add realistic lighting effects
+            self.add_lighting_effects(img, theme_color, accent_color)
             
-            # Add subtle overlay pattern
-            overlay = Image.new('RGBA', (400, 250), (255, 255, 255, 20))
-            overlay_draw = ImageDraw.Draw(overlay)
-            
-            # Add tech pattern based on theme
-            if theme == "wireless":
-                # WiFi signal rings
-                for i in range(3):
-                    radius = 30 + i * 20
-                    overlay_draw.arc([350 - radius, 20 - radius, 350 + radius, 20 + radius], 
-                                   start=225, end=315, fill=(255, 255, 255, 40), width=3)
-            elif theme == "cellular":
-                # Cell tower bars
-                for i in range(4):
-                    height = 15 + i * 8
-                    overlay_draw.rectangle([360 + i * 8, 50 - height, 365 + i * 8, 50], 
-                                         fill=(255, 255, 255, 60))
-            
-            img = Image.alpha_composite(img.convert('RGBA'), overlay).convert('RGB')
+            # Recreate draw object after lighting effects
             draw = ImageDraw.Draw(img)
             
             # Load fonts with fallbacks
             try:
-                font_title = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 18)
-                font_subtitle = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 12)
-                font_brand = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 10)
+                font_title = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 16)
+                font_subtitle = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 11)
+                font_brand = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 9)
             except:
                 font_title = ImageFont.load_default()
                 font_subtitle = ImageFont.load_default()
                 font_brand = ImageFont.load_default()
             
-            # Add title with smart wrapping
-            self.add_title_to_image(draw, title, font_title, font_subtitle)
+            # Add professional title overlay
+            self.add_professional_title_overlay(img, draw, title, font_title, font_subtitle)
             
             # Add WirelessNerd logo
             self.add_logo_to_image(img, draw)
             
-            # Add tech elements
-            self.add_tech_elements(draw, content)
-            
-            # Add WirelessNerd branding at bottom
-            brand_text = "WirelessNerd.net"
-            draw.text((21, 221), brand_text, fill=(0, 0, 0, 100), font=font_brand)
-            draw.text((20, 220), brand_text, fill=(255, 255, 255), font=font_brand)
-            
-            # Add wireless signal indicators
-            for i in range(3):
-                x = 320 + i * 15
-                height = 15 + i * 8
-                draw.rectangle([x, 200 - height, x + 8, 200], fill=(255, 255, 255, 180))
+            # Add tech indicators
+            self.add_realistic_tech_indicators(img, draw, theme_color)
             
             # Save the image
             img.save(image_path, 'PNG', quality=95)
@@ -3199,9 +3154,220 @@ class WirelessMonitor:
             return f'/static/generated_images/article_{content_hash}.png'
             
         except Exception as e:
-            logger.error(f"Error generating enhanced AI image: {e}")
-            # Fallback to simple placeholder
+            logger.error(f"Error generating photorealistic AI image: {e}")
             return self.get_placeholder_image()
+    
+    def create_wifi_background(self, img, draw):
+        """Create WiFi-themed background with circuit patterns"""
+        # Create gradient base
+        for y in range(250):
+            ratio = y / 250
+            r = int(20 + (40 * ratio))
+            g = int(25 + (60 * ratio))
+            b = int(35 + (80 * ratio))
+            draw.line([(0, y), (400, y)], fill=(r, g, b))
+        
+        # Add circuit board traces
+        import random
+        random.seed(42)  # Consistent pattern
+        
+        for _ in range(15):
+            x1, y1 = random.randint(0, 400), random.randint(0, 250)
+            x2, y2 = x1 + random.randint(-100, 100), y1 + random.randint(-50, 50)
+            draw.line([(x1, y1), (x2, y2)], fill=(34, 197, 94, 60), width=2)
+        
+        # Add WiFi signal arcs
+        center_x, center_y = 350, 50
+        for i in range(4):
+            radius = 20 + i * 15
+            draw.arc([center_x - radius, center_y - radius, center_x + radius, center_y + radius], 
+                    start=225, end=315, fill=(34, 197, 94, 100), width=3)
+    
+    def create_cellular_background(self, img, draw):
+        """Create cellular-themed background with tower patterns"""
+        # Create gradient base
+        for y in range(250):
+            ratio = y / 250
+            r = int(15 + (45 * ratio))
+            g = int(20 + (65 * ratio))
+            b = int(40 + (90 * ratio))
+            draw.line([(0, y), (400, y)], fill=(r, g, b))
+        
+        # Add cellular tower silhouette
+        tower_x = 370
+        draw.rectangle([tower_x - 2, 30, tower_x + 2, 80], fill=(59, 130, 246, 120))
+        
+        # Add signal bars
+        for i in range(5):
+            height = 10 + i * 8
+            x = tower_x - 30 + i * 12
+            draw.rectangle([x, 80 - height, x + 6, 80], fill=(59, 130, 246, 150))
+        
+        # Add signal waves
+        for i in range(3):
+            radius = 30 + i * 20
+            draw.arc([tower_x - radius, 55 - radius//2, tower_x + radius, 55 + radius//2], 
+                    start=180, end=360, fill=(147, 51, 234, 80), width=2)
+    
+    def create_ai_background(self, img, draw):
+        """Create AI-themed background with neural network patterns"""
+        # Create gradient base
+        for y in range(250):
+            ratio = y / 250
+            r = int(25 + (50 * ratio))
+            g = int(15 + (40 * ratio))
+            b = int(45 + (85 * ratio))
+            draw.line([(0, y), (400, y)], fill=(r, g, b))
+        
+        # Add neural network nodes
+        import random
+        random.seed(123)  # Consistent pattern
+        
+        nodes = [(random.randint(50, 350), random.randint(50, 200)) for _ in range(12)]
+        
+        # Draw connections
+        for i, (x1, y1) in enumerate(nodes):
+            for j, (x2, y2) in enumerate(nodes[i+1:], i+1):
+                if abs(x1 - x2) < 100 and abs(y1 - y2) < 80:
+                    draw.line([(x1, y1), (x2, y2)], fill=(147, 51, 234, 60), width=1)
+        
+        # Draw nodes
+        for x, y in nodes:
+            draw.ellipse([x-4, y-4, x+4, y+4], fill=(236, 72, 153, 180))
+    
+    def create_tech_background(self, img, draw):
+        """Create tech-themed background with geometric patterns"""
+        # Create gradient base
+        for y in range(250):
+            ratio = y / 250
+            r = int(30 + (55 * ratio))
+            g = int(25 + (45 * ratio))
+            b = int(20 + (35 * ratio))
+            draw.line([(0, y), (400, y)], fill=(r, g, b))
+        
+        # Add geometric patterns
+        for i in range(8):
+            x = 50 + i * 45
+            y = 60 + (i % 3) * 40
+            size = 20 + (i % 4) * 5
+            
+            # Draw hexagons
+            points = []
+            for angle in range(0, 360, 60):
+                import math
+                px = x + size * math.cos(math.radians(angle))
+                py = y + size * math.sin(math.radians(angle))
+                points.append((px, py))
+            
+            if len(points) >= 3:
+                draw.polygon(points, outline=(249, 115, 22, 100), width=2)
+    
+    def add_lighting_effects(self, img, theme_color, accent_color):
+        """Add realistic lighting and glow effects"""
+        try:
+            # Create overlay for lighting
+            overlay = Image.new('RGBA', (400, 250), (0, 0, 0, 0))
+            overlay_draw = ImageDraw.Draw(overlay)
+            
+            # Add subtle vignette
+            for i in range(30):
+                alpha = int(i * 1.5)
+                overlay_draw.rectangle([i, i, 400-i, 250-i], outline=(0, 0, 0, alpha))
+            
+            # Composite the effects
+            img_rgba = img.convert('RGBA')
+            result = Image.alpha_composite(img_rgba, overlay)
+            img.paste(result.convert('RGB'))
+            
+        except Exception as e:
+            logger.error(f"Error in lighting effects: {e}")
+            # Continue without lighting effects
+    
+    def add_professional_title_overlay(self, img, draw, title, font_title, font_subtitle):
+        """Add professional title with glass morphism effect"""
+        try:
+            logger.info(f"Adding title overlay for: {title[:30]}...")
+            
+            # Create semi-transparent overlay for text
+            text_overlay = Image.new('RGBA', (400, 250), (0, 0, 0, 0))
+            text_draw = ImageDraw.Draw(text_overlay)
+            
+            # Add glass morphism background for text
+            text_draw.rectangle([15, 140, 385, 220], fill=(255, 255, 255, 40))
+            text_draw.rectangle([15, 140, 385, 220], outline=(255, 255, 255, 80), width=1)
+            
+            # Smart text wrapping
+            words = title.split()
+            lines = []
+            current_line = ""
+            
+            for word in words:
+                test_line = f"{current_line} {word}".strip()
+                try:
+                    # Try modern textbbox method
+                    bbox = text_draw.textbbox((0, 0), test_line, font=font_title)
+                    text_width = bbox[2] - bbox[0]
+                except AttributeError:
+                    # Fallback for older PIL versions
+                    text_width = text_draw.textsize(test_line, font=font_title)[0]
+                
+                if text_width < 320:
+                    current_line = test_line
+                else:
+                    if current_line:
+                        lines.append(current_line)
+                    current_line = word
+                    if len(lines) >= 2:
+                        break
+            
+            if current_line and len(lines) < 2:
+                lines.append(current_line)
+            
+            # Draw title with professional styling
+            y_start = 155 if len(lines) == 1 else 150
+            
+            for i, line in enumerate(lines):
+                y_pos = y_start + (i * 20)
+                
+                # Text shadow for depth
+                text_draw.text((21, y_pos + 1), line, fill=(0, 0, 0, 180), font=font_title)
+                # Main text
+                text_draw.text((20, y_pos), line, fill=(255, 255, 255, 255), font=font_title)
+            
+            # Add "WIRELESS TECH NEWS" subtitle
+            subtitle_y = y_start + (len(lines) * 20) + 8
+            text_draw.text((21, subtitle_y + 1), "WIRELESS TECH NEWS", fill=(0, 0, 0, 120), font=font_subtitle)
+            text_draw.text((20, subtitle_y), "WIRELESS TECH NEWS", fill=(200, 220, 255, 200), font=font_subtitle)
+            
+            # Composite the text overlay
+            img.paste(Image.alpha_composite(img.convert('RGBA'), text_overlay).convert('RGB'))
+            
+            logger.info("Title overlay added successfully")
+            
+        except Exception as e:
+            logger.error(f"Error in add_professional_title_overlay: {e}")
+            # Continue without title overlay
+    
+    def add_realistic_tech_indicators(self, img, draw, theme_color):
+        """Add realistic technology indicators"""
+        # Add signal strength indicator
+        for i in range(4):
+            height = 8 + (i * 4)
+            opacity = 255 if i < 2 else 150
+            x = 20 + (i * 8)
+            draw.rectangle([x, 225 - height, x + 5, 225], 
+                         fill=(*theme_color, opacity))
+        
+        # Add "LIVE" indicator
+        draw.rectangle([320, 210, 360, 225], fill=(255, 50, 50, 200))
+        draw.rectangle([320, 210, 360, 225], outline=(255, 255, 255, 100), width=1)
+        
+        try:
+            font_small = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 8)
+        except:
+            font_small = ImageFont.load_default()
+        
+        draw.text((330, 215), "LIVE", fill=(255, 255, 255), font=font_small)
     
     def get_or_create_article_image(self, article):
         """Get existing image or create new one for article"""

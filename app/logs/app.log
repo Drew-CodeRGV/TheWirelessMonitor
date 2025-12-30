@@ -62,3 +62,534 @@
 2025-12-30 15:06:08,018 - __main__ - INFO - Fetching feed: Wired Technology
 2025-12-30 15:06:08,180 - __main__ - INFO - RSS fetch completed: 20 new articles
 2025-12-30 15:06:13,288 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:06:13] "GET / HTTP/1.1" 200 -
+2025-12-30 15:07:47,795 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:47] "GET / HTTP/1.1" 200 -
+2025-12-30 15:07:48,174 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss -> https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 15:07:48,174 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 15:07:48,597 - __main__ - INFO - Successfully resolved https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss -> https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 15:07:48,598 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 15:07:48,868 - __main__ - INFO - Successfully fetched page content, size: 366305 bytes
+2025-12-30 15:07:48,868 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 15:07:49,080 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 15:07:49,086 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:49] "POST /api/generate_article_image/11 HTTP/1.1" 200 -
+2025-12-30 15:07:49,098 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss -> https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 15:07:49,098 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 15:07:49,159 - __main__ - INFO - Successfully fetched page content, size: 369865 bytes
+2025-12-30 15:07:49,159 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 15:07:49,321 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 15:07:49,329 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:49] "POST /api/generate_article_image/18 HTTP/1.1" 200 -
+2025-12-30 15:07:49,601 - __main__ - INFO - Successfully resolved https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss -> https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 15:07:49,602 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 15:07:49,664 - __main__ - INFO - Successfully fetched page content, size: 371571 bytes
+2025-12-30 15:07:49,665 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 15:07:49,783 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 15:07:49,790 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:49] "POST /api/generate_article_image/13 HTTP/1.1" 200 -
+2025-12-30 15:07:50,100 - __main__ - INFO - Successfully resolved https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss -> https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss
+2025-12-30 15:07:50,100 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss
+2025-12-30 15:07:50,551 - __main__ - INFO - Successfully fetched page content, size: 381453 bytes
+2025-12-30 15:07:50,551 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-30 15:07:50,597 - __main__ - INFO - Successfully resolved https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss -> https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss
+2025-12-30 15:07:50,597 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss
+2025-12-30 15:07:50,689 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-30 15:07:50,695 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:50] "POST /api/generate_article_image/16 HTTP/1.1" 200 -
+2025-12-30 15:07:50,975 - __main__ - INFO - Successfully fetched page content, size: 394967 bytes
+2025-12-30 15:07:50,976 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:07:51,099 - __main__ - INFO - Successfully resolved https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss -> https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 15:07:51,100 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 15:07:51,138 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:07:51,143 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:51] "POST /api/generate_article_image/14 HTTP/1.1" 200 -
+2025-12-30 15:07:51,176 - __main__ - INFO - Successfully fetched page content, size: 431788 bytes
+2025-12-30 15:07:51,176 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:07:51,365 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:07:51,372 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:51] "POST /api/generate_article_image/17 HTTP/1.1" 200 -
+2025-12-30 15:07:51,598 - __main__ - INFO - Successfully resolved https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss -> https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss
+2025-12-30 15:07:51,598 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss
+2025-12-30 15:07:51,745 - __main__ - INFO - Successfully fetched page content, size: 368191 bytes
+2025-12-30 15:07:51,746 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 15:07:51,873 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 15:07:51,882 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:51] "POST /api/generate_article_image/12 HTTP/1.1" 200 -
+2025-12-30 15:07:52,096 - __main__ - INFO - Successfully resolved https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss -> https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-30 15:07:52,096 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-30 15:07:52,901 - __main__ - INFO - Successfully fetched page content, size: 592421 bytes
+2025-12-30 15:07:52,901 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/R0xqe29YSH_BG8U3X7hk0Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/1d885fe0-d769-11f0-b17a-040e2b47e430
+2025-12-30 15:07:53,042 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/R0xqe29YSH_BG8U3X7hk0Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/1d885fe0-d769-11f0-b17a-040e2b47e430
+2025-12-30 15:07:53,049 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:53] "POST /api/generate_article_image/19 HTTP/1.1" 200 -
+2025-12-30 15:07:53,804 - __main__ - INFO - Successfully fetched page content, size: 542296 bytes
+2025-12-30 15:07:53,804 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 15:07:53,924 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 15:07:53,927 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:07:53] "POST /api/generate_article_image/15 HTTP/1.1" 200 -
+2025-12-30 15:08:01,553 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:01] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:08:05,908 - __main__ - INFO - Found 4 new articles for CES 2026
+2025-12-30 15:08:05,912 - __main__ - INFO - Found 4 new articles for NRF 2026
+2025-12-30 15:08:05,913 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:05] "POST /api/refresh_all_events HTTP/1.1" 200 -
+2025-12-30 15:08:13,160 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:13] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:08:15,859 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:15] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:08:15,908 - __main__ - INFO - Successfully resolved https://retaildive.com/nrf-2026-retail-tech-preview -> https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:08:15,908 - __main__ - INFO - Scraping image from resolved URL: https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:08:16,695 - __main__ - WARNING - Failed to fetch article page: 404 for https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:08:16,708 - __main__ - ERROR - Error generating enhanced AI image: 'WirelessMonitor' object has no attribute 'add_title_to_image'
+2025-12-30 15:08:16,711 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:16] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 15:08:49,590 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:49] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+2025-12-30 15:08:49,592 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:49] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-12-30 15:08:49,593 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:08:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-30 15:09:01,452 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:09:01] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:09:43,766 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:09:43,770 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:09:43] "[35m[1mGET /admin?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 15:13:37,095 - __main__ - INFO - Database initialized
+2025-12-30 15:13:37,099 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:13:37,099 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:13:37,099 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:13:37,100 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:13:37,112 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:13:37,112 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:13:37,321 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:13:37,486 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:13:37,681 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:13:37,902 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:13:38,087 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:13:38,401 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:13:39,334 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:13:44,190 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:13:45,307 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 499, in index
+    return render_template('index.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 776, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endif'. The innermost block that needs to be closed is 'if'.
+2025-12-30 15:13:45,313 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:13:45] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-12-30 15:13:49,820 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:13:49,824 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:13:49,971 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:13:50,128 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:13:50,268 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:13:50,399 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:13:50,577 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:13:50,897 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:13:51,575 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:13:51,835 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:13:51,836 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:13:51] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 15:13:56,402 - __main__ - INFO - Successfully resolved https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/ -> https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 15:13:56,402 - __main__ - INFO - Scraping image from resolved URL: https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 15:13:56,837 - __main__ - INFO - Successfully fetched page content, size: 156424 bytes
+2025-12-30 15:13:56,837 - __main__ - INFO - Found Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 15:13:57,003 - __main__ - INFO - Successfully validated image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 15:13:57,008 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:13:57] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 15:14:01,400 - __main__ - INFO - Found 0 new articles for CES 2026
+2025-12-30 15:14:01,400 - __main__ - INFO - Found 0 new articles for NRF 2026
+2025-12-30 15:14:01,401 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:14:01] "POST /api/refresh_all_events HTTP/1.1" 200 -
+2025-12-30 15:14:06,469 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 499, in index
+    return render_template('index.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 776, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endif'. The innermost block that needs to be closed is 'if'.
+2025-12-30 15:14:06,470 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:14:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-12-30 15:14:26,832 - __main__ - INFO - Database initialized
+2025-12-30 15:14:26,836 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:14:26,836 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:14:26,837 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:14:26,837 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:14:26,842 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:14:26,842 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:14:27,025 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:14:27,167 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:14:27,359 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:14:27,491 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:14:27,705 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:14:28,023 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:14:28,954 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:14:29,240 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:14:33,364 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 499, in index
+    return render_template('index.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 775, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+2025-12-30 15:14:33,370 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:14:33] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-12-30 15:15:17,258 - __main__ - INFO - Database initialized
+2025-12-30 15:15:17,262 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:15:17,262 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:15:17,263 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:15:17,263 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:15:17,276 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:15:17,276 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:15:17,474 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:15:17,626 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:15:17,801 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:15:18,045 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:15:18,222 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:15:18,487 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:15:20,068 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:15:20,197 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:15:24,195 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 499, in index
+    return render_template('index.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 775, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+2025-12-30 15:15:24,199 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:15:24] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-12-30 15:15:51,188 - __main__ - INFO - Database initialized
+2025-12-30 15:15:51,192 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:15:51,192 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:15:51,192 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:15:51,192 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:15:51,197 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:15:51,197 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:15:51,372 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:15:51,528 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:15:51,717 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:15:51,882 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:15:52,066 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:15:52,328 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:15:53,284 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:15:53,512 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:15:57,697 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 499, in index
+    return render_template('index.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 151, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 777, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endif'. The innermost block that needs to be closed is 'if'.
+2025-12-30 15:15:57,701 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:15:57] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-12-30 15:20:46,235 - __main__ - INFO - Database initialized
+2025-12-30 15:20:46,239 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:20:46,241 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:20:46,242 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:20:46,242 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:20:46,269 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:20:46,269 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:20:46,484 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:20:46,648 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:20:46,820 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:20:47,022 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:20:47,224 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:20:47,623 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:20:48,255 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:20:52,500 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:20:54,187 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:20:54] "GET / HTTP/1.1" 200 -
+2025-12-30 15:20:59,062 - __main__ - INFO - Found 0 new articles for CES 2026
+2025-12-30 15:20:59,063 - __main__ - INFO - Found 0 new articles for NRF 2026
+2025-12-30 15:20:59,063 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:20:59] "POST /api/refresh_all_events HTTP/1.1" 200 -
+2025-12-30 15:21:04,013 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:21:04] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 15:21:09,401 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:21:09] "GET / HTTP/1.1" 200 -
+2025-12-30 15:21:14,022 - __main__ - INFO - Successfully resolved https://pymnts.com/nrf-2026-wireless-metaverse-payments -> https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:21:14,023 - __main__ - INFO - Scraping image from resolved URL: https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:21:15,178 - __main__ - WARNING - Failed to fetch article page: 404 for https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:21:15,432 - __main__ - ERROR - Error generating photorealistic AI image: name 'title' is not defined
+2025-12-30 15:21:15,434 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:21:15] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 15:21:57,806 - __main__ - INFO - Database initialized
+2025-12-30 15:21:57,810 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:21:57,810 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:21:57,811 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:21:57,811 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:21:57,815 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:21:57,815 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:21:58,094 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:21:58,249 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:21:58,419 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:21:58,565 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:21:58,722 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:21:58,997 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:21:59,686 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:22:05,658 - __main__ - INFO - Successfully resolved https://fierceretail.com/nrf-2026-wireless-sustainability -> https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 15:22:05,659 - __main__ - INFO - Scraping image from resolved URL: https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 15:22:05,902 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:22:21,128 - __main__ - ERROR - Error scraping image from https://fierceretail.com/nrf-2026-wireless-sustainability: HTTPSConnectionPool(host='www.fierceretail.com', port=443): Read timed out. (read timeout=15)
+2025-12-30 15:22:21,312 - __main__ - ERROR - Error generating photorealistic AI image: name 'title' is not defined
+2025-12-30 15:22:21,316 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:22:21] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 15:22:49,856 - __main__ - INFO - Database initialized
+2025-12-30 15:22:49,861 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:22:49,861 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:22:49,861 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:22:49,861 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:22:49,875 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:22:49,875 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:22:50,085 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:22:50,293 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:22:50,600 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:22:50,801 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:22:50,956 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:22:51,220 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:22:51,781 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:22:51,934 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:22:58,981 - __main__ - INFO - Successfully resolved https://techcrunch.com/ces-2026-ai-iot-innovations-preview -> https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:22:58,981 - __main__ - INFO - Scraping image from resolved URL: https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:22:59,733 - __main__ - WARNING - Failed to fetch article page: 404 for https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:22:59,734 - __main__ - INFO - Generating AI image for title: CES 2026: Revolutionary AI and IoT Innovations Set...
+2025-12-30 15:22:59,902 - __main__ - ERROR - Error generating photorealistic AI image: name 'title' is not defined
+2025-12-30 15:22:59,906 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:22:59] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 15:23:26,772 - __main__ - INFO - Database initialized
+2025-12-30 15:23:26,776 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:23:26,776 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:23:26,777 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:23:26,777 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:23:26,782 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:23:26,782 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:23:26,961 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:23:27,096 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:23:27,264 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:23:27,396 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:23:27,544 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:23:27,805 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:23:28,400 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:23:28,609 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:23:34,808 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:23:34] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 15:23:45,432 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:23:45] "GET / HTTP/1.1" 200 -
+2025-12-30 15:23:51,874 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:23:51] "GET / HTTP/1.1" 200 -
+2025-12-30 15:23:57,202 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:23:57] "GET / HTTP/1.1" 200 -
+2025-12-30 15:24:01,966 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:01] "GET / HTTP/1.1" 200 -
+2025-12-30 15:24:06,900 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:24:06,900 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:24:07,079 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:24:07,252 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:24:07,431 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:24:07,551 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:24:07,734 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:24:07,989 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:24:08,688 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:24:08,899 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:24:08,900 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:08] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 15:24:14,256 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:24:14,259 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:14] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-12-30 15:24:19,803 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:24:19,803 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:19] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-12-30 15:24:24,723 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:24] "GET / HTTP/1.1" 200 -
+2025-12-30 15:24:29,721 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:29] "GET / HTTP/1.1" 200 -
+2025-12-30 15:24:34,874 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:34] "GET / HTTP/1.1" 200 -
+2025-12-30 15:24:40,508 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:40] "GET /?show_all=true HTTP/1.1" 200 -
+2025-12-30 15:24:45,283 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:24:45,283 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:24:45,741 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:24:45,742 - __main__ - INFO - Generating AI image for title: Smart Home Evolution: What to Expect at CES 2026...
+2025-12-30 15:24:45,897 - __main__ - ERROR - Error generating photorealistic AI image: name 'title' is not defined
+2025-12-30 15:24:45,899 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:24:45] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 15:25:18,368 - __main__ - INFO - Database initialized
+2025-12-30 15:25:18,372 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:25:18,372 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:25:18,373 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:25:18,373 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:25:18,497 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:25:18,497 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:25:18,568 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:25:18,722 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:25:18,897 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:25:19,098 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:25:19,259 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:25:19,526 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:25:20,156 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:25:20,311 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:25:26,572 - __main__ - INFO - Successfully resolved https://ieee.org/ces-2026-wireless-quantum-tech -> https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 15:25:26,572 - __main__ - INFO - Scraping image from resolved URL: https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 15:25:27,152 - __main__ - INFO - Successfully fetched page content, size: 5598 bytes
+2025-12-30 15:25:27,153 - __main__ - INFO - No suitable image found in article
+2025-12-30 15:25:27,154 - __main__ - INFO - Generating AI image for title: CES 2026: Next-Generation Wireless Charging and Qu...
+2025-12-30 15:25:27,156 - __main__ - INFO - Adding title overlay for: CES 2026: Next-Generation Wire...
+2025-12-30 15:25:27,167 - __main__ - INFO - Title overlay added successfully
+2025-12-30 15:25:27,307 - __main__ - ERROR - Error generating photorealistic AI image: name 'title' is not defined
+2025-12-30 15:25:27,311 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:25:27] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 15:27:29,344 - __main__ - INFO - Database initialized
+2025-12-30 15:27:29,348 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:27:29,348 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:27:29,349 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:27:29,349 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:27:33,773 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:27:33] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 15:27:51,345 - __main__ - INFO - Database initialized
+2025-12-30 15:27:51,349 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:27:51,349 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:27:51,349 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:27:51,349 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:27:51,364 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:27:51,364 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:27:51,764 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:27:51,936 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:27:52,138 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:27:52,341 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:27:52,589 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:27:52,894 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:27:53,551 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:27:57,450 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:27:57,522 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:27:57] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 15:28:07,784 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:28:07] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 15:28:11,488 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:28:11] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 15:28:19,422 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:28:19] "GET / HTTP/1.1" 200 -
+2025-12-30 15:32:47,643 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:32:47] "GET / HTTP/1.1" 200 -
+2025-12-30 15:32:55,693 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:32:55] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
