@@ -26,14 +26,25 @@ import feedparser
 from bs4 import BeautifulSoup
 import schedule
 
-# Configure logging
+# Configure logging with better error handling
+log_dir = 'logs'
+os.makedirs(log_dir, exist_ok=True)
+
+# Create handlers with error handling
+handlers = [logging.StreamHandler()]
+try:
+    log_file = os.path.join(log_dir, 'app.log')
+    # Ensure log file exists and is writable
+    if not os.path.exists(log_file):
+        open(log_file, 'a').close()
+    handlers.append(logging.FileHandler(log_file))
+except (PermissionError, OSError) as e:
+    print(f"Warning: Could not create log file: {e}")
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('logs/app.log'),
-        logging.StreamHandler()
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger(__name__)
 
