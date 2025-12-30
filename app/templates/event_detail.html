@@ -18,7 +18,8 @@
             </p>
         </div>
         <div>
-            <a href="{{ url_for('events', view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px;{% endif %}">← Back to Events</a>
+            <a href="{{ url_for('events', view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;{% endif %}">← Back to Events</a>
+            <button onclick="fetchEventContent({{ event.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #28a745;{% else %}background: #28a745;{% endif %}">🔍 Fetch Latest Headlines</button>
         </div>
     </div>
 </div>
@@ -242,5 +243,40 @@
     </div>
 </div>
 {% endif %}
+
+<script>
+async function fetchEventContent(eventId) {
+    const button = event.target;
+    const originalText = button.textContent;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Fetching Latest Headlines...';
+    
+    try {
+        const response = await fetch(`/api/fetch_event_content/${eventId}`, { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            button.textContent = `✅ Found ${data.articles_found} new articles!`;
+            setTimeout(() => {
+                // Reload page to show new content
+                window.location.reload();
+            }, 2000);
+        } else {
+            button.textContent = '❌ Error fetching content';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 3000);
+        }
+    } catch (error) {
+        button.textContent = '❌ Network error';
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+        }, 3000);
+    }
+}
+</script>
 
 {% endblock %}

@@ -6,6 +6,7 @@
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
     <h2>🎪 Current Industry Events</h2>
     <div style="display: flex; gap: 10px;">
+        <button onclick="refreshAllEvents()" class="btn">🔄 Refresh All Events</button>
         <button onclick="analyzeEventArticles()" class="btn">🔍 Analyze Event Coverage</button>
     </div>
 </div>
@@ -48,10 +49,13 @@
                 {% endif %}
             </div>
             
-            <div style="{% if view_mode == 'reader' %}margin-left: 15px;{% else %}margin-left: 20px;{% endif %}">
-                <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px;{% else %}font-size: 0.9rem; padding: 10px 20px;{% endif %}">
+            <div>
+                <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;{% else %}font-size: 0.9rem; padding: 10px 20px; margin-right: 10px;{% endif %}">
                     📰 View Coverage
                 </a>
+                <button onclick="fetchEventContent({{ event.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #28a745;{% else %}font-size: 0.9rem; padding: 10px 20px; background: #28a745;{% endif %}">
+                    🔍 Fetch Latest
+                </button>
             </div>
         </div>
     </div>
@@ -66,6 +70,67 @@
 {% endif %}
 
 <script>
+async function refreshAllEvents() {
+    const statusDiv = document.getElementById('analysis-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Refreshing...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🔄 Refreshing content for all events...</div>';
+    
+    try {
+        const response = await fetch('/api/refresh_all_events', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ Successfully found ${data.total_articles} new articles across ${data.events_updated} events!</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔄 Refresh All Events';
+    }
+}
+
+async function fetchEventContent(eventId) {
+    const button = event.target;
+    const originalText = button.textContent;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Fetching...';
+    
+    try {
+        const response = await fetch(`/api/fetch_event_content/${eventId}`, { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            button.textContent = `✅ Found ${data.articles_found}`;
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 3000);
+        } else {
+            button.textContent = '❌ Error';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 3000);
+        }
+    } catch (error) {
+        button.textContent = '❌ Error';
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+        }, 3000);
+    }
+}
+
 async function analyzeEventArticles() {
     const statusDiv = document.getElementById('analysis-status');
     const button = event.target;
