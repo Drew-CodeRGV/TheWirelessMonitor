@@ -324,6 +324,67 @@ class WirelessMonitor:
                 except sqlite3.IntegrityError:
                     pass  # Feed already exists
         
+        # Add some default Wild Wi-Fi stories if none exist
+        story_count = conn.execute('SELECT COUNT(*) FROM wild_wifi_stories').fetchone()[0]
+        if story_count == 0:
+            default_stories = [
+                {
+                    'title': 'Airport Wi-Fi Password Becomes Tourist Attraction',
+                    'story': 'A small regional airport in Montana discovered their Wi-Fi password "MontanaIsAwesome2024!" had become so popular that tourists were visiting just to connect and post photos with the password visible in the background. The airport now sells t-shirts with the password printed on them.',
+                    'location': 'Bozeman, Montana',
+                    'category': 'tourism',
+                    'humor_rating': 4,
+                    'tech_relevance': 'Shows how Wi-Fi access has become a destination feature rather than just a utility'
+                },
+                {
+                    'title': 'Smart Doorbell Alerts Neighbor About Package Theft',
+                    'story': 'A Ring doorbell\'s motion detection was so sensitive it kept alerting a neighbor across the street about activity on their own porch. Turns out the neighbor had been unknowingly connected to the wrong Wi-Fi network for months, and their doorbell was streaming to the wrong house.',
+                    'location': 'Suburban Ohio',
+                    'category': 'iot',
+                    'humor_rating': 5,
+                    'tech_relevance': 'Highlights the importance of proper IoT device configuration and network security'
+                },
+                {
+                    'title': 'Coffee Shop Creates "Productivity Zones" Based on Wi-Fi Speed',
+                    'story': 'A trendy coffee shop in Portland installed different Wi-Fi networks with varying speeds: "Espresso" (1 Gbps for urgent work), "Americano" (100 Mbps for regular browsing), and "Decaf" (10 Mbps for social media). Customers self-select based on their productivity needs.',
+                    'location': 'Portland, Oregon',
+                    'category': 'business',
+                    'humor_rating': 3,
+                    'tech_relevance': 'Creative approach to bandwidth management and user experience design'
+                },
+                {
+                    'title': 'Retirement Home Residents Become Wi-Fi Troubleshooters',
+                    'story': 'After the IT support at Sunny Acres Retirement Home quit, 78-year-old former engineer Margaret Chen started a "Wi-Fi Help Desk" run entirely by residents. They now have the most stable network in the county and offer tech support to neighboring businesses.',
+                    'location': 'San Diego, California',
+                    'category': 'community',
+                    'humor_rating': 4,
+                    'tech_relevance': 'Demonstrates that wireless technology adoption spans all age groups with proper support'
+                },
+                {
+                    'title': 'Food Truck Uses Wi-Fi Heat Map to Find Best Parking Spots',
+                    'story': 'A gourmet grilled cheese truck discovered that parking near areas with poor cellular coverage dramatically increased sales. Hungry office workers would flock to their truck\'s free Wi-Fi hotspot, staying to order food while their video calls finally worked.',
+                    'location': 'Austin, Texas',
+                    'category': 'business',
+                    'humor_rating': 4,
+                    'tech_relevance': 'Shows how connectivity gaps create unexpected business opportunities'
+                },
+                {
+                    'title': 'Smart Home Goes Rogue During Power Outage',
+                    'story': 'When the power went out in a "smart" neighborhood, one house\'s backup battery kept its Wi-Fi running. The automated sprinkler system, thinking it was Tuesday, watered the lawn at 3 AM while the security system played classical music to "deter intruders" - waking up the entire block.',
+                    'location': 'Palo Alto, California',
+                    'category': 'smart-home',
+                    'humor_rating': 5,
+                    'tech_relevance': 'Illustrates the need for better power management and automation logic in IoT systems'
+                }
+            ]
+            
+            for story in default_stories:
+                conn.execute('''
+                    INSERT INTO wild_wifi_stories (title, story, location, category, humor_rating, tech_relevance)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ''', (story['title'], story['story'], story['location'], story['category'], story['humor_rating'], story['tech_relevance']))
+                logger.info(f"Added Wild Wi-Fi story: {story['title']}")
+        
         conn.commit()
         conn.close()
         logger.info("Database initialized")
@@ -1202,6 +1263,83 @@ class WirelessMonitor:
                                  week_start=week_start,
                                  digest_generated=digest_status is not None,
                                  view_mode=view_mode)
+        
+        @self.app.route('/wild_wifi')
+        def wild_wifi():
+            """Wild Wi-Fi stories page"""
+            view_mode = request.args.get('view', 'newspaper')
+            category = request.args.get('category', 'all')
+            
+            conn = self.get_db_connection()
+            
+            # Get stories based on category filter
+            if category == 'all':
+                stories = conn.execute('''
+                    SELECT * FROM wild_wifi_stories 
+                    WHERE approved = 1 
+                    ORDER BY featured DESC, humor_rating DESC, created_at DESC
+                ''').fetchall()
+            else:
+                stories = conn.execute('''
+                    SELECT * FROM wild_wifi_stories 
+                    WHERE approved = 1 AND category = ?
+                    ORDER BY featured DESC, humor_rating DESC, created_at DESC
+                ''', (category,)).fetchall()
+            
+            # Get available categories
+            categories = conn.execute('''
+                SELECT DISTINCT category, COUNT(*) as count
+                FROM wild_wifi_stories 
+                WHERE approved = 1
+                GROUP BY category
+                ORDER BY count DESC
+            ''').fetchall()
+            
+            conn.close()
+            return render_template('wild_wifi.html', 
+                                 stories=stories, 
+                                 categories=categories,
+                                 current_category=category,
+                                 view_mode=view_mode)
+        
+        @self.app.route('/api/submit_wild_story', methods=['POST'])
+        def submit_wild_story():
+            """Submit a new Wild Wi-Fi story"""
+            try:
+                data = request.get_json()
+                
+                required_fields = ['title', 'story', 'location']
+                for field in required_fields:
+                    if not data.get(field):
+                        return jsonify({'success': False, 'error': f'Missing required field: {field}'})
+                
+                conn = self.get_db_connection()
+                
+                conn.execute('''
+                    INSERT INTO wild_wifi_stories (
+                        title, story, location, category, tech_relevance, 
+                        submitted_by, approved
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                ''', (
+                    data['title'],
+                    data['story'],
+                    data['location'],
+                    data.get('category', 'general'),
+                    data.get('tech_relevance', ''),
+                    data.get('submitted_by', 'user'),
+                    0  # Requires approval
+                ))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True,
+                    'message': 'Story submitted successfully! It will be reviewed before publication.'
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/insights')
         def insights():

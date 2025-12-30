@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}Wild Wi-Fi - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+    <div>
+        <h2>🌿 Wild Wi-Fi</h2>
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">Real wireless stories from the wild - humorous, unexpected, and surprisingly insightful</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="showSubmitModal()" class="btn" style="background: #28a745;">📝 Submit Story</button>
+    </div>
+</div>
+
+<!-- Category Filter -->
+<div style="{% if view_mode == 'reader' %}padding: 0 20px; margin-bottom: 20px;{% else %}margin-bottom: 30px;{% endif %}">
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+        <span style="font-family: 'Inter', sans-serif; font-weight: 600; color: #2c3e50;">Filter by category:</span>
+        <a href="{{ url_for('wild_wifi', view=view_mode, category='all') }}" 
+           class="btn {% if current_category == 'all' %}active{% endif %}" 
+           style="font-size: 0.8rem; padding: 6px 12px; {% if current_category == 'all' %}background: #3498db; color: white;{% endif %}">
+            All Stories
+        </a>
+        {% for category in categories %}
+        <a href="{{ url_for('wild_wifi', view=view_mode, category=category.category) }}" 
+           class="btn {% if current_category == category.category %}active{% endif %}" 
+           style="font-size: 0.8rem; padding: 6px 12px; {% if current_category == category.category %}background: #3498db; color: white;{% endif %}">
+            {{ category.category|title }} ({{ category.count }})
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="submit-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
+
+{% if stories %}
+    {% for story in stories %}
+    <div class="{% if view_mode == 'reader' %}article{% else %}article{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% else %}border: 1px solid #e1e5e9; border-radius: 12px; padding: 25px; margin-bottom: 25px; background: linear-gradient(135deg, #f8f9fa, #ffffff); position: relative;{% endif %}">
+        
+        {% if story.featured %}
+        <div style="position: absolute; top: -8px; right: 20px; background: #f39c12; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; font-family: 'Inter', sans-serif;">
+            ⭐ FEATURED
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+            <div style="flex: 1;">
+                <h3 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1.1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: #000; margin-bottom: 15px;{% endif %}">
+                    {{ story.title }}
+                </h3>
+                
+                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.8rem; color: #999; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;{% endif %}">
+                    <span><strong>📍 Location:</strong> {{ story.location }}</span>
+                    <span style="background: #{{ ['e74c3c', 'f39c12', '3498db', '27ae60', '9b59b6'][story.humor_rating - 1] }}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">
+                        {{ '😐😊😄😂🤣'[story.humor_rating - 1] }} {{ story.humor_rating }}/5
+                    </span>
+                    <span style="background: #34495e; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">
+                        {{ story.category|title }}
+                    </span>
+                </div>
+                
+                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.5; color: #666; margin-bottom: 12px; padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px;{% else %}font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: #2c3e50; margin-bottom: 20px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);{% endif %}">
+                    {{ story.story }}
+                </div>
+                
+                {% if story.tech_relevance %}
+                <div style="background: #e8f5e8; border: 1px solid #27ae60; border-radius: 8px; padding: 15px; margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <span style="font-size: 1.2rem;">🔧</span>
+                        <strong style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #27ae60;">Tech Insight</strong>
+                    </div>
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #2c3e50; margin: 0; line-height: 1.5;">
+                        {{ story.tech_relevance }}
+                    </p>
+                </div>
+                {% endif %}
+                
+                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.75rem; color: #aaa; margin-top: 10px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #95a5a6; margin-top: 15px;{% endif %}">
+                    Submitted {{ story.created_at[:10] }}
+                    {% if story.submitted_by != 'system' %}
+                        by {{ story.submitted_by }}
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button onclick="shareWildStory('{{ story.title }}', '{{ story.location }}')" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #1da1f2;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #1da1f2;{% endif %}">
+                    📤 Share
+                </button>
+                <button onclick="addStoryToDigest({{ story.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #ff6b35;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #ff6b35;{% endif %}">
+                    📋 Digest
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
+        <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">🌿 No Wild Wi-Fi Stories</h3>
+        <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+            {% if current_category != 'all' %}
+                No stories found in the "{{ current_category|title }}" category. Try viewing all stories or submit your own!
+            {% else %}
+                No stories available yet. Be the first to submit a wild wireless story!
+            {% endif %}
+        </p>
+        <button onclick="showSubmitModal()" class="btn" style="background: #28a745; font-size: 1rem; padding: 12px 24px;">
+            📝 Submit Your Story
+        </button>
+    </div>
+{% endif %}
+
+<!-- Submit Story Modal -->
+<div id="submitModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; color: #2c3e50;">📝 Submit a Wild Wi-Fi Story</h3>
+        
+        <form id="submitForm">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Story Title *</label>
+                <input type="text" id="storyTitle" required style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem;" placeholder="Give your story a catchy title...">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Location *</label>
+                <input type="text" id="storyLocation" required style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem;" placeholder="Where did this happen?">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Category</label>
+                <select id="storyCategory" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem;">
+                    <option value="general">General</option>
+                    <option value="business">Business</option>
+                    <option value="community">Community</option>
+                    <option value="iot">IoT & Smart Home</option>
+                    <option value="tourism">Tourism</option>
+                    <option value="smart-home">Smart Home</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Your Story *</label>
+                <textarea id="storyContent" required rows="6" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem; resize: vertical;" placeholder="Tell us your wild wireless story! Keep it short, punchy, and real. What happened? Why was it funny or unexpected?"></textarea>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Tech Insight (Optional)</label>
+                <textarea id="storyTechRelevance" rows="3" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem; resize: vertical;" placeholder="What does this story teach us about wireless technology or user behavior?"></textarea>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Your Name (Optional)</label>
+                <input type="text" id="submittedBy" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem;" placeholder="How should we credit you?">
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: flex-end;">
+                <button type="button" onclick="closeSubmitModal()" class="btn" style="background: #95a5a6; padding: 12px 24px;">Cancel</button>
+                <button type="submit" class="btn" style="background: #28a745; padding: 12px 24px;">📝 Submit Story</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function showSubmitModal() {
+    document.getElementById('submitModal').style.display = 'block';
+}
+
+function closeSubmitModal() {
+    document.getElementById('submitModal').style.display = 'none';
+    document.getElementById('submitForm').reset();
+}
+
+document.getElementById('submitForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const statusDiv = document.getElementById('submit-status');
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    
+    submitButton.disabled = true;
+    submitButton.textContent = '⏳ Submitting...';
+    
+    try {
+        const formData = {
+            title: document.getElementById('storyTitle').value,
+            location: document.getElementById('storyLocation').value,
+            category: document.getElementById('storyCategory').value,
+            story: document.getElementById('storyContent').value,
+            tech_relevance: document.getElementById('storyTechRelevance').value,
+            submitted_by: document.getElementById('submittedBy').value || 'Anonymous'
+        };
+        
+        const response = await fetch('/api/submit_wild_story', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ ' + data.message + '</div>';
+            closeSubmitModal();
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        } else {
+            statusDiv.innerHTML = '<div class="alert alert-error">❌ Error: ' + data.error + '</div>';
+        }
+    } catch (error) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Network error: ' + error.message + '</div>';
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = '📝 Submit Story';
+    }
+});
+
+function shareWildStory(title, location) {
+    const text = `Check out this wild Wi-Fi story: "${title}" from ${location}`;
+    const url = window.location.href;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Wild Wi-Fi Story',
+            text: text,
+            url: url
+        });
+    } else {
+        // Fallback to copying to clipboard
+        navigator.clipboard.writeText(`${text} - ${url}`).then(() => {
+            alert('Story link copied to clipboard!');
+        });
+    }
+}
+
+function addStoryToDigest(storyId) {
+    alert('Wild Wi-Fi stories will be integrated with the weekly digest in a future update!');
+}
+
+// Close modal when clicking outside
+document.getElementById('submitModal').onclick = function(e) {
+    if (e.target === this) {
+        closeSubmitModal();
+    }
+}
+</script>
+{% endblock %}
