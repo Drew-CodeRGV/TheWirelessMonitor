@@ -988,4 +988,4 @@ class WirelessMonitor:
 
 if __name__ == '__main__':
     monitor = WirelessMonitor()
-    monitor.run()
+    monitor.run(port=8080)

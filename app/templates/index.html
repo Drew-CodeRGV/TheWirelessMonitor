@@ -3,112 +3,297 @@
 {% block title %}The Wireless Monitor - Today's Headlines{% endblock %}
 
 {% block content %}
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
-    <h2>📰 Today's Wireless Technology Headlines</h2>
-    <div style="display: flex; gap: 10px;">
-        {% if not show_all and total_articles > (stories|length) %}
-            <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
-        {% elif show_all %}
-            <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only</a>
-        {% endif %}
-        <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
-    </div>
-</div>
-
-{% if show_all and stories %}
-<div style="{% if view_mode == 'reader' %}padding: 10px 20px; background: #fff3cd; border-bottom: 1px solid #ffeaa7; margin: 0 -40px 0 -40px;{% else %}background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #f39c12;{% endif %}">
-    <p style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: 0.9rem; color: #856404; margin: 0;">
-        <strong>📋 Showing all {{ stories|length }} articles</strong> - including low relevance items. 
-        <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only</a>
-    </p>
-</div>
-{% endif %}
-
-<div id="fetch-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
-
-{% if stories %}
-    {% for story in stories %}
-    <article class="article">
-        <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
-        <div class="article-meta">
-            {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
-            <span class="feed-source" style="border-color: {{ color }};">
-                <span style="color: {{ color }};">{{ icon }}</span>
-                {{ story.feed_name }}
-            </span>
-            <span>Published: {{ story.published_date[:16] }}</span>
-            <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
-                {{ "%.0f"|format(story.relevance_score * 100) }}% Relevant
-            </span>
-            {% if story.relevance_score < 0.3 %}
-                <span style="font-size: 0.75rem; color: #e74c3c;">⚠️ Low Relevance</span>
+{% if view_mode == 'reader' %}
+    <!-- Google Reader Style Three-Pane Layout -->
+    <div class="reader-layout">
+        <!-- Feeds Pane -->
+        <div class="feeds-pane">
+            <h3>📡 RSS Feeds</h3>
+            <ul class="feed-list">
+                <li class="feed-item active">All Items ({{ total_articles }})</li>
+                <li class="feed-item">Starred Items</li>
+                <li class="feed-item">Shared Items</li>
+                <li class="feed-item">---</li>
+                <li class="feed-item">Ars Technica</li>
+                <li class="feed-item">TechCrunch</li>
+                <li class="feed-item">The Verge</li>
+                <li class="feed-item">IEEE Spectrum</li>
+                <li class="feed-item">Fierce Wireless</li>
+                <li class="feed-item">RCR Wireless</li>
+            </ul>
+        </div>
+        
+        <!-- Articles List Pane -->
+        <div class="articles-pane">
+            <h3>📰 Headlines ({{ stories|length }})</h3>
+            {% if stories %}
+                {% for story in stories %}
+                <div class="article-list-item" onclick="selectArticle({{ loop.index0 }})">
+                    <h4>{{ story.title }}</h4>
+                    <div class="snippet">{{ (story.description[:120] + '...') if story.description and story.description|length > 120 else (story.description or 'No preview available') }}</div>
+                    <div class="meta">
+                        <span>{{ story.feed_name }}</span>
+                        <span>{{ story.published_date[:10] }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="padding: 40px 20px; text-align: center; color: #666;">
+                    <p>No articles available</p>
+                    <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
+                </div>
             {% endif %}
         </div>
         
-        {% if story.content and story.content|length > 100 %}
-            <p>{{ story.content[:500] }}{% if story.content|length > 500 %}...{% endif %}</p>
-        {% elif story.description %}
-            <p>{{ story.description[:400] }}{% if story.description|length > 400 %}...{% endif %}</p>
-        {% else %}
-            <p style="color: #7f8c8d; font-style: italic;">No content preview available</p>
-        {% endif %}
-        
-        {% if show_all and story.relevance_score < 0.5 %}
-        <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 8px; font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %};">
-            <strong>Why low relevance?</strong> 
-            {% if story.wifi_keywords %}
-                Found keywords: {{ story.wifi_keywords }}
-            {% elif story.relevance_score < 0.1 %}
-                No wireless technology keywords found in title or description.
-            {% elif story.relevance_score < 0.3 %}
-                Few wireless technology keywords detected.
-            {% else %}
-                Some wireless keywords found but not highly relevant.
-            {% endif %}
+        <!-- Article Preview Pane -->
+        <div class="article-preview">
+            <div id="article-content">
+                <h2>Select an article to preview</h2>
+                <p style="color: #666; margin-top: 20px;">Click on any article from the list to see its full content here.</p>
+            </div>
         </div>
-        {% endif %}
-    </article>
-    {% endfor %}
-{% else %}
-    <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
-        <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📡 No Stories Available</h3>
-        <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
-            {% if total_articles > 0 %}
-                Found {{ total_articles }} articles but none meet the relevance threshold. 
-                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2980b9; text-decoration: underline;">Show all articles</a>
-            {% else %}
-                Click "Fetch Now" to get the latest wireless technology news from your RSS feeds
-            {% endif %}
-        </p>
-        <button onclick="fetchNow()" class="btn" style="font-size: {% if view_mode == 'reader' %}0.9rem; padding: 8px 16px{% else %}1.1rem; padding: 15px 30px{% endif %};">🔄 Fetch RSS Feeds</button>
     </div>
-{% endif %}
-
-<script>
-async function fetchNow() {
-    const statusDiv = document.getElementById('fetch-status');
-    const button = event.target;
     
-    button.disabled = true;
-    button.textContent = '⏳ Fetching...';
-    statusDiv.innerHTML = '<div class="alert alert-success">📡 Fetching RSS feeds, please wait...</div>';
-    
-    try {
-        const response = await fetch('/api/fetch_now');
-        const data = await response.json();
+    <script>
+        const articles = {{ stories|tojson }};
         
-        if (data.success) {
-            statusDiv.innerHTML = `<div class="alert alert-success">✅ Successfully fetched ${data.fetched} new articles! Refreshing page...</div>`;
-            setTimeout(() => location.reload(), 2000);
-        } else {
-            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        function selectArticle(index) {
+            // Remove previous selection
+            document.querySelectorAll('.article-list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked item
+            document.querySelectorAll('.article-list-item')[index].classList.add('selected');
+            
+            // Update preview pane
+            const article = articles[index];
+            const previewPane = document.getElementById('article-content');
+            
+            previewPane.innerHTML = `
+                <h2>${article.title}</h2>
+                <div class="preview-meta">
+                    <strong>Source:</strong> ${article.feed_name} | 
+                    <strong>Published:</strong> ${article.published_date.substring(0, 16)} | 
+                    <strong>Relevance:</strong> ${Math.round(article.relevance_score * 100)}%
+                </div>
+                <div class="content">
+                    ${article.content || article.description || 'No content available'}
+                    <br><br>
+                    <a href="${article.url}" target="_blank" class="btn">📖 Read Full Article</a>
+                </div>
+            `;
         }
-    } catch (error) {
-        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
-    } finally {
-        button.disabled = false;
-        button.textContent = '🔄 Fetch Now';
+        
+        async function fetchNow() {
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = '⏳ Fetching...';
+            
+            try {
+                const response = await fetch('/api/fetch_now');
+                const data = await response.json();
+                
+                if (data.success) {
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = '🔄 Fetch Now';
+            }
+        }
+    </script>
+
+{% else %}
+    <!-- NY Magazine Style Newspaper Layout -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
+        <h2>📰 Today's Wireless Technology Headlines</h2>
+        <div style="display: flex; gap: 10px;">
+            {% if not show_all and total_articles > (stories|length) %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+            {% elif show_all %}
+                <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only</a>
+            {% endif %}
+            <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
+        </div>
+    </div>
+
+    {% if show_all and stories %}
+    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #f39c12;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #856404; margin: 0;">
+            <strong>📋 Showing all {{ stories|length }} articles</strong> - including low relevance items. 
+            <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only</a>
+        </p>
+    </div>
+    {% endif %}
+
+    <div id="fetch-status" style="margin-bottom: 25px;"></div>
+
+    {% if stories %}
+        <!-- NY Magazine Style Grid Layout -->
+        <div class="articles-grid">
+            <!-- Featured Article (First high-relevance article) -->
+            {% set featured_article = stories[0] %}
+            <article class="featured-article">
+                <div class="article-meta">
+                    {% set icon, color = get_feed_icon(featured_article.feed_name, featured_article.feed_url) %}
+                    <span class="feed-source" style="border-color: {{ color }};">
+                        <span style="color: {{ color }};">{{ icon }}</span>
+                        {{ featured_article.feed_name }}
+                    </span>
+                    <span>{{ featured_article.published_date[:16] }}</span>
+                    <span class="relevance-score" style="{% if featured_article.relevance_score < 0.3 %}background: #e74c3c;{% elif featured_article.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                        {{ "%.0f"|format(featured_article.relevance_score * 100) }}% Relevant
+                    </span>
+                </div>
+                <h3><a href="{{ featured_article.url }}" target="_blank">{{ featured_article.title }}</a></h3>
+                {% if featured_article.content and featured_article.content|length > 100 %}
+                    <p>{{ featured_article.content[:300] }}{% if featured_article.content|length > 300 %}...{% endif %}</p>
+                {% elif featured_article.description %}
+                    <p>{{ featured_article.description[:250] }}{% if featured_article.description|length > 250 %}...{% endif %}</p>
+                {% else %}
+                    <p style="color: #7f8c8d; font-style: italic;">No content preview available</p>
+                {% endif %}
+            </article>
+            
+            <!-- Secondary Articles Column 1 -->
+            <div class="secondary-articles">
+                {% for story in stories[1:4] %}
+                <article class="article-card">
+                    <div class="article-meta">
+                        {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                        <span class="feed-source" style="border-color: {{ color }};">
+                            <span style="color: {{ color }};">{{ icon }}</span>
+                            {{ story.feed_name }}
+                        </span>
+                        <span>{{ story.published_date[:10] }}</span>
+                        <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                            {{ "%.0f"|format(story.relevance_score * 100) }}%
+                        </span>
+                    </div>
+                    <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
+                    {% if story.description %}
+                        <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+            
+            <!-- Secondary Articles Column 2 -->
+            <div class="secondary-articles">
+                {% for story in stories[4:7] %}
+                <article class="article-card">
+                    <div class="article-meta">
+                        {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                        <span class="feed-source" style="border-color: {{ color }};">
+                            <span style="color: {{ color }};">{{ icon }}</span>
+                            {{ story.feed_name }}
+                        </span>
+                        <span>{{ story.published_date[:10] }}</span>
+                        <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                            {{ "%.0f"|format(story.relevance_score * 100) }}%
+                        </span>
+                    </div>
+                    <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
+                    {% if story.description %}
+                        <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Additional Articles (if showing all) -->
+        {% if stories|length > 7 %}
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">More Stories</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
+                {% for story in stories[7:] %}
+                <article class="article-card">
+                    <div class="article-meta">
+                        {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                        <span class="feed-source" style="border-color: {{ color }};">
+                            <span style="color: {{ color }};">{{ icon }}</span>
+                            {{ story.feed_name }}
+                        </span>
+                        <span>{{ story.published_date[:10] }}</span>
+                        <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                            {{ "%.0f"|format(story.relevance_score * 100) }}%
+                        </span>
+                        {% if story.relevance_score < 0.3 %}
+                            <span style="font-size: 0.7rem; color: #e74c3c;">⚠️ Low</span>
+                        {% endif %}
+                    </div>
+                    <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
+                    {% if story.description %}
+                        <p>{{ story.description[:200] }}{% if story.description|length > 200 %}...{% endif %}</p>
+                    {% endif %}
+                    
+                    {% if show_all and story.relevance_score < 0.5 %}
+                    <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 8px; font-family: 'Inter', sans-serif;">
+                        <strong>Why low relevance?</strong> 
+                        {% if story.wifi_keywords %}
+                            Found keywords: {{ story.wifi_keywords }}
+                        {% elif story.relevance_score < 0.1 %}
+                            No wireless technology keywords found.
+                        {% elif story.relevance_score < 0.3 %}
+                            Few wireless technology keywords detected.
+                        {% else %}
+                            Some wireless keywords found but not highly relevant.
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+    {% else %}
+        <div style="text-align: center; padding: 60px 20px; color: #7f8c8d; background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 2rem; margin-bottom: 15px; color: #2c3e50;">📡 No Stories Available</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem; margin-bottom: 25px;">
+                {% if total_articles > 0 %}
+                    Found {{ total_articles }} articles but none meet the relevance threshold. 
+                    <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2980b9; text-decoration: underline;">Show all articles</a>
+                {% else %}
+                    Click "Fetch Now" to get the latest wireless technology news from your RSS feeds
+                {% endif %}
+            </p>
+            <button onclick="fetchNow()" class="btn" style="font-size: 1.1rem; padding: 15px 30px;">🔄 Fetch RSS Feeds</button>
+        </div>
+    {% endif %}
+
+    <script>
+    async function fetchNow() {
+        const statusDiv = document.getElementById('fetch-status');
+        const button = event.target;
+        
+        button.disabled = true;
+        button.textContent = '⏳ Fetching...';
+        statusDiv.innerHTML = '<div class="alert alert-success">📡 Fetching RSS feeds, please wait...</div>';
+        
+        try {
+            const response = await fetch('/api/fetch_now');
+            const data = await response.json();
+            
+            if (data.success) {
+                statusDiv.innerHTML = `<div class="alert alert-success">✅ Successfully fetched ${data.fetched} new articles! Refreshing page...</div>`;
+                setTimeout(() => location.reload(), 2000);
+            } else {
+                statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+            }
+        } catch (error) {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+        } finally {
+            button.disabled = false;
+            button.textContent = '🔄 Fetch Now';
+        }
     }
-}
-</script>
+    </script>
+{% endif %}
 {% endblock %}
