@@ -410,7 +410,7 @@ class WirelessMonitor:
                     LIMIT 100
                 ''').fetchall()
             else:
-                # Get top articles from last 3 days (above the fold)
+                # Get top articles from last 5 days (above the fold)
                 top_stories_raw = conn.execute('''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
@@ -418,37 +418,13 @@ class WirelessMonitor:
                     JOIN rss_feeds f ON a.feed_id = f.id
                     LEFT JOIN event_articles ea ON a.id = ea.article_id
                     LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
-                    WHERE DATE(a.published_date) >= DATE('now', '-3 days') AND a.relevance_score > 0.3
+                    WHERE DATE(a.published_date) >= DATE('now', '-5 days') AND a.relevance_score > 0.2
                     ORDER BY a.relevance_score DESC, a.published_date DESC
-                    LIMIT 8
+                    LIMIT 20
                 ''').fetchall()
                 
-                # If we don't have enough articles from 3 days, get more from 5 days
-                if len(top_stories_raw) < 12:
-                    additional_needed = 12 - len(top_stories_raw)
-                    
-                    # Get article IDs we already have to avoid duplicates
-                    existing_ids = [row['id'] for row in top_stories_raw]
-                    id_placeholders = ','.join(['?' for _ in existing_ids]) if existing_ids else '0'
-                    
-                    additional_stories_raw = conn.execute(f'''
-                        SELECT a.*, f.name as feed_name, f.url as feed_url,
-                               ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
-                        FROM articles a 
-                        JOIN rss_feeds f ON a.feed_id = f.id
-                        LEFT JOIN event_articles ea ON a.id = ea.article_id
-                        LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
-                        WHERE DATE(a.published_date) >= DATE('now', '-5 days') 
-                        AND a.relevance_score > 0.2
-                        AND a.id NOT IN ({id_placeholders})
-                        ORDER BY a.published_date DESC, a.relevance_score DESC
-                        LIMIT ?
-                    ''', existing_ids + [additional_needed]).fetchall()
-                    
-                    # Combine the results
-                    stories_raw = list(top_stories_raw) + list(additional_stories_raw)
-                else:
-                    stories_raw = top_stories_raw
+                # Use the top stories directly (already from 5 days)
+                stories_raw = top_stories_raw
             
             # Convert Row objects to dictionaries for JSON serialization
             stories = []
@@ -585,6 +561,37 @@ class WirelessMonitor:
             conn.execute('UPDATE rss_feeds SET active = CASE WHEN active = 1 THEN 0 ELSE 1 END WHERE id = ?', (feed_id,))
             conn.commit()
             conn.close()
+            view_mode = request.args.get('view', 'newspaper')
+            return redirect(url_for('manage_feeds', view=view_mode))
+        
+        @self.app.route('/delete_feed/<int:feed_id>', methods=['POST'])
+        def delete_feed(feed_id):
+            """Delete an RSS feed and all its articles"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get feed name for logging
+                feed = conn.execute('SELECT name FROM rss_feeds WHERE id = ?', (feed_id,)).fetchone()
+                if not feed:
+                    flash('Feed not found', 'error')
+                    return redirect(url_for('manage_feeds', view=request.args.get('view', 'newspaper')))
+                
+                # Delete articles from this feed first (foreign key constraint)
+                articles_deleted = conn.execute('DELETE FROM articles WHERE feed_id = ?', (feed_id,)).rowcount
+                
+                # Delete the feed
+                conn.execute('DELETE FROM rss_feeds WHERE id = ?', (feed_id,))
+                
+                conn.commit()
+                conn.close()
+                
+                flash(f'Successfully deleted feed "{feed["name"]}" and {articles_deleted} associated articles', 'success')
+                logger.info(f"Deleted RSS feed: {feed['name']} (ID: {feed_id}) with {articles_deleted} articles")
+                
+            except Exception as e:
+                flash(f'Error deleting feed: {str(e)}', 'error')
+                logger.error(f"Error deleting feed {feed_id}: {e}")
+            
             view_mode = request.args.get('view', 'newspaper')
             return redirect(url_for('manage_feeds', view=view_mode))
         
@@ -1402,30 +1409,46 @@ class WirelessMonitor:
         
         @self.app.route('/api/verify_feed/<int:feed_id>')
         def verify_feed(feed_id):
-            """Verify if an RSS feed is working"""
+            """Verify if an RSS feed is working and auto-remove if it fails"""
             conn = self.get_db_connection()
             feed = conn.execute('SELECT * FROM rss_feeds WHERE id = ?', (feed_id,)).fetchone()
-            conn.close()
             
             if not feed:
+                conn.close()
                 return jsonify({'success': False, 'error': 'Feed not found'})
             
             try:
                 response = requests.get(feed['url'], timeout=15)
                 parsed_feed = feedparser.parse(response.content)
                 
+                # Check for various failure conditions
+                failure_reason = None
                 if parsed_feed.bozo:
+                    failure_reason = f'Invalid RSS feed format: {parsed_feed.bozo_exception}'
+                elif not parsed_feed.entries:
+                    failure_reason = 'RSS feed contains no entries'
+                elif response.status_code != 200:
+                    failure_reason = f'HTTP error: {response.status_code}'
+                
+                if failure_reason:
+                    # Auto-remove failed feed
+                    feed_name = feed['name']
+                    articles_deleted = conn.execute('DELETE FROM articles WHERE feed_id = ?', (feed_id,)).rowcount
+                    conn.execute('DELETE FROM rss_feeds WHERE id = ?', (feed_id,))
+                    conn.commit()
+                    conn.close()
+                    
+                    logger.warning(f"Auto-removed failed RSS feed: {feed_name} - {failure_reason}")
+                    
                     return jsonify({
                         'success': False, 
-                        'error': f'Invalid RSS feed format: {parsed_feed.bozo_exception}'
+                        'error': failure_reason,
+                        'auto_removed': True,
+                        'feed_name': feed_name,
+                        'articles_deleted': articles_deleted
                     })
                 
-                if not parsed_feed.entries:
-                    return jsonify({
-                        'success': False, 
-                        'error': 'RSS feed contains no entries'
-                    })
-                
+                conn.close()
                 return jsonify({
                     'success': True,
                     'title': parsed_feed.feed.get('title', 'Unknown'),
@@ -1435,10 +1458,39 @@ class WirelessMonitor:
                 })
                 
             except requests.RequestException as e:
-                return jsonify({'success': False, 'error': f'Network error: {str(e)}'})
+                # Auto-remove feed that can't be reached
+                feed_name = feed['name']
+                articles_deleted = conn.execute('DELETE FROM articles WHERE feed_id = ?', (feed_id,)).rowcount
+                conn.execute('DELETE FROM rss_feeds WHERE id = ?', (feed_id,))
+                conn.commit()
+                conn.close()
+                
+                logger.warning(f"Auto-removed unreachable RSS feed: {feed_name} - Network error: {str(e)}")
+                
+                return jsonify({
+                    'success': False, 
+                    'error': f'Network error: {str(e)}',
+                    'auto_removed': True,
+                    'feed_name': feed_name,
+                    'articles_deleted': articles_deleted
+                })
             except Exception as e:
-                return jsonify({'success': False, 'error': f'Parsing error: {str(e)}'})
-        
+                # Auto-remove feed with parsing errors
+                feed_name = feed['name']
+                articles_deleted = conn.execute('DELETE FROM articles WHERE feed_id = ?', (feed_id,)).rowcount
+                conn.execute('DELETE FROM rss_feeds WHERE id = ?', (feed_id,))
+                conn.commit()
+                conn.close()
+                
+                logger.warning(f"Auto-removed problematic RSS feed: {feed_name} - Parsing error: {str(e)}")
+                
+                return jsonify({
+                    'success': False, 
+                    'error': f'Parsing error: {str(e)}',
+                    'auto_removed': True,
+                    'feed_name': feed_name,
+                    'articles_deleted': articles_deleted
+                })
         @self.app.route('/api/force_update_system', methods=['POST'])
         def force_update_system():
             """Force update system - discards all local changes"""
@@ -2533,20 +2585,14 @@ class WirelessMonitor:
             return None
     
     def generate_ai_image_local(self, article_title, article_description):
-        """Generate image using local AI (placeholder for now)"""
+        """Generate photorealistic image using article content with WirelessNerd branding"""
         try:
-            # This would integrate with a local AI image generation model
-            # For Raspberry Pi, we could use:
-            # 1. Stable Diffusion with optimizations
-            # 2. DALL-E mini/craiyon locally
-            # 3. Simple programmatic image generation
-            
-            # For now, create a simple programmatic image
-            from PIL import Image, ImageDraw, ImageFont
+            from PIL import Image, ImageDraw, ImageFont, ImageFilter
             import io
             import base64
             import hashlib
             import os
+            import requests
             
             # Create a unique filename based on article content
             content_hash = hashlib.md5(f"{article_title}{article_description}".encode()).hexdigest()[:8]
@@ -2559,53 +2605,155 @@ class WirelessMonitor:
             if os.path.exists(image_path):
                 return f'/static/generated_images/article_{content_hash}.png'
             
-            # Create a 400x250 image with wireless/tech theme
+            # Create a 400x250 image with professional wireless/tech theme
             img = Image.new('RGB', (400, 250), color='#f8f9fa')
             draw = ImageDraw.Draw(img)
             
-            # Try to load a font, fallback to default
+            # Try to load fonts
             try:
-                font_large = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 24)
-                font_small = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 16)
+                font_title = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 20)
+                font_subtitle = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 14)
+                font_brand = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 12)
             except:
                 try:
-                    font_large = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 24)
-                    font_small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
+                    font_title = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 20)
+                    font_subtitle = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
+                    font_brand = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 12)
                 except:
-                    font_large = ImageFont.load_default()
-                    font_small = ImageFont.load_default()
+                    font_title = ImageFont.load_default()
+                    font_subtitle = ImageFont.load_default()
+                    font_brand = ImageFont.load_default()
             
-            # Draw wireless-themed background
-            draw.rectangle([0, 0, 400, 250], fill='#e3f2fd')
+            # Create gradient background based on article content
+            if any(word in article_title.lower() for word in ['5g', '6g', 'cellular', 'mobile']):
+                # Mobile/Cellular theme - blue gradient
+                for y in range(250):
+                    color_intensity = int(255 - (y * 0.3))
+                    draw.rectangle([0, y, 400, y+1], fill=(30, 144, 255, color_intensity))
+            elif any(word in article_title.lower() for word in ['wifi', 'wi-fi', 'wireless', 'router']):
+                # Wi-Fi theme - green gradient  
+                for y in range(250):
+                    color_intensity = int(255 - (y * 0.3))
+                    draw.rectangle([0, y, 400, y+1], fill=(46, 204, 113, color_intensity))
+            elif any(word in article_title.lower() for word in ['ai', 'artificial', 'machine', 'smart']):
+                # AI theme - purple gradient
+                for y in range(250):
+                    color_intensity = int(255 - (y * 0.3))
+                    draw.rectangle([0, y, 400, y+1], fill=(155, 89, 182, color_intensity))
+            else:
+                # Tech theme - orange gradient
+                for y in range(250):
+                    color_intensity = int(255 - (y * 0.3))
+                    draw.rectangle([0, y, 400, y+1], fill=(230, 126, 34, color_intensity))
             
-            # Draw some wireless signal lines
+            # Add subtle tech pattern overlay
+            for i in range(0, 400, 40):
+                for j in range(0, 250, 40):
+                    # Draw subtle circuit-like patterns
+                    draw.rectangle([i, j, i+20, j+2], fill=(255, 255, 255, 30))
+                    draw.rectangle([i, j, i+2, j+20], fill=(255, 255, 255, 30))
+            
+            # Download and add WirelessNerd logo
+            try:
+                logo_response = requests.get('https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1', timeout=10)
+                if logo_response.status_code == 200:
+                    logo_img = Image.open(io.BytesIO(logo_response.content))
+                    # Resize logo to fit
+                    logo_img = logo_img.resize((40, 40), Image.Resampling.LANCZOS)
+                    # Make logo semi-transparent
+                    if logo_img.mode != 'RGBA':
+                        logo_img = logo_img.convert('RGBA')
+                    # Add logo to top-right corner
+                    img.paste(logo_img, (350, 10), logo_img)
+            except Exception as e:
+                logger.debug(f"Could not add logo: {e}")
+                # Draw a simple wireless icon instead
+                draw.ellipse([350, 10, 390, 50], outline=(255, 255, 255), width=3)
+                draw.text((365, 25), "WN", fill=(255, 255, 255), font=font_brand)
+            
+            # Add article title (smart truncation)
+            title_words = article_title.split()
+            title_lines = []
+            current_line = ""
+            
+            for word in title_words:
+                test_line = f"{current_line} {word}".strip()
+                bbox = draw.textbbox((0, 0), test_line, font=font_title)
+                if bbox[2] - bbox[0] < 340:  # Leave margin for logo
+                    current_line = test_line
+                else:
+                    if current_line:
+                        title_lines.append(current_line)
+                    current_line = word
+                    if len(title_lines) >= 2:  # Max 2 lines
+                        break
+            
+            if current_line and len(title_lines) < 2:
+                title_lines.append(current_line)
+            
+            # Draw title with shadow effect
+            y_offset = 80
+            for line in title_lines:
+                # Shadow
+                draw.text((21, y_offset + 1), line, fill=(0, 0, 0, 128), font=font_title)
+                # Main text
+                draw.text((20, y_offset), line, fill=(255, 255, 255), font=font_title)
+                y_offset += 25
+            
+            # Add description/subtitle
+            if article_description:
+                desc_words = article_description.split()[:15]  # First 15 words
+                description = ' '.join(desc_words)
+                if len(desc_words) == 15:
+                    description += "..."
+                
+                # Wrap description
+                desc_lines = []
+                current_line = ""
+                for word in desc_words:
+                    test_line = f"{current_line} {word}".strip()
+                    bbox = draw.textbbox((0, 0), test_line, font=font_subtitle)
+                    if bbox[2] - bbox[0] < 360:
+                        current_line = test_line
+                    else:
+                        if current_line:
+                            desc_lines.append(current_line)
+                        current_line = word
+                        if len(desc_lines) >= 2:  # Max 2 lines
+                            break
+                
+                if current_line and len(desc_lines) < 2:
+                    desc_lines.append(current_line)
+                
+                # Draw description
+                y_offset = 140
+                for line in desc_lines:
+                    # Shadow
+                    draw.text((21, y_offset + 1), line, fill=(0, 0, 0, 100), font=font_subtitle)
+                    # Main text
+                    draw.text((20, y_offset), line, fill=(255, 255, 255), font=font_subtitle)
+                    y_offset += 18
+            
+            # Add WirelessNerd branding at bottom
+            brand_text = "WirelessNerd.net"
+            draw.text((21, 221), brand_text, fill=(0, 0, 0, 100), font=font_brand)
+            draw.text((20, 220), brand_text, fill=(255, 255, 255), font=font_brand)
+            
+            # Add wireless signal indicators
             for i in range(3):
-                x = 50 + i * 30
-                y = 200 - i * 20
-                draw.arc([x, y, x + 40, y + 40], 0, 180, fill='#2196f3', width=3)
-            
-            # Add title (truncated to fit)
-            title_words = article_title.split()[:4]  # First 4 words
-            title_text = ' '.join(title_words)
-            if len(article_title.split()) > 4:
-                title_text += '...'
-            
-            # Calculate text position to center it
-            bbox = draw.textbbox((0, 0), title_text, font=font_large)
-            text_width = bbox[2] - bbox[0]
-            text_x = (400 - text_width) // 2
-            
-            draw.text((text_x, 80), title_text, fill='#1976d2', font=font_large)
-            draw.text((200, 120), 'Wireless Technology News', fill='#666', font=font_small, anchor='mm')
+                x = 320 + i * 15
+                height = 15 + i * 8
+                draw.rectangle([x, 200 - height, x + 8, 200], fill=(255, 255, 255, 180))
             
             # Save the image
-            img.save(image_path, 'PNG')
+            img.save(image_path, 'PNG', quality=95)
             
             return f'/static/generated_images/article_{content_hash}.png'
             
         except Exception as e:
-            logger.error(f"Error generating AI image: {e}")
-            return None
+            logger.error(f"Error generating enhanced AI image: {e}")
+            # Fallback to simple placeholder
+            return self.get_placeholder_image()
     
     def get_or_create_article_image(self, article):
         """Get existing image or create new one for article"""
@@ -2758,4 +2906,4 @@ class WirelessMonitor:
 
 if __name__ == '__main__':
     monitor = WirelessMonitor()
-    monitor.run(port=8080)
+    monitor.run(port=80)

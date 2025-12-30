@@ -113,6 +113,11 @@ https://example2.com/rss"></textarea>
                style="white-space: nowrap; font-size: 0.8rem; padding: 6px 12px;">
                 {% if feed.active %}🔇 Disable{% else %}🔊 Enable{% endif %}
             </a>
+            <button onclick="deleteFeed({{ feed.id }}, '{{ feed.name|replace("'", "\\'") }}')" 
+                    class="btn" 
+                    style="background: #dc3545; color: white; font-size: 0.8rem; padding: 6px 12px;">
+                🗑️ Delete
+            </button>
         </div>
     </div>
     {% endfor %}
@@ -140,11 +145,32 @@ async function verifyFeed(feedId) {
                 </div>
             `;
         } else {
-            statusDiv.innerHTML = `
-                <div style="font-size: 0.8rem; color: #e74c3c; padding: 5px 0; background: #f8d7da; padding: 8px; border-radius: 4px; border-left: 3px solid #e74c3c;">
-                    ❌ <strong>Feed Error:</strong> ${data.error}
-                </div>
-            `;
+            if (data.auto_removed) {
+                // Feed was automatically removed
+                statusDiv.innerHTML = `
+                    <div style="font-size: 0.8rem; color: #dc3545; padding: 8px; background: #f8d7da; border-radius: 4px; border-left: 3px solid #dc3545;">
+                        🗑️ <strong>Feed Auto-Removed:</strong> ${data.error}<br>
+                        📰 <strong>Feed:</strong> ${data.feed_name}<br>
+                        🗂️ <strong>Articles Deleted:</strong> ${data.articles_deleted}
+                    </div>
+                `;
+                
+                // Remove the feed element from the page after a delay
+                setTimeout(() => {
+                    const feedElement = document.getElementById(`feed-${feedId}`);
+                    if (feedElement) {
+                        feedElement.style.transition = 'opacity 0.5s ease';
+                        feedElement.style.opacity = '0';
+                        setTimeout(() => feedElement.remove(), 500);
+                    }
+                }, 3000);
+            } else {
+                statusDiv.innerHTML = `
+                    <div style="font-size: 0.8rem; color: #e74c3c; padding: 5px 0; background: #f8d7da; padding: 8px; border-radius: 4px; border-left: 3px solid #e74c3c;">
+                        ❌ <strong>Feed Error:</strong> ${data.error}
+                    </div>
+                `;
+            }
         }
     } catch (error) {
         statusDiv.innerHTML = `
@@ -155,6 +181,54 @@ async function verifyFeed(feedId) {
     } finally {
         button.disabled = false;
         button.textContent = '🔍 Verify';
+    }
+}
+
+async function deleteFeed(feedId, feedName) {
+    if (!confirm(`Are you sure you want to delete the RSS feed "${feedName}"?\n\nThis will also delete all articles from this feed and cannot be undone.`)) {
+        return;
+    }
+    
+    const statusDiv = document.getElementById(`feed-status-${feedId}`);
+    statusDiv.innerHTML = '<div style="font-size: 0.8rem; color: #dc3545; padding: 5px 0;">🗑️ Deleting feed...</div>';
+    
+    try {
+        const response = await fetch(`/delete_feed/${feedId}`, {
+            method: 'POST'
+        });
+        
+        if (response.ok) {
+            // Success - remove the feed element from the page
+            const feedElement = document.getElementById(`feed-${feedId}`);
+            if (feedElement) {
+                feedElement.style.transition = 'opacity 0.5s ease';
+                feedElement.style.opacity = '0';
+                setTimeout(() => {
+                    feedElement.remove();
+                    // Show success message
+                    const successDiv = document.createElement('div');
+                    successDiv.innerHTML = `
+                        <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                            ✅ Successfully deleted RSS feed "${feedName}"
+                        </div>
+                    `;
+                    document.querySelector('.container .main-content').insertBefore(successDiv, document.querySelector('.container .main-content').firstChild);
+                    setTimeout(() => successDiv.remove(), 5000);
+                }, 500);
+            }
+        } else {
+            statusDiv.innerHTML = `
+                <div style="font-size: 0.8rem; color: #e74c3c; padding: 8px; background: #f8d7da; border-radius: 4px; border-left: 3px solid #e74c3c;">
+                    ❌ <strong>Delete Failed:</strong> Server error
+                </div>
+            `;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `
+            <div style="font-size: 0.8rem; color: #e74c3c; padding: 8px; background: #f8d7da; border-radius: 4px; border-left: 3px solid #e74c3c;">
+                ❌ <strong>Delete Failed:</strong> ${error.message}
+            </div>
+        `;
     }
 }
 </script>

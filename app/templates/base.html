@@ -103,6 +103,11 @@
             grid-row: 1 / 3;
         }
         
+        .event-news-column {
+            grid-column: 3;
+            grid-row: 1 / 3;
+        }
+        
         .featured-article h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
@@ -519,8 +524,69 @@
             background: #f1f1f1;
         }
         
-        /* Responsive */
+        /* Al Jazeera Style Hero Layout */
+        .hero-section {
+            /* Hero section styling handled by inline styles for flexibility */
+        }
+        
+        .hero-article {
+            /* Hero article styling handled by inline styles for Al Jazeera look */
+        }
+        
+        .hero-image {
+            /* Hero image styling handled by inline styles */
+        }
+        
+        .hero-content {
+            /* Hero content styling handled by inline styles */
+        }
+        
+        .secondary-grid {
+            /* Secondary grid styling handled by inline styles */
+        }
+        
+        .secondary-story {
+            /* Secondary story styling handled by inline styles */
+        }
+        
+        /* Al Jazeera Style Responsive Adjustments */
         @media (max-width: 1200px) {
+            /* Stack hero and secondary grid on smaller screens */
+            .hero-layout {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-image {
+                height: 250px !important;
+            }
+            
+            .secondary-story img {
+                height: 150px !important;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .articles-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .articles-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .featured-article {
+                grid-column: 1 / 3;
+                grid-row: 1;
+            }
+            
             .reader-layout {
                 grid-template-columns: 200px 300px 1fr;
             }

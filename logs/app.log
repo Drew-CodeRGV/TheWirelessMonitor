@@ -1,0 +1,670 @@
+2025-12-30 12:04:57,256 - main - INFO - Added social platform: Twitter
+2025-12-30 12:04:57,256 - main - INFO - Added social platform: LinkedIn
+2025-12-30 12:04:57,256 - main - INFO - Added social platform: Facebook
+2025-12-30 12:04:57,256 - main - INFO - Added social platform: Mastodon
+2025-12-30 12:04:57,256 - main - INFO - Added social platform: Instagram
+2025-12-30 12:04:57,256 - main - INFO - Added CES 2026 event
+2025-12-30 12:04:57,256 - main - INFO - Added NRF 2026 event
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: Ars Technica Technology
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: TechCrunch
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: The Verge
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: IEEE Spectrum
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: Fierce Wireless
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: RCR Wireless News
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: Engadget
+2025-12-30 12:04:57,256 - main - INFO - Added default feed: Wired Technology
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Airport Wi-Fi Password Becomes Tourist Attraction
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Smart Doorbell Alerts Neighbor About Package Theft
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Coffee Shop Creates "Productivity Zones" Based on Wi-Fi Speed
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Retirement Home Residents Become Wi-Fi Troubleshooters
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Food Truck Uses Wi-Fi Heat Map to Find Best Parking Spots
+2025-12-30 12:04:57,256 - main - INFO - Added Wild Wi-Fi story: Smart Home Goes Rogue During Power Outage
+2025-12-30 12:04:57,257 - main - INFO - Database initialized
+2025-12-30 12:04:57,261 - main - INFO - Starting RSS feed fetch...
+2025-12-30 12:04:57,261 - main - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:04:57,445 - main - INFO - Fetching feed: TechCrunch
+2025-12-30 12:04:57,593 - main - INFO - Fetching feed: The Verge
+2025-12-30 12:04:57,758 - main - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:10:00,743 - __main__ - INFO - Database initialized
+2025-12-30 12:10:00,746 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:10:00,747 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 12:10:00,747 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:14:44,301 - __main__ - INFO - Database initialized
+2025-12-30 12:14:44,305 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:14:44,306 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 12:14:44,306 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:15:16,680 - __main__ - INFO - Database initialized
+2025-12-30 12:15:16,684 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:15:16,685 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 12:15:16,685 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:15:16,780 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 12:15:16,780 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 12:15:16,931 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 12:15:17,172 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 12:15:17,340 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:15:17,618 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 12:15:17,836 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 12:15:18,216 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 12:15:18,845 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 12:15:20,263 - __main__ - INFO - RSS fetch completed: 20 new articles
+2025-12-30 12:15:22,983 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:22] "GET / HTTP/1.1" 200 -
+2025-12-30 12:15:28,099 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:28] "GET / HTTP/1.1" 200 -
+2025-12-30 12:15:33,420 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:33] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 12:15:41,944 - __main__ - INFO - Successfully resolved https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/ -> https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 12:15:41,945 - __main__ - INFO - Scraping image from resolved URL: https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 12:15:42,531 - __main__ - INFO - Successfully fetched page content, size: 156424 bytes
+2025-12-30 12:15:42,531 - __main__ - INFO - Found Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 12:15:42,703 - __main__ - INFO - Successfully validated image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 12:15:42,710 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:42] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 12:15:47,299 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:47] "GET /events HTTP/1.1" 200 -
+2025-12-30 12:15:51,920 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:51] "GET /events HTTP/1.1" 200 -
+2025-12-30 12:15:57,843 - __main__ - INFO - Found 4 new articles for CES 2026
+2025-12-30 12:15:57,844 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:15:57] "POST /api/fetch_event_content/1 HTTP/1.1" 200 -
+2025-12-30 12:16:03,003 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:16:03] "GET / HTTP/1.1" 200 -
+2025-12-30 12:16:08,648 - __main__ - INFO - Successfully resolved https://www.rcrwireless.com/20251219/ai/hcltech-buys-hpe-telco -> https://www.rcrwireless.com/20251219/ai/hcltech-buys-hpe-telco
+2025-12-30 12:16:08,648 - __main__ - INFO - Scraping image from resolved URL: https://www.rcrwireless.com/20251219/ai/hcltech-buys-hpe-telco
+2025-12-30 12:16:09,058 - __main__ - INFO - Successfully fetched page content, size: 412856 bytes
+2025-12-30 12:16:09,058 - __main__ - INFO - Found Open Graph image: https://www.rcrwireless.com/wp-content/uploads/2025/12/hpe.jpg
+2025-12-30 12:16:09,305 - __main__ - INFO - Successfully validated image: https://www.rcrwireless.com/wp-content/uploads/2025/12/hpe.jpg
+2025-12-30 12:16:09,311 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:16:09] "POST /api/generate_article_image/5 HTTP/1.1" 200 -
+2025-12-30 12:16:13,567 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:16:13] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 12:16:18,423 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:16:18] "GET /weekly_digest HTTP/1.1" 200 -
+2025-12-30 12:23:45,339 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:23:45] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:23:47,692 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:23:47] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:24:00,626 - __main__ - INFO - Successfully resolved https://techcrunch.com/ces-2026-ai-iot-innovations-preview -> https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 12:24:00,626 - __main__ - INFO - Scraping image from resolved URL: https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 12:24:01,831 - __main__ - WARNING - Failed to fetch article page: 404 for https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 12:24:02,075 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:24:02] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 12:24:02,087 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:24:02] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:27:47,713 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:27:47,716 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:27:48,142 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 12:27:48,311 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 12:27:48,483 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:27:48,703 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 12:27:48,920 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 12:27:49,230 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 12:27:50,191 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 12:27:54,698 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 12:27:54,699 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:27:54] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 12:27:56,724 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:27:56] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:27:56,741 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:27:56] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:41:29,113 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:29] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:41:29,122 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:29] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:41:30,252 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:30] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:41:30,261 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:30] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:41:31,452 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:31] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:41:31,460 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:31] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:41:33,064 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:41:33,065 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:41:33,496 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 12:41:33,689 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 12:41:33,889 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:41:34,070 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 12:41:34,290 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 12:41:34,631 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 12:41:35,650 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 12:41:40,158 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 12:41:40,159 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:40] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 12:41:42,171 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:42] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:41:42,191 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:41:42] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:06,070 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:06] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:06,080 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:06] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:07,222 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:07] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:42:07,230 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:07] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:08,201 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:08] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:08,211 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:08] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:09,324 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:09] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 12:42:09,335 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:09] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:23,919 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:23] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:25,247 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:25] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:28,677 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:28] "[32mPOST /add_google_news?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 12:42:28,682 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:28] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:31,044 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:31] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:31,055 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:31] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:42:32,301 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:42:32,302 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:42:32,470 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 12:42:32,617 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 12:42:32,818 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:42:32,992 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 12:42:33,132 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 12:42:33,386 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 12:42:34,914 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 12:42:35,092 - __main__ - INFO - Fetching feed: Google News: wi-fi
+2025-12-30 12:42:35,906 - __main__ - INFO - Skipping Google News article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET
+2025-12-30 12:42:35,906 - __main__ - INFO - Skipping Google News article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmodo
+2025-12-30 12:42:35,906 - __main__ - INFO - Skipping Google News article: Wi-Fi hi-fi headphones, super-versatile systems and CD's renaissance could be on the cards in 2026 - What Hi-Fi?
+2025-12-30 12:42:35,906 - __main__ - INFO - Skipping Google News article: Your Android phone can double up as a travel router and bypass hotel Wi-Fi limits, here's how - Android Authority
+2025-12-30 12:42:35,906 - __main__ - INFO - Skipping Google News article: Samsung just unveiled its first Wi-Fi speakers ahead of CES 2026, and they look splurge-worthy - ZDNET
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: 7 Useful Tips for Anyone Connecting to Public Wi-Fi - WIRED
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for Onboard Rail - ARC Advisory
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: 14000 Btu Cooling GE 14,000 BTU Smart Window Air Conditioner - Wi-Fi Connected AC Unit Ge Awcs14wwa Window Air Conditioner White Model - exileshmagazine.com
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Wi-Fi service for students and educators adds new locations for access in Reno - KOLO | 8 News Now
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Intel Wi-Fi 8 Features Focus on Stability Latency Reduction and Reliability Over Peak Speed - Technetbook
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Google Pixel Watch 4 LTE Crashes to Record Low Despite Being the Latest Android Smartwatch, Now Priced the Same as the Wi-Fi Model - Kotaku
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: Reno expands digital access with Wi-Fi at 9 public locations across the city - mynews4.com
+2025-12-30 12:42:35,907 - __main__ - INFO - Skipping Google News article: You spin me right round (like a Wi-Fi identifier) - Six Colors
+2025-12-30 12:42:35,908 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 12:42:35,908 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:35] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 12:42:37,919 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:37] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 12:42:37,929 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:42:37] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 12:45:31,837 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:45:31] "GET / HTTP/1.1" 200 -
+2025-12-30 12:45:45,502 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:45:45] "GET / HTTP/1.1" 200 -
+2025-12-30 12:45:57,726 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:45:57] "GET / HTTP/1.1" 200 -
+2025-12-30 12:46:09,760 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:46:09] "GET /?t=1767120369 HTTP/1.1" 200 -
+2025-12-30 12:46:14,278 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:46:14] "GET /?t=1767120374 HTTP/1.1" 200 -
+2025-12-30 12:46:27,621 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:46:27] "GET /?cache_bust=1767120387 HTTP/1.1" 200 -
+2025-12-30 12:46:32,124 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:46:32] "GET /?cache_bust=1767120392 HTTP/1.1" 200 -
+2025-12-30 12:46:46,645 - __main__ - INFO - Database initialized
+2025-12-30 12:46:46,649 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 12:46:46,649 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 12:46:46,650 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 12:46:46,704 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 12:46:46,704 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 12:46:46,877 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 12:46:47,028 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 12:46:47,203 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 12:46:47,417 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 12:46:47,557 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 12:46:47,810 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 12:46:48,768 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 12:46:49,001 - __main__ - INFO - Fetching feed: Google News: wi-fi
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmodo
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Wi-Fi hi-fi headphones, super-versatile systems and CD's renaissance could be on the cards in 2026 - What Hi-Fi?
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Your Android phone can double up as a travel router and bypass hotel Wi-Fi limits, here's how - Android Authority
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Samsung just unveiled its first Wi-Fi speakers ahead of CES 2026, and they look splurge-worthy - ZDNET
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: 7 Useful Tips for Anyone Connecting to Public Wi-Fi - WIRED
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for Onboard Rail - ARC Advisory
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: 14000 Btu Cooling GE 14,000 BTU Smart Window Air Conditioner - Wi-Fi Connected AC Unit Ge Awcs14wwa Window Air Conditioner White Model - exileshmagazine.com
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Wi-Fi service for students and educators adds new locations for access in Reno - KOLO | 8 News Now
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Intel Wi-Fi 8 Features Focus on Stability Latency Reduction and Reliability Over Peak Speed - Technetbook
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Google Pixel Watch 4 LTE Crashes to Record Low Despite Being the Latest Android Smartwatch, Now Priced the Same as the Wi-Fi Model - Kotaku
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: Reno expands digital access with Wi-Fi at 9 public locations across the city - mynews4.com
+2025-12-30 12:46:49,778 - __main__ - INFO - Skipping Google News article: You spin me right round (like a Wi-Fi identifier) - Six Colors
+2025-12-30 12:46:49,780 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 12:46:56,514 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:46:56] "GET / HTTP/1.1" 200 -
+2025-12-30 12:47:02,063 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:47:02] "GET / HTTP/1.1" 200 -
+2025-12-30 12:47:06,976 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:47:06] "GET / HTTP/1.1" 200 -
+2025-12-30 12:47:11,145 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:47:11] "GET / HTTP/1.1" 200 -
+2025-12-30 12:47:15,628 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:47:15] "GET / HTTP/1.1" 200 -
+2025-12-30 12:47:21,155 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 12:47:21] "GET / HTTP/1.1" 200 -
+2025-12-30 13:01:43,529 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:43] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:01:43,552 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:43] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:01:45,204 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:45] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:01:45,214 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:45] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:01:51,513 - __main__ - INFO - Successfully resolved https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss -> https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 13:01:51,513 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 13:01:51,880 - __main__ - INFO - Successfully fetched page content, size: 369921 bytes
+2025-12-30 13:01:51,880 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 13:01:52,075 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 13:01:52,084 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:52] "POST /api/generate_article_image/17 HTTP/1.1" 200 -
+2025-12-30 13:01:55,813 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss -> https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 13:01:55,813 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 13:01:56,125 - __main__ - INFO - Successfully fetched page content, size: 371589 bytes
+2025-12-30 13:01:56,125 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 13:01:56,276 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 13:01:56,283 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:56] "POST /api/generate_article_image/12 HTTP/1.1" 200 -
+2025-12-30 13:01:58,575 - __main__ - INFO - Successfully resolved https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss -> https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 13:01:58,575 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 13:01:59,016 - __main__ - INFO - Successfully fetched page content, size: 394967 bytes
+2025-12-30 13:01:59,017 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 13:01:59,147 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 13:01:59,155 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:01:59] "POST /api/generate_article_image/13 HTTP/1.1" 200 -
+2025-12-30 13:02:06,601 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:06] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:02:17,082 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:17] "[32mPOST /add_google_news?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 13:02:17,093 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:17] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:02:19,377 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:19] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:02:19,395 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:19] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:02:20,986 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:02:20,988 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:02:21,227 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 13:02:21,431 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 13:02:21,825 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 13:02:22,119 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 13:02:22,415 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 13:02:22,841 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 13:02:24,954 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 13:02:28,570 - __main__ - INFO - Fetching feed: Google News: wi-fi
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmodo
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Wi-Fi hi-fi headphones, super-versatile systems and CD's renaissance could be on the cards in 2026 - What Hi-Fi?
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Your Android phone can double up as a travel router and bypass hotel Wi-Fi limits, here's how - Android Authority
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Samsung just unveiled its first Wi-Fi speakers ahead of CES 2026, and they look splurge-worthy - ZDNET
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: 7 Useful Tips for Anyone Connecting to Public Wi-Fi - WIRED
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for Onboard Rail - ARC Advisory
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: 14000 Btu Cooling GE 14,000 BTU Smart Window Air Conditioner - Wi-Fi Connected AC Unit Ge Awcs14wwa Window Air Conditioner White Model - exileshmagazine.com
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Wi-Fi service for students and educators adds new locations for access in Reno - KOLO | 8 News Now
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Intel Wi-Fi 8 Features Focus on Stability Latency Reduction and Reliability Over Peak Speed - Technetbook
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Google Pixel Watch 4 LTE Crashes to Record Low Despite Being the Latest Android Smartwatch, Now Priced the Same as the Wi-Fi Model - Kotaku
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: Reno expands digital access with Wi-Fi at 9 public locations across the city - mynews4.com
+2025-12-30 13:02:29,670 - __main__ - INFO - Skipping Google News article: You spin me right round (like a Wi-Fi identifier) - Six Colors
+2025-12-30 13:02:29,670 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: NSHE expanding wifi access - KTVN
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Spectrum opens WiFi access points as it assess winter storm damage - WZMQ 19 News
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Inside Prince Harry and Meghan Markle’s plan to cling onto royal power as they react to divorce rumours - MSN
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: What the Tech? Speeding up your slow WiFi - WFMZ.com
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage has a tempting 30% discount in the winter sale - PC Guide
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Internet, cable company offering internet access points amid winter storms - WFMJ.com
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Level' Smart Home Upgrade for This Sale Season - openPR.com
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: The Google Nest WiFi Pro Router is On Sale For $100 Off – End Buffering With Strong WiFi - | Cord Cutters News
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Your Router Is Probably in the Wrong Place. Here Are the 4 Tweaks to Fix Your Slow Internet - CNET
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Sapphire Nitro+ B850A WiFi 7 review - Welcome back to the motherboard market! - TweakTown
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Geopolitics of Starlink: Air France faces backlash from politicians over WiFi provider - Aerospace Global News
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Do Cell Phones Work in Yellowstone? Is There WiFi? - yellowstonepark.com
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Oak Wifi - City of Oakland (.gov)
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Op-ed: Northeastern’s wifi needs to be fixed - The Huntington News
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Free WiFi in the Sky! Southwest Airlines Partners with T-Mobile to Offer Free Inflight WiFi for all Rapid Rewards Members | SWA Newsroom - Southwest Airlines Newsroom
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: WiFi signals can measure heart rate—no wearables needed - UC Santa Cruz - News
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Bye bye, Wi-Fi: How to add a wired network to your home without running Ethernet - ZDNET
+2025-12-30 13:02:30,641 - __main__ - INFO - Skipping Google News article: Why it’s crucial to turn off your smartphone’s Wi-Fi when you leave home — before it’s too late - MSN
+2025-12-30 13:02:30,643 - __main__ - INFO - RSS fetch completed: 1 new articles
+2025-12-30 13:02:30,645 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:30] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 13:02:32,668 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:32] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:02:32,680 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:32] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:02:45,645 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:45] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:02:45,657 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:45] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:02:57,148 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:57] "GET /?view=reader&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:02:59,731 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:59] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:02:59,742 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:02:59] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:03:00,652 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:00] "GET /?view=reader&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:03:06,300 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:06] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 13:03:17,641 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:17] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-30 13:03:19,402 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:19] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-30 13:03:20,348 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:20] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:03:20,362 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:03:20] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:04:33,344 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:04:33] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:07:49,015 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:07:49] "GET / HTTP/1.1" 200 -
+2025-12-30 13:07:54,030 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:07:54] "GET / HTTP/1.1" 200 -
+2025-12-30 13:07:59,294 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:07:59] "GET / HTTP/1.1" 200 -
+2025-12-30 13:08:17,508 - __main__ - INFO - Database initialized
+2025-12-30 13:08:17,512 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:08:17,513 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 13:08:17,513 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:08:17,621 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 13:08:17,621 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 13:08:17,730 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 13:08:17,909 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 13:08:18,089 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 13:08:18,283 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 13:08:18,428 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 13:08:18,714 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 13:08:19,352 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 13:08:19,568 - __main__ - INFO - Fetching feed: Google News: wi-fi
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmodo
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Wi-Fi hi-fi headphones, super-versatile systems and CD's renaissance could be on the cards in 2026 - What Hi-Fi?
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Your Android phone can double up as a travel router and bypass hotel Wi-Fi limits, here's how - Android Authority
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Samsung just unveiled its first Wi-Fi speakers ahead of CES 2026, and they look splurge-worthy - ZDNET
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: 7 Useful Tips for Anyone Connecting to Public Wi-Fi - WIRED
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for Onboard Rail - ARC Advisory
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: 14000 Btu Cooling GE 14,000 BTU Smart Window Air Conditioner - Wi-Fi Connected AC Unit Ge Awcs14wwa Window Air Conditioner White Model - exileshmagazine.com
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Wi-Fi service for students and educators adds new locations for access in Reno - KOLO | 8 News Now
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Intel Wi-Fi 8 Features Focus on Stability Latency Reduction and Reliability Over Peak Speed - Technetbook
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Google Pixel Watch 4 LTE Crashes to Record Low Despite Being the Latest Android Smartwatch, Now Priced the Same as the Wi-Fi Model - Kotaku
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: Reno expands digital access with Wi-Fi at 9 public locations across the city - mynews4.com
+2025-12-30 13:08:20,315 - __main__ - INFO - Skipping Google News article: You spin me right round (like a Wi-Fi identifier) - Six Colors
+2025-12-30 13:08:20,315 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: NSHE expanding wifi access - KTVN
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: Spectrum opens WiFi access points as it assess winter storm damage - WZMQ 19 News
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: Inside Prince Harry and Meghan Markle’s plan to cling onto royal power as they react to divorce rumours - MSN
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: What the Tech? Speeding up your slow WiFi - WFMZ.com
+2025-12-30 13:08:21,107 - __main__ - INFO - Skipping Google News article: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage has a tempting 30% discount in the winter sale - PC Guide
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Internet, cable company offering internet access points amid winter storms - WFMJ.com
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Level' Smart Home Upgrade for This Sale Season - openPR.com
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: The Google Nest WiFi Pro Router is On Sale For $100 Off – End Buffering With Strong WiFi - | Cord Cutters News
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Your Router Is Probably in the Wrong Place. Here Are the 4 Tweaks to Fix Your Slow Internet - CNET
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Sapphire Nitro+ B850A WiFi 7 review - Welcome back to the motherboard market! - TweakTown
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: The Best WiFi Router of 2025 - TechGearLab
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Geopolitics of Starlink: Air France faces backlash from politicians over WiFi provider - Aerospace Global News
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Oak Wifi - City of Oakland (.gov)
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Op-ed: Northeastern’s wifi needs to be fixed - The Huntington News
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: American Airlines Begins Testing Free WiFi On Select Flights Ahead Of 2026 Rollout - Simple Flying
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Free WiFi in the Sky! Southwest Airlines Partners with T-Mobile to Offer Free Inflight WiFi for all Rapid Rewards Members | SWA Newsroom - Southwest Airlines Newsroom
+2025-12-30 13:08:21,108 - __main__ - INFO - Skipping Google News article: Bye bye, Wi-Fi: How to add a wired network to your home without running Ethernet - ZDNET
+2025-12-30 13:08:21,109 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 13:08:29,041 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:08:29] "GET / HTTP/1.1" 200 -
+2025-12-30 13:08:34,058 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:08:34] "GET /feeds HTTP/1.1" 200 -
+2025-12-30 13:08:42,430 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:08:42] "GET /api/verify_feed/1 HTTP/1.1" 200 -
+2025-12-30 13:08:47,844 - __main__ - INFO - Deleted RSS feed: Google News: wi-fi (ID: 13) with 0 articles
+2025-12-30 13:08:47,845 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:08:47] "[32mPOST /delete_feed/13 HTTP/1.1[0m" 302 -
+2025-12-30 13:08:52,974 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:08:52] "GET /feeds HTTP/1.1" 200 -
+2025-12-30 13:31:40,230 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:40] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:31:40,253 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:40] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:31:41,414 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:41] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:31:41,426 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:41] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:31:42,169 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:42] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:31:42,183 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:42] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:31:46,018 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:46] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:31:46,029 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:46] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:31:58,753 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:31:58,753 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:31:59,141 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:31:59,428 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:59] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 13:31:59,436 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:31:59] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:32:14,569 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:32:14] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:32:14,584 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:32:14] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:32:14,585 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:32:14] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:33:27,728 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:33:27] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:33:29,124 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:33:29] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:33:32,517 - __main__ - INFO - Found 0 new articles for CES 2026
+2025-12-30 13:33:32,518 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:33:32] "POST /api/fetch_event_content/1 HTTP/1.1" 200 -
+2025-12-30 13:33:34,544 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:33:34] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:34:05,701 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:34:05] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:34:05,719 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:34:05] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:34:05,720 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:34:05] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:35:17,015 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:35:17] "GET / HTTP/1.1" 200 -
+2025-12-30 13:35:21,690 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:35:21] "GET / HTTP/1.1" 200 -
+2025-12-30 13:35:31,410 - __main__ - INFO - Database initialized
+2025-12-30 13:35:31,414 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:35:31,415 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 13:35:31,415 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:35:31,518 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 13:35:31,518 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 13:35:31,666 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 13:35:31,885 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 13:35:32,060 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 13:35:32,258 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 13:35:32,486 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 13:35:32,891 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 13:35:33,544 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 13:35:41,060 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 13:35:42,043 - __main__ - INFO - Skipping Google News article: Spectrum opens WiFi access points as it assess winter storm damage - WZMQ 19 News
+2025-12-30 13:35:42,043 - __main__ - INFO - Skipping Google News article: NSHE expanding wifi access - KTVN
+2025-12-30 13:35:42,043 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: What the Tech? Speeding up your slow WiFi - WFMZ.com
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage has a tempting 30% discount in the winter sale - PC Guide
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Inside Prince Harry and Meghan Markle’s plan to cling onto royal power as they react to divorce rumours - MSN
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Level' Smart Home Upgrade for This Sale Season - openPR.com
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Internet, cable company offering internet access points amid winter storms - WFMJ.com
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: The Google Nest WiFi Pro Router is On Sale For $100 Off – End Buffering With Strong WiFi - | Cord Cutters News
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Your Router Is Probably in the Wrong Place. Here Are the 4 Tweaks to Fix Your Slow Internet - CNET
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Sapphire Nitro+ B850A WiFi 7 review - Welcome back to the motherboard market! - TweakTown
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Geopolitics of Starlink: Air France faces backlash from politicians over WiFi provider - Aerospace Global News
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Do Cell Phones Work in Yellowstone? Is There WiFi? - yellowstonepark.com
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Oak Wifi - City of Oakland (.gov)
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Op-ed: Northeastern’s wifi needs to be fixed - The Huntington News
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Free WiFi in the Sky! Southwest Airlines Partners with T-Mobile to Offer Free Inflight WiFi for all Rapid Rewards Members | SWA Newsroom - Southwest Airlines Newsroom
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: WiFi signals can measure heart rate—no wearables needed - UC Santa Cruz - News
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Peace talks under threat after alleged strike on Putin's estate - MSN
+2025-12-30 13:35:42,044 - __main__ - INFO - Skipping Google News article: Bye bye, Wi-Fi: How to add a wired network to your home without running Ethernet - ZDNET
+2025-12-30 13:35:42,045 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 13:35:49,704 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:35:49] "GET / HTTP/1.1" 200 -
+2025-12-30 13:35:54,633 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:35:54] "GET / HTTP/1.1" 200 -
+2025-12-30 13:35:59,306 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:35:59] "GET / HTTP/1.1" 200 -
+2025-12-30 13:36:04,862 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:36:04] "GET / HTTP/1.1" 200 -
+2025-12-30 13:36:10,131 - __main__ - INFO - Successfully resolved https://ieee.org/ces-2026-wireless-quantum-tech -> https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 13:36:10,131 - __main__ - INFO - Scraping image from resolved URL: https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 13:36:10,810 - __main__ - INFO - Successfully fetched page content, size: 5599 bytes
+2025-12-30 13:36:10,811 - __main__ - INFO - No suitable image found in article
+2025-12-30 13:36:11,066 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:36:11] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 13:38:25,019 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:25] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:38:25,037 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:25] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:38:25,039 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:25] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:38:25,039 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:25] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:38:28,291 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:28] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:38:28,302 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:28] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:38:28,302 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:28] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:38:28,305 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:38:28] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:11,851 - __main__ - INFO - Database initialized
+2025-12-30 13:43:11,855 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:43:11,855 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 13:43:11,855 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:43:43,978 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:43] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:43:43,994 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:43] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:43,997 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:43] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:43,998 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:43] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:47,235 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:47] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:43:47,248 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:47] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:47,249 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:47] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:47,250 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:43:47] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:43:53,228 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:43:53,230 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:43:53,502 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 13:43:53,717 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 13:43:53,897 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 13:43:54,101 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 13:43:54,322 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 13:43:54,689 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 13:43:55,626 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 13:44:01,068 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Spectrum opens WiFi access points as it assess winter storm damage - WZMQ 19 News
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: NSHE expanding wifi access - KTVN
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: What the Tech? Speeding up your slow WiFi - WFMZ.com
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage has a tempting 30% discount in the winter sale - PC Guide
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Inside Prince Harry and Meghan Markle’s plan to cling onto royal power as they react to divorce rumours - MSN
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Level' Smart Home Upgrade for This Sale Season - openPR.com
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Internet, cable company offering internet access points amid winter storms - WFMJ.com
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: The Google Nest WiFi Pro Router is On Sale For $100 Off – End Buffering With Strong WiFi - | Cord Cutters News
+2025-12-30 13:44:01,982 - __main__ - INFO - Skipping Google News article: Your Router Is Probably in the Wrong Place. Here Are the 4 Tweaks to Fix Your Slow Internet - CNET
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Sapphire Nitro+ B850A WiFi 7 review - Welcome back to the motherboard market! - TweakTown
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Geopolitics of Starlink: Air France faces backlash from politicians over WiFi provider - Aerospace Global News
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Do Cell Phones Work in Yellowstone? Is There WiFi? - yellowstonepark.com
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Oak Wifi - City of Oakland (.gov)
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Op-ed: Northeastern’s wifi needs to be fixed - The Huntington News
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Free WiFi in the Sky! Southwest Airlines Partners with T-Mobile to Offer Free Inflight WiFi for all Rapid Rewards Members | SWA Newsroom - Southwest Airlines Newsroom
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: WiFi signals can measure heart rate—no wearables needed - UC Santa Cruz - News
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Peace talks under threat after alleged strike on Putin's estate - MSN
+2025-12-30 13:44:01,983 - __main__ - INFO - Skipping Google News article: Bye bye, Wi-Fi: How to add a wired network to your home without running Ethernet - ZDNET
+2025-12-30 13:44:01,985 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 13:44:01,985 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:01] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 13:44:04,007 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:04] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:04,018 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:04] "[36mGET /static/generated_images/article_68721945.png HTTP/1.1[0m" 304 -
+2025-12-30 13:44:04,018 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:04] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:44:04,018 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:04] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:44:14,090 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:14] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:15,033 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:15] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:17,363 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:17] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:23,842 - __main__ - INFO - Deleted RSS feed: Event Content: Ars Technica (ID: 10) with 1 articles
+2025-12-30 13:44:23,843 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:23] "[32mPOST /delete_feed/10 HTTP/1.1[0m" 302 -
+2025-12-30 13:44:23,852 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:23] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:26,777 - __main__ - INFO - Deleted RSS feed: Event Content: IEEE Spectrum (ID: 12) with 1 articles
+2025-12-30 13:44:26,779 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:26] "[32mPOST /delete_feed/12 HTTP/1.1[0m" 302 -
+2025-12-30 13:44:26,787 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:26] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:28,787 - __main__ - INFO - Deleted RSS feed: Event Content: TechCrunch (ID: 9) with 1 articles
+2025-12-30 13:44:28,789 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:28] "[32mPOST /delete_feed/9 HTTP/1.1[0m" 302 -
+2025-12-30 13:44:28,796 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:28] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:30,788 - __main__ - INFO - Deleted RSS feed: Event Content: The Verge (ID: 11) with 1 articles
+2025-12-30 13:44:30,788 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:30] "[32mPOST /delete_feed/11 HTTP/1.1[0m" 302 -
+2025-12-30 13:44:30,794 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:30] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:43,507 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:43] "[32mPOST /add_google_news?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 13:44:43,513 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:43] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:45,839 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:45] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:44:47,645 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 13:44:47,647 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 13:44:47,840 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 13:44:47,994 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 13:44:48,344 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 13:44:48,638 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 13:44:48,820 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 13:44:49,080 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 13:44:49,704 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 13:44:49,910 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 13:44:50,327 - __main__ - INFO - Skipping Google News article: Spectrum opens WiFi access points as it assess winter storm damage - WZMQ 19 News
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: NSHE expanding wifi access - KTVN
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: What the Tech: How to get your WiFi moving after Christmas - WRDW
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: What the Tech? Speeding up your slow WiFi - WFMZ.com
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage has a tempting 30% discount in the winter sale - PC Guide
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Inside Prince Harry and Meghan Markle’s plan to cling onto royal power as they react to divorce rumours - MSN
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Level' Smart Home Upgrade for This Sale Season - openPR.com
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Internet, cable company offering internet access points amid winter storms - WFMJ.com
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: The Google Nest WiFi Pro Router is On Sale For $100 Off – End Buffering With Strong WiFi - | Cord Cutters News
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Your Router Is Probably in the Wrong Place. Here Are the 4 Tweaks to Fix Your Slow Internet - CNET
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Sapphire Nitro+ B850A WiFi 7 review - Welcome back to the motherboard market! - TweakTown
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Geopolitics of Starlink: Air France faces backlash from politicians over WiFi provider - Aerospace Global News
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Do Cell Phones Work in Yellowstone? Is There WiFi? - yellowstonepark.com
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Oak Wifi - City of Oakland (.gov)
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Op-ed: Northeastern’s wifi needs to be fixed - The Huntington News
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Free WiFi in the Sky! Southwest Airlines Partners with T-Mobile to Offer Free Inflight WiFi for all Rapid Rewards Members | SWA Newsroom - Southwest Airlines Newsroom
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: WiFi signals can measure heart rate—no wearables needed - UC Santa Cruz - News
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Peace talks under threat after alleged strike on Putin's estate - MSN
+2025-12-30 13:44:50,328 - __main__ - INFO - Skipping Google News article: Bye bye, Wi-Fi: How to add a wired network to your home without running Ethernet - ZDNET
+2025-12-30 13:44:50,328 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmodo
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Wi-Fi hi-fi headphones, super-versatile systems and CD's renaissance could be on the cards in 2026 - What Hi-Fi?
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Your Android phone can double up as a travel router and bypass hotel Wi-Fi limits, here's how - Android Authority
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Samsung just unveiled its first Wi-Fi speakers ahead of CES 2026, and they look splurge-worthy - ZDNET
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: 7 Useful Tips for Anyone Connecting to Public Wi-Fi - WIRED
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for Onboard Rail - ARC Advisory
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: 14000 Btu Cooling GE 14,000 BTU Smart Window Air Conditioner - Wi-Fi Connected AC Unit Ge Awcs14wwa Window Air Conditioner White Model - exileshmagazine.com
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Wi-Fi service for students and educators adds new locations for access in Reno - KOLO | 8 News Now
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Intel Wi-Fi 8 Features Focus on Stability Latency Reduction and Reliability Over Peak Speed - Technetbook
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Google Pixel Watch 4 LTE Crashes to Record Low Despite Being the Latest Android Smartwatch, Now Priced the Same as the Wi-Fi Model - Kotaku
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: You spin me right round (like a Wi-Fi identifier) - Six Colors
+2025-12-30 13:44:51,171 - __main__ - INFO - Skipping Google News article: Reno expands digital access with Wi-Fi at 9 public locations across the city - mynews4.com
+2025-12-30 13:44:51,173 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 13:44:51,173 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:51] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 13:44:53,196 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:44:53] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:45:23,392 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:23] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 13:45:34,900 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:34] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:45:36,102 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:36] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:45:37,777 - __main__ - INFO - Found 4 new articles for CES 2026
+2025-12-30 13:45:37,777 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:37] "POST /api/fetch_event_content/1 HTTP/1.1" 200 -
+2025-12-30 13:45:39,799 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:39] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:45:42,091 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:42] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:45:43,270 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:45:43] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:46:12,972 - __main__ - INFO - Successfully resolved https://ieee.org/ces-2026-wireless-quantum-tech -> https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 13:46:12,973 - __main__ - INFO - Scraping image from resolved URL: https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 13:46:13,528 - __main__ - INFO - Successfully fetched page content, size: 5596 bytes
+2025-12-30 13:46:13,529 - __main__ - INFO - No suitable image found in article
+2025-12-30 13:46:13,534 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:13] "POST /api/generate_article_image/29 HTTP/1.1" 200 -
+2025-12-30 13:46:13,538 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:13] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:46:14,605 - __main__ - INFO - Successfully resolved https://arstechnica.com/ces-2026-6g-wifi8-preview -> https://arstechnica.com/ces-2026-6g-wifi8-preview
+2025-12-30 13:46:14,605 - __main__ - INFO - Scraping image from resolved URL: https://arstechnica.com/ces-2026-6g-wifi8-preview
+2025-12-30 13:46:15,001 - __main__ - WARNING - Failed to fetch article page: 404 for https://arstechnica.com/ces-2026-6g-wifi8-preview
+2025-12-30 13:46:15,200 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:15] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 13:46:15,206 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:15] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:46:16,140 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:46:16,141 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:46:16,505 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 13:46:16,514 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:16] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 13:46:16,521 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:46:16] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:04,479 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:04] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:51:04,499 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:04] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:04,501 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:04] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:04,502 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:04] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:06,494 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:06] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:51:06,505 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:06] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:06,507 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:06] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:06,507 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:06] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:08,261 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:08] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:51:08,273 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:08] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:08,274 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:08] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:08,275 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:08] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:51:12,447 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:12] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:51:12,528 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:12] "GET /static/generated_images/article_edc78fbc.png HTTP/1.1" 200 -
+2025-12-30 13:51:12,530 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:12] "GET /static/generated_images/article_31313cb1.png HTTP/1.1" 200 -
+2025-12-30 13:51:12,530 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:12] "GET /static/generated_images/article_f595f9b3.png HTTP/1.1" 200 -
+2025-12-30 13:51:12,794 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-30 13:51:13,874 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:13] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:51:13,946 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:13] "GET /static/generated_images/article_31313cb1.png HTTP/1.1" 200 -
+2025-12-30 13:51:13,946 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:13] "GET /static/generated_images/article_edc78fbc.png HTTP/1.1" 200 -
+2025-12-30 13:51:13,946 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:13] "GET /static/generated_images/article_f595f9b3.png HTTP/1.1" 200 -
+2025-12-30 13:51:14,155 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:51:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-30 13:51:49,061 - __main__ - INFO - Received shutdown signal, stopping...
+2025-12-30 13:52:03,812 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:03] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:52:03,826 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:03] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:03,827 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:03] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:03,828 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:03] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:04,767 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:04] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:52:04,781 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:04] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:04,783 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:04] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:04,784 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:04] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:05,707 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:05] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:52:05,718 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:05] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:05,720 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:05] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:05,721 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:05] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:08,359 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:08] "GET / HTTP/1.1" 200 -
+2025-12-30 13:52:08,374 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:08] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:08,375 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:08] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:08,376 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:08] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:10,138 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:10] "GET / HTTP/1.1" 200 -
+2025-12-30 13:52:10,149 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:10] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:10,150 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:10] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:10,151 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:10] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:19,582 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:19] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-30 13:52:22,852 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:22] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:52:22,867 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:22] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:22,869 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:22] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:52:22,869 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:52:22] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,230 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:08,250 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,251 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,252 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,981 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:08,996 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,997 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:08,997 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:08] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,483 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:09,496 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,497 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,498 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,928 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:09,940 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,940 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:09,942 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:09] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:10,255 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:10] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:10,268 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:10] "[36mGET /static/generated_images/article_edc78fbc.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:10,268 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:10] "[36mGET /static/generated_images/article_f595f9b3.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:10,269 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:10] "[36mGET /static/generated_images/article_31313cb1.png HTTP/1.1[0m" 304 -
+2025-12-30 13:54:13,208 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:13] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:14,842 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:14] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 13:54:16,245 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 13:54:16] "GET /event/1?view=newspaper HTTP/1.1" 200 -
