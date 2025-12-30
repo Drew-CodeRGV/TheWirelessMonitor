@@ -525,27 +525,19 @@
         }
         
         /* Classic Internet Meme Animations */
-        @keyframes badgerDance {
-            0%, 20% { content: "🦡"; }
             21%, 40% { content: "🍄"; }
             41%, 60% { content: "🐍"; }
             61%, 80% { content: "🦡"; }
             81%, 100% { content: "🍄"; }
         }
         
-        @keyframes nyanCat {
-            0% { transform: translateX(-20px); }
             50% { transform: translateX(20px); }
             100% { transform: translateX(-20px); }
         }
         
-        @keyframes keyboardCat {
-            0%, 50% { content: "🐱"; }
             51%, 100% { content: "⌨️"; }
         }
         
-        @keyframes flyingToasters {
-            0% { transform: translateY(0px) rotate(0deg); }
             25% { transform: translateY(-10px) rotate(5deg); }
             50% { transform: translateY(0px) rotate(0deg); }
             75% { transform: translateY(-5px) rotate(-5deg); }
@@ -555,7 +547,6 @@
         .meme-animation {
             font-size: 3rem;
             animation-duration: 2s;
-            animation-iteration-count: infinite;
             animation-timing-function: ease-in-out;
         }
         
@@ -590,22 +581,17 @@
         }
         
         /* Gentle pulse animation for image loading instead of spinning */
-        @keyframes pulse {
-            0% { opacity: 0.6; }
             50% { opacity: 1; }
             100% { opacity: 0.6; }
         }
         
         .image-loading-placeholder {
-            animation: pulse 2s ease-in-out infinite !important;
         }
         
         .secondary-image-placeholder {
-            animation: pulse 2s ease-in-out infinite !important;
         }
         
         .hero-image-placeholder {
-            animation: pulse 2s ease-in-out infinite !important;
         }
         
         /* Al Jazeera Style Hero Layout */
@@ -635,17 +621,18 @@
         
         /* Al Jazeera Style Responsive Adjustments */
         @media (max-width: 1400px) {
-            /* Stack to 2 columns on medium screens */
+            /* Stack to two columns on medium screens */
             .hero-layout {
-                grid-template-columns: 1fr 1fr !important;
+                grid-template-columns: 2fr 1fr !important;
+                gap: 20px !important;
             }
         }
         
         @media (max-width: 1200px) {
-            /* Stack hero and secondary grid on smaller screens */
+            /* Stack to single column on smaller screens */
             .hero-layout {
                 grid-template-columns: 1fr !important;
-                gap: 20px !important;
+                gap: 15px !important;
             }
         }
         

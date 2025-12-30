@@ -361,7 +361,7 @@
                 <!-- Single Column for Stories -->
                 <div style="display: grid; grid-template-columns: 1fr; gap: 20px; flex: 1;">
                     {% set secondary_stories = [] %}
-                    {% for story in stories[2:8] %}
+                    {% for story in stories[2:] %}
                         {% if not story.event_name and secondary_stories|length < 8 %}
                             {% set _ = secondary_stories.append(story) %}
                         {% endif %}
@@ -414,6 +414,11 @@
                     {% endfor %}
                 </div>
                 
+                <!-- More Stories Link -->
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e52d27;">
+                    <a href="#more-stories" onclick="document.getElementById('more-stories').scrollIntoView({behavior: 'smooth'})" 
+                       style="display: flex; align-items: center; justify-content: center; color: #2c3e50; text-decoration: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 8px 0;">
+                        <span>More Wireless Tech News</span>
                         <span style="font-size: 1.2rem; margin-left: 10px;">→</span>
                     </a>
                 </div>
@@ -495,11 +500,11 @@
         {% endif %}
         
         <!-- More Stories Section -->
-        {% if stories|length > 6 %}
+        {% if stories|length > 13 %}
         <div id="more-stories" style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
             <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">More Stories</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
-                {% for story in stories[8:] %}
+                {% for story in stories[13:] %}
                     {% if not story.event_name %}
                     <article class="article-card">
                         <div class="article-meta">

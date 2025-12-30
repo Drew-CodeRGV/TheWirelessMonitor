@@ -6,11 +6,10 @@ schedule==1.2.0
 Pillow==10.1.0
 lxml==4.9.3
 psutil==5.9.6
-# Enhanced AI dependencies for better image generation
-# Uncomment these for Raspberry Pi enhanced AI features:
-# diffusers>=0.21.0
-# transformers>=4.35.0
-# torch>=2.1.0
-# torchvision>=0.16.0
-# accelerate>=0.24.0
-# safetensors>=0.4.0
+# Enhanced AI dependencies for photorealistic image generation
+diffusers>=0.21.0
+transformers>=4.35.0
+torch>=2.1.0
+torchvision>=0.16.0
+accelerate>=0.24.0
+safetensors>=0.4.0

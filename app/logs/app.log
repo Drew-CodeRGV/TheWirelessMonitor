@@ -593,3 +593,910 @@ ModuleNotFoundError: No module named 'psutil'
 2025-12-30 15:28:19,422 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:28:19] "GET / HTTP/1.1" 200 -
 2025-12-30 15:32:47,643 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:32:47] "GET / HTTP/1.1" 200 -
 2025-12-30 15:32:55,693 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:32:55] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 15:33:33,457 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:33:33] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:33:35,316 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:33:35] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:33:49,814 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:33:49] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 15:33:53,519 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:33:53] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 15:33:53,929 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:33:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-30 15:35:09,660 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:35:09,662 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:09] "[35m[1mGET /admin?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 15:35:11,774 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:35:11,774 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:11] "[35m[1mGET /admin?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 15:35:13,253 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 660, in admin
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-12-30 15:35:13,253 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:13] "[35m[1mGET /admin?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 15:35:13,268 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-30 15:35:46,662 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:46] "GET / HTTP/1.1" 200 -
+2025-12-30 15:35:56,172 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:35:56] "GET / HTTP/1.1" 200 -
+2025-12-30 15:36:00,780 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:36:00] "GET / HTTP/1.1" 200 -
+2025-12-30 15:36:05,654 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:36:05] "GET / HTTP/1.1" 200 -
+2025-12-30 15:37:19,005 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:37:19] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 15:37:55,769 - __main__ - INFO - Database initialized
+2025-12-30 15:37:55,777 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:37:55,777 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:37:55,777 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:37:55,778 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:37:55,792 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:37:55,792 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:37:56,080 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:37:56,277 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:37:56,462 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:37:56,662 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:37:56,885 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:37:57,201 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:37:57,852 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:38:02,039 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:38:02,716 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 670, in admin
+    return render_template('admin.html', stats=stats, ai_status=ai_status, system_info=system_info, view_mode=view_mode)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/admin.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 800, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/admin.html", line 194, in block 'content'
+    <a href="{{ url_for('social_config', view=view_mode) }}" class="nav-link">
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1071, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1060, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'social_config' with values ['view']. Did you mean 'get_social_config' instead?
+2025-12-30 15:38:02,721 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:38:02] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-12-30 15:38:24,560 - main - ERROR - Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 670, in admin
+    return render_template('admin.html', stats=stats, ai_status=ai_status, system_info=system_info, view_mode=view_mode)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/admin.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 800, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/drlentz/Kiro/app/templates/admin.html", line 194, in block 'content'
+    <a href="{{ url_for('social_config_page', view=view_mode) }}" class="nav-link">
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1071, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1060, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'social_config' with values ['view']. Did you mean 'get_social_config' instead?
+2025-12-30 15:38:24,563 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:38:24] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-12-30 15:38:45,015 - __main__ - INFO - Database initialized
+2025-12-30 15:38:45,019 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:38:45,019 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:38:45,019 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:38:45,019 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:38:45,024 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:38:45,024 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:38:45,267 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:38:45,422 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:38:45,614 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:38:45,731 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:38:45,923 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:38:46,215 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:38:46,850 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:38:47,061 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:38:52,758 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:38:52] "GET /admin HTTP/1.1" 200 -
+2025-12-30 15:38:58,483 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:38:58] "GET /admin HTTP/1.1" 200 -
+2025-12-30 15:39:03,692 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:39:03] "GET / HTTP/1.1" 200 -
+2025-12-30 15:39:14,041 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:39:14] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 15:39:14,951 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:39:14] "GET /?view=newspaper&show_all=true HTTP/1.1" 200 -
+2025-12-30 15:39:18,208 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:39:18] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:39:37,922 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:39:37] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:43:50,884 - __main__ - INFO - Database initialized
+2025-12-30 15:43:50,889 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 15:43:50,889 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 15:43:50,889 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 15:43:50,889 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 15:43:50,907 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 15:43:50,907 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 15:43:51,236 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 15:43:51,434 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 15:43:51,611 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 15:43:51,809 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 15:43:51,987 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 15:43:52,292 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 15:43:54,150 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 15:43:54,337 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 15:43:57,824 - __main__ - INFO - Successfully resolved https://techcrunch.com/ces-2026-ai-iot-innovations-preview -> https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:43:57,824 - __main__ - INFO - Scraping image from resolved URL: https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:43:58,851 - __main__ - WARNING - Failed to fetch article page: 404 for https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 15:43:58,851 - __main__ - INFO - Generating photorealistic image for: CES 2026: Revolutionary AI and IoT Innovations Set...
+2025-12-30 15:43:59,168 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_f354b4f8400f.png
+2025-12-30 15:43:59,170 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:43:59] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 15:44:03,998 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:44:03,998 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:44:04,303 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 15:44:04,304 - __main__ - INFO - Generating photorealistic image for: Smart Home Evolution: What to Expect at CES 2026...
+2025-12-30 15:44:04,607 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_a76652ea1764.png
+2025-12-30 15:44:04,609 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:44:04] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 15:44:09,704 - __main__ - INFO - Successfully resolved https://ieee.org/ces-2026-wireless-quantum-tech -> https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 15:44:09,706 - __main__ - INFO - Scraping image from resolved URL: https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 15:44:10,284 - __main__ - INFO - Successfully fetched page content, size: 5598 bytes
+2025-12-30 15:44:10,285 - __main__ - INFO - No suitable image found in article
+2025-12-30 15:44:10,286 - __main__ - INFO - Generating photorealistic image for: CES 2026: Next-Generation Wireless Charging and Qu...
+2025-12-30 15:44:10,593 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_d959be2495df.png
+2025-12-30 15:44:10,595 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:44:10] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 15:46:41,313 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:46:41] "GET / HTTP/1.1" 200 -
+2025-12-30 15:46:46,667 - __main__ - INFO - Successfully resolved https://pymnts.com/nrf-2026-wireless-metaverse-payments -> https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:46:46,667 - __main__ - INFO - Scraping image from resolved URL: https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:46:47,796 - __main__ - WARNING - Failed to fetch article page: 404 for https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 15:46:47,797 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Advanced Wireless Payment Solutions and ...
+2025-12-30 15:46:48,091 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_a7a76aab998e.png
+2025-12-30 15:46:48,093 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:46:48] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 15:46:52,543 - __main__ - INFO - Successfully resolved https://fierceretail.com/nrf-2026-wireless-sustainability -> https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 15:46:52,544 - __main__ - INFO - Scraping image from resolved URL: https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 15:47:07,895 - __main__ - ERROR - Error scraping image from https://fierceretail.com/nrf-2026-wireless-sustainability: HTTPSConnectionPool(host='www.fierceretail.com', port=443): Read timed out. (read timeout=15)
+2025-12-30 15:47:07,896 - __main__ - INFO - Generating photorealistic image for: NRF 2026: The Future of Retail Wireless Infrastruc...
+2025-12-30 15:47:08,214 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_47afd5404f3f.png
+2025-12-30 15:47:08,216 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:08] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 15:47:29,820 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:29] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 15:47:29,835 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:29] "GET /static/generated_images/article_a7a76aab998e.png HTTP/1.1" 200 -
+2025-12-30 15:47:29,835 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:29] "GET /static/generated_images/article_47afd5404f3f.png HTTP/1.1" 200 -
+2025-12-30 15:47:29,836 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:29] "GET /static/generated_images/article_f354b4f8400f.png HTTP/1.1" 200 -
+2025-12-30 15:47:29,856 - __main__ - INFO - Successfully resolved https://retaildive.com/nrf-2026-retail-tech-preview -> https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:47:29,856 - __main__ - INFO - Scraping image from resolved URL: https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:47:30,341 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss -> https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 15:47:30,341 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 15:47:30,840 - __main__ - INFO - Successfully resolved https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss -> https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 15:47:30,840 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-30 15:47:30,869 - __main__ - WARNING - Failed to fetch article page: 404 for https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 15:47:30,872 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Retail Technology Trends Set to Transfor...
+2025-12-30 15:47:31,175 - __main__ - INFO - Successfully fetched page content, size: 366262 bytes
+2025-12-30 15:47:31,175 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 15:47:31,220 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_ee90122df104.png
+2025-12-30 15:47:31,222 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:31] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 15:47:31,228 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:31] "GET /static/generated_images/article_ee90122df104.png HTTP/1.1" 200 -
+2025-12-30 15:47:31,340 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss -> https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 15:47:31,340 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 15:47:31,345 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 15:47:31,354 - __main__ - INFO - Successfully fetched page content, size: 369908 bytes
+2025-12-30 15:47:31,354 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 15:47:31,355 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:31] "POST /api/generate_article_image/11 HTTP/1.1" 200 -
+2025-12-30 15:47:31,502 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-30 15:47:31,510 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:31] "POST /api/generate_article_image/18 HTTP/1.1" 200 -
+2025-12-30 15:47:31,841 - __main__ - INFO - Successfully resolved https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss -> https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 15:47:31,841 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-30 15:47:32,341 - __main__ - INFO - Successfully resolved https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss -> https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss
+2025-12-30 15:47:32,341 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss
+2025-12-30 15:47:32,499 - __main__ - INFO - Successfully fetched page content, size: 394881 bytes
+2025-12-30 15:47:32,499 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:47:32,629 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:47:32,631 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:32] "POST /api/generate_article_image/14 HTTP/1.1" 200 -
+2025-12-30 15:47:32,835 - __main__ - INFO - Successfully fetched page content, size: 371528 bytes
+2025-12-30 15:47:32,835 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 15:47:32,842 - __main__ - INFO - Successfully resolved https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss -> https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss
+2025-12-30 15:47:32,842 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss
+2025-12-30 15:47:32,928 - __main__ - INFO - Successfully fetched page content, size: 381453 bytes
+2025-12-30 15:47:32,928 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-30 15:47:33,000 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 15:47:33,003 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:33] "POST /api/generate_article_image/13 HTTP/1.1" 200 -
+2025-12-30 15:47:33,129 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-30 15:47:33,133 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:33] "POST /api/generate_article_image/16 HTTP/1.1" 200 -
+2025-12-30 15:47:33,341 - __main__ - INFO - Successfully resolved https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss -> https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 15:47:33,341 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 15:47:33,490 - __main__ - INFO - Successfully fetched page content, size: 431788 bytes
+2025-12-30 15:47:33,490 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:47:33,626 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-30 15:47:33,628 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:33] "POST /api/generate_article_image/17 HTTP/1.1" 200 -
+2025-12-30 15:47:33,842 - __main__ - INFO - Successfully resolved https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss -> https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss
+2025-12-30 15:47:33,842 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/computing/accessories/best-wireless-charger-140036359.html?src=rss
+2025-12-30 15:47:33,913 - __main__ - INFO - Successfully fetched page content, size: 368148 bytes
+2025-12-30 15:47:33,913 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 15:47:34,038 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 15:47:34,041 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:34] "POST /api/generate_article_image/12 HTTP/1.1" 200 -
+2025-12-30 15:47:34,468 - __main__ - INFO - Successfully fetched page content, size: 592421 bytes
+2025-12-30 15:47:34,468 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/R0xqe29YSH_BG8U3X7hk0Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/1d885fe0-d769-11f0-b17a-040e2b47e430
+2025-12-30 15:47:34,589 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/R0xqe29YSH_BG8U3X7hk0Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/1d885fe0-d769-11f0-b17a-040e2b47e430
+2025-12-30 15:47:34,593 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 15:47:34] "POST /api/generate_article_image/19 HTTP/1.1" 200 -
+2025-12-30 16:55:58,377 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 16:55:58,377 - __main__ - INFO - Database initialized
+2025-12-30 16:55:58,382 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 16:55:58,382 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 16:55:58,382 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 16:55:58,383 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 16:57:27,734 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 16:57:27,734 - __main__ - INFO - Database initialized
+2025-12-30 16:57:27,738 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 16:57:27,738 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 16:57:27,738 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 16:57:27,739 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 16:57:44,304 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 16:57:44,304 - __main__ - INFO - Database initialized
+2025-12-30 16:57:44,308 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 16:57:44,309 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 16:57:44,309 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 16:57:44,309 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 16:57:44,350 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 16:57:44,350 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 16:57:44,351 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 16:57:44,575 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 16:57:44,751 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 16:57:44,936 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 16:57:45,136 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 16:57:45,382 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 16:57:45,734 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 16:57:46,389 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 16:58:58,565 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 16:58:58,565 - __main__ - INFO - Database initialized
+2025-12-30 16:58:58,569 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 16:58:58,569 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 16:58:58,570 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 16:58:58,570 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 16:58:58,597 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 16:58:58,597 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 16:58:58,597 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 16:58:58,839 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 16:58:58,839 - __main__ - INFO - Database initialized
+2025-12-30 16:58:58,843 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 16:58:58,843 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 16:58:58,844 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 16:58:58,844 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 16:58:58,867 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 16:58:58,877 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 16:58:58,904 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 16:58:59,057 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 16:58:59,236 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 16:58:59,368 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 16:58:59,556 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 16:58:59,812 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 16:59:00,396 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 16:59:04,269 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2025-12-30 16:59:04,269 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 16:59:04,436 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2025-12-30 16:59:04,438 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 16:59:04,587 - __main__ - ERROR - Error fetching feed The Verge: database is locked
+2025-12-30 16:59:04,587 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 16:59:04,752 - __main__ - ERROR - Error fetching feed IEEE Spectrum: database is locked
+2025-12-30 16:59:04,752 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 16:59:04,896 - __main__ - ERROR - Error fetching feed Fierce Wireless: database is locked
+2025-12-30 16:59:04,896 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 16:59:05,188 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2025-12-30 16:59:05,188 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 16:59:06,030 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2025-12-30 16:59:06,030 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 16:59:06,219 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2025-12-30 16:59:06,254 - __main__ - INFO - RSS fetch completed: 1 new articles
+2025-12-30 16:59:06,269 - __main__ - INFO - Detected new event: CES 2026
+2025-12-30 16:59:06,271 - __main__ - INFO - Auto-categorized 13 articles for events
+2025-12-30 16:59:55,642 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:55] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 16:59:56,064 - __main__ - INFO - Successfully resolved https://retaildive.com/nrf-2026-retail-tech-preview -> https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 16:59:56,064 - __main__ - INFO - Scraping image from resolved URL: https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 16:59:56,521 - __main__ - INFO - Successfully resolved https://pymnts.com/nrf-2026-wireless-metaverse-payments -> https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 16:59:56,521 - __main__ - INFO - Scraping image from resolved URL: https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 16:59:56,784 - __main__ - WARNING - Failed to fetch article page: 404 for https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 16:59:56,785 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Retail Technology Trends Set to Transfor...
+2025-12-30 16:59:56,787 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:56] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 16:59:56,795 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:56] "GET /static/generated_images/article_ee90122df104.png HTTP/1.1" 200 -
+2025-12-30 16:59:57,021 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 16:59:57,022 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 16:59:57,420 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 16:59:57,421 - __main__ - INFO - Generating photorealistic image for: Smart Home Evolution: What to Expect at CES 2026...
+2025-12-30 16:59:57,422 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:57] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 16:59:57,428 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:57] "GET /static/generated_images/article_a76652ea1764.png HTTP/1.1" 200 -
+2025-12-30 16:59:57,520 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss -> https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 16:59:57,520 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 16:59:57,532 - __main__ - WARNING - Failed to fetch article page: 404 for https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 16:59:57,533 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Advanced Wireless Payment Solutions and ...
+2025-12-30 16:59:57,535 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:57] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 16:59:57,538 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:57] "GET /static/generated_images/article_a7a76aab998e.png HTTP/1.1" 200 -
+2025-12-30 16:59:58,024 - __main__ - INFO - Successfully resolved https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss -> https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 16:59:58,025 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 16:59:58,074 - __main__ - INFO - Successfully fetched page content, size: 366348 bytes
+2025-12-30 16:59:58,074 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 16:59:58,272 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 16:59:58,280 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:58] "POST /api/generate_article_image/11 HTTP/1.1" 200 -
+2025-12-30 16:59:58,526 - __main__ - INFO - Successfully resolved https://www.engadget.com/computing/idc-warns-of-major-pc-market-downturn-due-to-memory-crunch-214510197.html?src=rss -> https://www.engadget.com/computing/idc-warns-of-major-pc-market-downturn-due-to-memory-crunch-214510197.html?src=rss
+2025-12-30 16:59:58,526 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/computing/idc-warns-of-major-pc-market-downturn-due-to-memory-crunch-214510197.html?src=rss
+2025-12-30 16:59:58,886 - __main__ - INFO - Successfully fetched page content, size: 371528 bytes
+2025-12-30 16:59:58,886 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 16:59:59,021 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 16:59:59,025 - __main__ - INFO - Successfully resolved https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss -> https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 16:59:59,025 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-30 16:59:59,030 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:59] "POST /api/generate_article_image/13 HTTP/1.1" 200 -
+2025-12-30 16:59:59,366 - __main__ - INFO - Successfully fetched page content, size: 368877 bytes
+2025-12-30 16:59:59,366 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-30 16:59:59,523 - __main__ - INFO - Successfully resolved https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss -> https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-30 16:59:59,523 - __main__ - INFO - Scraping image from resolved URL: https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-30 16:59:59,549 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-30 16:59:59,554 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:59] "POST /api/generate_article_image/30 HTTP/1.1" 200 -
+2025-12-30 16:59:59,611 - __main__ - INFO - Successfully fetched page content, size: 368148 bytes
+2025-12-30 16:59:59,611 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 16:59:59,753 - __main__ - INFO - Successfully validated image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-30 16:59:59,755 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 16:59:59] "POST /api/generate_article_image/12 HTTP/1.1" 200 -
+2025-12-30 17:00:00,223 - __main__ - INFO - Successfully fetched page content, size: 542312 bytes
+2025-12-30 17:00:00,224 - __main__ - INFO - Found Open Graph image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 17:00:00,425 - __main__ - INFO - Successfully validated image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 17:00:00,435 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:00:00] "POST /api/generate_article_image/15 HTTP/1.1" 200 -
+2025-12-30 17:00:02,369 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:00:02] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:00:02,385 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:00:02] "[36mGET /static/generated_images/article_ee90122df104.png HTTP/1.1[0m" 304 -
+2025-12-30 17:00:02,385 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:00:02] "[36mGET /static/generated_images/article_a7a76aab998e.png HTTP/1.1[0m" 304 -
+2025-12-30 17:00:02,386 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:00:02] "[36mGET /static/generated_images/article_a76652ea1764.png HTTP/1.1[0m" 304 -
+2025-12-30 17:02:43,443 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:02:43,444 - __main__ - INFO - Database initialized
+2025-12-30 17:02:43,448 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:02:43,448 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:02:43,448 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:02:43,449 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:02:43,500 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:02:43,500 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:02:43,501 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:02:43,738 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:02:43,894 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:02:44,070 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:02:44,281 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:02:44,429 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:02:44,688 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:02:45,599 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:04:05,116 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:04:05,116 - __main__ - INFO - Database initialized
+2025-12-30 17:04:05,121 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:04:05,121 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:04:05,121 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:04:05,122 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:04:05,176 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:04:05,176 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:04:05,177 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:04:05,408 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:04:05,602 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:04:05,784 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:04:05,950 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:04:06,170 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:04:06,488 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:04:08,127 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:06:15,215 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:06:15,216 - __main__ - INFO - Database initialized
+2025-12-30 17:06:15,220 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:06:15,220 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:06:15,221 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:06:15,221 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:06:15,257 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:06:15,257 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:06:15,258 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:06:15,455 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:06:15,607 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:06:15,764 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:06:15,940 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:06:16,100 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:06:16,378 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:06:17,299 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:07:06,255 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:07:06,255 - __main__ - INFO - Database initialized
+2025-12-30 17:07:06,259 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:07:06,259 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:07:06,259 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:07:06,260 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:07:06,289 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:07:06,289 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:07:06,290 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:07:06,465 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:07:06,563 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:07:06,563 - __main__ - INFO - Database initialized
+2025-12-30 17:07:06,567 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:07:06,567 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:07:06,567 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:07:06,567 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:07:06,592 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:07:06,602 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:07:06,606 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:07:06,773 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:07:06,900 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:07:07,065 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:07:07,333 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:07:08,964 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:07:10,601 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:07:10,770 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:07:10,946 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:07:11,083 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:07:11,316 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:07:11,460 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:07:11,729 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:07:12,341 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:07:12,510 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:07:19,031 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:07:19] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:07:22,645 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:07:22] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:07:26,481 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:07:26] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:07:41,241 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:07:41] "GET / HTTP/1.1" 200 -
+2025-12-30 17:07:46,357 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:07:46] "GET / HTTP/1.1" 200 -
+2025-12-30 17:08:06,151 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:08:06] "GET / HTTP/1.1" 200 -
+2025-12-30 17:08:47,674 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:08:47] "GET / HTTP/1.1" 200 -
+2025-12-30 17:09:10,046 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:10] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:09:10,118 - __main__ - INFO - Successfully resolved https://retaildive.com/nrf-2026-retail-tech-preview -> https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 17:09:10,118 - __main__ - INFO - Scraping image from resolved URL: https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 17:09:10,610 - __main__ - INFO - Successfully resolved https://pymnts.com/nrf-2026-wireless-metaverse-payments -> https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 17:09:10,610 - __main__ - INFO - Scraping image from resolved URL: https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 17:09:10,851 - __main__ - WARNING - Failed to fetch article page: 404 for https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-30 17:09:10,852 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Retail Technology Trends Set to Transfor...
+2025-12-30 17:09:11,107 - __main__ - INFO - Successfully resolved https://fierceretail.com/nrf-2026-wireless-sustainability -> https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 17:09:11,107 - __main__ - INFO - Scraping image from resolved URL: https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-30 17:09:11,578 - __main__ - WARNING - Failed to fetch article page: 404 for https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-30 17:09:11,579 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Advanced Wireless Payment Solutions and ...
+2025-12-30 17:09:11,605 - __main__ - INFO - Successfully resolved https://techcrunch.com/ces-2026-ai-iot-innovations-preview -> https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 17:09:11,605 - __main__ - INFO - Scraping image from resolved URL: https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 17:09:12,114 - __main__ - INFO - Successfully resolved https://theverge.com/ces-2026-smart-home-preview -> https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 17:09:12,114 - __main__ - INFO - Scraping image from resolved URL: https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 17:09:12,518 - __main__ - WARNING - Failed to fetch article page: 404 for https://theverge.com/ces-2026-smart-home-preview
+2025-12-30 17:09:12,519 - __main__ - INFO - Generating photorealistic image for: Smart Home Evolution: What to Expect at CES 2026...
+2025-12-30 17:09:12,611 - __main__ - INFO - Successfully resolved https://ieee.org/ces-2026-wireless-quantum-tech -> https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 17:09:12,611 - __main__ - INFO - Scraping image from resolved URL: https://ieee.org/ces-2026-wireless-quantum-tech
+2025-12-30 17:09:12,687 - __main__ - WARNING - Failed to fetch article page: 404 for https://techcrunch.com/ces-2026-ai-iot-innovations-preview
+2025-12-30 17:09:12,688 - __main__ - INFO - Generating photorealistic image for: CES 2026: Revolutionary AI and IoT Innovations Set...
+2025-12-30 17:09:13,035 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:09:13,035 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:09:13,035 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:09:13,491 - __main__ - INFO - Successfully fetched page content, size: 5639 bytes
+2025-12-30 17:09:13,518 - __main__ - INFO - No suitable image found in article
+2025-12-30 17:09:13,593 - __main__ - INFO - Generating photorealistic image for: CES 2026: Next-Generation Wireless Charging and Qu...
+2025-12-30 17:09:13,875 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_a7a76aab998e.png
+2025-12-30 17:09:13,876 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_a76652ea1764.png
+2025-12-30 17:09:13,877 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_f354b4f8400f.png
+2025-12-30 17:09:13,880 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 17:09:13,884 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 17:09:13,885 - __main__ - INFO - Successfully resolved http://test.example.com/test-article -> http://test.example.com/test-article
+2025-12-30 17:09:13,885 - __main__ - INFO - Scraping image from resolved URL: http://test.example.com/test-article
+2025-12-30 17:09:13,887 - __main__ - INFO - Successfully resolved https://chainstoreage.com/nrf-2026-iot-edge-ai-preview -> https://chainstoreage.com/nrf-2026-iot-edge-ai-preview
+2025-12-30 17:09:13,887 - __main__ - INFO - Scraping image from resolved URL: https://chainstoreage.com/nrf-2026-iot-edge-ai-preview
+2025-12-30 17:09:13,893 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 17:09:13,897 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "GET /static/generated_images/article_a76652ea1764.png HTTP/1.1" 200 -
+2025-12-30 17:09:13,900 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "GET /static/generated_images/article_a7a76aab998e.png HTTP/1.1" 200 -
+2025-12-30 17:09:13,905 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:13] "GET /static/generated_images/article_f354b4f8400f.png HTTP/1.1" 200 -
+2025-12-30 17:09:13,935 - __main__ - ERROR - Error scraping image from http://test.example.com/test-article: HTTPConnectionPool(host='test.example.com', port=80): Max retries exceeded with url: /test-article (Caused by NameResolutionError("HTTPConnection(host='test.example.com', port=80): Failed to resolve 'test.example.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 17:09:13,935 - __main__ - INFO - Generating photorealistic image for: Revolutionary 6G Wireless Technology Breakthrough ...
+2025-12-30 17:09:14,073 - __main__ - WARNING - Failed to fetch article page: 403 for https://chainstoreage.com/nrf-2026-iot-edge-ai-preview
+2025-12-30 17:09:14,073 - __main__ - INFO - Generating photorealistic image for: Digital Transformation Preview: NRF 2026's IoT and...
+2025-12-30 17:09:16,350 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:09:16,350 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:09:16,350 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:09:16,350 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:09:18,024 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:09:18,325 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:09:18,369 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_4322f7a39fbe.png
+2025-12-30 17:09:18,432 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:18] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 17:09:18,526 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:18] "GET /static/generated_images/article_4322f7a39fbe.png HTTP/1.1" 200 -
+2025-12-30 17:09:18,634 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_d959be2495df.png
+2025-12-30 17:09:18,636 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:18] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 17:09:18,640 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:18] "GET /static/generated_images/article_d959be2495df.png HTTP/1.1" 200 -
+2025-12-30 17:09:18,660 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:09:18,942 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:09:19,079 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_4c4466ea6526.png
+2025-12-30 17:09:19,142 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:19] "POST /api/generate_article_image/29 HTTP/1.1" 200 -
+2025-12-30 17:09:19,199 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:19] "GET /static/generated_images/article_4c4466ea6526.png HTTP/1.1" 200 -
+2025-12-30 17:09:19,241 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_ee90122df104.png
+2025-12-30 17:09:19,242 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:19] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 17:09:19,248 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:19] "GET /static/generated_images/article_ee90122df104.png HTTP/1.1" 200 -
+2025-12-30 17:09:26,550 - __main__ - ERROR - Error scraping image from https://fierceretail.com/nrf-2026-wireless-sustainability: HTTPSConnectionPool(host='www.fierceretail.com', port=443): Read timed out. (read timeout=15)
+2025-12-30 17:09:26,550 - __main__ - INFO - Generating photorealistic image for: NRF 2026: The Future of Retail Wireless Infrastruc...
+2025-12-30 17:09:26,550 - __main__ - INFO - Generating Stable Diffusion image with prompt: professional news photography, photorealistic, high quality, commercial photography, modern wireless...
+2025-12-30 17:09:26,694 - __main__ - ERROR - Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 17:09:26,992 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_47afd5404f3f.png
+2025-12-30 17:09:26,994 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:26] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 17:09:27,001 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:09:27] "GET /static/generated_images/article_47afd5404f3f.png HTTP/1.1" 200 -
+2025-12-30 17:10:36,999 - __main__ - INFO - Successfully resolved https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/ -> https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 17:10:36,999 - __main__ - INFO - Scraping image from resolved URL: https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 17:10:37,592 - __main__ - INFO - Successfully fetched page content, size: 156439 bytes
+2025-12-30 17:10:37,592 - __main__ - INFO - Found Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 17:10:37,903 - __main__ - INFO - Successfully validated image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 17:10:37,909 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:10:37] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 17:10:53,719 - __main__ - INFO - Successfully resolved https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/ -> https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 17:10:53,719 - __main__ - INFO - Scraping image from resolved URL: https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-30 17:10:54,177 - __main__ - INFO - Successfully fetched page content, size: 156439 bytes
+2025-12-30 17:10:54,177 - __main__ - INFO - Found Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 17:10:54,343 - __main__ - INFO - Successfully validated image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-30 17:10:54,347 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:10:54] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 17:11:04,972 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 17:11:05,231 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:11:56,088 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:11:56,088 - __main__ - INFO - Database initialized
+2025-12-30 17:11:56,092 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:11:56,092 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:11:56,092 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:11:56,093 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:11:56,126 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:11:56,126 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:11:56,127 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:11:56,343 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:11:56,343 - __main__ - INFO - Database initialized
+2025-12-30 17:11:56,347 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:11:56,347 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:11:56,348 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:11:56,348 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:11:56,370 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:11:56,383 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:11:56,646 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:11:56,813 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:11:57,003 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:11:57,215 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:11:57,436 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:11:57,818 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:11:58,432 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:11:58,715 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:11:58,775 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:11:58,935 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:11:59,107 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:11:59,250 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:11:59,407 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:11:59,660 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:12:00,270 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:12:00,472 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:12:02,753 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:12:02] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 17:12:12,691 - __main__ - INFO - Generating photorealistic image for: OpenAI’s new ChatGPT image generator makes faking ...
+2025-12-30 17:12:17,044 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:12:18,520 - __main__ - INFO - Generating Stable Diffusion image with prompt: professional news photography, photorealistic, high quality, commercial photography, futuristic AI t...
+2025-12-30 17:12:32,693 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_ac63db98c30b.png
+2025-12-30 17:12:32,696 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:12:32] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 17:14:01,627 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:01] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:14:01,661 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Retail Technology Trends Set to Transfor...
+2025-12-30 17:14:01,663 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:01] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 17:14:01,669 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:01] "[36mGET /static/generated_images/article_ee90122df104.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:02,153 - __main__ - INFO - Generating photorealistic image for: NRF 2026: Advanced Wireless Payment Solutions and ...
+2025-12-30 17:14:02,154 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:02] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 17:14:02,159 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:02] "[36mGET /static/generated_images/article_a7a76aab998e.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:02,657 - __main__ - INFO - Generating photorealistic image for: NRF 2026: The Future of Retail Wireless Infrastruc...
+2025-12-30 17:14:02,661 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:02] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 17:14:02,669 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:02] "[36mGET /static/generated_images/article_47afd5404f3f.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:03,152 - __main__ - INFO - Generating photorealistic image for: CES 2026: Revolutionary AI and IoT Innovations Set...
+2025-12-30 17:14:03,154 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:03] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 17:14:03,158 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:03] "[36mGET /static/generated_images/article_f354b4f8400f.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:03,656 - __main__ - INFO - Generating photorealistic image for: Smart Home Evolution: What to Expect at CES 2026...
+2025-12-30 17:14:03,661 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:03] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 17:14:03,672 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:03] "[36mGET /static/generated_images/article_a76652ea1764.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:04,156 - __main__ - INFO - Generating photorealistic image for: CES 2026: Next-Generation Wireless Charging and Qu...
+2025-12-30 17:14:04,160 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:04] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 17:14:04,170 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:04] "[36mGET /static/generated_images/article_d959be2495df.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:04,654 - __main__ - INFO - Generating photorealistic image for: Revolutionary 6G Wireless Technology Breakthrough ...
+2025-12-30 17:14:04,659 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:04] "POST /api/generate_article_image/29 HTTP/1.1" 200 -
+2025-12-30 17:14:04,668 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:04] "[36mGET /static/generated_images/article_4c4466ea6526.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:05,156 - __main__ - INFO - Generating photorealistic image for: Digital Transformation Preview: NRF 2026's IoT and...
+2025-12-30 17:14:05,160 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:05] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 17:14:05,170 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:05] "[36mGET /static/generated_images/article_4322f7a39fbe.png HTTP/1.1[0m" 304 -
+2025-12-30 17:14:09,080 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:14:09,360 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_47afd5404f3f.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,361 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_f354b4f8400f.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,363 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_ee90122df104.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,364 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_a76652ea1764.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,365 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_a7a76aab998e.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,372 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_4c4466ea6526.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,372 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_d959be2495df.png HTTP/1.1" 200 -
+2025-12-30 17:14:09,377 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:14:09] "GET /static/generated_images/article_4322f7a39fbe.png HTTP/1.1" 200 -
+2025-12-30 17:16:20,355 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:16:20,357 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:16:20,838 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:16:21,074 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:16:21,261 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:16:21,452 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:16:21,652 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:16:21,936 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:16:22,937 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:16:24,159 - __main__ - INFO - RSS fetch completed: 20 new articles
+2025-12-30 17:16:24,172 - __main__ - INFO - Detected new event: CES 2026
+2025-12-30 17:16:24,173 - __main__ - INFO - Auto-categorized 5 articles for events
+2025-12-30 17:16:24,174 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:16:24] "GET /api/fetch_now HTTP/1.1" 200 -
+2025-12-30 17:16:53,666 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:16:53] "GET / HTTP/1.1" 200 -
+2025-12-30 17:17:32,162 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:17:32] "GET / HTTP/1.1" 200 -
+2025-12-30 17:17:37,016 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:17:37] "GET / HTTP/1.1" 200 -
+2025-12-30 17:18:12,687 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:18:12,687 - __main__ - INFO - Database initialized
+2025-12-30 17:18:12,691 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:18:12,692 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:18:12,692 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:18:12,692 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:18:12,821 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:18:12,821 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:18:12,823 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:18:12,949 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:18:13,078 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:18:13,078 - __main__ - INFO - Database initialized
+2025-12-30 17:18:13,083 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:18:13,083 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:18:13,083 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:18:13,083 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:18:13,106 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:18:13,114 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:18:13,115 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:18:13,422 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:18:13,624 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:18:13,795 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:18:14,065 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:18:14,638 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:18:14,839 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:18:14,879 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:18:15,019 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:18:15,150 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:18:15,291 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:18:15,448 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:18:15,825 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:18:16,669 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:18:16,842 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:18:19,635 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:18:19] "GET / HTTP/1.1" 200 -
+2025-12-30 17:24:01,736 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:01] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:24:01,772 - __main__ - INFO - Generating photorealistic image for: Samsung unveils its new $200 Galaxy A17 5G smartph...
+2025-12-30 17:24:02,270 - __main__ - INFO - Generating photorealistic image for: Rainbow Six Siege servers are back online after sh...
+2025-12-30 17:24:02,762 - __main__ - INFO - Generating photorealistic image for: TCL introduces its own take on a color Kindle Scri...
+2025-12-30 17:24:03,263 - __main__ - INFO - Generating photorealistic image for: IDC warns of major PC market downturn due to memor...
+2025-12-30 17:24:03,461 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:24:03,461 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:24:03,461 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:24:04,336 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_759ac5e62bf4.png
+2025-12-30 17:24:04,337 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_6b5911271220.png
+2025-12-30 17:24:04,338 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "POST /api/generate_article_image/41 HTTP/1.1" 200 -
+2025-12-30 17:24:04,338 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_7c237e71f4ce.png
+2025-12-30 17:24:04,339 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "POST /api/generate_article_image/44 HTTP/1.1" 200 -
+2025-12-30 17:24:04,342 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "POST /api/generate_article_image/49 HTTP/1.1" 200 -
+2025-12-30 17:24:04,348 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "GET /static/generated_images/article_6b5911271220.png HTTP/1.1" 200 -
+2025-12-30 17:24:04,348 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "GET /static/generated_images/article_7c237e71f4ce.png HTTP/1.1" 200 -
+2025-12-30 17:24:04,348 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:04] "GET /static/generated_images/article_759ac5e62bf4.png HTTP/1.1" 200 -
+2025-12-30 17:24:06,640 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:24:08,287 - __main__ - INFO - Generating Stable Diffusion image with prompt: professional news photography, photorealistic, high quality, commercial photography, modern cellular...
+2025-12-30 17:24:18,964 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:18] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:24:19,243 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:19] "GET /static/generated_images/article_6b5911271220.png HTTP/1.1" 200 -
+2025-12-30 17:24:19,243 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:19] "GET /static/generated_images/article_7c237e71f4ce.png HTTP/1.1" 200 -
+2025-12-30 17:24:19,248 - __main__ - INFO - Generating photorealistic image for: Samsung unveils its new $200 Galaxy A17 5G smartph...
+2025-12-30 17:24:19,248 - __main__ - INFO - Generating Stable Diffusion image with prompt: professional news photography, photorealistic, high quality, commercial photography, modern cellular...
+2025-12-30 17:24:19,252 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:19] "GET /static/generated_images/article_759ac5e62bf4.png HTTP/1.1" 200 -
+2025-12-30 17:24:20,788 - __main__ - ERROR - Stable Diffusion generation failed: index 1001 is out of bounds for dimension 0 with size 1000
+2025-12-30 17:24:21,094 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_5ee953d3e7ca.png
+2025-12-30 17:24:21,097 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:21] "POST /api/generate_article_image/42 HTTP/1.1" 200 -
+2025-12-30 17:24:21,104 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:21] "GET /static/generated_images/article_5ee953d3e7ca.png HTTP/1.1" 200 -
+2025-12-30 17:24:21,446 - __main__ - ERROR - Stable Diffusion generation failed: unsupported operand type(s) for *: 'Tensor' and 'NoneType'
+2025-12-30 17:24:21,754 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_5ee953d3e7ca.png
+2025-12-30 17:24:21,756 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:21] "POST /api/generate_article_image/42 HTTP/1.1" 200 -
+2025-12-30 17:24:21,760 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:24:21] "GET /static/generated_images/article_5ee953d3e7ca.png HTTP/1.1" 200 -
+2025-12-30 17:26:54,825 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 17:26:55,117 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:26:55,482 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:26:55,483 - __main__ - INFO - Database initialized
+2025-12-30 17:26:55,488 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:26:55,488 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:26:55,488 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:26:55,488 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:26:55,515 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:26:55,530 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:26:55,713 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:26:55,946 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:26:56,155 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:26:56,342 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:26:56,555 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:26:56,903 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:27:02,181 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:27:02,181 - __main__ - INFO - Database initialized
+2025-12-30 17:27:02,186 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:27:02,186 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:27:02,187 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:27:02,187 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:27:02,264 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:27:02,264 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:27:02,265 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:27:02,376 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:27:02,516 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:27:02,565 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:27:02,565 - __main__ - INFO - Database initialized
+2025-12-30 17:27:02,569 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:27:02,569 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:27:02,569 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:27:02,570 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:27:02,596 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:27:02,604 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:27:02,636 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:27:02,764 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:27:02,933 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:27:03,204 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:27:03,825 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:27:07,967 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:27:08,023 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:27:08,182 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:27:08,315 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:27:08,434 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:27:08,587 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:27:08,846 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:27:10,384 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:27:10] "POST /api/generate_article_image/49 HTTP/1.1" 200 -
+2025-12-30 17:27:10,384 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:27:10,598 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:27:27,605 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:27:27] "GET / HTTP/1.1" 200 -
+2025-12-30 17:27:32,646 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:27:32] "GET / HTTP/1.1" 200 -
+2025-12-30 17:40:48,552 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:48] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:40:48,568 - __main__ - INFO - Generating photorealistic image for: Samsung unveils its new $200 Galaxy A17 5G smartph...
+2025-12-30 17:40:49,163 - __main__ - INFO - Generating photorealistic image for: Rainbow Six Siege servers are back online after sh...
+2025-12-30 17:40:49,570 - __main__ - INFO - Generating photorealistic image for: TCL introduces its own take on a color Kindle Scri...
+2025-12-30 17:40:50,072 - __main__ - INFO - Generating photorealistic image for: IDC warns of major PC market downturn due to memor...
+2025-12-30 17:40:50,386 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:50] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:40:50,413 - __main__ - INFO - Generating photorealistic image for: Samsung unveils its new $200 Galaxy A17 5G smartph...
+2025-12-30 17:40:50,904 - __main__ - INFO - Generating photorealistic image for: Rainbow Six Siege servers are back online after sh...
+2025-12-30 17:40:51,014 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:40:51,014 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:40:51,014 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:40:51,014 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:40:51,057 - __main__ - INFO - Stable Diffusion not available, using enhanced PIL generation...
+2025-12-30 17:40:51,718 - __main__ - INFO - Generating photorealistic image for: TCL introduces its own take on a color Kindle Scri...
+2025-12-30 17:40:52,239 - __main__ - INFO - Generating photorealistic image for: IDC warns of major PC market downturn due to memor...
+2025-12-30 17:40:52,442 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_5ee953d3e7ca.png
+2025-12-30 17:40:52,442 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_6b5911271220.png
+2025-12-30 17:40:52,443 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_6b5911271220.png
+2025-12-30 17:40:52,443 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "POST /api/generate_article_image/42 HTTP/1.1" 200 -
+2025-12-30 17:40:52,443 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_759ac5e62bf4.png
+2025-12-30 17:40:52,444 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_7c237e71f4ce.png
+2025-12-30 17:40:52,448 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "POST /api/generate_article_image/49 HTTP/1.1" 200 -
+2025-12-30 17:40:52,450 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "POST /api/generate_article_image/44 HTTP/1.1" 200 -
+2025-12-30 17:40:52,453 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "GET /static/generated_images/article_5ee953d3e7ca.png HTTP/1.1" 200 -
+2025-12-30 17:40:52,454 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "POST /api/generate_article_image/49 HTTP/1.1" 200 -
+2025-12-30 17:40:52,458 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "GET /static/generated_images/article_6b5911271220.png HTTP/1.1" 200 -
+2025-12-30 17:40:52,467 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:52] "POST /api/generate_article_image/41 HTTP/1.1" 200 -
+2025-12-30 17:40:55,142 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:40:55,142 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:40:55,142 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 17:40:56,285 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:40:56,627 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data!
+2025-12-30 17:40:56,723 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_759ac5e62bf4.png
+2025-12-30 17:40:56,766 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:56] "POST /api/generate_article_image/41 HTTP/1.1" 200 -
+2025-12-30 17:40:56,816 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:56] "GET /static/generated_images/article_759ac5e62bf4.png HTTP/1.1" 200 -
+2025-12-30 17:40:56,987 - __main__ - ERROR - Stable Diffusion generation failed: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 17:40:56,998 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_5ee953d3e7ca.png
+2025-12-30 17:40:57,051 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:57] "POST /api/generate_article_image/42 HTTP/1.1" 200 -
+2025-12-30 17:40:57,314 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_7c237e71f4ce.png
+2025-12-30 17:40:57,315 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:57] "POST /api/generate_article_image/44 HTTP/1.1" 200 -
+2025-12-30 17:40:57,322 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:40:57] "GET /static/generated_images/article_7c237e71f4ce.png HTTP/1.1" 200 -
+2025-12-30 17:42:43,348 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:42:43] "GET / HTTP/1.1" 200 -
+2025-12-30 17:42:48,723 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:42:48] "GET / HTTP/1.1" 200 -
+2025-12-30 17:42:53,790 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:42:53] "GET / HTTP/1.1" 200 -
+2025-12-30 17:43:16,525 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:43:16] "GET / HTTP/1.1" 200 -
+2025-12-30 17:43:49,323 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:43:49] "GET / HTTP/1.1" 200 -
+2025-12-30 17:43:54,941 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:43:54] "GET / HTTP/1.1" 200 -
+2025-12-30 17:44:00,075 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:00] "GET / HTTP/1.1" 200 -
+2025-12-30 17:44:10,439 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:44:10,440 - __main__ - INFO - Database initialized
+2025-12-30 17:44:10,445 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:44:10,445 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:44:10,445 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:44:10,445 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:44:10,563 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 17:44:10,563 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 17:44:10,566 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 17:44:10,779 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:44:10,880 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 17:44:10,880 - __main__ - INFO - Database initialized
+2025-12-30 17:44:10,885 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 17:44:10,885 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 17:44:10,885 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 17:44:10,885 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 17:44:10,913 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 17:44:10,922 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 17:44:10,955 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:44:11,128 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:44:11,307 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:44:11,509 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:44:11,837 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:44:13,638 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:44:16,335 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2025-12-30 17:44:16,335 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 17:44:16,486 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2025-12-30 17:44:16,486 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 17:44:16,625 - __main__ - ERROR - Error fetching feed The Verge: database is locked
+2025-12-30 17:44:16,625 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 17:44:16,745 - __main__ - ERROR - Error fetching feed IEEE Spectrum: database is locked
+2025-12-30 17:44:16,745 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 17:44:16,896 - __main__ - ERROR - Error fetching feed Fierce Wireless: database is locked
+2025-12-30 17:44:16,896 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 17:44:17,148 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2025-12-30 17:44:17,149 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 17:44:18,008 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2025-12-30 17:44:18,008 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 17:44:18,122 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:18] "GET / HTTP/1.1" 200 -
+2025-12-30 17:44:18,200 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2025-12-30 17:44:18,228 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 17:44:22,775 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:22] "GET / HTTP/1.1" 200 -
+2025-12-30 17:44:48,975 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:48] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:44:49,266 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:49] "GET /static/generated_images/article_7c237e71f4ce.png HTTP/1.1" 200 -
+2025-12-30 17:44:49,267 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:49] "GET /static/generated_images/article_6b5911271220.png HTTP/1.1" 200 -
+2025-12-30 17:44:49,268 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:49] "GET /static/generated_images/article_5ee953d3e7ca.png HTTP/1.1" 200 -
+2025-12-30 17:44:49,269 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:49] "GET /static/generated_images/article_759ac5e62bf4.png HTTP/1.1" 200 -
+2025-12-30 17:44:50,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:50] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 17:44:50,593 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:50] "[36mGET /static/generated_images/article_6b5911271220.png HTTP/1.1[0m" 304 -
+2025-12-30 17:44:50,594 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:50] "[36mGET /static/generated_images/article_5ee953d3e7ca.png HTTP/1.1[0m" 304 -
+2025-12-30 17:44:50,596 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:50] "[36mGET /static/generated_images/article_7c237e71f4ce.png HTTP/1.1[0m" 304 -
+2025-12-30 17:44:50,596 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 17:44:50] "[36mGET /static/generated_images/article_759ac5e62bf4.png HTTP/1.1[0m" 304 -
