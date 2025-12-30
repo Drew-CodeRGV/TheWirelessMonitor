@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Simple Installation Script for The Wireless Monitor - Streamlined Edition
+# The Wireless Monitor - Streamlined Edition Installation Script
 # Single service, minimal dependencies, maximum efficiency
 
 set -e
 
 echo "🚀 Installing The Wireless Monitor - Streamlined Edition"
 
-# Colors
+# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -29,7 +29,7 @@ SERVICE_NAME="wireless-monitor"
 print_status "Installing for user: $CURRENT_USER"
 print_status "Installation directory: $INSTALL_DIR"
 
-# Install minimal system dependencies
+# Install system dependencies
 print_status "Installing system dependencies..."
 sudo apt update
 sudo apt install -y python3 python3-pip python3-venv git curl
@@ -48,20 +48,34 @@ else
     git clone "$REPO_URL" .
 fi
 
+# Verify required files exist
+if [ ! -f "requirements.txt" ]; then
+    print_error "requirements.txt not found in repository"
+    exit 1
+fi
+
+if [ ! -f "app/main.py" ]; then
+    print_error "app/main.py not found in repository"
+    exit 1
+fi
+
+print_status "Found required files: requirements.txt and app/main.py"
+
 # Create Python virtual environment
-print_status "Creating Python environment..."
+print_status "Creating Python virtual environment..."
 python3 -m venv venv
 source venv/bin/activate
 
-# Install minimal Python dependencies
-print_status "Installing Python packages..."
+# Install Python dependencies
+print_status "Installing Python packages from requirements.txt..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
 # Create directories
+print_status "Creating data and log directories..."
 mkdir -p data logs
 
-# Create systemd service for the streamlined app
+# Create systemd service
 print_status "Creating systemd service..."
 sudo tee /etc/systemd/system/$SERVICE_NAME.service > /dev/null <<EOF
 [Unit]
@@ -91,7 +105,7 @@ sudo systemctl enable $SERVICE_NAME
 sudo systemctl start $SERVICE_NAME
 
 # Wait for service to start
-sleep 3
+sleep 5
 
 # Check if service is running
 if systemctl is-active --quiet $SERVICE_NAME; then
@@ -99,17 +113,17 @@ if systemctl is-active --quiet $SERVICE_NAME; then
 else
     print_error "❌ Service failed to start"
     print_status "Checking logs..."
-    journalctl -u $SERVICE_NAME --no-pager -n 10
+    journalctl -u $SERVICE_NAME --no-pager -n 20
 fi
 
 # Test web interface
 print_status "Testing web interface..."
-sleep 2
+sleep 3
 
 if curl -s -o /dev/null -w "%{http_code}" http://localhost:5000 2>/dev/null | grep -q "200\|302"; then
     print_success "✅ Web interface is working!"
 else
-    print_warning "⚠️ Web interface may not be ready yet"
+    print_warning "⚠️ Web interface may not be ready yet (this is normal)"
 fi
 
 # Display completion info
@@ -117,34 +131,33 @@ echo ""
 print_success "🎉 The Wireless Monitor - Streamlined Edition installed!"
 echo ""
 echo "📋 Installation Summary:"
-echo "   • Type: Single Python service (no nginx, no cron, no gunicorn)"
-echo "   • Dependencies: Only 5 lightweight Python packages"
+echo "   • Architecture: Single Python service"
+echo "   • Dependencies: 5 lightweight Python packages"
 echo "   • Database: Embedded SQLite"
-echo "   • Scheduler: Built-in (no external cron jobs)"
+echo "   • Scheduler: Built-in (no cron jobs)"
+echo "   • Web Server: Flask built-in (no nginx)"
 echo ""
 echo "🌐 Access Information:"
 IP=$(hostname -I | awk '{print $1}' 2>/dev/null || echo 'localhost')
 echo "   • Web Interface: http://$IP:5000"
-echo "   • Direct Access: http://localhost:5000"
+echo "   • Local Access: http://localhost:5000"
 echo ""
 echo "🔧 Management Commands:"
-echo "   • Status: sudo systemctl status $SERVICE_NAME"
+echo "   • Check Status: sudo systemctl status $SERVICE_NAME"
 echo "   • Restart: sudo systemctl restart $SERVICE_NAME"
-echo "   • Logs: journalctl -u $SERVICE_NAME -f"
-echo "   • Stop: sudo systemctl stop $SERVICE_NAME"
+echo "   • View Logs: journalctl -u $SERVICE_NAME -f"
+echo "   • Stop Service: sudo systemctl stop $SERVICE_NAME"
 echo ""
 echo "📁 File Locations:"
 echo "   • Installation: $INSTALL_DIR"
 echo "   • Database: $INSTALL_DIR/data/wireless_monitor.db"
-echo "   • Logs: $INSTALL_DIR/logs/"
+echo "   • Application Logs: $INSTALL_DIR/logs/app.log"
+echo "   • Error Logs: $INSTALL_DIR/logs/error.log"
 echo ""
 print_success "🚀 Ready to use! Visit the web interface to add RSS feeds."
-
-# Optional: Open web interface
-if command -v xdg-open >/dev/null 2>&1; then
-    read -p "Open web interface now? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        xdg-open "http://localhost:5000" >/dev/null 2>&1 &
-    fi
-fi
+echo ""
+echo "Next steps:"
+echo "1. Open http://$IP:5000 in your browser"
+echo "2. Go to 'RSS Feeds' to add wireless technology news sources"
+echo "3. Click 'Fetch Now' to get your first articles"
+echo "4. Check the 'Admin' section for system status"

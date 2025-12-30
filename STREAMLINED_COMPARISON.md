@@ -104,7 +104,7 @@ curl install_script | bash
 ### **Streamlined Installation:**
 ```bash
 # Single step, minimal failure points
-curl simple_install.sh | bash
+curl install.sh | bash
 # - Install 4 system packages
 # - Install 5 Python packages
 # - Start 1 service
@@ -138,7 +138,7 @@ sudo systemctl stop rss-aggregator
 cp /home/wifi/rss_aggregator/data/news.db /tmp/backup.db
 
 # 2. Install streamlined version
-curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/simple_install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Drew-CodeRGV/TheWirelessMonitor/main/install.sh | bash
 
 # 3. Migrate data (if needed)
 # The streamlined version uses a simpler database schema
