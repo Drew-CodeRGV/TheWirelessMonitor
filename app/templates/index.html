@@ -34,6 +34,9 @@
                     <div class="meta">
                         <span>{{ story.feed_name }}</span>
                         <span>{{ story.published_date[:10] }}</span>
+                        {% if story.event_name %}
+                        <span style="background: #9c27b0; color: white; padding: 1px 4px; border-radius: 4px; font-size: 0.6rem; font-weight: 600;">🎪 {{ story.event_name }}</span>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -119,12 +122,14 @@
 {% else %}
     <!-- NY Magazine Style Newspaper Layout -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
-        <h2>📰 Today's Wireless Technology Headlines</h2>
+        <h2>📰 Latest Wireless Technology Headlines</h2>
         <div style="display: flex; gap: 10px;">
-            {% if not show_all and total_articles > (stories|length) %}
+            {% if not show_all and total_articles > relevant_articles %}
                 <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
             {% elif show_all %}
-                <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only</a>
+                <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only ({{ relevant_articles }})</a>
+            {% elif total_articles > 12 %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
             {% endif %}
             <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
         </div>
@@ -133,8 +138,17 @@
     {% if show_all and stories %}
     <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #f39c12;">
         <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #856404; margin: 0;">
-            <strong>📋 Showing all {{ stories|length }} articles</strong> - including low relevance items. 
-            <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only</a>
+            <strong>📋 Showing all {{ stories|length }} articles from the last 5 days</strong> - including lower relevance items. 
+            <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only ({{ relevant_articles }})</a>
+        </p>
+    </div>
+    {% elif not show_all and stories %}
+    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #27ae60;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #2d5a2d; margin: 0;">
+            <strong>🎯 Showing {{ stories|length }} most relevant articles</strong> from the last 3-5 days. 
+            {% if total_articles > relevant_articles %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2d5a2d; text-decoration: underline;">Show all {{ total_articles }} articles</a>
+            {% endif %}
         </p>
     </div>
     {% endif %}
@@ -153,12 +167,15 @@
                         <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" 
                              style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
                     {% else %}
-                        <div class="image-placeholder" style="width: 100%; height: 250px; background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer;" 
-                             onclick="generateArticleImage({{ featured_article.id }}, this)">
+                        <div class="image-placeholder" style="width: 100%; height: 250px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 2px dashed #dee2e6; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; transition: all 0.3s ease;" 
+                             onclick="generateArticleImage({{ featured_article.id }}, this)"
+                             onmouseover="this.style.background='linear-gradient(135deg, #e9ecef, #dee2e6)'"
+                             onmouseout="this.style.background='linear-gradient(135deg, #f8f9fa, #e9ecef)'">
                             <div style="text-align: center; color: #6c757d;">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">🎨</div>
-                                <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Creating visualization...</div>
-                                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to generate AI image</div>
+                                <div style="font-size: 2.5rem; margin-bottom: 10px;">📸</div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 5px;">Image Generation Underway</div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-bottom: 8px;">Estimated time: 30-60 seconds</div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #adb5bd;">Click to start or check progress</div>
                             </div>
                         </div>
                     {% endif %}
@@ -174,6 +191,12 @@
                     <span class="relevance-score" style="{% if featured_article.relevance_score < 0.3 %}background: #e74c3c;{% elif featured_article.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
                         {{ "%.0f"|format(featured_article.relevance_score * 100) }}% Relevant
                     </span>
+                    {% if featured_article.event_name %}
+                    <span class="event-coverage" style="background: #9c27b0; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                        <span>🎪</span>
+                        <a href="{{ url_for('event_detail', event_id=featured_article.event_id, view=view_mode) }}" style="color: white; text-decoration: none;">{{ featured_article.event_name }}</a>
+                    </span>
+                    {% endif %}
                 </div>
                 <h3><a href="{{ featured_article.url }}" target="_blank">{{ featured_article.title }}</a></h3>
                 {% if featured_article.content and featured_article.content|length > 100 %}
@@ -199,18 +222,40 @@
             <div class="secondary-articles">
                 {% for story in stories[1:4] %}
                 <article class="article-card">
-                    <div class="article-meta">
-                        {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
-                        <span class="feed-source" style="border-color: {{ color }};">
-                            <span style="color: {{ color }};">{{ icon }}</span>
-                            {{ story.feed_name }}
-                        </span>
-                        <span>{{ story.published_date[:10] }}</span>
-                        <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
-                            {{ "%.0f"|format(story.relevance_score * 100) }}%
-                        </span>
+                    <!-- Article Thumbnail -->
+                    <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                        <div style="flex-shrink: 0;">
+                            {% if story.image_url %}
+                                <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                     style="width: 80px; height: 60px; object-fit: cover; border-radius: 6px;">
+                            {% else %}
+                                <div class="thumbnail-placeholder" style="width: 80px; height: 60px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 1px dashed #dee2e6; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; color: #6c757d; text-align: center;" 
+                                     onclick="generateArticleImage({{ story.id }}, this)">
+                                    📸<br>Gen
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="article-meta">
+                                {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                                <span class="feed-source" style="border-color: {{ color }};">
+                                    <span style="color: {{ color }};">{{ icon }}</span>
+                                    {{ story.feed_name }}
+                                </span>
+                                <span>{{ story.published_date[:10] }}</span>
+                                <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                                    {{ "%.0f"|format(story.relevance_score * 100) }}%
+                                </span>
+                                {% if story.event_name %}
+                                <span class="event-coverage" style="background: #9c27b0; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">
+                                    <span>🎪</span>
+                                    <a href="{{ url_for('event_detail', event_id=story.event_id, view=view_mode) }}" style="color: white; text-decoration: none;">{{ story.event_name }}</a>
+                                </span>
+                                {% endif %}
+                            </div>
+                            <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
+                        </div>
                     </div>
-                    <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
                     {% if story.description %}
                         <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
                     {% endif %}
@@ -232,18 +277,40 @@
             <div class="secondary-articles">
                 {% for story in stories[4:7] %}
                 <article class="article-card">
-                    <div class="article-meta">
-                        {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
-                        <span class="feed-source" style="border-color: {{ color }};">
-                            <span style="color: {{ color }};">{{ icon }}</span>
-                            {{ story.feed_name }}
-                        </span>
-                        <span>{{ story.published_date[:10] }}</span>
-                        <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
-                            {{ "%.0f"|format(story.relevance_score * 100) }}%
-                        </span>
+                    <!-- Article Thumbnail -->
+                    <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                        <div style="flex-shrink: 0;">
+                            {% if story.image_url %}
+                                <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                     style="width: 80px; height: 60px; object-fit: cover; border-radius: 6px;">
+                            {% else %}
+                                <div class="thumbnail-placeholder" style="width: 80px; height: 60px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 1px dashed #dee2e6; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; color: #6c757d; text-align: center;" 
+                                     onclick="generateArticleImage({{ story.id }}, this)">
+                                    📸<br>Gen
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="article-meta">
+                                {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                                <span class="feed-source" style="border-color: {{ color }};">
+                                    <span style="color: {{ color }};">{{ icon }}</span>
+                                    {{ story.feed_name }}
+                                </span>
+                                <span>{{ story.published_date[:10] }}</span>
+                                <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
+                                    {{ "%.0f"|format(story.relevance_score * 100) }}%
+                                </span>
+                                {% if story.event_name %}
+                                <span class="event-coverage" style="background: #9c27b0; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">
+                                    <span>🎪</span>
+                                    <a href="{{ url_for('event_detail', event_id=story.event_id, view=view_mode) }}" style="color: white; text-decoration: none;">{{ story.event_name }}</a>
+                                </span>
+                                {% endif %}
+                            </div>
+                            <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
+                        </div>
                     </div>
-                    <h3><a href="{{ story.url }}" target="_blank">{{ story.title }}</a></h3>
                     {% if story.description %}
                         <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
                     {% endif %}
@@ -279,6 +346,12 @@
                         <span class="relevance-score" style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %}">
                             {{ "%.0f"|format(story.relevance_score * 100) }}%
                         </span>
+                        {% if story.event_name %}
+                        <span class="event-coverage" style="background: #9c27b0; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">
+                            <span>🎪</span>
+                            <a href="{{ url_for('event_detail', event_id=story.event_id, view=view_mode) }}" style="color: white; text-decoration: none;">{{ story.event_name }}</a>
+                        </span>
+                        {% endif %}
                         {% if story.relevance_score < 0.3 %}
                             <span style="font-size: 0.7rem; color: #e74c3c;">⚠️ Low</span>
                         {% endif %}
@@ -323,142 +396,25 @@
         </div>
     {% endif %}
 
-    <!-- Social Sharing Popup -->
-    <div id="shareModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
-            <h3 style="margin-bottom: 20px; color: #2c3e50;">📤 Share Article</h3>
-            <div id="socialPlatforms" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                <!-- Platforms will be loaded here -->
-            </div>
-            <div style="text-align: center;">
-                <button onclick="closeShareModal()" class="btn" style="background: #6c757d;">Cancel</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-    let currentArticleId = null;
-
-    async function shareArticle(articleId) {
-        currentArticleId = articleId;
-        
-        try {
-            // Get available social platforms
-            const response = await fetch('/api/get_social_config');
-            const data = await response.json();
-            
-            if (data.success && data.platforms.length > 0) {
-                const platformsDiv = document.getElementById('socialPlatforms');
-                platformsDiv.innerHTML = '';
-                
-                data.platforms.forEach(platform => {
-                    const platformButton = document.createElement('button');
-                    platformButton.className = 'btn';
-                    platformButton.style.cssText = 'width: 100%; padding: 15px 10px; font-size: 0.9rem;';
-                    
-                    // Platform-specific styling
-                    if (platform.platform === 'Twitter') {
-                        platformButton.style.background = '#1da1f2';
-                        platformButton.innerHTML = '🐦<br>Twitter';
-                    } else if (platform.platform === 'LinkedIn') {
-                        platformButton.style.background = '#0077b5';
-                        platformButton.innerHTML = '💼<br>LinkedIn';
-                    } else if (platform.platform === 'Facebook') {
-                        platformButton.style.background = '#1877f2';
-                        platformButton.innerHTML = '📘<br>Facebook';
-                    } else if (platform.platform === 'Mastodon') {
-                        platformButton.style.background = '#6364ff';
-                        platformButton.innerHTML = '🐘<br>Mastodon';
-                    } else {
-                        platformButton.style.background = '#28a745';
-                        platformButton.innerHTML = `📱<br>${platform.platform}`;
-                    }
-                    
-                    platformButton.onclick = () => shareToSocial(platform.platform);
-                    platformsDiv.appendChild(platformButton);
-                });
-                
-                document.getElementById('shareModal').style.display = 'block';
-            } else {
-                alert('No social media platforms configured. Please configure them in the admin panel.');
-            }
-        } catch (error) {
-            alert('Error loading social platforms: ' + error.message);
-        }
-    }
-
-    async function shareToSocial(platform) {
-        try {
-            const response = await fetch('/api/share_article', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    article_id: currentArticleId,
-                    platform: platform
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                // Open sharing window
-                window.open(data.share_content.share_url, '_blank', 'width=600,height=400');
-                closeShareModal();
-            } else {
-                alert('Error: ' + data.error);
-            }
-        } catch (error) {
-            alert('Network error: ' + error.message);
-        }
-    }
-
-    async function addToDigest(articleId) {
-        const notes = prompt('Add notes for this article (optional):');
-        if (notes === null) return; // User cancelled
-        
-        try {
-            const response = await fetch('/api/add_to_digest', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    article_id: articleId,
-                    notes: notes
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                alert('✅ Article added to weekly digest!');
-            } else {
-                alert('Error: ' + data.error);
-            }
-        } catch (error) {
-            alert('Network error: ' + error.message);
-        }
-    }
-
-    function closeShareModal() {
-        document.getElementById('shareModal').style.display = 'none';
-        currentArticleId = null;
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('shareModal').onclick = function(e) {
-        if (e.target === this) {
-            closeShareModal();
-        }
-    }
-
     async function generateArticleImage(articleId, placeholderElement) {
+        // Determine if this is a thumbnail or full image
+        const isThumbnail = placeholderElement.classList.contains('thumbnail-placeholder');
+        
         // Update placeholder to show loading state
-        placeholderElement.innerHTML = `
-            <div style="text-align: center; color: #6c757d;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
-                <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Generating image...</div>
-                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Please wait</div>
-            </div>
-        `;
+        if (isThumbnail) {
+            placeholderElement.innerHTML = `⏳<br>Gen`;
+            placeholderElement.style.background = 'linear-gradient(135deg, #fff3cd, #ffeaa7)';
+        } else {
+            placeholderElement.innerHTML = `
+                <div style="text-align: center; color: #6c757d;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">⏳</div>
+                    <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;">Generating Image...</div>
+                    <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-top: 5px;">Scraping article or creating AI image</div>
+                    <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 8px; color: #adb5bd;">Estimated: 30-60 seconds</div>
+                </div>
+            `;
+        }
         
         try {
             const response = await fetch(`/api/generate_article_image/${articleId}`, {
@@ -469,33 +425,56 @@
             
             if (data.success) {
                 // Replace placeholder with generated image
-                placeholderElement.outerHTML = `
-                    <img src="${data.image_url}" alt="Generated visualization" 
-                         style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-                `;
+                if (isThumbnail) {
+                    placeholderElement.outerHTML = `
+                        <img src="${data.image_url}" alt="Article thumbnail" 
+                             style="width: 80px; height: 60px; object-fit: cover; border-radius: 6px;">
+                    `;
+                } else {
+                    placeholderElement.outerHTML = `
+                        <img src="${data.image_url}" alt="Article image" 
+                             style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+                    `;
+                }
+                
+                // Show success message briefly
+                if (!isThumbnail) {
+                    console.log(`✅ Image generated for article ${articleId}: ${data.estimated_time}`);
+                }
             } else {
                 // Show error state
-                placeholderElement.innerHTML = `
-                    <div style="text-align: center; color: #dc3545;">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">❌</div>
-                        <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Generation failed</div>
-                        <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to retry</div>
-                    </div>
-                `;
+                if (isThumbnail) {
+                    placeholderElement.innerHTML = `❌<br>Err`;
+                    placeholderElement.style.background = 'linear-gradient(135deg, #f8d7da, #f5c6cb)';
+                } else {
+                    placeholderElement.innerHTML = `
+                        <div style="text-align: center; color: #dc3545;">
+                            <div style="font-size: 2.5rem; margin-bottom: 10px;">❌</div>
+                            <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;">Generation Failed</div>
+                            <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-top: 5px;">Could not scrape or generate image</div>
+                            <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 8px; color: #adb5bd;">Click to retry</div>
+                        </div>
+                    `;
+                }
             }
         } catch (error) {
             // Show error state
-            placeholderElement.innerHTML = `
-                <div style="text-align: center; color: #dc3545;">
-                    <div style="font-size: 2rem; margin-bottom: 10px;">❌</div>
-                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Network error</div>
-                    <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to retry</div>
-                </div>
-            `;
+            if (isThumbnail) {
+                placeholderElement.innerHTML = `❌<br>Net`;
+                placeholderElement.style.background = 'linear-gradient(135deg, #f8d7da, #f5c6cb)';
+            } else {
+                placeholderElement.innerHTML = `
+                    <div style="text-align: center; color: #dc3545;">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">❌</div>
+                        <div style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;">Network Error</div>
+                        <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; margin-top: 5px;">Could not connect to image service</div>
+                        <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 8px; color: #adb5bd;">Click to retry</div>
+                    </div>
+                `;
+            }
         }
     }
 
-    <script>
     async function fetchNow() {
         const statusDiv = document.getElementById('fetch-status');
         const button = event.target;

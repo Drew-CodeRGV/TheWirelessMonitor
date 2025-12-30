@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 
 class WirelessMonitor:
     def __init__(self):
-        self.app = Flask(__name__)
+        self.app = Flask(__name__, static_folder='static', static_url_path='/static')
         self.app.secret_key = 'wireless-monitor-secret-key'
         self.db_path = 'data/wireless_monitor.db'
         self.running = True
@@ -215,6 +215,18 @@ class WirelessMonitor:
             )
         ''')
         
+        # Social shares table for tracking shared articles
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS social_shares (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                article_id INTEGER,
+                platform TEXT NOT NULL,
+                share_url TEXT,
+                shared_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (article_id) REFERENCES articles (id)
+            )
+        ''')
+        
         # Add default social media platforms if they don't exist
         default_platforms = ['Twitter', 'LinkedIn', 'Facebook', 'Mastodon', 'Instagram']
         for platform in default_platforms:
@@ -278,31 +290,6 @@ class WirelessMonitor:
             ))
             logger.info("Added NRF 2026 event")
         
-        # Add Google News feeds for events
-        ces_feed_exists = conn.execute('SELECT id FROM rss_feeds WHERE name = "Google News: CES 2026"').fetchone()
-        if not ces_feed_exists:
-            conn.execute('''
-                INSERT INTO rss_feeds (name, url, active)
-                VALUES (?, ?, ?)
-            ''', (
-                'Google News: CES 2026',
-                'https://news.google.com/news/rss/search?q=CES+2026+consumer+electronics+show&hl=en',
-                1
-            ))
-            logger.info("Added Google News feed for CES 2026")
-        
-        nrf_feed_exists = conn.execute('SELECT id FROM rss_feeds WHERE name = "Google News: NRF 2026"').fetchone()
-        if not nrf_feed_exists:
-            conn.execute('''
-                INSERT INTO rss_feeds (name, url, active)
-                VALUES (?, ?, ?)
-            ''', (
-                'Google News: NRF 2026',
-                'https://news.google.com/news/rss/search?q=NRF+2026+retail+big+show&hl=en',
-                1
-            ))
-            logger.info("Added Google News feed for NRF 2026")
-        
         # Add default feeds if none exist
         feed_count = conn.execute('SELECT COUNT(*) FROM rss_feeds').fetchone()[0]
         if feed_count == 0:
@@ -313,8 +300,8 @@ class WirelessMonitor:
                 ('IEEE Spectrum', 'https://spectrum.ieee.org/rss'),
                 ('Fierce Wireless', 'https://www.fiercewireless.com/rss/xml'),
                 ('RCR Wireless News', 'https://www.rcrwireless.com/feed'),
-                ('Wi-Fi Alliance News', 'https://www.wi-fi.org/news-events/newsroom/rss'),
-                ('Wireless Week', 'https://www.wirelessweek.com/rss.xml'),
+                ('Engadget', 'https://www.engadget.com/rss.xml'),
+                ('Wired Technology', 'https://www.wired.com/feed/category/gear/rss'),
             ]
             
             for name, url in default_feeds:
@@ -406,51 +393,62 @@ class WirelessMonitor:
             view_mode = request.args.get('view', 'newspaper')
             show_all = request.args.get('show_all', 'false').lower() == 'true'
             
-            # Get today's top stories
+            # Get current date for filtering
             today = datetime.now().strftime('%Y-%m-%d')
             
             if show_all:
-                # Show all articles regardless of relevance
+                # Show all articles from the last 5 days regardless of relevance
                 stories_raw = conn.execute('''
-                    SELECT a.*, f.name as feed_name, f.url as feed_url
+                    SELECT a.*, f.name as feed_name, f.url as feed_url,
+                           ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
                     FROM articles a 
                     JOIN rss_feeds f ON a.feed_id = f.id
-                    WHERE DATE(a.published_date) = ?
+                    LEFT JOIN event_articles ea ON a.id = ea.article_id
+                    LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
+                    WHERE DATE(a.published_date) >= DATE('now', '-5 days')
                     ORDER BY a.relevance_score DESC, a.published_date DESC
                     LIMIT 100
-                ''', (today,)).fetchall()
-                
-                # Get recent stories if no stories today
-                if not stories_raw:
-                    stories_raw = conn.execute('''
-                        SELECT a.*, f.name as feed_name, f.url as feed_url
-                        FROM articles a 
-                        JOIN rss_feeds f ON a.feed_id = f.id
-                        WHERE DATE(a.published_date) >= DATE('now', '-3 days')
-                        ORDER BY a.relevance_score DESC, a.published_date DESC
-                        LIMIT 100
-                    ''').fetchall()
+                ''').fetchall()
             else:
-                # Show only relevant articles (score > 0.3)
-                stories_raw = conn.execute('''
-                    SELECT a.*, f.name as feed_name, f.url as feed_url
+                # Get top articles from last 3 days (above the fold)
+                top_stories_raw = conn.execute('''
+                    SELECT a.*, f.name as feed_name, f.url as feed_url,
+                           ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
                     FROM articles a 
                     JOIN rss_feeds f ON a.feed_id = f.id
-                    WHERE DATE(a.published_date) = ? AND a.relevance_score > 0.3
+                    LEFT JOIN event_articles ea ON a.id = ea.article_id
+                    LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
+                    WHERE DATE(a.published_date) >= DATE('now', '-3 days') AND a.relevance_score > 0.3
                     ORDER BY a.relevance_score DESC, a.published_date DESC
-                    LIMIT 20
-                ''', (today,)).fetchall()
+                    LIMIT 8
+                ''').fetchall()
                 
-                # Get recent stories if no stories today
-                if not stories_raw:
-                    stories_raw = conn.execute('''
-                        SELECT a.*, f.name as feed_name, f.url as feed_url
+                # If we don't have enough articles from 3 days, get more from 5 days
+                if len(top_stories_raw) < 12:
+                    additional_needed = 12 - len(top_stories_raw)
+                    
+                    # Get article IDs we already have to avoid duplicates
+                    existing_ids = [row['id'] for row in top_stories_raw]
+                    id_placeholders = ','.join(['?' for _ in existing_ids]) if existing_ids else '0'
+                    
+                    additional_stories_raw = conn.execute(f'''
+                        SELECT a.*, f.name as feed_name, f.url as feed_url,
+                               ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
                         FROM articles a 
                         JOIN rss_feeds f ON a.feed_id = f.id
-                        WHERE DATE(a.published_date) >= DATE('now', '-3 days') AND a.relevance_score > 0.3
-                        ORDER BY a.relevance_score DESC, a.published_date DESC
-                        LIMIT 20
-                    ''').fetchall()
+                        LEFT JOIN event_articles ea ON a.id = ea.article_id
+                        LEFT JOIN industry_events ie ON ea.event_id = ie.id AND ie.active = 1
+                        WHERE DATE(a.published_date) >= DATE('now', '-5 days') 
+                        AND a.relevance_score > 0.2
+                        AND a.id NOT IN ({id_placeholders})
+                        ORDER BY a.published_date DESC, a.relevance_score DESC
+                        LIMIT ?
+                    ''', existing_ids + [additional_needed]).fetchall()
+                    
+                    # Combine the results
+                    stories_raw = list(top_stories_raw) + list(additional_stories_raw)
+                else:
+                    stories_raw = top_stories_raw
             
             # Convert Row objects to dictionaries for JSON serialization
             stories = []
@@ -465,13 +463,26 @@ class WirelessMonitor:
                         story_dict['created_at'] = story_dict['created_at'].isoformat()
                 stories.append(story_dict)
             
-            # Get total article count for today
-            total_today = conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) = ?', (today,)).fetchone()[0]
-            if total_today == 0:
-                total_today = conn.execute('SELECT COUNT(*) FROM articles WHERE DATE(published_date) >= DATE("now", "-3 days")').fetchone()[0]
+            # Get total article count for the last 5 days for Show All button
+            total_articles = conn.execute('''
+                SELECT COUNT(*) FROM articles 
+                WHERE DATE(published_date) >= DATE('now', '-5 days')
+            ''').fetchone()[0]
+            
+            # Get count of relevant articles for comparison
+            relevant_articles = conn.execute('''
+                SELECT COUNT(*) FROM articles 
+                WHERE DATE(published_date) >= DATE('now', '-5 days') AND relevance_score > 0.2
+            ''').fetchone()[0]
             
             conn.close()
-            return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+            return render_template('index.html', 
+                                 stories=stories, 
+                                 date=today, 
+                                 view_mode=view_mode, 
+                                 show_all=show_all, 
+                                 total_articles=total_articles,
+                                 relevant_articles=relevant_articles)
         
         @self.app.route('/feeds')
         def manage_feeds():
@@ -1152,26 +1163,19 @@ class WirelessMonitor:
                 if not article:
                     return jsonify({'success': False, 'error': 'Article not found'})
                 
-                # Generate image URL (placeholder for now)
-                image_url = self.generate_article_image_url(article)
+                # Convert to dict for processing
+                article_dict = dict(article)
                 
-                # Store image URL in database (add image_url column if needed)
-                try:
-                    conn.execute('ALTER TABLE articles ADD COLUMN image_url TEXT')
-                except sqlite3.OperationalError:
-                    pass  # Column already exists
+                # Get or create image using new system
+                image_url = self.get_or_create_article_image(article_dict)
                 
-                conn.execute('''
-                    UPDATE articles SET image_url = ? WHERE id = ?
-                ''', (image_url, article_id))
-                
-                conn.commit()
                 conn.close()
                 
                 return jsonify({
                     'success': True,
                     'image_url': image_url,
-                    'article_id': article_id
+                    'article_id': article_id,
+                    'estimated_time': '30-60 seconds' if 'static/generated_images' in image_url else 'Ready'
                 })
                 
             except Exception as e:
@@ -1539,6 +1543,11 @@ class WirelessMonitor:
                 parsed_feed = feedparser.parse(response.content)
                 
                 for entry in parsed_feed.entries[:20]:  # Limit to 20 most recent
+                    # Skip Google News articles completely
+                    if 'news.google.com' in entry.link:
+                        logger.info(f"Skipping Google News article: {entry.get('title', 'No Title')}")
+                        continue
+                    
                     # Check if article already exists
                     existing = conn.execute('SELECT id FROM articles WHERE url = ?', (entry.link,)).fetchone()
                     if existing:
@@ -1961,16 +1970,61 @@ class WirelessMonitor:
                 share_url = f"https://twitter.com/intent/tweet?text={content}&url={article['url']}"
                 
             elif platform == 'LinkedIn':
-                content = f"{article['title']}\n\n{article['description'][:200]}...\n\n{attribution}"
-                share_url = f"https://www.linkedin.com/sharing/share-offsite/?url={article['url']}"
+                # LinkedIn sharing with updated API format
+                import urllib.parse
+                
+                # Create rich content for LinkedIn
+                title = article['title']
+                summary = article['description'][:300] if article['description'] else "Discover the latest in wireless technology and connectivity innovations"
+                
+                # Enhanced LinkedIn content with better formatting
+                linkedin_content = f"{title}\n\n{summary}\n\n{attribution}"
+                
+                # Use LinkedIn's updated sharing URL format
+                linkedin_params = {
+                    'url': article['url'],
+                    'title': title,
+                    'summary': f"{summary} {attribution}",
+                    'source': 'The Wireless Monitor'
+                }
+                
+                # Try the newer LinkedIn sharing format first
+                query_string = urllib.parse.urlencode(linkedin_params, quote_via=urllib.parse.quote)
+                share_url = f"https://www.linkedin.com/feed/?shareActive=true&text={urllib.parse.quote(linkedin_content)}"
+                
+                content = linkedin_content
                 
             elif platform == 'Facebook':
+                # Facebook sharing with better parameters
+                import urllib.parse
+                
+                fb_params = {
+                    'u': article['url'],
+                    'quote': f"{article['title']} - {attribution}"
+                }
+                
+                query_string = urllib.parse.urlencode(fb_params)
+                share_url = f"https://www.facebook.com/sharer/sharer.php?{query_string}"
                 content = f"{article['title']} {attribution}"
-                share_url = f"https://www.facebook.com/sharer/sharer.php?u={article['url']}"
                 
             elif platform == 'Mastodon':
-                content = f"{article['title']} {attribution}"
-                share_url = f"https://mastodon.social/share?text={content}&url={article['url']}"
+                # Mastodon sharing
+                import urllib.parse
+                
+                mastodon_text = f"{article['title']}\n\n{article['description'][:200] if article['description'] else ''}\n\n{attribution}\n\n{article['url']}"
+                
+                mastodon_params = {
+                    'text': mastodon_text
+                }
+                
+                query_string = urllib.parse.urlencode(mastodon_params)
+                share_url = f"https://mastodon.social/share?{query_string}"
+                content = mastodon_text
+                
+            elif platform == 'Instagram':
+                # Instagram doesn't support direct URL sharing, so we'll create a copy-to-clipboard approach
+                content = f"{article['title']}\n\n{article['description'][:150] if article['description'] else ''}\n\n{attribution}\n\nRead more: {article['url']}"
+                share_url = f"https://www.instagram.com/"  # Just open Instagram
                 
             else:
                 # Generic sharing
@@ -1981,7 +2035,10 @@ class WirelessMonitor:
                 'content': content,
                 'share_url': share_url,
                 'platform': platform,
-                'attribution': attribution
+                'attribution': attribution,
+                'title': article['title'],
+                'description': article['description'][:300] if article['description'] else '',
+                'url': article['url']
             }
             
         except Exception as e:
@@ -1990,7 +2047,10 @@ class WirelessMonitor:
                 'content': article['title'],
                 'share_url': article['url'],
                 'platform': social_config['platform'],
-                'attribution': 'via The Wireless Monitor'
+                'attribution': 'via The Wireless Monitor',
+                'title': article['title'],
+                'description': article['description'][:300] if article['description'] else '',
+                'url': article['url']
             }
     
     def get_ai_insights(self, articles):
@@ -2303,40 +2363,294 @@ class WirelessMonitor:
         
         return "\n".join(script_lines)
     
-    def generate_article_image_url(self, article):
-        """Generate or find an image URL for an article"""
+    def resolve_google_news_url(self, google_news_url):
+        """Resolve Google News redirect URL to actual article URL"""
         try:
-            # For now, return a placeholder that shows "Creating visualization"
-            # In a real implementation, this would:
-            # 1. Search for relevant images using the article title/description
-            # 2. Use an AI image generation service
-            # 3. Return the generated/found image URL
+            # If it's a Google News URL, we don't want to resolve it
+            # Instead, we'll filter these out completely in the RSS processing
+            if 'news.google.com' in google_news_url:
+                logger.warning(f"Skipping Google News URL resolution: {google_news_url}")
+                return google_news_url  # Return as-is, will be filtered out later
             
-            # Create a data URL for a simple placeholder image
-            placeholder_svg = '''
-            <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
-                <rect width="400" height="200" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
-                <text x="200" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#6c757d">
-                    🎨 Creating visualization...
-                </text>
-                <text x="200" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#adb5bd">
-                    AI image generation in progress
-                </text>
-            </svg>
-            '''
-            
-            import base64
-            import urllib.parse
-            
-            # Convert SVG to data URL
-            svg_b64 = base64.b64encode(placeholder_svg.encode('utf-8')).decode('utf-8')
-            data_url = f"data:image/svg+xml;base64,{svg_b64}"
-            
-            return data_url
+            # For non-Google News URLs, return as-is
+            return google_news_url
             
         except Exception as e:
-            logger.error(f"Error generating article image: {e}")
-            return "/static/placeholder-image.png"  # Fallback
+            logger.error(f"Error with URL {google_news_url}: {e}")
+            return google_news_url
+    
+    def scrape_article_image(self, article_url, article_title):
+        """Scrape image from article URL"""
+        try:
+            # First resolve Google News URLs to actual article URLs
+            resolved_url = self.resolve_google_news_url(article_url)
+            
+            # Check if we successfully resolved away from Google News
+            if 'news.google.com' in resolved_url and 'news.google.com' in article_url:
+                logger.warning(f"Could not resolve Google News URL: {article_url}")
+                logger.warning(f"Still pointing to: {resolved_url}")
+                # Try to continue anyway, but this will likely fail
+            else:
+                logger.info(f"Successfully resolved {article_url} -> {resolved_url}")
+            
+            logger.info(f"Scraping image from resolved URL: {resolved_url}")
+            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+            
+            response = requests.get(resolved_url, headers=headers, timeout=15)
+            if response.status_code != 200:
+                logger.warning(f"Failed to fetch article page: {response.status_code} for {resolved_url}")
+                return None
+                
+            soup = BeautifulSoup(response.content, 'html.parser')
+            logger.info(f"Successfully fetched page content, size: {len(response.content)} bytes")
+            
+            # Try multiple methods to find the main article image
+            image_url = None
+            
+            # Method 1: Open Graph image (most reliable for news sites)
+            og_image = soup.find('meta', property='og:image')
+            if og_image and og_image.get('content'):
+                image_url = og_image['content']
+                logger.info(f"Found Open Graph image: {image_url}")
+            
+            # Method 2: Twitter card image
+            if not image_url:
+                twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
+                if twitter_image and twitter_image.get('content'):
+                    image_url = twitter_image['content']
+                    logger.info(f"Found Twitter card image: {image_url}")
+            
+            # Method 3: JSON-LD structured data
+            if not image_url:
+                json_ld_scripts = soup.find_all('script', type='application/ld+json')
+                for script in json_ld_scripts:
+                    try:
+                        data = json.loads(script.string)
+                        if isinstance(data, dict) and 'image' in data:
+                            if isinstance(data['image'], str):
+                                image_url = data['image']
+                            elif isinstance(data['image'], dict) and 'url' in data['image']:
+                                image_url = data['image']['url']
+                            elif isinstance(data['image'], list) and len(data['image']) > 0:
+                                if isinstance(data['image'][0], str):
+                                    image_url = data['image'][0]
+                                elif isinstance(data['image'][0], dict) and 'url' in data['image'][0]:
+                                    image_url = data['image'][0]['url']
+                            if image_url:
+                                logger.info(f"Found JSON-LD image: {image_url}")
+                                break
+                    except (json.JSONDecodeError, KeyError):
+                        continue
+            
+            # Method 4: Article tag with img (for news sites)
+            if not image_url:
+                article_tag = soup.find('article')
+                if article_tag:
+                    # Look for images with specific classes that indicate main content
+                    img = article_tag.find('img', class_=lambda x: x and any(cls in x.lower() for cls in ['hero', 'featured', 'main', 'lead', 'article']))
+                    if not img:
+                        # Fallback to first substantial image in article
+                        imgs = article_tag.find_all('img')
+                        for img_candidate in imgs:
+                            src = img_candidate.get('src') or img_candidate.get('data-src') or img_candidate.get('data-lazy-src')
+                            if src and not any(skip in src.lower() for skip in ['logo', 'icon', 'avatar', 'profile', 'social', 'share']):
+                                img = img_candidate
+                                break
+                    
+                    if img:
+                        image_url = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
+                        if image_url:
+                            logger.info(f"Found article image: {image_url}")
+            
+            # Method 5: Look for images in main content areas
+            if not image_url:
+                content_selectors = [
+                    '.article-content img', '.post-content img', '.entry-content img',
+                    '.content img', 'main img', '.story-body img', '.article-body img'
+                ]
+                
+                for selector in content_selectors:
+                    imgs = soup.select(selector)
+                    for img in imgs:
+                        src = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
+                        if src and not any(skip in src.lower() for skip in ['logo', 'icon', 'avatar', 'profile', 'social', 'share', 'ad']):
+                            # Check if image seems substantial
+                            width = img.get('width')
+                            height = img.get('height')
+                            if width and height:
+                                try:
+                                    if int(width) >= 200 and int(height) >= 150:
+                                        image_url = src
+                                        logger.info(f"Found content image: {image_url}")
+                                        break
+                                except ValueError:
+                                    pass
+                            else:
+                                # If no dimensions specified, it might still be good
+                                image_url = src
+                                logger.info(f"Found content image (no dimensions): {image_url}")
+                                break
+                    if image_url:
+                        break
+            
+            # Convert relative URLs to absolute
+            if image_url and not image_url.startswith(('http://', 'https://')):
+                from urllib.parse import urljoin
+                image_url = urljoin(resolved_url, image_url)
+                logger.info(f"Converted to absolute URL: {image_url}")
+            
+            # Validate the image URL
+            if image_url:
+                try:
+                    # Clean up common URL issues
+                    if '?' in image_url and 'resize' not in image_url.lower():
+                        # Remove query parameters that might break the image
+                        base_url = image_url.split('?')[0]
+                        if any(ext in base_url.lower() for ext in ['.jpg', '.jpeg', '.png', '.webp', '.gif']):
+                            image_url = base_url
+                    
+                    img_response = requests.head(image_url, headers=headers, timeout=10)
+                    if img_response.status_code == 200:
+                        content_type = img_response.headers.get('content-type', '')
+                        if content_type.startswith('image/'):
+                            logger.info(f"Successfully validated image: {image_url}")
+                            return image_url
+                        else:
+                            logger.warning(f"URL is not an image: {content_type}")
+                    else:
+                        logger.warning(f"Image URL returned {img_response.status_code}")
+                except Exception as e:
+                    logger.warning(f"Failed to validate image URL: {e}")
+            
+            logger.info("No suitable image found in article")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error scraping image from {article_url}: {e}")
+            return None
+    
+    def generate_ai_image_local(self, article_title, article_description):
+        """Generate image using local AI (placeholder for now)"""
+        try:
+            # This would integrate with a local AI image generation model
+            # For Raspberry Pi, we could use:
+            # 1. Stable Diffusion with optimizations
+            # 2. DALL-E mini/craiyon locally
+            # 3. Simple programmatic image generation
+            
+            # For now, create a simple programmatic image
+            from PIL import Image, ImageDraw, ImageFont
+            import io
+            import base64
+            import hashlib
+            import os
+            
+            # Create a unique filename based on article content
+            content_hash = hashlib.md5(f"{article_title}{article_description}".encode()).hexdigest()[:8]
+            
+            # Create image directory if it doesn't exist
+            os.makedirs('static/generated_images', exist_ok=True)
+            image_path = f'static/generated_images/article_{content_hash}.png'
+            
+            # Check if image already exists
+            if os.path.exists(image_path):
+                return f'/static/generated_images/article_{content_hash}.png'
+            
+            # Create a 400x250 image with wireless/tech theme
+            img = Image.new('RGB', (400, 250), color='#f8f9fa')
+            draw = ImageDraw.Draw(img)
+            
+            # Try to load a font, fallback to default
+            try:
+                font_large = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 24)
+                font_small = ImageFont.truetype('/System/Library/Fonts/Arial.ttf', 16)
+            except:
+                try:
+                    font_large = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 24)
+                    font_small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
+                except:
+                    font_large = ImageFont.load_default()
+                    font_small = ImageFont.load_default()
+            
+            # Draw wireless-themed background
+            draw.rectangle([0, 0, 400, 250], fill='#e3f2fd')
+            
+            # Draw some wireless signal lines
+            for i in range(3):
+                x = 50 + i * 30
+                y = 200 - i * 20
+                draw.arc([x, y, x + 40, y + 40], 0, 180, fill='#2196f3', width=3)
+            
+            # Add title (truncated to fit)
+            title_words = article_title.split()[:4]  # First 4 words
+            title_text = ' '.join(title_words)
+            if len(article_title.split()) > 4:
+                title_text += '...'
+            
+            # Calculate text position to center it
+            bbox = draw.textbbox((0, 0), title_text, font=font_large)
+            text_width = bbox[2] - bbox[0]
+            text_x = (400 - text_width) // 2
+            
+            draw.text((text_x, 80), title_text, fill='#1976d2', font=font_large)
+            draw.text((200, 120), 'Wireless Technology News', fill='#666', font=font_small, anchor='mm')
+            
+            # Save the image
+            img.save(image_path, 'PNG')
+            
+            return f'/static/generated_images/article_{content_hash}.png'
+            
+        except Exception as e:
+            logger.error(f"Error generating AI image: {e}")
+            return None
+    
+    def get_or_create_article_image(self, article):
+        """Get existing image or create new one for article"""
+        try:
+            # Check if article already has an image
+            if article.get('image_url'):
+                return article['image_url']
+            
+            # Try to scrape image from article first
+            scraped_image = self.scrape_article_image(article['url'], article['title'])
+            if scraped_image:
+                # Store the scraped image URL in database
+                conn = self.get_db_connection()
+                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                           (scraped_image, article['id']))
+                conn.commit()
+                conn.close()
+                return scraped_image
+            
+            # If scraping fails, generate AI image
+            ai_image = self.generate_ai_image_local(article['title'], article.get('description', ''))
+            if ai_image:
+                # Store the AI image URL in database
+                conn = self.get_db_connection()
+                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                           (ai_image, article['id']))
+                conn.commit()
+                conn.close()
+                return ai_image
+            
+            # Fallback to placeholder
+            return self.get_placeholder_image()
+            
+        except Exception as e:
+            logger.error(f"Error getting/creating article image: {e}")
+            return self.get_placeholder_image()
+    
+    def get_placeholder_image(self):
+        """Get placeholder image URL"""
+        return "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2Y4ZjlmYSIgc3Ryb2tlPSIjZGVlMmU2IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIyMDAiIHk9IjEyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmaWxsPSIjNmM3NTdkIj4KICAgIPCfj7ggV2lyZWxlc3MgVGVjaCBOZXdzCiAgPC90ZXh0Pgo8L3N2Zz4="
+    
+    def generate_article_image_url(self, article):
+        """Generate or find an image URL for an article (legacy function)"""
+        return self.get_or_create_article_image(article)
+            
     
     def setup_scheduler(self):
         """Setup background task scheduler"""

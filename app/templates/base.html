@@ -392,10 +392,27 @@
             font-weight: 500;
             font-family: 'Inter', sans-serif;
             transition: all 0.2s ease;
+            /* Cross-browser compatibility */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            box-sizing: border-box;
+            vertical-align: middle;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         
         .btn:hover {
             background: #c62828;
+            text-decoration: none;
+        }
+        
+        .btn:focus {
+            outline: 2px solid #e52d27;
+            outline-offset: 2px;
         }
         
         .reader-mode .btn {
@@ -539,7 +556,6 @@
             window.location.href = currentUrl.toString();
         }
     </script>
-    </style>
 </head>
 <body class="{% if view_mode == 'reader' %}reader-mode{% endif %}">
     <!-- View Mode Toggle -->
@@ -566,16 +582,33 @@
                 <div class="view-toggle">
                     {% set current_args = request.args.to_dict() %}
                     {% set _ = current_args.pop('view', None) %}
-                    <a href="{{ url_for(request.endpoint, view='newspaper', **current_args) }}" 
-                       class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
-                       style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
-                        📰 Newspaper
-                    </a>
-                    <a href="{{ url_for(request.endpoint, view='reader', **current_args) }}" 
-                       class="btn {% if view_mode == 'reader' %}active{% endif %}"
-                       style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
-                        📖 Reader
-                    </a>
+                    
+                    {# Handle routes that require parameters like event_id #}
+                    {% if request.endpoint == 'event_detail' %}
+                        {% set event_id = request.view_args.get('event_id') %}
+                        <a href="{{ url_for(request.endpoint, event_id=event_id, view='newspaper', **current_args) }}" 
+                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
+                           style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
+                            📰 Newspaper
+                        </a>
+                        <a href="{{ url_for(request.endpoint, event_id=event_id, view='reader', **current_args) }}" 
+                           class="btn {% if view_mode == 'reader' %}active{% endif %}"
+                           style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
+                            📖 Reader
+                        </a>
+                    {% else %}
+                        {# Standard routes without parameters #}
+                        <a href="{{ url_for(request.endpoint, view='newspaper', **current_args) }}" 
+                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
+                           style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
+                            📰 Newspaper
+                        </a>
+                        <a href="{{ url_for(request.endpoint, view='reader', **current_args) }}" 
+                           class="btn {% if view_mode == 'reader' %}active{% endif %}"
+                           style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
+                            📖 Reader
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -617,12 +650,223 @@
         </div>
     </div>
     
+    <!-- Social Sharing Modal -->
+    <div id="shareModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;">
+        <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <h3 style="margin-bottom: 20px; color: #2c3e50; font-family: 'Playfair Display', serif; font-size: 1.5rem;">📤 Share Article</h3>
+            <div id="socialPlatforms" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <!-- Platforms will be populated by JavaScript -->
+            </div>
+            <div style="text-align: center;">
+                <button onclick="closeShareModal()" class="btn" style="background: #6c757d; padding: 10px 20px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         function switchView(mode) {
             const url = new URL(window.location);
             url.searchParams.set('view', mode);
             window.location.href = url.toString();
         }
+        
+        // Global social sharing functionality
+        let currentArticleId = null;
+
+        async function shareArticle(articleId) {
+            currentArticleId = articleId;
+            
+            try {
+                // Get available social platforms
+                const response = await fetch('/api/get_social_config');
+                const data = await response.json();
+                
+                if (data.success && data.platforms.length > 0) {
+                    const platformsDiv = document.getElementById('socialPlatforms');
+                    platformsDiv.innerHTML = '';
+                    
+                    data.platforms.forEach(platform => {
+                        const platformButton = document.createElement('button');
+                        platformButton.className = 'btn';
+                        platformButton.style.cssText = 'width: 100%; padding: 15px 10px; font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: all 0.2s ease;';
+                        
+                        // Platform-specific styling
+                        if (platform.platform === 'Twitter') {
+                            platformButton.style.background = '#1da1f2';
+                            platformButton.innerHTML = '<span style="font-size: 1.5rem;">🐦</span><span>Twitter</span>';
+                            platformButton.onmouseover = () => showSharePreview('Twitter', articleId);
+                        } else if (platform.platform === 'LinkedIn') {
+                            platformButton.style.background = '#0077b5';
+                            platformButton.innerHTML = '<span style="font-size: 1.5rem;">💼</span><span>LinkedIn</span>';
+                            platformButton.onmouseover = () => showSharePreview('LinkedIn', articleId);
+                        } else if (platform.platform === 'Facebook') {
+                            platformButton.style.background = '#1877f2';
+                            platformButton.innerHTML = '<span style="font-size: 1.5rem;">📘</span><span>Facebook</span>';
+                            platformButton.onmouseover = () => showSharePreview('Facebook', articleId);
+                        } else if (platform.platform === 'Mastodon') {
+                            platformButton.style.background = '#6364ff';
+                            platformButton.innerHTML = '<span style="font-size: 1.5rem;">🐘</span><span>Mastodon</span>';
+                            platformButton.onmouseover = () => showSharePreview('Mastodon', articleId);
+                        } else if (platform.platform === 'Instagram') {
+                            platformButton.style.background = '#E4405F';
+                            platformButton.innerHTML = '<span style="font-size: 1.5rem;">📷</span><span>Instagram</span>';
+                            platformButton.onmouseover = () => showSharePreview('Instagram', articleId);
+                        } else {
+                            platformButton.style.background = '#28a745';
+                            platformButton.innerHTML = `<span style="font-size: 1.5rem;">📱</span><span>${platform.platform}</span>`;
+                            platformButton.onmouseover = () => showSharePreview(platform.platform, articleId);
+                        }
+                        
+                        platformButton.onclick = () => shareToSocial(platform.platform);
+                        platformsDiv.appendChild(platformButton);
+                    });
+                    
+                    // Add preview area
+                    const previewDiv = document.createElement('div');
+                    previewDiv.id = 'sharePreview';
+                    previewDiv.style.cssText = 'margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db; display: none;';
+                    previewDiv.innerHTML = '<div style="font-weight: 600; margin-bottom: 8px; color: #2c3e50;">Share Preview:</div><div id="previewContent" style="font-size: 0.9rem; color: #666; line-height: 1.4;"></div>';
+                    
+                    const modalContent = document.querySelector('#shareModal .modal-content');
+                    const cancelButton = modalContent.querySelector('.btn');
+                    modalContent.insertBefore(previewDiv, cancelButton.parentElement);
+                    
+                    document.getElementById('shareModal').style.display = 'block';
+                } else {
+                    alert('No social media platforms configured. Please configure them in the admin panel.');
+                }
+            } catch (error) {
+                alert('Error loading social platforms: ' + error.message);
+            }
+        }
+
+        async function showSharePreview(platform, articleId) {
+            const previewDiv = document.getElementById('sharePreview');
+            const previewContent = document.getElementById('previewContent');
+            
+            if (!previewDiv || !previewContent) return;
+            
+            previewDiv.style.display = 'block';
+            previewContent.innerHTML = '<span style="color: #999;">Loading preview...</span>';
+            
+            try {
+                const response = await fetch('/api/share_article', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        article_id: articleId,
+                        platform: platform
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const content = data.share_content.content;
+                    const truncatedContent = content.length > 200 ? content.substring(0, 200) + '...' : content;
+                    
+                    previewContent.innerHTML = `
+                        <div style="font-weight: 600; color: #${platform === 'Twitter' ? '1da1f2' : platform === 'LinkedIn' ? '0077b5' : platform === 'Instagram' ? 'E4405F' : '28a745'};">
+                            ${platform} Post Preview:
+                        </div>
+                        <div style="margin-top: 8px; padding: 10px; background: white; border-radius: 4px; border: 1px solid #ddd; white-space: pre-line;">
+                            ${truncatedContent}
+                        </div>
+                        ${platform === 'Instagram' ? '<div style="margin-top: 8px; font-size: 0.8rem; color: #999;">📋 Content will be copied to clipboard for pasting</div>' : ''}
+                    `;
+                } else {
+                    previewContent.innerHTML = '<span style="color: #dc3545;">Preview unavailable</span>';
+                }
+            } catch (error) {
+                previewContent.innerHTML = '<span style="color: #dc3545;">Preview error</span>';
+            }
+        }
+
+        async function shareToSocial(platform) {
+            try {
+                const response = await fetch('/api/share_article', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        article_id: currentArticleId,
+                        platform: platform
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Handle platform-specific sharing
+                    if (platform === 'Instagram') {
+                        // Instagram doesn't support direct URL sharing, so copy content to clipboard
+                        try {
+                            await navigator.clipboard.writeText(data.share_content.content);
+                            alert('📋 Content copied to clipboard! Paste it in your Instagram post.\n\nInstagram will open in a new tab.');
+                            window.open(data.share_content.share_url, '_blank');
+                        } catch (err) {
+                            // Fallback for browsers that don't support clipboard API
+                            prompt('Copy this content for your Instagram post:', data.share_content.content);
+                            window.open(data.share_content.share_url, '_blank');
+                        }
+                    } else if (platform === 'LinkedIn') {
+                        // LinkedIn sharing with better window size
+                        window.open(data.share_content.share_url, '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes');
+                    } else {
+                        // Other platforms
+                        window.open(data.share_content.share_url, '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
+                    }
+                    closeShareModal();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            }
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+            currentArticleId = null;
+        }
+
+        // Global digest functionality
+        async function addToDigest(articleId) {
+            const notes = prompt('Add notes for this article (optional):');
+            if (notes === null) return; // User cancelled
+            
+            try {
+                const response = await fetch('/api/add_to_digest', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        article_id: articleId,
+                        notes: notes
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ Article added to weekly digest!');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('shareModal');
+            if (modal) {
+                modal.onclick = function(e) {
+                    if (e.target === this) {
+                        closeShareModal();
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
