@@ -351,73 +351,120 @@
             
             <!-- Right: Two Columns Side by Side (50% total = 25% each) -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <!-- Column 1: Top Stories -->
+                <!-- Column 1: Top Stories (stories 2-7) -->
                 <div style="display: flex; flex-direction: column;">
-                <!-- Single Unified Header -->
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: #2c3e50; border-bottom: 2px solid #e52d27; padding-bottom: 8px;">
-                    📰 Top Stories
-                </h3>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #e52d27; padding-bottom: 6px;">
+                        📰 Top News
+                    </h3>
                 
-                <!-- Single Column for Stories -->
-                <div style="display: grid; grid-template-columns: 1fr; gap: 20px; flex: 1;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 15px; flex: 1;">
                     {% set secondary_stories = [] %}
                     {% for story in stories[2:8] %}
-                        {% if not story.event_name and secondary_stories|length < 8 %}
+                        {% if not story.event_name %}
                             {% set _ = secondary_stories.append(story) %}
                         {% endif %}
                     {% endfor %}
                     
                     {% for story in secondary_stories %}
-                        <article class="secondary-story" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
-                            <!-- Story Image -->
+                        <article class="secondary-story" style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
                             <div style="width: 100%;">
                                 {% if story.image_url %}
                                     <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                         style="width: 100%; height: 120px; object-fit: cover; border-radius: 0;">
+                                         style="width: 100%; height: 100px; object-fit: cover; border-radius: 0;">
                                 {% else %}
-                                    <div data-article-id="{{ story.id }}" class="secondary-image-placeholder" style="width: 100%; height: 120px; background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
+                                    <div data-article-id="{{ story.id }}" class="secondary-image-placeholder" style="width: 100%; height: 100px; background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
                                          onclick="generateArticleImage({{ story.id }}, this)">
-                                        📸<br>Generate
+                                        📸<br>Gen
                                     </div>
                                 {% endif %}
                             </div>
                             
-                            <!-- Story Content -->
                             <div style="flex: 1;">
-                                <div style="margin-bottom: 8px; font-size: 0.7rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <div style="margin-bottom: 6px; font-size: 0.65rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
                                     {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
                                     <span style="color: {{ color }};">{{ icon }}</span>
                                     {{ story.feed_name }} • {{ story.published_date[:10] }}
                                 </div>
                                 
-                                <h3 style="font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: #2c3e50;">
+                                <h3 style="font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 600; line-height: 1.2; margin-bottom: 6px; color: #2c3e50;">
                                     <a href="{{ story.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ story.title }}</a>
                                 </h3>
                                 
                                 {% if story.description %}
-                                    <p style="font-size: 0.8rem; line-height: 1.4; color: #666; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                                        {{ story.description[:80] }}{% if story.description|length > 80 %}...{% endif %}
+                                    <p style="font-size: 0.7rem; line-height: 1.3; color: #666; margin-bottom: 8px; font-family: 'Inter', sans-serif;">
+                                        {{ story.description[:60] }}{% if story.description|length > 60 %}...{% endif %}
                                     </p>
                                 {% endif %}
                                 
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 3px 6px; font-size: 0.65rem; font-weight: 600; border-radius: 3px;">
+                                    <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 2px 5px; font-size: 0.6rem; font-weight: 600; border-radius: 3px;">
                                         {{ "%.0f"|format(story.relevance_score * 100) }}%
                                     </span>
-                                    <div style="display: flex; gap: 4px;">
-                                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.65rem; padding: 3px 6px;">📤</button>
-                                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.65rem; padding: 3px 6px;">📋</button>
+                                    <div style="display: flex; gap: 3px;">
+                                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.6rem; padding: 2px 5px;">📤</button>
+                                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.6rem; padding: 2px 5px;">📋</button>
                                     </div>
                                 </div>
                             </div>
                         </article>
                     {% endfor %}
                 </div>
+            </div>
+            
+            <!-- Right Column 2: More Top Stories -->
+            <div style="display: flex; flex-direction: column;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 6px;">
+                    � Moree Stories
+                </h3>
                 
-                        <span style="font-size: 1.2rem; margin-left: 10px;">→</span>
-                    </a>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 12px; flex: 1;">
+                    {% set more_stories = [] %}
+                    {% for story in stories[8:13] %}
+                        {% if not story.event_name %}
+                            {% set _ = more_stories.append(story) %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% for story in more_stories %}
+                        <article class="more-story" style="display: flex; gap: 10px; padding-bottom: 12px; {% if not loop.last %}border-bottom: 1px solid #e1e5e9;{% endif %}">
+                            <div style="flex-shrink: 0;">
+                                {% if story.image_url %}
+                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                         style="width: 60px; height: 45px; object-fit: cover; border-radius: 0;">
+                                {% else %}
+                                    <div data-article-id="{{ story.id }}" class="more-image-placeholder" style="width: 60px; height: 45px; background: linear-gradient(135deg, #f8f9fa, #dee2e6); border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.6rem; color: #7f8c8d; text-align: center; font-weight: 600;" 
+                                         onclick="generateArticleImage({{ story.id }}, this)">
+                                        📸
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="margin-bottom: 4px; font-size: 0.6rem; color: #7f8c8d; font-family: 'Inter', sans-serif; font-weight: 500;">
+                                    {% set icon, color = get_feed_icon(story.feed_name, story.feed_url) %}
+                                    <span style="color: {{ color }};">{{ icon }}</span>
+                                    {{ story.feed_name }}
+                                </div>
+                                
+                                <h4 style="font-family: 'Playfair Display', serif; font-size: 0.75rem; font-weight: 600; line-height: 1.2; margin-bottom: 4px; color: #2c3e50;">
+                                    <a href="{{ story.url }}" target="_blank" style="color: inherit; text-decoration: none;">{{ story.title[:50] }}{% if story.title|length > 50 %}...{% endif %}</a>
+                                </h4>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="{% if story.relevance_score < 0.3 %}background: #e74c3c;{% elif story.relevance_score < 0.6 %}background: #f39c12;{% else %}background: #27ae60;{% endif %} color: white; padding: 1px 4px; font-size: 0.55rem; font-weight: 600; border-radius: 2px;">
+                                        {{ "%.0f"|format(story.relevance_score * 100) }}%
+                                    </span>
+                                    <div style="display: flex; gap: 2px;">
+                                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.55rem; padding: 1px 3px;">📤</button>
+                                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.55rem; padding: 1px 3px;">📋</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
                 </div>
             </div>
+        </div>
         
         <!-- Event Coverage Row (Between Headlines and More Stories) -->
         {% set event_articles = [] %}
@@ -444,7 +491,7 @@
                 </div>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px;">
                 {% for event_story in event_articles[:4] %}
                     <article class="event-article" style="background: rgba(255,255,255,0.7); border-radius: 8px; padding: 15px; border: 1px solid #e1c7f7;">
                         <div style="display: flex; gap: 12px; margin-bottom: 10px;">
@@ -495,11 +542,11 @@
         {% endif %}
         
         <!-- More Stories Section -->
-        {% if stories|length > 6 %}
+        {% if stories|length > 13 %}
         <div id="more-stories" style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e1e5e9;">
-            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">More Stories</h3>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #000;">Additional Stories</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
-                {% for story in stories[8:] %}
+                {% for story in stories[13:] %}
                     {% if not story.event_name %}
                     <article class="article-card">
                         <div class="article-meta">
@@ -558,21 +605,9 @@
     {% endif %}
 
     <script>
-    // Classic internet memes for loading animations
-    const memeAnimations = [
-        { class: 'badger-animation', emoji: '🦡', name: 'Badger Badger Badger' },
-        { class: 'nyan-animation', emoji: '🌈🐱', name: 'Nyan Cat' },
-        { class: 'keyboard-animation', emoji: '🐱⌨️', name: 'Keyboard Cat' },
-        { class: 'toaster-animation', emoji: '🍞✈️', name: 'Flying Toasters' }
-    ];
-    
-    function getRandomMeme() {
-        return memeAnimations[Math.floor(Math.random() * memeAnimations.length)];
-    }
-    
     // Auto-generate images on page load
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🎉 Starting auto-image generation with classic memes!');
+        console.log('🎉 Starting auto-image generation!');
         
         // Find all image placeholders
         const placeholders = document.querySelectorAll('.image-loading-placeholder, .secondary-image-placeholder, .hero-image-placeholder');
@@ -584,16 +619,9 @@
                            placeholder.closest('article')?.querySelector('[onclick*="generateArticleImage"]')?.getAttribute('onclick')?.match(/\d+/)?.[0];
             
             if (articleId) {
-                // Add random meme animation with delay for staggered effect
+                // Start image generation with delay for staggered effect
                 setTimeout(() => {
-                    const meme = getRandomMeme();
-                    placeholder.className = `meme-animation ${meme.class}`;
-                    placeholder.innerHTML = meme.emoji;
-                    placeholder.title = `Loading... ${meme.name}`;
-                    
-                    console.log(`🎭 Starting ${meme.name} animation for article ${articleId}`);
-                    
-                    // Start image generation
+                    console.log(`🎨 Starting image generation for article ${articleId}`);
                     generateArticleImage(articleId, placeholder);
                 }, index * 500); // Stagger animations by 500ms
             }
@@ -741,4 +769,4 @@
     }
     </script>
 {% endif %}
-{% endblock %}
+{% endblock %}div>
