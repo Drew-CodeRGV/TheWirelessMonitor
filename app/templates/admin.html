@@ -1,373 +1,140 @@
 {% extends "base.html" %}
 
-{% block title %}The Wireless Monitor - Admin Desk{% endblock %}
+{% block title %}Admin Dashboard - The Wireless Monitor{% endblock %}
 
 {% block content %}
-<div class="section-header">Administrative Control Center</div>
+<h2>⚙️ Admin Dashboard</h2>
 
-<div class="articles-grid">
-    <div class="main-articles">
-        <!-- System Status -->
-        <article class="newspaper-article">
-            <h3 class="article-headline">System Status Report</h3>
-            <div class="article-byline">
-                Current Version: {{ version.version }} • Build Date: {{ version.build_date }}
-                {% if version.commit_hash %} • Commit: {{ version.commit_hash }}{% endif %}
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 20px 0; text-align: center;">
-                <div style="border: 2px solid #000; padding: 15px;">
-                    <h4 style="margin: 0; font-size: 2rem;">{{ stats.total_articles }}</h4>
-                    <small>Total Articles</small>
-                </div>
-                <div style="border: 2px solid #000; padding: 15px;">
-                    <h4 style="margin: 0; font-size: 2rem;">{{ stats.active_feeds }}</h4>
-                    <small>Active Feeds</small>
-                </div>
-                <div style="border: 2px solid #000; padding: 15px;">
-                    <h4 style="margin: 0; font-size: 2rem;">{{ stats.articles_today }}</h4>
-                    <small>Today's Articles</small>
-                </div>
-                <div style="border: 2px solid #000; padding: 15px;">
-                    <h4 style="margin: 0; font-size: 2rem;">{{ stats.entertainment_stories }}</h4>
-                    <small>Fun Stories</small>
-                </div>
-            </div>
-        </article>
+<div class="stats">
+    <div class="stat-box">
+        <div class="stat-number">{{ stats.total_articles }}</div>
+        <div class="stat-label">Total Articles</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">{{ stats.active_feeds }}</div>
+        <div class="stat-label">Active Feeds</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">{{ stats.articles_today }}</div>
+        <div class="stat-label">Today's Articles</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number" id="uptime">--</div>
+        <div class="stat-label">Uptime (hours)</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+    <div>
+        <h3>🔧 Quick Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button onclick="fetchNow()" class="btn">📡 Fetch RSS Feeds Now</button>
+            <button onclick="checkStatus()" class="btn">📊 Check System Status</button>
+            <a href="{{ url_for('manage_feeds') }}" class="btn">📝 Manage RSS Feeds</a>
+        </div>
         
-        <!-- Update Management -->
-        <article class="newspaper-article">
-            <h3 class="article-headline">System Update Control</h3>
-            <div class="article-byline">
-                Automated update checking every 8 hours • Manual control available
-            </div>
-            
-            <div id="updateStatus" style="margin: 15px 0; padding: 10px; border: 1px solid #ccc; background: #f9f9f9;"></div>
-            
-            <div style="margin: 15px 0;">
-                <button onclick="checkForUpdates()" style="background: #000; color: white; border: none; padding: 10px 20px; margin-right: 10px; cursor: pointer;">
-                    Check for Updates
-                </button>
-                <button id="updateBtn" onclick="performUpdate()" disabled style="background: #8B0000; color: white; border: none; padding: 10px 20px; cursor: pointer;">
-                    Install Update
-                </button>
-            </div>
-        </article>
-        
-        <!-- Quick Actions -->
-        <article class="newspaper-article">
-            <h3 class="article-headline">Quick Administrative Actions</h3>
-            <div class="article-byline">
-                System management and maintenance tools
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
-                <button onclick="fetchNow()" style="background: #000; color: white; border: 2px solid #000; padding: 15px; cursor: pointer; text-align: center;">
-                    <strong>📡 Fetch RSS Now</strong><br>
-                    <small>Update news feeds immediately</small>
-                </button>
-                <a href="{{ url_for('podcast_script') }}" style="background: #000080; color: white; border: 2px solid #000080; padding: 15px; cursor: pointer; text-align: center; text-decoration: none; display: block;">
-                    <strong>🎙️ Generate Podcast</strong><br>
-                    <small>Create weekly script</small>
-                </a>
-                <a href="{{ url_for('entertainment_stories') }}" style="background: #8B0000; color: white; border: 2px solid #8B0000; padding: 15px; cursor: pointer; text-align: center; text-decoration: none; display: block;">
-                    <strong>😄 Fun Stories</strong><br>
-                    <small>View entertainment content</small>
-                </a>
-                <a href="{{ url_for('social_media_config') }}" style="background: #1DA1F2; color: white; border: 2px solid #1DA1F2; padding: 15px; cursor: pointer; text-align: center; text-decoration: none; display: block;">
-                    <strong>📱 Social Media</strong><br>
-                    <small>Configure sharing accounts</small>
-                </a>
-                <a href="{{ url_for('github_config') }}" style="background: #333; color: white; border: 2px solid #333; padding: 15px; cursor: pointer; text-align: center; text-decoration: none; display: block;">
-                    <strong>🐙 GitHub</strong><br>
-                    <small>Publish to repository</small>
-                </a>
-                <button onclick="restartServices()" style="background: #666; color: white; border: 2px solid #666; padding: 15px; cursor: pointer; text-align: center;">
-                    <strong>⚙️ Restart Services</strong><br>
-                    <small>System maintenance</small>
-                </button>
-            </div>
-        </article>
-        
-        <!-- GitHub Integration -->
-        <article class="newspaper-article">
-            <h3 class="article-headline">GitHub Integration</h3>
-            <div class="article-byline">
-                Publish your project to GitHub repository
-            </div>
-            
-            <div id="githubStatus" style="margin: 15px 0; padding: 10px; border: 1px solid #ccc; background: #f9f9f9;"></div>
-            
-            <div style="margin: 15px 0;">
-                <button onclick="checkGitHubStatus()" style="background: #333; color: white; border: none; padding: 10px 20px; margin-right: 10px; cursor: pointer;">
-                    Check GitHub Status
-                </button>
-                <a href="{{ url_for('github_config') }}" style="background: #000080; color: white; border: none; padding: 10px 20px; text-decoration: none; display: inline-block;">
-                    Configure GitHub
-                </a>
-            </div>
-        </article>
-        <article class="newspaper-article">
-            <h3 class="article-headline">System Configuration</h3>
-            <div class="article-byline">
-                Current system setup and automation schedule
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0;">
-                <div>
-                    <h4 style="border-bottom: 2px solid #000; padding-bottom: 5px;">Configuration</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li><strong>Install Directory:</strong> /home/wifi/rss_aggregator</li>
-                        <li><strong>Database:</strong> SQLite</li>
-                        <li><strong>AI Engine:</strong> Ollama (Llama2)</li>
-                        <li><strong>Web Server:</strong> Nginx + Gunicorn</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="border-bottom: 2px solid #000; padding-bottom: 5px;">Automation Schedule</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li><strong>RSS Fetch:</strong> Every 6 hours</li>
-                        <li><strong>Weekly Digest:</strong> Monday 8:00 AM</li>
-                        <li><strong>Auto Update:</strong> Every 8 hours</li>
-                        <li><strong>Health Check:</strong> Every 15 minutes</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
+        <div id="action-status" style="margin-top: 20px;"></div>
     </div>
     
-    <div class="sidebar">
-        <!-- System Status -->
-        <div class="sidebar-box">
-            <div class="sidebar-header">Live System Status</div>
-            <div class="sidebar-content">
-                <div id="systemStatus">
-                    <div style="text-align: center; padding: 20px;">
-                        <div style="border: 2px solid #ccc; border-radius: 50%; width: 30px; height: 30px; margin: 0 auto 10px; animation: spin 1s linear infinite;"></div>
-                        <small>Checking system status...</small>
-                    </div>
-                </div>
-                <button onclick="refreshSystemStatus()" style="background: #000080; color: white; border: none; padding: 5px 10px; font-size: 0.8rem; margin-top: 10px; cursor: pointer;">
-                    Refresh Status
-                </button>
-            </div>
-        </div>
-        
-        <!-- Update History -->
-        {% if update_history %}
-        <div class="sidebar-box">
-            <div class="sidebar-header">Recent Updates</div>
-            <div class="sidebar-content">
-                {% for update in update_history[:5] %}
-                <div class="sidebar-item">
-                    <strong>{{ update.update_date[:10] }}</strong><br>
-                    <small>{{ update.version_from }} → {{ update.version_to }}</small><br>
-                    {% if update.success %}
-                        <span style="color: green;">✓ Success</span>
-                    {% else %}
-                        <span style="color: red;">✗ Failed</span>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-        
-        <!-- Navigation -->
-        <div class="sidebar-box">
-            <div class="sidebar-header">Navigation</div>
-            <div class="sidebar-content">
-                <div class="sidebar-item">
-                    <a href="{{ url_for('index') }}">📰 Front Page</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="{{ url_for('manage_feeds') }}">📡 News Sources</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="{{ url_for('weekly_digest') }}">📅 Weekly Review</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="{{ url_for('entertainment_stories') }}">😄 Fun Stories</a>
-                </div>
-            </div>
+    <div>
+        <h3>📈 System Information</h3>
+        <div id="system-info" style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+            <div><strong>Status:</strong> <span id="status">Loading...</span></div>
+            <div><strong>Last Fetch:</strong> <span id="last-fetch">Loading...</span></div>
+            <div><strong>Version:</strong> Streamlined Edition v1.0</div>
+            <div><strong>Database:</strong> SQLite (Embedded)</div>
+            <div><strong>Web Server:</strong> Flask (Built-in)</div>
         </div>
     </div>
 </div>
 
-<style>
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-</style>
-{% endblock %}
+<div style="margin-top: 40px;">
+    <h3>📋 System Features</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+            <h4>✅ Simplified Architecture</h4>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>Single Python service</li>
+                <li>Built-in web server</li>
+                <li>Embedded SQLite database</li>
+                <li>Integrated task scheduler</li>
+            </ul>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+            <h4>🚀 Lightweight Dependencies</h4>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>Flask (web framework)</li>
+                <li>Requests (HTTP client)</li>
+                <li>Feedparser (RSS parsing)</li>
+                <li>BeautifulSoup (HTML parsing)</li>
+            </ul>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+            <h4>⚡ Automated Tasks</h4>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>RSS fetching every 6 hours</li>
+                <li>Automatic relevance scoring</li>
+                <li>Old article cleanup</li>
+                <li>No external cron needed</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-{% block scripts %}
 <script>
-// Check for updates
-async function checkForUpdates() {
-    const statusDiv = document.getElementById('updateStatus');
-    const updateBtn = document.getElementById('updateBtn');
+async function fetchNow() {
+    const statusDiv = document.getElementById('action-status');
+    const button = event.target;
     
-    statusDiv.innerHTML = '<strong>CHECKING FOR UPDATES...</strong> Please wait while we contact GitHub...';
-    
-    try {
-        const response = await fetch('/admin/check_updates');
-        const data = await response.json();
-        
-        if (data.update_available) {
-            statusDiv.innerHTML = `
-                <strong>UPDATE AVAILABLE!</strong><br>
-                Current Version: ${data.current_version}<br>
-                Latest Version: ${data.latest_version}<br>
-                <em>${data.release_notes}</em>
-            `;
-            updateBtn.disabled = false;
-            updateBtn.style.background = '#8B0000';
-        } else {
-            statusDiv.innerHTML = `
-                <strong>SYSTEM UP TO DATE</strong><br>
-                Current Version: ${data.current_version}<br>
-                <em>No updates available at this time.</em>
-            `;
-            updateBtn.disabled = true;
-            updateBtn.style.background = '#ccc';
-        }
-    } catch (error) {
-        statusDiv.innerHTML = `
-            <strong>UPDATE CHECK FAILED</strong><br>
-            Error: ${error.message}<br>
-            <em>Please check your internet connection.</em>
-        `;
-    }
-}
-
-// Perform system update
-async function performUpdate() {
-    if (!confirm('CONFIRM SYSTEM UPDATE: This will restart all services. Continue?')) {
-        return;
-    }
-    
-    const statusDiv = document.getElementById('updateStatus');
-    const updateBtn = document.getElementById('updateBtn');
-    
-    statusDiv.innerHTML = '<strong>UPDATING SYSTEM...</strong> Please wait, do not refresh this page.';
-    updateBtn.disabled = true;
+    button.disabled = true;
+    button.textContent = '⏳ Fetching...';
+    statusDiv.innerHTML = '<div class="alert alert-success">📡 Fetching RSS feeds...</div>';
     
     try {
-        const response = await fetch('/admin/update_system', { method: 'POST' });
+        const response = await fetch('/api/fetch_now');
         const data = await response.json();
         
         if (data.success) {
-            statusDiv.innerHTML = `
-                <strong>UPDATE COMPLETED SUCCESSFULLY!</strong><br>
-                ${data.message}<br>
-                <em>Page will reload automatically...</em>
-            `;
-            setTimeout(() => location.reload(), 3000);
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ Fetched ${data.fetched} new articles!</div>`;
+            updateStats();
         } else {
-            statusDiv.innerHTML = `
-                <strong>UPDATE FAILED!</strong><br>
-                Error: ${data.error}<br>
-                <em>Please check system logs.</em>
-            `;
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
         }
     } catch (error) {
-        statusDiv.innerHTML = `
-            <strong>UPDATE ERROR!</strong><br>
-            Network Error: ${error.message}
-        `;
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '📡 Fetch RSS Feeds Now';
     }
 }
 
-// Refresh system status
-async function refreshSystemStatus() {
-    const statusDiv = document.getElementById('systemStatus');
-    
-    statusDiv.innerHTML = '<div style="text-align: center; padding: 20px;"><strong>CHECKING...</strong></div>';
-    
+async function checkStatus() {
     try {
-        const response = await fetch('/api/system_status');
+        const response = await fetch('/api/status');
         const data = await response.json();
         
-        let html = '';
+        document.getElementById('status').textContent = data.status;
+        document.getElementById('last-fetch').textContent = data.last_fetch;
+        document.getElementById('uptime').textContent = Math.round(data.uptime / 3600);
         
-        if (data.services) {
-            for (const [service, status] of Object.entries(data.services)) {
-                const statusIcon = status ? '✓' : '✗';
-                const statusColor = status ? 'green' : 'red';
-                
-                html += `
-                    <div class="sidebar-item">
-                        <span style="color: ${statusColor};">${statusIcon}</span>
-                        <strong>${service}:</strong> ${status ? 'Running' : 'Stopped'}
-                    </div>
-                `;
-            }
-        }
-        
-        if (data.disk_usage) {
-            html += `
-                <div class="sidebar-item">
-                    <strong>Disk Usage:</strong> ${data.disk_usage}
-                </div>
-            `;
-        }
-        
-        html += `<div class="sidebar-item"><small>Updated: ${new Date(data.timestamp).toLocaleTimeString()}</small></div>`;
-        
-        statusDiv.innerHTML = html;
-        
+        document.getElementById('action-status').innerHTML = '<div class="alert alert-success">✅ Status updated!</div>';
     } catch (error) {
-        statusDiv.innerHTML = `<div style="color: red; text-align: center; padding: 20px;"><strong>STATUS CHECK FAILED</strong><br>${error.message}</div>`;
+        document.getElementById('action-status').innerHTML = `<div class="alert alert-error">❌ Error checking status: ${error.message}</div>`;
     }
 }
 
-// Restart services
-async function restartServices() {
-    if (!confirm('RESTART ALL SERVICES: This may cause temporary downtime. Continue?')) {
-        return;
-    }
-    
-    alert('SERVICE RESTART: This feature would restart all system services.');
+function updateStats() {
+    // Reload page to update stats
+    setTimeout(() => location.reload(), 1000);
 }
 
-// Check GitHub status
-async function checkGitHubStatus() {
-    const statusDiv = document.getElementById('githubStatus');
-    
-    statusDiv.innerHTML = '<strong>CHECKING GITHUB STATUS...</strong> Please wait...';
-    
-    try {
-        const response = await fetch('/api/github/test_connection');
-        const data = await response.json();
-        
-        if (data.success) {
-            statusDiv.innerHTML = `
-                <strong>GITHUB CONNECTION ACTIVE</strong><br>
-                Connected as: ${data.username}<br>
-                Public Repos: ${data.public_repos} • Private Repos: ${data.private_repos}<br>
-                <em>Ready to publish your project!</em>
-            `;
-        } else {
-            statusDiv.innerHTML = `
-                <strong>GITHUB CONNECTION FAILED</strong><br>
-                Error: ${data.error}<br>
-                <em>Please check your GitHub configuration.</em>
-            `;
-        }
-    } catch (error) {
-        statusDiv.innerHTML = `
-            <strong>GITHUB STATUS CHECK FAILED</strong><br>
-            Network Error: ${error.message}<br>
-            <em>GitHub may not be configured.</em>
-        `;
-    }
-}
+// Load status on page load
+document.addEventListener('DOMContentLoaded', checkStatus);
 
-// Load system status on page load
-document.addEventListener('DOMContentLoaded', function() {
-    refreshSystemStatus();
-});
+// Auto-refresh status every 30 seconds
+setInterval(checkStatus, 30000);
 </script>
+
 {% endblock %}

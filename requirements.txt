@@ -1,15 +1,5 @@
 Flask==2.3.3
-SQLAlchemy==2.0.21
-feedparser==6.0.10
 requests==2.31.0
+feedparser==6.0.10
 beautifulsoup4==4.12.2
 schedule==1.2.0
-python-dateutil==2.8.2
-Pillow>=9.0.0,<11.0.0
-newspaper3k==0.2.8
-nltk==3.8.1
-scikit-learn>=1.0.0,<1.4.0
-numpy>=1.21.0,<1.25.0
-pandas>=1.5.0,<2.1.0
-gunicorn==21.2.0
-PyGithub==1.59.1

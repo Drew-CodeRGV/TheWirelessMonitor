@@ -3,137 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}The Wireless Herald{% endblock %}</title>
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet">
+    <title>{% block title %}The Wireless Monitor{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: #000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 3px solid #333;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .header .tagline {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .nav {
+            background: #333;
+            padding: 15px 0;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav a:hover {
+            background: #555;
+        }
+        
+        .main-content {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .article {
+            border-bottom: 2px solid #eee;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        
+        .article:last-child {
+            border-bottom: none;
+        }
+        
+        .article h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .article h3 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .article h3 a:hover {
+            color: #0066cc;
+        }
+        
+        .article-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .relevance-score {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #0052a3;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Newspaper Header -->
-    <header class="newspaper-header">
-        <div class="newspaper-container">
-            <div class="newspaper-masthead">
-                <h1 class="newspaper-title">The Wireless Monitor</h1>
-                <p class="newspaper-subtitle">Your Daily Source for Wi-Fi & Wireless Technology News</p>
-            </div>
-            <div class="newspaper-date-info">
-                <div>
-                    <strong>{{ moment().format('dddd, MMMM Do, YYYY') }}</strong> • 
-                    Edition {{ version.version if version else '1.0.0' }} • 
-                    Powered by AI Analysis
-                </div>
-                <div>
-                    <i class="fas fa-wifi"></i> Wireless Industry Focus • 
-                    <i class="fas fa-robot"></i> AI-Enhanced Content
-                </div>
-            </div>
+    <div class="header">
+        <div class="container">
+            <h1>THE WIRELESS MONITOR</h1>
+            <div class="tagline">Your Source for Wi-Fi & Wireless Technology News</div>
         </div>
-        
-        <!-- Navigation Bar -->
-        <nav class="newspaper-nav">
-            <div class="newspaper-container">
-                <a href="{{ url_for('index') }}">Front Page</a>
-                <a href="{{ url_for('entertainment_stories') }}">Fun & Tech</a>
-                <a href="{{ url_for('weekly_digest') }}">Weekly Review</a>
-                <a href="{{ url_for('podcast_script') }}">Podcast Scripts</a>
-                <a href="{{ url_for('manage_feeds') }}">News Sources</a>
-                <a href="{{ url_for('admin_console') }}">Admin Desk</a>
-                <a href="{{ url_for('social_media_config') }}">Social Media</a>
-                <a href="{{ url_for('github_config') }}">GitHub</a>
-                <a href="#" onclick="fetchNow(); return false;">Update Now</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="newspaper-container">
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <footer class="newspaper-footer">
-        <div class="newspaper-container">
-            <p>
-                <strong>The Wireless Monitor</strong> • 
-                Established 2025 • 
-                Raspberry Pi Powered • 
-                Last Updated: <span id="lastUpdate">{{ moment().format('HH:mm') }}</span>
-            </p>
-            <p>
-                <small>
-                    Automated RSS Aggregation • AI Content Analysis • 
-                    Drew Lentz Podcast Integration • Real-time Updates
-                </small>
-            </p>
-        </div>
-    </footer>
-
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <script>
-        // Newspaper-specific JavaScript
-        function fetchNow() {
-            const originalText = event.target.textContent;
-            event.target.textContent = 'Updating...';
-            event.target.style.background = '#8B0000';
-
-            fetch('/api/fetch_now')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(`BREAKING: Fetched ${data.fetched} new stories, analyzed ${data.analyzed} articles`);
-                        location.reload();
-                    } else {
-                        alert(`UPDATE FAILED: ${data.error}`);
-                    }
-                })
-                .catch(error => {
-                    alert(`WIRE ERROR: ${error.message}`);
-                })
-                .finally(() => {
-                    event.target.textContent = originalText;
-                    event.target.style.background = '';
-                });
-        }
-
-        // Update timestamp every minute
-        setInterval(() => {
-            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }, 60000);
-
-        // Add moment.js-like functionality
-        function moment() {
-            const now = new Date();
-            return {
-                format: function(format) {
-                    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
-                                  'July', 'August', 'September', 'October', 'November', 'December'];
-                    
-                    if (format === 'dddd, MMMM Do, YYYY') {
-                        const day = days[now.getDay()];
-                        const month = months[now.getMonth()];
-                        const date = now.getDate();
-                        const year = now.getFullYear();
-                        const suffix = date === 1 || date === 21 || date === 31 ? 'st' :
-                                     date === 2 || date === 22 ? 'nd' :
-                                     date === 3 || date === 23 ? 'rd' : 'th';
-                        return `${day}, ${month} ${date}${suffix}, ${year}`;
-                    } else if (format === 'HH:mm') {
-                        return now.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: false
-                        });
-                    }
-                    return now.toISOString();
-                }
-            };
-        }
-    </script>
+    </div>
     
-    {% block scripts %}{% endblock %}
+    <div class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="{{ url_for('index') }}">📰 Headlines</a></li>
+                <li><a href="{{ url_for('manage_feeds') }}">📡 RSS Feeds</a></li>
+                <li><a href="{{ url_for('admin') }}">⚙️ Admin</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'error' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2025 The Wireless Monitor - Streamlined Edition</p>
+        </div>
+    </div>
 </body>
 </html>
