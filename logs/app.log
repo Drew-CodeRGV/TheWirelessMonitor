@@ -636,3 +636,295 @@ jinja2.exceptions.TemplateAssertionError: No filter named 'strptime'.
 2025-12-30 00:04:16,360 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:04:16] "[32mGET /toggle_feed/22?view=newspaper HTTP/1.1[0m" 302 -
 2025-12-30 00:04:16,372 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:04:16] "GET /feeds?view=newspaper HTTP/1.1" 200 -
 2025-12-30 00:04:19,932 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:04:19] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:12:26,546 - __main__ - INFO - Added social platform: Twitter
+2025-12-30 00:12:26,546 - __main__ - INFO - Added social platform: LinkedIn
+2025-12-30 00:12:26,546 - __main__ - INFO - Added social platform: Facebook
+2025-12-30 00:12:26,546 - __main__ - INFO - Added social platform: Mastodon
+2025-12-30 00:12:26,546 - __main__ - INFO - Added social platform: Instagram
+2025-12-30 00:12:26,547 - __main__ - INFO - Database initialized
+2025-12-30 00:12:26,551 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 00:12:26,551 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 00:12:26,552 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 00:12:26,559 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.208.14:8080
+2025-12-30 00:12:26,559 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 00:12:27,042 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 00:12:27,415 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 00:12:27,845 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 00:12:28,274 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 00:12:28,649 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 00:12:29,122 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-30 00:12:29,995 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-30 00:12:30,977 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 00:12:32,035 - __main__ - INFO - Fetching feed: Google News: CES 2025
+2025-12-30 00:12:33,017 - __main__ - INFO - Fetching feed: Google News: NRF 2025
+2025-12-30 00:12:33,956 - __main__ - INFO - Fetching feed: Web Search: TechCrunch
+2025-12-30 00:12:33,961 - __main__ - ERROR - Error fetching feed Web Search: TechCrunch: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,961 - __main__ - INFO - Fetching feed: Web Search: Ars Technica
+2025-12-30 00:12:33,965 - __main__ - ERROR - Error fetching feed Web Search: Ars Technica: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /ars-technica (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,965 - __main__ - INFO - Fetching feed: Web Search: The Verge
+2025-12-30 00:12:33,969 - __main__ - ERROR - Error fetching feed Web Search: The Verge: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /the-verge (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,969 - __main__ - INFO - Fetching feed: Web Search: Retail Dive
+2025-12-30 00:12:33,973 - __main__ - ERROR - Error fetching feed Web Search: Retail Dive: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /retail-dive (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,973 - __main__ - INFO - Fetching feed: Web Search: PYMNTS
+2025-12-30 00:12:33,976 - __main__ - ERROR - Error fetching feed Web Search: PYMNTS: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /pymnts (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,976 - __main__ - INFO - Fetching feed: Web Search: Chain Store Age
+2025-12-30 00:12:33,980 - __main__ - ERROR - Error fetching feed Web Search: Chain Store Age: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /chain-store-age (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:33,980 - __main__ - INFO - Fetching feed: Google News: CES 2026
+2025-12-30 00:12:35,061 - __main__ - INFO - Fetching feed: Google News: NRF 2026
+2025-12-30 00:12:36,069 - __main__ - INFO - Fetching feed: Web Search: IEEE Spectrum
+2025-12-30 00:12:36,074 - __main__ - ERROR - Error fetching feed Web Search: IEEE Spectrum: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /ieee-spectrum (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:36,074 - __main__ - INFO - Fetching feed: Web Search: Fierce Retail
+2025-12-30 00:12:36,077 - __main__ - ERROR - Error fetching feed Web Search: Fierce Retail: HTTPSConnectionPool(host='web-search-generated', port=443): Max retries exceeded with url: /fierce-retail (Caused by NameResolutionError("HTTPSConnection(host='web-search-generated', port=443): Failed to resolve 'web-search-generated' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 00:12:36,079 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 00:12:39,778 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:12:39] "GET /social_config HTTP/1.1" 200 -
+2025-12-30 00:12:46,394 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:12:46] "GET /weekly_digest HTTP/1.1" 200 -
+2025-12-30 00:12:52,334 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:12:52] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 00:12:58,836 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:12:58] "GET / HTTP/1.1" 200 -
+2025-12-30 00:14:29,656 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:14:29] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:14:35,073 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:14:35] "HEAD / HTTP/1.1" 200 -
+2025-12-30 00:15:29,138 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:15:29] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:15:34,745 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:15:34] "GET / HTTP/1.1" 200 -
+2025-12-30 00:15:40,010 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:15:40] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 00:15:54,522 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:15:54] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:00,659 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:00] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:00,671 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:00] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:16:08,223 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:08] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:34,362 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:34] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:34,368 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:34] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:42,299 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:42] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:42,304 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:42] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:46,244 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:46] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:46,250 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:46] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:48,668 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:48] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:48,674 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:48] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:53,771 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:53] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:53,778 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:53] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:16:56,614 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:56] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:16:56,623 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:16:56] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:00,067 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:00] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:17:00,072 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:00] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:02,335 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:02] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:17:02,340 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:02] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:04,596 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:04] "[32mPOST /update_social_config?view=newspaper HTTP/1.1[0m" 302 -
+2025-12-30 00:17:04,602 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:04] "GET /social_config?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:10,421 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:10] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:10,438 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:10] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:17:12,237 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:12] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:13,684 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:13] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 00:17:15,140 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:15] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-30 00:17:35,712 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:35] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:38,503 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:38] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:43,934 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:43] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:45,503 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:45] "GET /event/2?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:54,452 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:54] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:17:56,647 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:17:56] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:18:00,921 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:00] "GET /insights?view=reader HTTP/1.1" 200 -
+2025-12-30 00:18:03,746 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:03] "GET /?view=reader HTTP/1.1" 200 -
+2025-12-30 00:18:17,254 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:17] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:18:19,413 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:19] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 00:18:32,798 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:32] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:18:35,109 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:35] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:18:35,124 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:18:35] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:19:05,127 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:19:05] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:19:35,125 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:19:35] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:19:35,773 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:19:35] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:26:01,499 - __main__ - INFO - Database initialized
+2025-12-30 00:26:01,503 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 00:26:01,503 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 00:26:01,503 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 00:26:01,582 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.208.14:8080
+2025-12-30 00:26:01,582 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 00:26:01,917 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 00:26:02,287 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 00:26:02,728 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 00:26:03,165 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 00:26:03,543 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 00:26:03,981 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-30 00:26:04,855 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-30 00:26:05,882 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 00:26:07,063 - __main__ - INFO - Fetching feed: Google News: CES 2025
+2025-12-30 00:26:08,125 - __main__ - INFO - Fetching feed: Google News: NRF 2025
+2025-12-30 00:26:09,139 - __main__ - INFO - Fetching feed: Google News: CES 2026
+2025-12-30 00:26:10,215 - __main__ - INFO - Fetching feed: Google News: NRF 2026
+2025-12-30 00:26:11,319 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 00:26:22,865 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:22] "GET /api/status HTTP/1.1" 200 -
+2025-12-30 00:26:32,352 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:32] "POST /api/generate_weekly_digest HTTP/1.1" 200 -
+2025-12-30 00:26:40,249 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:40] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 00:26:44,453 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:44] "HEAD / HTTP/1.1" 200 -
+2025-12-30 00:26:48,978 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:48] "HEAD /weekly_digest HTTP/1.1" 200 -
+2025-12-30 00:26:54,437 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:26:54] "POST /api/export_digest_script HTTP/1.1" 200 -
+2025-12-30 00:27:08,864 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 406, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 577, in top-level template code
+    <a href="{{ url_for(request.endpoint, view='newspaper', **request.args) }}"
+TypeError: jinja2.runtime.Context.call() got multiple values for keyword argument 'view'
+2025-12-30 00:27:08,871 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:08] "[35m[1mGET /?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 00:27:12,274 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 406, in index
+    return render_template('index.html', stories=stories, date=today, view_mode=view_mode, show_all=show_all, total_articles=total_today)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 577, in top-level template code
+    <a href="{{ url_for(request.endpoint, view='newspaper', **request.args) }}"
+TypeError: jinja2.runtime.Context.call() got multiple values for keyword argument 'view'
+2025-12-30 00:27:12,275 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:12] "[35m[1mGET /?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 00:27:30,235 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:30] "GET / HTTP/1.1" 200 -
+2025-12-30 00:27:32,568 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:32] "GET / HTTP/1.1" 200 -
+2025-12-30 00:27:44,371 - main - ERROR - Exception on /events [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 661, in events
+    return render_template('events.html', events=current_events, view_mode=view_mode)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/events.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 577, in top-level template code
+    <a href="{{ url_for(request.endpoint, view='newspaper', **request.args) }}"
+TypeError: jinja2.runtime.Context.call() got multiple values for keyword argument 'view'
+2025-12-30 00:27:44,372 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:44] "[35m[1mGET /events?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 00:27:46,623 - main - ERROR - Exception on /events [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 661, in events
+    return render_template('events.html', events=current_events, view_mode=view_mode)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/events.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 577, in top-level template code
+    <a href="{{ url_for(request.endpoint, view='newspaper', **request.args) }}"
+TypeError: jinja2.runtime.Context.call() got multiple values for keyword argument 'view'
+2025-12-30 00:27:46,624 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:46] "[35m[1mGET /events?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 00:27:48,623 - main - ERROR - Exception on /weekly_digest [GET]
+Traceback (most recent call last):
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/drlentz/Kiro/app/main.py", line 1192, in weekly_digest
+    return render_template('weekly_digest.html',
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/drlentz/Library/Python/3.9/lib/python/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/drlentz/Kiro/app/templates/weekly_digest.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/drlentz/Kiro/app/templates/base.html", line 577, in top-level template code
+    <a href="{{ url_for(request.endpoint, view='newspaper', **request.args) }}"
+TypeError: jinja2.runtime.Context.call() got multiple values for keyword argument 'view'
+2025-12-30 00:27:48,626 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:27:48] "[35m[1mGET /weekly_digest?view=newspaper HTTP/1.1[0m" 500 -
+2025-12-30 00:29:15,871 - __main__ - INFO - Database initialized
+2025-12-30 00:29:15,875 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 00:29:15,875 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 00:29:15,875 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 00:29:15,882 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.208.14:8080
+2025-12-30 00:29:15,882 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 00:29:16,289 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 00:29:16,592 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 00:29:17,012 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 00:29:17,391 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 00:29:17,693 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 00:29:18,040 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-30 00:29:18,836 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-30 00:29:19,647 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 00:29:19,737 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:19] "GET / HTTP/1.1" 200 -
+2025-12-30 00:29:20,841 - __main__ - INFO - Fetching feed: Google News: CES 2025
+2025-12-30 00:29:21,879 - __main__ - INFO - Fetching feed: Google News: NRF 2025
+2025-12-30 00:29:22,563 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:22] "HEAD / HTTP/1.1" 200 -
+2025-12-30 00:29:22,941 - __main__ - INFO - Fetching feed: Google News: CES 2026
+2025-12-30 00:29:23,998 - __main__ - INFO - Fetching feed: Google News: NRF 2026
+2025-12-30 00:29:24,939 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 00:29:27,271 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:27] "HEAD /weekly_digest HTTP/1.1" 200 -
+2025-12-30 00:29:31,386 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:31] "HEAD /events HTTP/1.1" 200 -
+2025-12-30 00:29:35,513 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:35] "HEAD /admin HTTP/1.1" 200 -
+2025-12-30 00:29:39,944 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:39] "HEAD /social_config HTTP/1.1" 200 -
+2025-12-30 00:29:44,451 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:44] "HEAD /?view=reader HTTP/1.1" 200 -
+2025-12-30 00:29:49,310 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:49] "HEAD /weekly_digest?view=reader HTTP/1.1" 200 -
+2025-12-30 00:29:54,971 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:29:54] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-30 00:30:05,304 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:05] "POST /api/generate_article_image/2 HTTP/1.1" 200 -
+2025-12-30 00:30:16,518 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:16] "POST /api/export_digest_script HTTP/1.1" 200 -
+2025-12-30 00:30:26,981 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:26] "GET / HTTP/1.1" 200 -
+2025-12-30 00:30:29,908 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:29] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:30:31,884 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:31] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2025-12-30 00:30:33,089 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:30:33] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -

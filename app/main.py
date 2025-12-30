@@ -127,6 +127,11 @@ class WirelessMonitor:
         except sqlite3.OperationalError:
             pass  # Column already exists
         
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN image_url TEXT')
+        except sqlite3.OperationalError:
+            pass  # Column already exists
+        
         # System settings table
         conn.execute('''
             CREATE TABLE IF NOT EXISTS settings (
@@ -191,15 +196,22 @@ class WirelessMonitor:
             )
         ''')
         
-        # Social shares tracking table
+        # Wild Wi-Fi stories table for humorous real-world wireless content
         conn.execute('''
-            CREATE TABLE IF NOT EXISTS social_shares (
+            CREATE TABLE IF NOT EXISTS wild_wifi_stories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                article_id INTEGER,
-                platform TEXT,
-                shared_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                share_url TEXT,
-                FOREIGN KEY (article_id) REFERENCES articles (id)
+                title TEXT NOT NULL,
+                story TEXT NOT NULL,
+                location TEXT,
+                source_url TEXT,
+                category TEXT DEFAULT 'general',
+                humor_rating INTEGER DEFAULT 3,
+                tech_relevance TEXT,
+                submitted_by TEXT DEFAULT 'system',
+                approved INTEGER DEFAULT 1,
+                featured INTEGER DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         
@@ -383,6 +395,13 @@ class WirelessMonitor:
             stories = []
             for row in stories_raw:
                 story_dict = dict(row)
+                # Ensure datetime objects are converted to strings for JSON serialization
+                if 'published_date' in story_dict and story_dict['published_date']:
+                    if isinstance(story_dict['published_date'], datetime):
+                        story_dict['published_date'] = story_dict['published_date'].isoformat()
+                if 'created_at' in story_dict and story_dict['created_at']:
+                    if isinstance(story_dict['created_at'], datetime):
+                        story_dict['created_at'] = story_dict['created_at'].isoformat()
                 stories.append(story_dict)
             
             # Get total article count for today
@@ -763,6 +782,8 @@ class WirelessMonitor:
                 
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/analyze_event_articles', methods=['POST'])
         def analyze_event_articles():
             """Analyze and categorize articles for events"""
             try:
@@ -825,6 +846,362 @@ class WirelessMonitor:
                 
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/share_article', methods=['POST'])
+        def share_article():
+            """Share an article on social media"""
+            try:
+                data = request.get_json()
+                article_id = data.get('article_id')
+                platform = data.get('platform')
+                
+                if not article_id or not platform:
+                    return jsonify({'success': False, 'error': 'Missing article_id or platform'})
+                
+                conn = self.get_db_connection()
+                
+                # Get article details
+                article = conn.execute('''
+                    SELECT a.*, f.name as feed_name 
+                    FROM articles a 
+                    JOIN rss_feeds f ON a.feed_id = f.id 
+                    WHERE a.id = ?
+                ''', (article_id,)).fetchone()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                # Get social media configuration
+                social_config = conn.execute('''
+                    SELECT * FROM social_config 
+                    WHERE platform = ? AND enabled = 1
+                ''', (platform,)).fetchone()
+                
+                if not social_config:
+                    return jsonify({'success': False, 'error': f'{platform} not configured or disabled'})
+                
+                # Generate share content
+                share_content = self.generate_share_content(article, social_config)
+                
+                # Record the share
+                conn.execute('''
+                    INSERT INTO social_shares (article_id, platform, share_url)
+                    VALUES (?, ?, ?)
+                ''', (article_id, platform, share_content['share_url']))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True,
+                    'share_content': share_content,
+                    'platform': platform
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/add_to_digest', methods=['POST'])
+        def add_to_digest():
+            """Add an article to the weekly digest"""
+            try:
+                data = request.get_json()
+                article_id = data.get('article_id')
+                notes = data.get('notes', '')
+                
+                if not article_id:
+                    return jsonify({'success': False, 'error': 'Missing article_id'})
+                
+                conn = self.get_db_connection()
+                
+                # Get current week start (Monday)
+                from datetime import datetime, timedelta
+                today = datetime.now().date()
+                week_start = today - timedelta(days=today.weekday())
+                
+                # Check if article is already in this week's digest
+                existing = conn.execute('''
+                    SELECT id FROM weekly_digest 
+                    WHERE article_id = ? AND week_start = ?
+                ''', (article_id, week_start)).fetchone()
+                
+                if existing:
+                    return jsonify({'success': False, 'error': 'Article already in this week\'s digest'})
+                
+                # Add to digest
+                conn.execute('''
+                    INSERT INTO weekly_digest (article_id, notes, week_start)
+                    VALUES (?, ?, ?)
+                ''', (article_id, notes, week_start))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': 'Article added to weekly digest'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/get_social_config')
+        def get_social_config():
+            """Get social media configuration for sharing popup"""
+            try:
+                conn = self.get_db_connection()
+                
+                social_platforms = conn.execute('''
+                    SELECT platform, username, enabled 
+                    FROM social_config 
+                    WHERE enabled = 1
+                    ORDER BY platform
+                ''').fetchall()
+                
+                platforms = [dict(row) for row in social_platforms]
+                
+                conn.close()
+                return jsonify({'success': True, 'platforms': platforms})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/generate_weekly_digest', methods=['POST'])
+        def generate_weekly_digest():
+            """Generate the weekly digest for Tuesday morning"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get current week info
+                from datetime import datetime, timedelta
+                today = datetime.now().date()
+                week_start = today - timedelta(days=today.weekday())
+                
+                # Check if already generated this week
+                existing = conn.execute('''
+                    SELECT value FROM settings WHERE key = ?
+                ''', (f'digest_generated_{week_start}',)).fetchone()
+                
+                if existing:
+                    return jsonify({'success': False, 'error': 'Digest already generated for this week'})
+                
+                # Auto-add top 6 articles from previous 7 days
+                seven_days_ago = today - timedelta(days=7)
+                top_articles = conn.execute('''
+                    SELECT id, relevance_score
+                    FROM articles
+                    WHERE DATE(published_date) >= ? 
+                    AND DATE(published_date) <= ?
+                    AND relevance_score > 0.3
+                    AND id NOT IN (SELECT article_id FROM weekly_digest WHERE week_start = ?)
+                    ORDER BY relevance_score DESC, published_date DESC
+                    LIMIT 6
+                ''', (seven_days_ago, today, week_start)).fetchall()
+                
+                added_count = 0
+                for article in top_articles:
+                    conn.execute('''
+                        INSERT INTO weekly_digest (article_id, notes, week_start, added_by)
+                        VALUES (?, ?, ?, ?)
+                    ''', (article['id'], 'Auto-selected top story', week_start, 'system'))
+                    added_count += 1
+                
+                # Mark digest as generated
+                conn.execute('''
+                    INSERT INTO settings (key, value, updated_at)
+                    VALUES (?, ?, CURRENT_TIMESTAMP)
+                ''', (f'digest_generated_{week_start}', datetime.now().isoformat()))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True, 
+                    'message': f'Weekly digest generated with {added_count} top articles',
+                    'articles_added': added_count
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/export_digest_script', methods=['POST'])
+        def export_digest_script():
+            """Export digest as podcast script"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get current week
+                from datetime import datetime, timedelta
+                today = datetime.now().date()
+                week_start = today - timedelta(days=today.weekday())
+                
+                # Get all digest articles (manual + auto)
+                all_articles = conn.execute('''
+                    SELECT wd.*, a.title, a.url, a.description, a.relevance_score, f.name as feed_name
+                    FROM weekly_digest wd
+                    JOIN articles a ON wd.article_id = a.id
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE wd.week_start = ?
+                    ORDER BY a.relevance_score DESC, wd.added_at ASC
+                ''', (week_start,)).fetchall()
+                
+                # Generate podcast script
+                script_content = self.generate_podcast_script(all_articles, week_start)
+                
+                conn.close()
+                
+                return jsonify({
+                    'success': True,
+                    'script': script_content,
+                    'article_count': len(all_articles)
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/remove_from_digest/<int:digest_id>', methods=['DELETE'])
+        def remove_from_digest(digest_id):
+            """Remove an article from the weekly digest"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Check if digest entry exists
+                existing = conn.execute('SELECT id FROM weekly_digest WHERE id = ?', (digest_id,)).fetchone()
+                if not existing:
+                    return jsonify({'success': False, 'error': 'Digest entry not found'})
+                
+                # Remove from digest
+                conn.execute('DELETE FROM weekly_digest WHERE id = ?', (digest_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': 'Article removed from weekly digest'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/generate_article_image/<int:article_id>', methods=['POST'])
+        def generate_article_image(article_id):
+            """Generate or find an image for an article"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get article details
+                article = conn.execute('''
+                    SELECT * FROM articles WHERE id = ?
+                ''', (article_id,)).fetchone()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                # Generate image URL (placeholder for now)
+                image_url = self.generate_article_image_url(article)
+                
+                # Store image URL in database (add image_url column if needed)
+                try:
+                    conn.execute('ALTER TABLE articles ADD COLUMN image_url TEXT')
+                except sqlite3.OperationalError:
+                    pass  # Column already exists
+                
+                conn.execute('''
+                    UPDATE articles SET image_url = ? WHERE id = ?
+                ''', (image_url, article_id))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True,
+                    'image_url': image_url,
+                    'article_id': article_id
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/social_config')
+        def social_config_page():
+            """Social media configuration page"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            platforms = conn.execute('SELECT * FROM social_config ORDER BY platform').fetchall()
+            conn.close()
+            
+            return render_template('social_config.html', platforms=platforms, view_mode=view_mode)
+        
+        @self.app.route('/update_social_config', methods=['POST'])
+        def update_social_config():
+            """Update social media configuration"""
+            try:
+                platform = request.form['platform']
+                username = request.form['username']
+                enabled = 1 if request.form.get('enabled') == 'on' else 0
+                view_mode = request.args.get('view', 'newspaper')
+                
+                conn = self.get_db_connection()
+                conn.execute('''
+                    UPDATE social_config 
+                    SET username = ?, enabled = ?
+                    WHERE platform = ?
+                ''', (username, enabled, platform))
+                
+                conn.commit()
+                conn.close()
+                
+                flash(f'{platform} configuration updated successfully', 'success')
+                return redirect(url_for('social_config_page', view=view_mode))
+                
+            except Exception as e:
+                flash(f'Error updating configuration: {str(e)}', 'error')
+                return redirect(url_for('social_config_page', view=view_mode))
+        
+        @self.app.route('/weekly_digest')
+        def weekly_digest():
+            """View weekly digest"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get current week's digest (Monday to Sunday)
+            from datetime import datetime, timedelta
+            today = datetime.now().date()
+            week_start = today - timedelta(days=today.weekday())
+            
+            # Get manually added articles for this week
+            manual_articles = conn.execute('''
+                SELECT wd.*, a.title, a.url, a.description, a.relevance_score, f.name as feed_name
+                FROM weekly_digest wd
+                JOIN articles a ON wd.article_id = a.id
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE wd.week_start = ?
+                ORDER BY wd.added_at DESC
+            ''', (week_start,)).fetchall()
+            
+            # Get top 6 articles from the previous 7 days by relevance score
+            seven_days_ago = today - timedelta(days=7)
+            top_articles = conn.execute('''
+                SELECT a.*, f.name as feed_name
+                FROM articles a
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE DATE(a.published_date) >= ? 
+                AND DATE(a.published_date) <= ?
+                AND a.relevance_score > 0.3
+                AND a.id NOT IN (SELECT article_id FROM weekly_digest WHERE week_start = ?)
+                ORDER BY a.relevance_score DESC, a.published_date DESC
+                LIMIT 6
+            ''', (seven_days_ago, today, week_start)).fetchall()
+            
+            # Get digest generation status
+            digest_status = conn.execute('''
+                SELECT value FROM settings WHERE key = ?
+            ''', (f'digest_generated_{week_start}',)).fetchone()
+            
+            conn.close()
+            
+            return render_template('weekly_digest.html', 
+                                 manual_articles=manual_articles,
+                                 top_articles=top_articles,
+                                 week_start=week_start,
+                                 digest_generated=digest_status is not None,
+                                 view_mode=view_mode)
         
         @self.app.route('/insights')
         def insights():
@@ -1349,19 +1726,19 @@ class WirelessMonitor:
         """Add a web-sourced article to the database"""
         try:
             # Create or get a feed for web-sourced articles
-            feed_name = f"Web Search: {article_data['source']}"
+            feed_name = f"Event Content: {article_data['source']}"
             web_feed = conn.execute(
                 'SELECT id FROM rss_feeds WHERE name = ?', 
                 (feed_name,)
             ).fetchone()
             
             if not web_feed:
-                # Create unique URL for web search feeds
-                feed_url = f"https://web-search-generated/{article_data['source'].lower().replace(' ', '-')}"
+                # Create unique URL for web search feeds (but mark as inactive to avoid fetching)
+                feed_url = f"https://event-content-generated/{article_data['source'].lower().replace(' ', '-')}"
                 cursor = conn.execute('''
                     INSERT INTO rss_feeds (name, url, active)
                     VALUES (?, ?, ?)
-                ''', (feed_name, feed_url, 1))
+                ''', (feed_name, feed_url, 0))  # Set active=0 to prevent fetching
                 feed_id = cursor.lastrowid
             else:
                 feed_id = web_feed['id']
@@ -1418,6 +1795,65 @@ class WirelessMonitor:
         except Exception as e:
             logger.error(f"Error calculating event relevance: {e}")
             return 0.5
+    
+    def generate_share_content(self, article, social_config):
+        """Generate social media share content"""
+        try:
+            # Get attribution from social config
+            attribution = f"via @{social_config['username']}" if social_config['username'] else "via The Wireless Monitor"
+            
+            # Platform-specific content generation
+            platform = social_config['platform']
+            
+            if platform == 'Twitter':
+                # Twitter has character limits
+                max_length = 240
+                title_length = len(article['title'])
+                url_length = 23  # Twitter's t.co URL length
+                attribution_length = len(attribution)
+                
+                available_length = max_length - url_length - attribution_length - 10  # Buffer
+                
+                if title_length <= available_length:
+                    content = f"{article['title']} {attribution}"
+                else:
+                    truncated_title = article['title'][:available_length-3] + "..."
+                    content = f"{truncated_title} {attribution}"
+                
+                share_url = f"https://twitter.com/intent/tweet?text={content}&url={article['url']}"
+                
+            elif platform == 'LinkedIn':
+                content = f"{article['title']}\n\n{article['description'][:200]}...\n\n{attribution}"
+                share_url = f"https://www.linkedin.com/sharing/share-offsite/?url={article['url']}"
+                
+            elif platform == 'Facebook':
+                content = f"{article['title']} {attribution}"
+                share_url = f"https://www.facebook.com/sharer/sharer.php?u={article['url']}"
+                
+            elif platform == 'Mastodon':
+                content = f"{article['title']} {attribution}"
+                share_url = f"https://mastodon.social/share?text={content}&url={article['url']}"
+                
+            else:
+                # Generic sharing
+                content = f"{article['title']} {attribution}"
+                share_url = article['url']
+            
+            return {
+                'content': content,
+                'share_url': share_url,
+                'platform': platform,
+                'attribution': attribution
+            }
+            
+        except Exception as e:
+            logger.error(f"Error generating share content: {e}")
+            return {
+                'content': article['title'],
+                'share_url': article['url'],
+                'platform': social_config['platform'],
+                'attribution': 'via The Wireless Monitor'
+            }
     
     def get_ai_insights(self, articles):
         """Get AI insights from cache or generate new ones"""
@@ -1617,6 +2053,8 @@ class WirelessMonitor:
     
     def setup_template_functions(self):
         """Setup template helper functions"""
+        from datetime import datetime
+        
         def get_feed_icon(feed_name, feed_url):
             """Get appropriate icon for feed source"""
             feed_name_lower = feed_name.lower()
@@ -1643,8 +2081,124 @@ class WirelessMonitor:
             else:
                 return '📰', '#7f8c8d'
         
-        # Make function available to templates
+        def strptime_filter(date_string, format_string):
+            """Parse date string using strptime"""
+            try:
+                return datetime.strptime(date_string, format_string)
+            except (ValueError, TypeError):
+                return datetime.now()
+        
+        def days_until_filter(date_string):
+            """Calculate days until a date"""
+            try:
+                if isinstance(date_string, str):
+                    target_date = datetime.strptime(date_string[:10], '%Y-%m-%d').date()
+                else:
+                    target_date = date_string
+                today = datetime.now().date()
+                return (target_date - today).days
+            except (ValueError, TypeError):
+                return 0
+        
+        # Make functions available to templates
         self.app.jinja_env.globals['get_feed_icon'] = get_feed_icon
+        self.app.jinja_env.filters['strptime'] = strptime_filter
+        self.app.jinja_env.filters['days_until'] = days_until_filter
+    
+    def generate_podcast_script(self, articles, week_start):
+        """Generate a podcast script from digest articles"""
+        from datetime import datetime
+        
+        script_lines = []
+        script_lines.append(f"# The Wireless Monitor Weekly Digest")
+        script_lines.append(f"## Week of {week_start}")
+        script_lines.append(f"## Generated on {datetime.now().strftime('%B %d, %Y')}")
+        script_lines.append("")
+        script_lines.append("---")
+        script_lines.append("")
+        script_lines.append("## Opening")
+        script_lines.append("")
+        script_lines.append("Welcome to The Wireless Monitor Weekly Digest! I'm your host bringing you the most important wireless technology news from the past week.")
+        script_lines.append("")
+        script_lines.append("This week we're covering:")
+        
+        # Create topic list
+        for i, article in enumerate(articles, 1):
+            script_lines.append(f"- {article['title']}")
+        
+        script_lines.append("")
+        script_lines.append("Let's dive in!")
+        script_lines.append("")
+        script_lines.append("---")
+        script_lines.append("")
+        
+        # Add each article
+        for i, article in enumerate(articles, 1):
+            script_lines.append(f"## Story {i}: {article['title']}")
+            script_lines.append("")
+            script_lines.append(f"**Source:** {article['feed_name']}")
+            script_lines.append(f"**Relevance Score:** {article['relevance_score']:.2f}")
+            if article['notes']:
+                script_lines.append(f"**Notes:** {article['notes']}")
+            script_lines.append("")
+            script_lines.append("**Summary:**")
+            script_lines.append(article['description'] or "No description available")
+            script_lines.append("")
+            script_lines.append(f"**Link:** {article['url']}")
+            script_lines.append("")
+            script_lines.append("**Talking Points:**")
+            script_lines.append("- [Add your analysis here]")
+            script_lines.append("- [Why this matters to wireless professionals]")
+            script_lines.append("- [Industry implications]")
+            script_lines.append("")
+            script_lines.append("---")
+            script_lines.append("")
+        
+        # Closing
+        script_lines.append("## Closing")
+        script_lines.append("")
+        script_lines.append("That wraps up this week's Wireless Monitor digest. Thanks for listening!")
+        script_lines.append("")
+        script_lines.append("Don't forget to visit TheWirelessMonitor.com for the latest wireless technology news.")
+        script_lines.append("")
+        script_lines.append("Until next week, keep your signals strong!")
+        
+        return "\n".join(script_lines)
+    
+    def generate_article_image_url(self, article):
+        """Generate or find an image URL for an article"""
+        try:
+            # For now, return a placeholder that shows "Creating visualization"
+            # In a real implementation, this would:
+            # 1. Search for relevant images using the article title/description
+            # 2. Use an AI image generation service
+            # 3. Return the generated/found image URL
+            
+            # Create a data URL for a simple placeholder image
+            placeholder_svg = '''
+            <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="200" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+                <text x="200" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#6c757d">
+                    🎨 Creating visualization...
+                </text>
+                <text x="200" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#adb5bd">
+                    AI image generation in progress
+                </text>
+            </svg>
+            '''
+            
+            import base64
+            import urllib.parse
+            
+            # Convert SVG to data URL
+            svg_b64 = base64.b64encode(placeholder_svg.encode('utf-8')).decode('utf-8')
+            data_url = f"data:image/svg+xml;base64,{svg_b64}"
+            
+            return data_url
+            
+        except Exception as e:
+            logger.error(f"Error generating article image: {e}")
+            return "/static/placeholder-image.png"  # Fallback
     
     def setup_scheduler(self):
         """Setup background task scheduler"""
@@ -1654,8 +2208,69 @@ class WirelessMonitor:
         # Schedule cleanup daily at 2 AM
         schedule.every().day.at("02:00").do(self.cleanup_old_articles)
         
+        # Schedule weekly digest generation every Tuesday at 8 AM Central Time
+        schedule.every().tuesday.at("08:00").do(self.auto_generate_weekly_digest)
+        
         # Initial fetch
         threading.Thread(target=self.fetch_rss_feeds, daemon=True).start()
+    
+    def auto_generate_weekly_digest(self):
+        """Automatically generate weekly digest on Tuesday mornings"""
+        try:
+            logger.info("Auto-generating weekly digest...")
+            
+            conn = self.get_db_connection()
+            
+            # Get current week info
+            from datetime import datetime, timedelta
+            today = datetime.now().date()
+            week_start = today - timedelta(days=today.weekday())
+            
+            # Check if already generated this week
+            existing = conn.execute('''
+                SELECT value FROM settings WHERE key = ?
+            ''', (f'digest_generated_{week_start}',)).fetchone()
+            
+            if existing:
+                logger.info("Weekly digest already generated for this week")
+                conn.close()
+                return
+            
+            # Auto-add top 6 articles from previous 7 days
+            seven_days_ago = today - timedelta(days=7)
+            top_articles = conn.execute('''
+                SELECT id, title, relevance_score
+                FROM articles
+                WHERE DATE(published_date) >= ? 
+                AND DATE(published_date) <= ?
+                AND relevance_score > 0.3
+                AND id NOT IN (SELECT article_id FROM weekly_digest WHERE week_start = ?)
+                ORDER BY relevance_score DESC, published_date DESC
+                LIMIT 6
+            ''', (seven_days_ago, today, week_start)).fetchall()
+            
+            added_count = 0
+            for article in top_articles:
+                conn.execute('''
+                    INSERT INTO weekly_digest (article_id, notes, week_start, added_by)
+                    VALUES (?, ?, ?, ?)
+                ''', (article['id'], f'Auto-selected (score: {article["relevance_score"]:.2f})', week_start, 'system'))
+                added_count += 1
+                logger.info(f"Added to digest: {article['title']}")
+            
+            # Mark digest as generated
+            conn.execute('''
+                INSERT INTO settings (key, value, updated_at)
+                VALUES (?, ?, CURRENT_TIMESTAMP)
+            ''', (f'digest_generated_{week_start}', datetime.now().isoformat()))
+            
+            conn.commit()
+            conn.close()
+            
+            logger.info(f"Weekly digest auto-generated with {added_count} articles")
+            
+        except Exception as e:
+            logger.error(f"Error auto-generating weekly digest: {e}")
     
     def run_scheduler(self):
         """Run the background scheduler"""

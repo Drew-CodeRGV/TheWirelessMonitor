@@ -80,7 +80,15 @@
                 <div class="content">
                     ${article.content || article.description || 'No content available'}
                     <br><br>
-                    <a href="${article.url}" target="_blank" class="btn">📖 Read Full Article</a>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button onclick="shareArticle(${article.id})" class="btn" style="background: #1da1f2; font-size: 0.85rem; padding: 6px 12px;">
+                            📤 Share
+                        </button>
+                        <button onclick="addToDigest(${article.id})" class="btn" style="background: #ff6b35; font-size: 0.85rem; padding: 6px 12px;">
+                            📋 Add to Digest
+                        </button>
+                        <a href="${article.url}" target="_blank" class="btn">📖 Read Full Article</a>
+                    </div>
                 </div>
             `;
         }
@@ -139,6 +147,23 @@
             <!-- Featured Article (First high-relevance article) -->
             {% set featured_article = stories[0] %}
             <article class="featured-article">
+                <!-- Article Image -->
+                <div class="article-image" style="margin-bottom: 15px;">
+                    {% if featured_article.image_url %}
+                        <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" 
+                             style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+                    {% else %}
+                        <div class="image-placeholder" style="width: 100%; height: 250px; background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer;" 
+                             onclick="generateArticleImage({{ featured_article.id }}, this)">
+                            <div style="text-align: center; color: #6c757d;">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">🎨</div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Creating visualization...</div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to generate AI image</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                
                 <div class="article-meta">
                     {% set icon, color = get_feed_icon(featured_article.feed_name, featured_article.feed_url) %}
                     <span class="feed-source" style="border-color: {{ color }};">
@@ -158,6 +183,16 @@
                 {% else %}
                     <p style="color: #7f8c8d; font-style: italic;">No content preview available</p>
                 {% endif %}
+                
+                <!-- Social sharing and digest buttons -->
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button onclick="shareArticle({{ featured_article.id }})" class="btn" style="background: #1da1f2; font-size: 0.85rem; padding: 8px 16px;">
+                        📤 Share
+                    </button>
+                    <button onclick="addToDigest({{ featured_article.id }})" class="btn" style="background: #ff6b35; font-size: 0.85rem; padding: 8px 16px;">
+                        📋 Add to Digest
+                    </button>
+                </div>
             </article>
             
             <!-- Secondary Articles Column 1 -->
@@ -179,6 +214,16 @@
                     {% if story.description %}
                         <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
                     {% endif %}
+                    
+                    <!-- Social sharing and digest buttons -->
+                    <div style="margin-top: 10px; display: flex; gap: 8px;">
+                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.75rem; padding: 6px 12px;">
+                            📤 Share
+                        </button>
+                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.75rem; padding: 6px 12px;">
+                            📋 Digest
+                        </button>
+                    </div>
                 </article>
                 {% endfor %}
             </div>
@@ -202,6 +247,16 @@
                     {% if story.description %}
                         <p>{{ story.description[:150] }}{% if story.description|length > 150 %}...{% endif %}</p>
                     {% endif %}
+                    
+                    <!-- Social sharing and digest buttons -->
+                    <div style="margin-top: 10px; display: flex; gap: 8px;">
+                        <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #1da1f2; font-size: 0.75rem; padding: 6px 12px;">
+                            📤 Share
+                        </button>
+                        <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #ff6b35; font-size: 0.75rem; padding: 6px 12px;">
+                            📋 Digest
+                        </button>
+                    </div>
                 </article>
                 {% endfor %}
             </div>
@@ -267,6 +322,178 @@
             <button onclick="fetchNow()" class="btn" style="font-size: 1.1rem; padding: 15px 30px;">🔄 Fetch RSS Feeds</button>
         </div>
     {% endif %}
+
+    <!-- Social Sharing Popup -->
+    <div id="shareModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
+            <h3 style="margin-bottom: 20px; color: #2c3e50;">📤 Share Article</h3>
+            <div id="socialPlatforms" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <!-- Platforms will be loaded here -->
+            </div>
+            <div style="text-align: center;">
+                <button onclick="closeShareModal()" class="btn" style="background: #6c757d;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let currentArticleId = null;
+
+    async function shareArticle(articleId) {
+        currentArticleId = articleId;
+        
+        try {
+            // Get available social platforms
+            const response = await fetch('/api/get_social_config');
+            const data = await response.json();
+            
+            if (data.success && data.platforms.length > 0) {
+                const platformsDiv = document.getElementById('socialPlatforms');
+                platformsDiv.innerHTML = '';
+                
+                data.platforms.forEach(platform => {
+                    const platformButton = document.createElement('button');
+                    platformButton.className = 'btn';
+                    platformButton.style.cssText = 'width: 100%; padding: 15px 10px; font-size: 0.9rem;';
+                    
+                    // Platform-specific styling
+                    if (platform.platform === 'Twitter') {
+                        platformButton.style.background = '#1da1f2';
+                        platformButton.innerHTML = '🐦<br>Twitter';
+                    } else if (platform.platform === 'LinkedIn') {
+                        platformButton.style.background = '#0077b5';
+                        platformButton.innerHTML = '💼<br>LinkedIn';
+                    } else if (platform.platform === 'Facebook') {
+                        platformButton.style.background = '#1877f2';
+                        platformButton.innerHTML = '📘<br>Facebook';
+                    } else if (platform.platform === 'Mastodon') {
+                        platformButton.style.background = '#6364ff';
+                        platformButton.innerHTML = '🐘<br>Mastodon';
+                    } else {
+                        platformButton.style.background = '#28a745';
+                        platformButton.innerHTML = `📱<br>${platform.platform}`;
+                    }
+                    
+                    platformButton.onclick = () => shareToSocial(platform.platform);
+                    platformsDiv.appendChild(platformButton);
+                });
+                
+                document.getElementById('shareModal').style.display = 'block';
+            } else {
+                alert('No social media platforms configured. Please configure them in the admin panel.');
+            }
+        } catch (error) {
+            alert('Error loading social platforms: ' + error.message);
+        }
+    }
+
+    async function shareToSocial(platform) {
+        try {
+            const response = await fetch('/api/share_article', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    article_id: currentArticleId,
+                    platform: platform
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Open sharing window
+                window.open(data.share_content.share_url, '_blank', 'width=600,height=400');
+                closeShareModal();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (error) {
+            alert('Network error: ' + error.message);
+        }
+    }
+
+    async function addToDigest(articleId) {
+        const notes = prompt('Add notes for this article (optional):');
+        if (notes === null) return; // User cancelled
+        
+        try {
+            const response = await fetch('/api/add_to_digest', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    article_id: articleId,
+                    notes: notes
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                alert('✅ Article added to weekly digest!');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (error) {
+            alert('Network error: ' + error.message);
+        }
+    }
+
+    function closeShareModal() {
+        document.getElementById('shareModal').style.display = 'none';
+        currentArticleId = null;
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('shareModal').onclick = function(e) {
+        if (e.target === this) {
+            closeShareModal();
+        }
+    }
+
+    async function generateArticleImage(articleId, placeholderElement) {
+        // Update placeholder to show loading state
+        placeholderElement.innerHTML = `
+            <div style="text-align: center; color: #6c757d;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
+                <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Generating image...</div>
+                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Please wait</div>
+            </div>
+        `;
+        
+        try {
+            const response = await fetch(`/api/generate_article_image/${articleId}`, {
+                method: 'POST'
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Replace placeholder with generated image
+                placeholderElement.outerHTML = `
+                    <img src="${data.image_url}" alt="Generated visualization" 
+                         style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+                `;
+            } else {
+                // Show error state
+                placeholderElement.innerHTML = `
+                    <div style="text-align: center; color: #dc3545;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">❌</div>
+                        <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Generation failed</div>
+                        <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to retry</div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            // Show error state
+            placeholderElement.innerHTML = `
+                <div style="text-align: center; color: #dc3545;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">❌</div>
+                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500;">Network error</div>
+                    <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; margin-top: 5px;">Click to retry</div>
+                </div>
+            `;
+        }
+    }
 
     <script>
     async function fetchNow() {

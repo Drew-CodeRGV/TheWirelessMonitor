@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Weekly Digest - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+    <h2>📰 Weekly Digest</h2>
+    <div style="display: flex; gap: 10px;">
+        {% if not digest_generated %}
+        <button onclick="generateWeeklyDigest()" class="btn" style="background: #28a745;">🤖 Generate This Week's Digest</button>
+        {% endif %}
+        <button onclick="exportDigestScript()" class="btn">📝 Export Podcast Script</button>
+    </div>
+</div>
+
+<div style="{% if view_mode == 'reader' %}padding: 0 20px;{% endif %}">
+    <p style="font-family: 'Inter', sans-serif; color: #666; margin-bottom: 25px;">
+        <strong>Week of {{ week_start }}</strong> - 
+        {% if digest_generated %}
+        <span style="color: #28a745;">✅ Digest Generated</span>
+        {% else %}
+        <span style="color: #dc3545;">⏳ Pending Generation</span>
+        {% endif %}
+    </p>
+</div>
+
+<div id="digest-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
+
+{% if top_articles %}
+<div style="{% if view_mode == 'reader' %}padding: 0 20px; margin-bottom: 20px;{% else %}margin-bottom: 30px;{% endif %}">
+    <h3 style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Playfair Display', serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.2rem{% else %}1.6rem{% endif %}; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #3498db; padding-bottom: 8px;">
+        🏆 Top Stories (Auto-Selected)
+    </h3>
+    <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #7f8c8d; margin-bottom: 20px;">
+        The 6 highest-ranked articles from the past 7 days (relevance score > 0.3)
+    </p>
+</div>
+
+{% for article in top_articles %}
+<div class="{% if view_mode == 'reader' %}article{% else %}article{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% else %}border: 1px solid #e1e5e9; border-radius: 8px; padding: 20px; margin-bottom: 20px; background: #f8f9fa;{% endif %}">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px;">
+        <div style="flex: 1;">
+            <h4 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: #000; margin-bottom: 10px;{% endif %}">
+                <a href="{{ article.url }}" target="_blank" style="{% if view_mode == 'reader' %}color: #1155cc; text-decoration: none;{% else %}color: #000; text-decoration: none;{% endif %}">
+                    {{ article.title }}
+                </a>
+            </h4>
+            
+            <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.8rem; color: #999; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #7f8c8d; margin-bottom: 10px; display: flex; align-items: center; gap: 15px;{% endif %}">
+                <span><strong>Source:</strong> {{ article.feed_name }}</span>
+                <span style="background: #3498db; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">Score: {{ "%.2f"|format(article.relevance_score) }}</span>
+            </div>
+            
+            <p style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.4; color: #666; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.5; color: #34495e; margin-bottom: 10px;{% endif %}">
+                {{ article.description[:200] }}{% if article.description|length > 200 %}...{% endif %}
+            </p>
+        </div>
+        
+        <div>
+            <button onclick="addToDigest({{ article.id }}, 'Top story of the week')" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #28a745;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #28a745;{% endif %}">
+                ➕ Add to Digest
+            </button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if manual_articles %}
+<div style="{% if view_mode == 'reader' %}padding: 0 20px; margin-bottom: 20px;{% else %}margin-bottom: 30px;{% endif %}">
+    <h3 style="font-family: {% if view_mode == 'reader' %}'Arial', sans-serif{% else %}'Playfair Display', serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.2rem{% else %}1.6rem{% endif %}; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #e74c3c; padding-bottom: 8px;">
+        📌 Selected Articles
+    </h3>
+    <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #7f8c8d; margin-bottom: 20px;">
+        Articles manually selected or auto-added to this week's digest
+    </p>
+</div>
+
+{% for article in manual_articles %}
+<div class="{% if view_mode == 'reader' %}article{% else %}article{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% else %}border: 1px solid #e1e5e9; border-radius: 8px; padding: 20px; margin-bottom: 20px; background: white;{% endif %}">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px;">
+        <div style="flex: 1;">
+            <h4 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: #000; margin-bottom: 10px;{% endif %}">
+                <a href="{{ article.url }}" target="_blank" style="{% if view_mode == 'reader' %}color: #1155cc; text-decoration: none;{% else %}color: #000; text-decoration: none;{% endif %}">
+                    {{ article.title }}
+                </a>
+            </h4>
+            
+            <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.8rem; color: #999; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #7f8c8d; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;{% endif %}">
+                <span><strong>Source:</strong> {{ article.feed_name }}</span>
+                <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">Score: {{ "%.2f"|format(article.relevance_score) }}</span>
+                <span style="background: #f39c12; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">{{ article.added_by }}</span>
+            </div>
+            
+            <p style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.4; color: #666; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.5; color: #34495e; margin-bottom: 10px;{% endif %}">
+                {{ article.description[:200] }}{% if article.description|length > 200 %}...{% endif %}
+            </p>
+            
+            {% if article.notes %}
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 8px; margin-top: 10px;">
+                <strong style="font-size: 0.8rem; color: #856404;">Notes:</strong>
+                <span style="font-size: 0.85rem; color: #856404;">{{ article.notes }}</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <button onclick="removeFromDigest({{ article.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #dc3545;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #dc3545;{% endif %}">
+                🗑️ Remove
+            </button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if not manual_articles and not top_articles %}
+<div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
+    <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">📰 No Digest Content</h3>
+    <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+        No articles have been added to this week's digest yet. Generate the digest to automatically select the top stories.
+    </p>
+</div>
+{% endif %}
+
+<script>
+async function generateWeeklyDigest() {
+    const statusDiv = document.getElementById('digest-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Generating...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🤖 Generating weekly digest with top stories...</div>';
+    
+    try {
+        const response = await fetch('/api/generate_weekly_digest', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ Weekly digest generated with ${data.articles_added} articles!</div>`;
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🤖 Generate This Week\'s Digest';
+    }
+}
+
+async function exportDigestScript() {
+    const statusDiv = document.getElementById('digest-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Exporting...';
+    statusDiv.innerHTML = '<div class="alert alert-success">📝 Generating podcast script...</div>';
+    
+    try {
+        const response = await fetch('/api/export_digest_script', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            // Create and download the script file
+            const blob = new Blob([data.script], { type: 'text/markdown' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wireless-monitor-digest-${new Date().toISOString().split('T')[0]}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ Podcast script exported with ${data.article_count} articles!</div>`;
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 3000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '📝 Export Podcast Script';
+    }
+}
+
+async function addToDigest(articleId, notes) {
+    try {
+        const response = await fetch('/api/add_to_digest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ article_id: articleId, notes: notes })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(`Error: ${data.error}`);
+        }
+    } catch (error) {
+        alert(`Network error: ${error.message}`);
+    }
+}
+
+async function removeFromDigest(digestId) {
+    if (!confirm('Remove this article from the weekly digest?')) return;
+    
+    try {
+        const response = await fetch(`/api/remove_from_digest/${digestId}`, { method: 'DELETE' });
+        const data = await response.json();
+        
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(`Error: ${data.error}`);
+        }
+    } catch (error) {
+        alert(`Network error: ${error.message}`);
+    }
+}
+</script>
+{% endblock %}

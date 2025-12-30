@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Social Media Configuration - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<h2>📱 Social Media Configuration</h2>
+
+<div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #2196f3;">
+    <h3 style="margin-bottom: 15px; color: #1976d2;">🔧 Setup Instructions</h3>
+    <p style="margin-bottom: 10px; color: #1565c0;">Configure your social media accounts to enable sharing articles with proper attribution:</p>
+    <ul style="color: #1565c0; margin-left: 20px;">
+        <li><strong>Username:</strong> Your social media handle (without @)</li>
+        <li><strong>Enable:</strong> Check to activate sharing for this platform</li>
+        <li><strong>Attribution:</strong> Articles will be shared "via @yourusername"</li>
+    </ul>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px;">
+    {% for platform in platforms %}
+    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; border: 2px solid #e9ecef;">
+        <form method="POST" action="{{ url_for('update_social_config', view=view_mode) }}">
+            <input type="hidden" name="platform" value="{{ platform.platform }}">
+            
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                {% if platform.platform == 'Twitter' %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">🐦</span>
+                {% elif platform.platform == 'LinkedIn' %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">💼</span>
+                {% elif platform.platform == 'Facebook' %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">📘</span>
+                {% elif platform.platform == 'Mastodon' %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">🐘</span>
+                {% elif platform.platform == 'Instagram' %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">📷</span>
+                {% else %}
+                    <span style="font-size: 1.5rem; margin-right: 10px;">📱</span>
+                {% endif %}
+                
+                <h3 style="margin: 0; color: #2c3e50;">{{ platform.platform }}</h3>
+                
+                <div style="margin-left: auto;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" name="enabled" {% if platform.enabled %}checked{% endif %} 
+                               style="margin-right: 8px; transform: scale(1.2);">
+                        <span style="font-weight: 600; color: {% if platform.enabled %}#27ae60{% else %}#7f8c8d{% endif %};">
+                            {% if platform.enabled %}✅ Enabled{% else %}❌ Disabled{% endif %}
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="username_{{ platform.platform }}">Username (without @):</label>
+                <input type="text" 
+                       id="username_{{ platform.platform }}" 
+                       name="username" 
+                       value="{{ platform.username or '' }}" 
+                       placeholder="e.g., yourhandle"
+                       style="width: 100%;">
+            </div>
+            
+            {% if platform.username %}
+            <div style="background: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 0.9rem; color: #155724;">
+                <strong>Preview:</strong> Articles will be shared "via @{{ platform.username }}"
+            </div>
+            {% endif %}
+            
+            <button type="submit" class="btn" style="width: 100%;">
+                💾 Update {{ platform.platform }}
+            </button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+<div style="margin-top: 40px; padding: 25px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+    <h3 style="margin-bottom: 15px; color: #856404;">📋 How Social Sharing Works</h3>
+    <div style="color: #856404; line-height: 1.6;">
+        <p><strong>1. Configure Accounts:</strong> Add your usernames for each platform you want to use</p>
+        <p><strong>2. Enable Platforms:</strong> Check the "Enabled" box for platforms you want to share to</p>
+        <p><strong>3. Share Articles:</strong> Use the "📤 Share" button on any article to open the sharing popup</p>
+        <p><strong>4. Choose Platform:</strong> Select which social media platform to share to</p>
+        <p><strong>5. Attribution:</strong> Articles are automatically attributed to your configured accounts</p>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('admin', view=view_mode) }}" class="btn">← Back to Admin</a>
+</div>
+
+{% endblock %}

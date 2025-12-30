@@ -550,8 +550,34 @@
 
     <div class="header">
         <div class="container">
-            <h1>THE WIRELESS MONITOR</h1>
-            <div class="tagline">Your Source for Wi-Fi & Wireless Technology News</div>
+            <div class="header-content">
+                <div class="logo-title">
+                    <a href="{{ url_for('index', view=view_mode) }}" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px;">
+                        <!-- WirelessNerd Logo -->
+                        <img src="https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1" 
+                             alt="WirelessNerd Logo" 
+                             style="width: 50px; height: 50px; border-radius: 8px;">
+                        <div>
+                            <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: #000; letter-spacing: -0.5px; margin: 0;">THE WIRELESS MONITOR</h1>
+                            <div class="tagline" style="font-size: 0.9rem; color: #666; font-weight: 400; margin-top: 5px;">Your Source for Wi-Fi & Wireless Technology News</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="view-toggle">
+                    {% set current_args = request.args.to_dict() %}
+                    {% set _ = current_args.pop('view', None) %}
+                    <a href="{{ url_for(request.endpoint, view='newspaper', **current_args) }}" 
+                       class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
+                       style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
+                        📰 Newspaper
+                    </a>
+                    <a href="{{ url_for(request.endpoint, view='reader', **current_args) }}" 
+                       class="btn {% if view_mode == 'reader' %}active{% endif %}"
+                       style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
+                        📖 Reader
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -561,6 +587,7 @@
                 <li><a href="{{ url_for('index', view=view_mode) }}">📰 Headlines</a></li>
                 <li><a href="{{ url_for('events', view=view_mode) }}">🎪 Events</a></li>
                 <li><a href="{{ url_for('insights', view=view_mode) }}">🔮 Insights</a></li>
+                <li><a href="{{ url_for('weekly_digest', view=view_mode) }}">📋 Digest</a></li>
                 <li><a href="{{ url_for('manage_feeds', view=view_mode) }}">📡 RSS Feeds</a></li>
                 <li><a href="{{ url_for('admin', view=view_mode) }}">⚙️ Admin</a></li>
             </ul>

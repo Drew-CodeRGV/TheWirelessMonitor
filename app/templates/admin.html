@@ -31,6 +31,8 @@
             <button onclick="fetchNow()" class="btn">📡 Fetch RSS Feeds Now</button>
             <button onclick="checkStatus()" class="btn">📊 Check System Status</button>
             <a href="{{ url_for('manage_feeds') }}" class="btn">📝 Manage RSS Feeds</a>
+            <a href="{{ url_for('social_config_page', view=view_mode) }}" class="btn">📱 Social Media Config</a>
+            <a href="{{ url_for('weekly_digest', view=view_mode) }}" class="btn">📋 Weekly Digest</a>
         </div>
         
         <h3 style="margin-top: 30px;">🔄 System Management</h3>
