@@ -80,9 +80,11 @@ https://example2.com/rss"></textarea>
 <h3 style="margin-top: 45px; margin-bottom: 25px;">Current RSS Feeds</h3>
 
 {% if feeds %}
+<div id="verification-status" style="margin-bottom: 20px;"></div>
+
 <div style="margin-top: 25px;">
     {% for feed in feeds %}
-    <div class="article" style="display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #e9ecef;">
+    <div class="article" style="display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #e9ecef;" id="feed-{{ feed.id }}">
         <div style="flex: 1;">
             <h4 style="margin-bottom: 8px; font-family: 'Inter', sans-serif; font-weight: 600;">
                 {% if feed.active %}
@@ -102,17 +104,60 @@ https://example2.com/rss"></textarea>
                 <strong>URL:</strong> <span style="word-break: break-all;">{{ feed.url }}</span><br>
                 <strong>Last Fetched:</strong> {{ feed.last_fetched or 'Never' }}
             </div>
+            <div id="feed-status-{{ feed.id }}" style="margin-top: 8px;"></div>
         </div>
-        <div style="margin-left: 20px;">
+        <div style="margin-left: 20px; display: flex; gap: 10px;">
+            <button onclick="verifyFeed({{ feed.id }})" class="btn" style="background: #17a2b8; font-size: 0.8rem; padding: 6px 12px;">🔍 Verify</button>
             <a href="{{ url_for('toggle_feed', feed_id=feed.id, view=view_mode) }}" 
                class="btn {% if feed.active %}btn-danger{% endif %}" 
-               style="white-space: nowrap;">
+               style="white-space: nowrap; font-size: 0.8rem; padding: 6px 12px;">
                 {% if feed.active %}🔇 Disable{% else %}🔊 Enable{% endif %}
             </a>
         </div>
     </div>
     {% endfor %}
 </div>
+
+<script>
+async function verifyFeed(feedId) {
+    const statusDiv = document.getElementById(`feed-status-${feedId}`);
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Checking...';
+    statusDiv.innerHTML = '<div style="font-size: 0.8rem; color: #17a2b8; padding: 5px 0;">🔍 Verifying RSS feed...</div>';
+    
+    try {
+        const response = await fetch(`/api/verify_feed/${feedId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div style="font-size: 0.8rem; color: #27ae60; padding: 5px 0; background: #d4edda; padding: 8px; border-radius: 4px; border-left: 3px solid #27ae60;">
+                    ✅ <strong>Feed Working:</strong> ${data.entries_count} entries found<br>
+                    📰 <strong>Title:</strong> ${data.title}<br>
+                    🕒 <strong>Last Updated:</strong> ${data.last_updated}
+                </div>
+            `;
+        } else {
+            statusDiv.innerHTML = `
+                <div style="font-size: 0.8rem; color: #e74c3c; padding: 5px 0; background: #f8d7da; padding: 8px; border-radius: 4px; border-left: 3px solid #e74c3c;">
+                    ❌ <strong>Feed Error:</strong> ${data.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `
+            <div style="font-size: 0.8rem; color: #e74c3c; padding: 5px 0; background: #f8d7da; padding: 8px; border-radius: 4px; border-left: 3px solid #e74c3c;">
+                ❌ <strong>Network Error:</strong> ${error.message}
+            </div>
+        `;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔍 Verify';
+    }
+}
+</script>
 {% else %}
 <div style="text-align: center; padding: 60px 20px; color: #7f8c8d; background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;">
     <h3 style="font-family: 'Times New Roman', serif; font-size: 2rem; margin-bottom: 15px; color: #2c3e50;">📡 No RSS Feeds Configured</h3>

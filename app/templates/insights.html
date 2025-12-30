@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Industry Insights - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+    <h2>🔮 Industry Insights: What's New, What's Now, What's Next</h2>
+    <button onclick="refreshInsights()" class="btn">🔄 Refresh Analysis</button>
+</div>
+
+<div id="refresh-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
+
+<!-- Trending Technologies -->
+{% if insights.trends and insights.trends.technology_buzz %}
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+    <h3 style="margin-bottom: 20px; color: white;">📊 Trending Technologies</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+        {% for trend in insights.trends.technology_buzz[:6] %}
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">{{ trend.name }}</div>
+            <div style="font-size: 0.9rem; opacity: 0.9;">{{ trend.mentions }} mentions</div>
+            <div style="font-size: 0.8rem; margin-top: 5px;">
+                {% if trend.trend == 'up' %}📈 Trending{% else %}📊 Stable{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Three Column Layout for What's New/Now/Next -->
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+    
+    <!-- What's New -->
+    <div style="background: #e8f5e8; border-left: 4px solid #27ae60; padding: 25px; border-radius: 8px;">
+        <h3 style="color: #27ae60; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            🆕 What's New
+            <span style="font-size: 0.8rem; background: #27ae60; color: white; padding: 2px 8px; border-radius: 12px;">{{ insights.whats_new|length }}</span>
+        </h3>
+        
+        {% if insights.whats_new %}
+            {% for item in insights.whats_new %}
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #c8e6c9;">
+                <h4 style="font-size: 1rem; margin-bottom: 8px; color: #2e7d32;">
+                    <a href="{{ item.url }}" target="_blank" style="color: #2e7d32; text-decoration: none;">{{ item.title }}</a>
+                </h4>
+                <p style="font-size: 0.85rem; color: #4a4a4a; margin-bottom: 8px; line-height: 1.4;">{{ item.summary }}</p>
+                <div style="font-size: 0.75rem; color: #666; display: flex; justify-content: space-between; align-items: center;">
+                    <span>📂 {{ item.category }}</span>
+                    <span>🏢 {{ item.source }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #666; font-style: italic; text-align: center; padding: 20px;">No new developments detected in recent articles.</p>
+        {% endif %}
+    </div>
+    
+    <!-- What's Now -->
+    <div style="background: #fff3e0; border-left: 4px solid #f39c12; padding: 25px; border-radius: 8px;">
+        <h3 style="color: #f39c12; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            ⚡ What's Now
+            <span style="font-size: 0.8rem; background: #f39c12; color: white; padding: 2px 8px; border-radius: 12px;">{{ insights.whats_now|length }}</span>
+        </h3>
+        
+        {% if insights.whats_now %}
+            {% for item in insights.whats_now %}
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #ffe0b2;">
+                <h4 style="font-size: 1rem; margin-bottom: 8px; color: #e65100;">
+                    <a href="{{ item.url }}" target="_blank" style="color: #e65100; text-decoration: none;">{{ item.title }}</a>
+                </h4>
+                <p style="font-size: 0.85rem; color: #4a4a4a; margin-bottom: 8px; line-height: 1.4;">{{ item.summary }}</p>
+                <div style="font-size: 0.75rem; color: #666; display: flex; justify-content: space-between; align-items: center;">
+                    <span>📂 {{ item.category }}</span>
+                    <span>🏢 {{ item.source }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #666; font-style: italic; text-align: center; padding: 20px;">No current deployments detected in recent articles.</p>
+        {% endif %}
+    </div>
+    
+    <!-- What's Next -->
+    <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 25px; border-radius: 8px;">
+        <h3 style="color: #2196f3; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            🔮 What's Next
+            <span style="font-size: 0.8rem; background: #2196f3; color: white; padding: 2px 8px; border-radius: 12px;">{{ insights.whats_next|length }}</span>
+        </h3>
+        
+        {% if insights.whats_next %}
+            {% for item in insights.whats_next %}
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #bbdefb;">
+                <h4 style="font-size: 1rem; margin-bottom: 8px; color: #1565c0;">
+                    <a href="{{ item.url }}" target="_blank" style="color: #1565c0; text-decoration: none;">{{ item.title }}</a>
+                </h4>
+                <p style="font-size: 0.85rem; color: #4a4a4a; margin-bottom: 8px; line-height: 1.4;">{{ item.summary }}</p>
+                <div style="font-size: 0.75rem; color: #666; display: flex; justify-content: space-between; align-items: center;">
+                    <span>📂 {{ item.category }}</span>
+                    <span>🏢 {{ item.source }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #666; font-style: italic; text-align: center; padding: 20px;">No future trends detected in recent articles.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Analysis Info -->
+<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #dee2e6; text-align: center;">
+    <p style="color: #6c757d; margin: 0; font-size: 0.9rem;">
+        <strong>Analysis Summary:</strong> 
+        Analyzed {{ insights.articles_analyzed }} articles from the past 7 days • 
+        Last updated: {{ insights.generated_at[:16] }} • 
+        Focus areas: Standards, Adoption, Market Trends, Enterprise Readiness, Technical Shifts, Security, M&A
+    </p>
+</div>
+
+<script>
+async function refreshInsights() {
+    const statusDiv = document.getElementById('refresh-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Analyzing...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🤖 AI analyzing recent articles for industry insights...</div>';
+    
+    try {
+        const response = await fetch('/api/refresh_insights', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ Insights refreshed! Reloading page...</div>';
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔄 Refresh Analysis';
+    }
+}
+</script>
+{% endblock %}

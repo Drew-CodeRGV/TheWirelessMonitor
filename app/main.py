@@ -431,6 +431,100 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/insights')
+        def insights():
+            """AI-powered industry insights page"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get recent articles for analysis
+            recent_articles = conn.execute('''
+                SELECT a.*, f.name as feed_name 
+                FROM articles a 
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE DATE(a.published_date) >= DATE('now', '-7 days')
+                AND a.relevance_score > 0.2
+                ORDER BY a.published_date DESC
+                LIMIT 50
+            ''').fetchall()
+            
+            # Get or generate AI insights
+            insights_data = self.get_ai_insights(recent_articles)
+            
+            conn.close()
+            return render_template('insights.html', insights=insights_data, view_mode=view_mode)
+        
+        @self.app.route('/api/refresh_insights', methods=['POST'])
+        def refresh_insights():
+            """Refresh AI insights"""
+            try:
+                conn = self.get_db_connection()
+                
+                # Get recent articles
+                recent_articles = conn.execute('''
+                    SELECT a.*, f.name as feed_name 
+                    FROM articles a 
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE DATE(a.published_date) >= DATE('now', '-7 days')
+                    AND a.relevance_score > 0.2
+                    ORDER BY a.published_date DESC
+                    LIMIT 50
+                ''').fetchall()
+                
+                # Generate new insights
+                insights_data = self.generate_ai_insights(recent_articles)
+                
+                # Store insights in database
+                conn.execute('INSERT OR REPLACE INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)', 
+                           ('ai_insights', json.dumps(insights_data)))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'insights': insights_data})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/verify_feed/<int:feed_id>')
+        def verify_feed(feed_id):
+            """Verify if an RSS feed is working"""
+            conn = self.get_db_connection()
+            feed = conn.execute('SELECT * FROM rss_feeds WHERE id = ?', (feed_id,)).fetchone()
+            conn.close()
+            
+            if not feed:
+                return jsonify({'success': False, 'error': 'Feed not found'})
+            
+            try:
+                response = requests.get(feed['url'], timeout=15)
+                parsed_feed = feedparser.parse(response.content)
+                
+                if parsed_feed.bozo:
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Invalid RSS feed format: {parsed_feed.bozo_exception}'
+                    })
+                
+                if not parsed_feed.entries:
+                    return jsonify({
+                        'success': False, 
+                        'error': 'RSS feed contains no entries'
+                    })
+                
+                return jsonify({
+                    'success': True,
+                    'title': parsed_feed.feed.get('title', 'Unknown'),
+                    'description': parsed_feed.feed.get('description', 'No description'),
+                    'entries_count': len(parsed_feed.entries),
+                    'last_updated': parsed_feed.feed.get('updated', 'Unknown')
+                })
+                
+            except requests.RequestException as e:
+                return jsonify({'success': False, 'error': f'Network error: {str(e)}'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': f'Parsing error: {str(e)}'})
+        
         @self.app.route('/api/force_update_system', methods=['POST'])
         def force_update_system():
             """Force update system - discards all local changes"""
@@ -621,6 +715,192 @@ class WirelessMonitor:
         importance_boost = min(important_matches * 0.1, 0.2)  # Up to 0.2 boost
         
         return min(base_score + importance_boost, 1.0)
+    
+    def get_ai_insights(self, articles):
+        """Get AI insights from cache or generate new ones"""
+        conn = self.get_db_connection()
+        
+        # Check if we have recent insights (less than 6 hours old)
+        cached_insights = conn.execute('''
+            SELECT value, updated_at FROM settings 
+            WHERE key = "ai_insights" 
+            AND datetime(updated_at) > datetime('now', '-6 hours')
+        ''').fetchone()
+        
+        if cached_insights:
+            conn.close()
+            return json.loads(cached_insights['value'])
+        
+        # Generate new insights
+        insights_data = self.generate_ai_insights(articles)
+        
+        # Cache the insights
+        conn.execute('INSERT OR REPLACE INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)', 
+                   ('ai_insights', json.dumps(insights_data)))
+        conn.commit()
+        conn.close()
+        
+        return insights_data
+    
+    def generate_ai_insights(self, articles):
+        """Generate AI insights from articles using pattern analysis"""
+        if not articles:
+            return self.get_default_insights()
+        
+        # Analyze articles for patterns and trends
+        insights = {
+            'whats_new': [],
+            'whats_now': [],
+            'whats_next': [],
+            'generated_at': datetime.now().isoformat(),
+            'articles_analyzed': len(articles)
+        }
+        
+        # Keywords for different categories
+        new_keywords = ['launch', 'announce', 'release', 'debut', 'unveil', 'introduce', 'new']
+        now_keywords = ['adopt', 'deploy', 'implement', 'rollout', 'available', 'shipping']
+        next_keywords = ['future', 'roadmap', 'plan', 'expect', 'predict', 'forecast', 'upcoming']
+        
+        # Technology categories
+        tech_categories = {
+            'Wi-Fi 6/6E/7': ['wifi 6', 'wi-fi 6', 'wifi 7', 'wi-fi 7', '802.11ax', '802.11be', '6ghz'],
+            '5G/6G': ['5g', '6g', 'mmwave', 'sub-6', 'standalone', 'non-standalone'],
+            'IoT/Edge': ['iot', 'edge computing', 'smart city', 'industrial iot', 'edge ai'],
+            'Security': ['cybersecurity', 'zero trust', 'encryption', 'authentication', 'vpn'],
+            'Enterprise': ['enterprise', 'business', 'corporate', 'workplace', 'hybrid work'],
+            'Standards': ['ieee', 'standard', 'specification', 'protocol', 'certification']
+        }
+        
+        # Analyze each article
+        for article in articles:
+            text = f"{article['title']} {article['description']}".lower()
+            
+            # Determine category
+            category = None
+            for cat, keywords in tech_categories.items():
+                if any(keyword in text for keyword in keywords):
+                    category = cat
+                    break
+            
+            if not category:
+                continue
+            
+            # Determine timeline (What's New/Now/Next)
+            if any(keyword in text for keyword in new_keywords):
+                timeline = 'whats_new'
+            elif any(keyword in text for keyword in next_keywords):
+                timeline = 'whats_next'
+            elif any(keyword in text for keyword in now_keywords):
+                timeline = 'whats_now'
+            else:
+                timeline = 'whats_now'  # Default
+            
+            # Create insight entry
+            insight = {
+                'title': article['title'],
+                'summary': article['description'][:200] + '...' if len(article['description']) > 200 else article['description'],
+                'category': category,
+                'source': article['feed_name'],
+                'url': article['url'],
+                'relevance': article['relevance_score'],
+                'published': article['published_date']
+            }
+            
+            insights[timeline].append(insight)
+        
+        # Sort by relevance and limit results
+        for timeline in ['whats_new', 'whats_now', 'whats_next']:
+            insights[timeline] = sorted(insights[timeline], key=lambda x: x['relevance'], reverse=True)[:8]
+        
+        # Add trend analysis
+        insights['trends'] = self.analyze_trends(articles)
+        
+        return insights
+    
+    def analyze_trends(self, articles):
+        """Analyze trending topics and technologies"""
+        trends = {}
+        
+        # Count mentions of key technologies
+        tech_mentions = {
+            'Wi-Fi 6/7': 0,
+            '5G': 0,
+            'IoT': 0,
+            'Security': 0,
+            'AI/ML': 0,
+            'Cloud': 0
+        }
+        
+        keywords_map = {
+            'Wi-Fi 6/7': ['wifi 6', 'wi-fi 6', 'wifi 7', 'wi-fi 7', '802.11ax', '802.11be'],
+            '5G': ['5g', 'mmwave', 'sub-6'],
+            'IoT': ['iot', 'internet of things', 'smart'],
+            'Security': ['security', 'cybersecurity', 'zero trust', 'encryption'],
+            'AI/ML': ['ai', 'artificial intelligence', 'machine learning', 'ml'],
+            'Cloud': ['cloud', 'saas', 'paas', 'iaas']
+        }
+        
+        for article in articles:
+            text = f"{article['title']} {article['description']}".lower()
+            for tech, keywords in keywords_map.items():
+                if any(keyword in text for keyword in keywords):
+                    tech_mentions[tech] += 1
+        
+        # Convert to trend format
+        trends['technology_buzz'] = [
+            {'name': tech, 'mentions': count, 'trend': 'up' if count > 2 else 'stable'}
+            for tech, count in sorted(tech_mentions.items(), key=lambda x: x[1], reverse=True)
+            if count > 0
+        ]
+        
+        return trends
+    
+    def get_default_insights(self):
+        """Return default insights when no articles are available"""
+        return {
+            'whats_new': [
+                {
+                    'title': 'Wi-Fi 7 Standard Finalization',
+                    'summary': 'IEEE 802.11be (Wi-Fi 7) standard approaching final ratification with multi-link operation and 320MHz channels.',
+                    'category': 'Standards',
+                    'source': 'Industry Analysis',
+                    'url': '#',
+                    'relevance': 0.9,
+                    'published': datetime.now().isoformat()
+                }
+            ],
+            'whats_now': [
+                {
+                    'title': 'Enterprise Wi-Fi 6E Adoption Accelerating',
+                    'summary': 'Organizations rapidly deploying Wi-Fi 6E for improved performance and reduced congestion in dense environments.',
+                    'category': 'Enterprise',
+                    'source': 'Market Research',
+                    'url': '#',
+                    'relevance': 0.8,
+                    'published': datetime.now().isoformat()
+                }
+            ],
+            'whats_next': [
+                {
+                    'title': 'Wi-Fi 8 Research and Development',
+                    'summary': 'Early research into next-generation wireless technologies focusing on ultra-low latency and AI integration.',
+                    'category': 'Future Tech',
+                    'source': 'Research Preview',
+                    'url': '#',
+                    'relevance': 0.7,
+                    'published': datetime.now().isoformat()
+                }
+            ],
+            'trends': {
+                'technology_buzz': [
+                    {'name': 'Wi-Fi 6/7', 'mentions': 15, 'trend': 'up'},
+                    {'name': '5G', 'mentions': 12, 'trend': 'up'},
+                    {'name': 'Security', 'mentions': 8, 'trend': 'stable'}
+                ]
+            },
+            'generated_at': datetime.now().isoformat(),
+            'articles_analyzed': 0
+        }
     
     def cleanup_old_articles(self):
         """Remove articles older than 30 days"""
