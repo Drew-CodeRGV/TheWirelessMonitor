@@ -967,3 +967,42 @@ TypeError: jinja2.runtime.Context.call() got multiple values for keyword argumen
 2025-12-30 00:38:24,588 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:38:24] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
 2025-12-30 00:38:59,777 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:38:59] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
 2025-12-30 00:39:02,132 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:39:02] "POST /api/export_digest_script HTTP/1.1" 200 -
+2025-12-30 00:40:57,941 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 00:40:57] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 02:06:40,038 - __main__ - INFO - Cleaned up 8 old articles
+2025-12-30 06:37:04,756 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 06:37:04,761 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 06:37:04,768 - __main__ - ERROR - Error fetching feed Ars Technica Technology: HTTPSConnectionPool(host='feeds.arstechnica.com', port=443): Max retries exceeded with url: /arstechnica/technology-lab (Caused by NameResolutionError("HTTPSConnection(host='feeds.arstechnica.com', port=443): Failed to resolve 'feeds.arstechnica.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,768 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 06:37:04,771 - __main__ - ERROR - Error fetching feed TechCrunch: HTTPSConnectionPool(host='techcrunch.com', port=443): Max retries exceeded with url: /feed/ (Caused by NameResolutionError("HTTPSConnection(host='techcrunch.com', port=443): Failed to resolve 'techcrunch.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,771 - __main__ - INFO - Fetching feed: The Verge
+2025-12-30 06:37:04,774 - __main__ - ERROR - Error fetching feed The Verge: HTTPSConnectionPool(host='www.theverge.com', port=443): Max retries exceeded with url: /rss/index.xml (Caused by NameResolutionError("HTTPSConnection(host='www.theverge.com', port=443): Failed to resolve 'www.theverge.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,774 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-30 06:37:04,777 - __main__ - ERROR - Error fetching feed IEEE Spectrum: HTTPSConnectionPool(host='spectrum.ieee.org', port=443): Max retries exceeded with url: /rss (Caused by NameResolutionError("HTTPSConnection(host='spectrum.ieee.org', port=443): Failed to resolve 'spectrum.ieee.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,777 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-30 06:37:04,780 - __main__ - ERROR - Error fetching feed Fierce Wireless: HTTPSConnectionPool(host='www.fiercewireless.com', port=443): Max retries exceeded with url: /rss/xml (Caused by NameResolutionError("HTTPSConnection(host='www.fiercewireless.com', port=443): Failed to resolve 'www.fiercewireless.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,780 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 06:37:04,782 - __main__ - ERROR - Error fetching feed RCR Wireless News: HTTPSConnectionPool(host='www.rcrwireless.com', port=443): Max retries exceeded with url: /feed (Caused by NameResolutionError("HTTPSConnection(host='www.rcrwireless.com', port=443): Failed to resolve 'www.rcrwireless.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,782 - __main__ - INFO - Fetching feed: Wi-Fi Alliance News
+2025-12-30 06:37:04,785 - __main__ - ERROR - Error fetching feed Wi-Fi Alliance News: HTTPSConnectionPool(host='www.wi-fi.org', port=443): Max retries exceeded with url: /news-events/newsroom/rss (Caused by NameResolutionError("HTTPSConnection(host='www.wi-fi.org', port=443): Failed to resolve 'www.wi-fi.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,785 - __main__ - INFO - Fetching feed: Wireless Week
+2025-12-30 06:37:04,787 - __main__ - ERROR - Error fetching feed Wireless Week: HTTPSConnectionPool(host='www.wirelessweek.com', port=443): Max retries exceeded with url: /rss.xml (Caused by NameResolutionError("HTTPSConnection(host='www.wirelessweek.com', port=443): Failed to resolve 'www.wirelessweek.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,787 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 06:37:04,788 - __main__ - ERROR - Error fetching feed Google News: Wi-Fi: HTTPSConnectionPool(host='news.google.com', port=443): Max retries exceeded with url: /news/rss/search?q=Wi-Fi&hl=en (Caused by NameResolutionError("HTTPSConnection(host='news.google.com', port=443): Failed to resolve 'news.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,788 - __main__ - INFO - Fetching feed: Google News: CES 2025
+2025-12-30 06:37:04,790 - __main__ - ERROR - Error fetching feed Google News: CES 2025: HTTPSConnectionPool(host='news.google.com', port=443): Max retries exceeded with url: /news/rss/search?q=CES+2025+consumer+electronics+show&hl=en (Caused by NameResolutionError("HTTPSConnection(host='news.google.com', port=443): Failed to resolve 'news.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,791 - __main__ - INFO - Fetching feed: Google News: NRF 2025
+2025-12-30 06:37:04,792 - __main__ - ERROR - Error fetching feed Google News: NRF 2025: HTTPSConnectionPool(host='news.google.com', port=443): Max retries exceeded with url: /news/rss/search?q=NRF+2025+retail+big+show&hl=en (Caused by NameResolutionError("HTTPSConnection(host='news.google.com', port=443): Failed to resolve 'news.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,792 - __main__ - INFO - Fetching feed: Google News: CES 2026
+2025-12-30 06:37:04,794 - __main__ - ERROR - Error fetching feed Google News: CES 2026: HTTPSConnectionPool(host='news.google.com', port=443): Max retries exceeded with url: /news/rss/search?q=CES+2026+consumer+electronics+show&hl=en (Caused by NameResolutionError("HTTPSConnection(host='news.google.com', port=443): Failed to resolve 'news.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,794 - __main__ - INFO - Fetching feed: Google News: NRF 2026
+2025-12-30 06:37:04,796 - __main__ - ERROR - Error fetching feed Google News: NRF 2026: HTTPSConnectionPool(host='news.google.com', port=443): Max retries exceeded with url: /news/rss/search?q=NRF+2026+retail+big+show&hl=en (Caused by NameResolutionError("HTTPSConnection(host='news.google.com', port=443): Failed to resolve 'news.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-12-30 06:37:04,798 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 08:00:05,305 - __main__ - INFO - Auto-generating weekly digest...
+2025-12-30 08:00:05,308 - __main__ - INFO - Weekly digest already generated for this week
+2025-12-30 08:29:02,634 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:02] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:05,640 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:05] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:07,441 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:07] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:08,746 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:08] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:09,916 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:09] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:17,866 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:17] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2025-12-30 08:29:19,918 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 08:29:19] "GET /?view=newspaper HTTP/1.1" 200 -
