@@ -41,3 +41,254 @@
 2025-12-31 00:34:59,645 - __main__ - INFO - Starting RSS feed fetch...
 2025-12-31 00:34:59,645 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
 2025-12-31 00:34:59,646 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:39:22,483 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:39:22,483 - __main__ - INFO - Database initialized
+2025-12-31 00:39:22,488 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:39:22,488 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:39:22,488 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:39:22,491 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:39:22,615 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-31 00:39:22,616 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-31 00:39:22,616 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:39:22,715 - __main__ - INFO - 🎨 Auto-generating image for: OpenAI’s new ChatGPT image generator makes faking ...
+2025-12-31 00:39:22,715 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: OpenAI’s new ChatGPT image generator makes faking photos eas...
+2025-12-31 00:39:22,715 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/
+2025-12-31 00:39:22,918 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:39:22,919 - __main__ - INFO - Database initialized
+2025-12-31 00:39:22,924 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:39:22,924 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:39:22,924 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:39:22,924 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:39:22,952 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:39:22,962 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:39:23,468 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-31 00:39:23,470 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-31 00:39:23,471 - __main__ - INFO - ✅ Successfully scraped image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-31 00:39:23,471 - __main__ - INFO - ✅ Auto-generated image for article 1: https://cdn.arstechnica.net/wp-content/uploads/2025/12/barbarian_crt_1-1152x648.jpg
+2025-12-31 00:39:23,472 - __main__ - INFO - 🎨 Auto-generating image for: Browser extensions with 8 million users collect ex...
+2025-12-31 00:39:23,472 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Browser extensions with 8 million users collect extended AI ...
+2025-12-31 00:39:23,472 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/security/2025/12/browser-extensions-with-8-million-users-collect-extended-ai-conversations/
+2025-12-31 00:39:24,050 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-31 00:39:24,050 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-31 00:39:24,051 - __main__ - INFO - ✅ Successfully scraped image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-31 00:39:24,051 - __main__ - INFO - ✅ Auto-generated image for article 2: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-31 00:39:24,053 - __main__ - INFO - 🎨 Auto-generating image for: Operation Bluebird wants to relaunch “Twitter,” sa...
+2025-12-31 00:39:24,053 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Operation Bluebird wants to relaunch “Twitter,” says Musk ab...
+2025-12-31 00:39:24,053 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/information-technology/2025/12/can-twitter-fly-again-startup-wants-to-pry-iconic-trademark-from-musks-x/
+2025-12-31 00:39:24,555 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://cdn.arstechnica.net/wp-content/uploads/2023/03/getty-twitter-logo-1152x648-1765369763.jpg
+2025-12-31 00:39:24,555 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2023/03/getty-twitter-logo-1152x648-1765369763.jpg
+2025-12-31 00:39:24,556 - __main__ - INFO - ✅ Successfully scraped image: https://cdn.arstechnica.net/wp-content/uploads/2023/03/getty-twitter-logo-1152x648-1765369763.jpg
+2025-12-31 00:39:24,556 - __main__ - INFO - ✅ Auto-generated image for article 3: https://cdn.arstechnica.net/wp-content/uploads/2023/03/getty-twitter-logo-1152x648-1765369763.jpg
+2025-12-31 00:39:24,556 - __main__ - INFO - 🎨 Auto-generating image for: Meta offers EU users ad-light option in push to en...
+2025-12-31 00:39:24,556 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Meta offers EU users ad-light option in push to end investig...
+2025-12-31 00:39:24,556 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/information-technology/2025/12/meta-offers-eu-users-ad-light-option-in-push-to-end-investigation/
+2025-12-31 00:39:25,071 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://cdn.arstechnica.net/wp-content/uploads/2025/12/GettyImages-1359152239-1152x648.jpg
+2025-12-31 00:39:25,072 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/GettyImages-1359152239-1152x648.jpg
+2025-12-31 00:39:25,072 - __main__ - INFO - ✅ Successfully scraped image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/GettyImages-1359152239-1152x648.jpg
+2025-12-31 00:39:25,072 - __main__ - INFO - ✅ Auto-generated image for article 4: https://cdn.arstechnica.net/wp-content/uploads/2025/12/GettyImages-1359152239-1152x648.jpg
+2025-12-31 00:39:25,076 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:39:25,244 - __main__ - INFO - Fetching feed: The Verge
+2025-12-31 00:39:25,533 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-31 00:39:25,711 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-31 00:39:25,941 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:39:26,285 - __main__ - INFO - 🎨 Auto-generating image for: HCLTech acquires HPE telco unit...
+2025-12-31 00:39:26,285 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: HCLTech acquires HPE telco unit...
+2025-12-31 00:39:26,285 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/ai/hcltech-buys-hpe-telco
+2025-12-31 00:39:26,831 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:26,842 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:26,842 - __main__ - INFO - 🔍 Searching for images with smart keywords: technology, digital innovation, tech news
+2025-12-31 00:39:26,842 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:26,842 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:26,842 - __main__ - INFO - ✅ Auto-generated image for article 5: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:26,842 - __main__ - INFO - 🎨 Auto-generating image for: Ookla on the network trends shaping 2026...
+2025-12-31 00:39:26,843 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Ookla on the network trends shaping 2026...
+2025-12-31 00:39:26,843 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/uncategorized/ookla-network-trends
+2025-12-31 00:39:27,291 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:27,304 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:27,304 - __main__ - INFO - 🔍 Searching for images with smart keywords: computer network, networking, technology
+2025-12-31 00:39:27,304 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2025-12-31 00:39:27,305 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2025-12-31 00:39:27,305 - __main__ - INFO - ✅ Auto-generated image for article 6: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2025-12-31 00:39:27,306 - __main__ - INFO - 🎨 Auto-generating image for: 2026 predications — from Enea...
+2025-12-31 00:39:27,306 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: 2026 predications — from Enea...
+2025-12-31 00:39:27,306 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/network-infrastructure/2026-predications-enea
+2025-12-31 00:39:28,909 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:28] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:28,911 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:28] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:28,914 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:28] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:28,916 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:28] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:28,918 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:28] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:29,089 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:29,112 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:29,113 - __main__ - INFO - 🔍 Searching for images with smart keywords: technology, digital innovation, tech news
+2025-12-31 00:39:29,113 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:29,113 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:29,113 - __main__ - INFO - ✅ Auto-generated image for article 7: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:29,113 - __main__ - INFO - 🎨 Auto-generating image for: The mobile core’s dynamic future: AI, edge, disast...
+2025-12-31 00:39:29,113 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: The mobile core’s dynamic future: AI, edge, disaster protect...
+2025-12-31 00:39:29,113 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/network-infrastructure/mobile-core-future
+2025-12-31 00:39:30,843 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:30,856 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:30,856 - __main__ - INFO - 🔍 Searching for images with smart keywords: artificial intelligence, machine learning, neural network
+2025-12-31 00:39:30,856 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:30,857 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:30,857 - __main__ - INFO - ✅ Auto-generated image for article 8: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:30,857 - __main__ - INFO - 🎨 Auto-generating image for: Wi-Fi 2026 predictions: What to expect in the year...
+2025-12-31 00:39:30,857 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Wi-Fi 2026 predictions: What to expect in the year ahead (An...
+2025-12-31 00:39:30,857 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/analyst-angle/wi-fi-2026-predictions
+2025-12-31 00:39:31,309 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:31,315 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:31,315 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi router, wireless network, wifi signal
+2025-12-31 00:39:31,315 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:31,316 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:31,316 - __main__ - INFO - ✅ Auto-generated image for article 9: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop
+2025-12-31 00:39:31,316 - __main__ - INFO - 🎨 Auto-generating image for: 2026 6G predictions from Keysight (Reader Forum)...
+2025-12-31 00:39:31,316 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: 2026 6G predictions from Keysight (Reader Forum)...
+2025-12-31 00:39:31,316 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/6g/6g-predictions-keysight
+2025-12-31 00:39:31,703 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:31,709 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:31,709 - __main__ - INFO - 🔍 Searching for images with smart keywords: 6g technology, future wireless, next generation
+2025-12-31 00:39:31,709 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2025-12-31 00:39:31,710 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2025-12-31 00:39:31,710 - __main__ - INFO - ✅ Auto-generated image for article 10: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2025-12-31 00:39:31,710 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:39:32,705 - __main__ - INFO - 🎨 Auto-generating image for: IDC warns of major PC market downturn due to memor...
+2025-12-31 00:39:32,705 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: IDC warns of major PC market downturn due to memory crunch...
+2025-12-31 00:39:32,705 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/computing/idc-warns-of-major-pc-market-downturn-due-to-memory-crunch-214510197.html?src=rss
+2025-12-31 00:39:33,546 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-31 00:39:33,547 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-31 00:39:33,547 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-31 00:39:33,547 - __main__ - INFO - ✅ Auto-generated image for article 11: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-31 00:39:33,548 - __main__ - INFO - 🎨 Auto-generating image for: Samsung unveils its new $200 Galaxy A17 5G smartph...
+2025-12-31 00:39:33,548 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Samsung unveils its new $200 Galaxy A17 5G smartphone, arriv...
+2025-12-31 00:39:33,548 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-31 00:39:34,196 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-31 00:39:34,196 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-31 00:39:34,197 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-31 00:39:34,197 - __main__ - INFO - ✅ Auto-generated image for article 12: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-31 00:39:34,197 - __main__ - INFO - 🎨 Auto-generating image for: Netflix has released a trailer for the Stranger Th...
+2025-12-31 00:39:34,197 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Netflix has released a trailer for the Stranger Things final...
+2025-12-31 00:39:34,197 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/entertainment/streaming/netflix-has-released-a-trailer-for-the-stranger-things-finale-171204480.html?src=rss
+2025-12-31 00:39:35,253 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-31 00:39:35,254 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-31 00:39:35,254 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-31 00:39:35,254 - __main__ - INFO - ✅ Auto-generated image for article 13: https://s.yimg.com/os/creatr-uploaded-images/2025-12/cbc4b870-e5af-11f0-bcfe-8bacadee422b
+2025-12-31 00:39:35,256 - __main__ - INFO - 🎨 Auto-generating image for: TCL introduces its own take on a color Kindle Scri...
+2025-12-31 00:39:35,256 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: TCL introduces its own take on a color Kindle Scribe...
+2025-12-31 00:39:35,256 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-31 00:39:36,019 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-31 00:39:36,020 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-31 00:39:36,021 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-31 00:39:36,021 - __main__ - INFO - ✅ Auto-generated image for article 14: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-31 00:39:36,024 - __main__ - INFO - 🎨 Auto-generating image for: The Morning After: What to expect at CES 2026...
+2025-12-31 00:39:36,024 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: The Morning After: What to expect at CES 2026...
+2025-12-31 00:39:36,024 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/general/the-morning-after-engadget-newsletter-121511445.html?src=rss
+2025-12-31 00:39:36,726 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:36,728 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:36,730 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:36,730 - __main__ - INFO - ✅ Auto-generated image for article 15: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:36,732 - __main__ - INFO - 🎨 Auto-generating image for: The best iPad cases for 2026...
+2025-12-31 00:39:36,732 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: The best iPad cases for 2026...
+2025-12-31 00:39:36,732 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-31 00:39:37,885 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-31 00:39:37,886 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-31 00:39:37,886 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-31 00:39:37,886 - __main__ - INFO - ✅ Auto-generated image for article 16: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-31 00:39:37,887 - __main__ - INFO - 🎨 Auto-generating image for: Apple AirTag four-packs are on sale for $65 right ...
+2025-12-31 00:39:37,887 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Apple AirTag four-packs are on sale for $65 right now...
+2025-12-31 00:39:37,887 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/deals/apple-airtag-four-packs-are-on-sale-for-65-right-now-202333053.html?src=rss
+2025-12-31 00:39:38,543 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-31 00:39:38,545 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-31 00:39:38,547 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-31 00:39:38,547 - __main__ - INFO - ✅ Auto-generated image for article 17: https://s.yimg.com/ny/api/res/1.2/Q7Yf3aAPdc0JnCtZbeOMNg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/b1dfc4b0-dc4d-11f0-b3f7-063dfe660861
+2025-12-31 00:39:38,553 - __main__ - INFO - 🎨 Auto-generating image for: CES 2026: What to expect from tech’s biggest confe...
+2025-12-31 00:39:38,553 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: CES 2026: What to expect from tech’s biggest conference in J...
+2025-12-31 00:39:38,553 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/big-tech/ces-2026-what-to-expect-from-techs-biggest-conference-in-january-120000369.html?src=rss
+2025-12-31 00:39:39,333 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:39,334 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:39,334 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:39,334 - __main__ - INFO - ✅ Auto-generated image for article 18: https://s.yimg.com/ny/api/res/1.2/QFOGmivAJSZl1MAJAM6WAQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/e8dccbc3-be88-4b87-a625-47af0b588c1a
+2025-12-31 00:39:39,335 - __main__ - INFO - 🎨 Auto-generating image for: Rainbow Six Siege servers are back online after sh...
+2025-12-31 00:39:39,335 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Rainbow Six Siege servers are back online after shutting dow...
+2025-12-31 00:39:39,335 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/gaming/rainbow-six-siege-servers-are-back-online-after-shutting-down-in-response-to-marketplace-hacks-191049079.html?src=rss
+2025-12-31 00:39:40,029 - __main__ - INFO - ✅ Image passed ultra-relaxed validation: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-31 00:39:40,030 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-31 00:39:40,030 - __main__ - INFO - ✅ Successfully scraped image: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-31 00:39:40,030 - __main__ - INFO - ✅ Auto-generated image for article 19: https://s.yimg.com/os/creatr-uploaded-images/2025-12/50fd7350-e41c-11f0-97ed-30a1f41e5444
+2025-12-31 00:39:40,031 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:39:40,298 - __main__ - INFO - 🎨 Auto-generating image for: Google’s and OpenAI’s Chatbots Can Strip Women in ...
+2025-12-31 00:39:40,298 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Google’s and OpenAI’s Chatbots Can Strip Women in Photos Dow...
+2025-12-31 00:39:40,298 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.wired.com/story/google-and-openais-chatbots-can-strip-women-in-photos-down-to-bikinis/
+2025-12-31 00:39:40,446 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/test_social_urls.py', reloading
+2025-12-31 00:39:40,467 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:39:40,712 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:39:40,712 - __main__ - INFO - Database initialized
+2025-12-31 00:39:40,717 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:39:40,717 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:39:40,717 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:39:40,718 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:39:40,743 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:39:40,753 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:39:40,767 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-31 00:39:40,774 - __main__ - INFO - 🔍 No images found on article page, trying keyword-based search...
+2025-12-31 00:39:40,774 - __main__ - INFO - 🔍 Searching for images with smart keywords: google logo, google technology, android
+2025-12-31 00:39:40,774 - __main__ - INFO - ✅ Found keyword-based image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:40,775 - __main__ - INFO - ✅ Successfully scraped image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:40,775 - __main__ - INFO - ✅ Auto-generated image for article 20: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop
+2025-12-31 00:39:40,777 - __main__ - INFO - RSS fetch completed: 20 new articles
+2025-12-31 00:39:40,791 - __main__ - INFO - Detected new event: CES 2026
+2025-12-31 00:39:40,792 - __main__ - INFO - Auto-categorized 5 articles for events
+2025-12-31 00:39:40,901 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:39:41,051 - __main__ - INFO - Fetching feed: The Verge
+2025-12-31 00:39:41,297 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-31 00:39:41,534 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-31 00:39:41,678 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:39:42,008 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:39:42,610 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:39:42,920 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:39:43,084 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:43,110 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:43,116 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:43,120 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:39:43,129 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:39:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:00,280 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/test_social_urls.py', reloading
+2025-12-31 00:40:00,298 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:40:00,531 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:40:00,531 - __main__ - INFO - Database initialized
+2025-12-31 00:40:00,535 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:40:00,535 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:40:00,536 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:40:00,536 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:40:00,562 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:40:00,571 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:40:00,756 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:40:00,904 - __main__ - INFO - Fetching feed: The Verge
+2025-12-31 00:40:01,043 - __main__ - INFO - Fetching feed: IEEE Spectrum
+2025-12-31 00:40:01,190 - __main__ - INFO - Fetching feed: Fierce Wireless
+2025-12-31 00:40:01,343 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:40:01,630 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:40:02,153 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:40:02,360 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:40:03,165 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:03] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:03,169 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:03] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:03,172 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:03] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:03,174 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:03] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:03,176 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:03] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:11,999 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:11] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:12,002 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:12] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:12,006 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:12] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:12,009 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:12] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:12,012 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:12] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:21,308 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:21] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:43,158 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:43,163 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:43,171 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:43,176 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:40:43,180 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:40:43] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:42:34,288 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:42:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:42:34,295 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:42:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:42:34,301 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:42:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:42:34,307 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:42:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:42:34,311 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:42:34] "POST /api/share_article HTTP/1.1" 200 -

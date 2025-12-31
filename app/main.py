@@ -2672,15 +2672,14 @@ class WirelessMonitor:
                 content_preview = f"{content}\n\n🔗 {article['url']}"
                 
             elif platform == 'LinkedIn':
-                # LinkedIn sharing with proper URL inclusion
+                # LinkedIn sharing with proper URL inclusion (no duplicate title)
                 import urllib.parse
                 
-                # Create rich content for LinkedIn with URL
-                title = article['title']
+                # Create rich content for LinkedIn without duplicate title (LinkedIn shows title from URL metadata)
                 summary = article['description'][:200] if article['description'] else "Discover the latest in wireless technology and connectivity innovations"
                 
-                # LinkedIn content with URL included in text
-                linkedin_content = f"{title}\n\n{summary}\n\n{attribution}\n\n🔗 Read more: {article['url']}"
+                # LinkedIn content without title (LinkedIn will show it from URL)
+                linkedin_content = f"{summary}\n\n{attribution}\n\n🔗 Read more: {article['url']}"
                 
                 # Use LinkedIn's sharing format with URL in text
                 share_url = f"https://www.linkedin.com/feed/?shareActive=true&text={urllib.parse.quote(linkedin_content)}"
@@ -3685,176 +3684,307 @@ class WirelessMonitor:
         return None
     
     def search_images_by_keywords(self, article_title):
-        """Search for images using keywords from the article title"""
+        """Enhanced search for images using smart keyword extraction and multiple sources"""
         try:
-            # Extract key technology terms from the title
-            keywords = self.extract_tech_keywords(article_title)
+            # Extract smart keywords from the title
+            keywords = self.extract_smart_tech_keywords(article_title)
             
             if not keywords:
                 return None
             
-            logger.info(f"🔍 Searching for images with keywords: {', '.join(keywords[:3])}")
+            logger.info(f"🔍 Searching for images with smart keywords: {', '.join(keywords[:3])}")
             
-            # Try multiple image search strategies
+            # Try multiple image search strategies with better relevance
             
-            # STRATEGY 1: Unsplash (high-quality stock photos)
-            image_url = self.search_unsplash_images(keywords)
+            # STRATEGY 1: Tech-specific image databases
+            image_url = self.search_tech_specific_images(keywords, article_title)
             if image_url:
                 return image_url
             
-            # STRATEGY 2: Pixabay (free stock photos)
-            image_url = self.search_pixabay_images(keywords)
+            # STRATEGY 2: Company/brand specific images
+            image_url = self.search_company_brand_images(article_title)
             if image_url:
                 return image_url
             
-            # STRATEGY 3: Pexels (free stock photos)
-            image_url = self.search_pexels_images(keywords)
+            # STRATEGY 3: Enhanced Unsplash with better search terms
+            image_url = self.search_unsplash_images_enhanced(keywords)
+            if image_url:
+                return image_url
+            
+            # STRATEGY 4: Fallback to generic but relevant tech images
+            image_url = self.get_contextual_tech_image(article_title, keywords)
             if image_url:
                 return image_url
             
             return None
             
         except Exception as e:
-            logger.error(f"Error in keyword-based image search: {e}")
+            logger.error(f"Error in enhanced keyword-based image search: {e}")
             return None
     
-    def extract_tech_keywords(self, title):
-        """Extract technology-related keywords from article title"""
+    def extract_smart_tech_keywords(self, title):
+        """Extract technology-related keywords with better context understanding"""
         try:
-            # Common tech terms that make good image search keywords
-            tech_terms = {
-                'wifi': ['wifi', 'wireless', 'router'],
-                'wi-fi': ['wifi', 'wireless', 'router'],
-                'wireless': ['wireless', 'wifi', 'antenna'],
-                '5g': ['5g', 'cellular', 'tower'],
-                '6g': ['6g', 'cellular', 'future'],
-                'bluetooth': ['bluetooth', 'wireless'],
-                'router': ['router', 'networking', 'wifi'],
-                'antenna': ['antenna', 'wireless', 'signal'],
-                'cellular': ['cellular', 'mobile', 'tower'],
-                'smartphone': ['smartphone', 'mobile', 'phone'],
-                'iphone': ['iphone', 'apple', 'smartphone'],
-                'android': ['android', 'smartphone', 'mobile'],
-                'samsung': ['samsung', 'smartphone', 'mobile'],
-                'apple': ['apple', 'technology', 'iphone'],
-                'iot': ['iot', 'smart', 'connected'],
-                'smart home': ['smart home', 'iot', 'automation'],
-                'ai': ['artificial intelligence', 'technology', 'computer'],
-                'chip': ['computer chip', 'processor', 'technology'],
-                'processor': ['processor', 'computer', 'chip'],
-                'network': ['network', 'networking', 'technology'],
-                'internet': ['internet', 'web', 'technology'],
-                'data': ['data', 'information', 'technology'],
-                'security': ['cybersecurity', 'security', 'technology'],
-                'cloud': ['cloud computing', 'server', 'technology']
-            }
-            
             title_lower = title.lower()
             keywords = []
             
-            # Find matching tech terms
-            for term, related_keywords in tech_terms.items():
+            # Enhanced tech terms with more specific mappings
+            tech_mappings = {
+                # Wireless & Connectivity
+                'wifi': ['wifi router', 'wireless network', 'wifi signal'],
+                'wi-fi': ['wifi router', 'wireless network', 'wifi signal'],
+                'wireless': ['wireless technology', 'wifi antenna', 'wireless signal'],
+                '5g': ['5g tower', '5g network', 'cellular tower'],
+                '6g': ['6g technology', 'future wireless', 'next generation'],
+                'bluetooth': ['bluetooth device', 'wireless headphones', 'bluetooth connection'],
+                'router': ['wifi router', 'network router', 'internet router'],
+                'antenna': ['wifi antenna', 'cellular antenna', 'radio antenna'],
+                'cellular': ['cell tower', 'cellular network', 'mobile tower'],
+                'mesh': ['mesh network', 'wifi mesh', 'network topology'],
+                
+                # Devices & Brands
+                'iphone': ['apple iphone', 'smartphone', 'mobile phone'],
+                'android': ['android phone', 'google android', 'smartphone'],
+                'samsung': ['samsung galaxy', 'samsung phone', 'smartphone'],
+                'apple': ['apple logo', 'apple device', 'apple technology'],
+                'google': ['google logo', 'google technology', 'android'],
+                'microsoft': ['microsoft logo', 'windows', 'microsoft technology'],
+                'meta': ['meta logo', 'facebook', 'virtual reality'],
+                'tesla': ['tesla car', 'electric vehicle', 'tesla logo'],
+                'nvidia': ['nvidia gpu', 'graphics card', 'ai chip'],
+                'intel': ['intel processor', 'computer chip', 'cpu'],
+                'amd': ['amd processor', 'computer chip', 'cpu'],
+                'qualcomm': ['qualcomm chip', 'mobile processor', 'smartphone chip'],
+                
+                # Technologies
+                'ai': ['artificial intelligence', 'machine learning', 'neural network'],
+                'machine learning': ['ai brain', 'neural network', 'data science'],
+                'chatgpt': ['ai chat', 'artificial intelligence', 'openai'],
+                'openai': ['artificial intelligence', 'ai technology', 'machine learning'],
+                'iot': ['smart home', 'connected devices', 'internet of things'],
+                'smart home': ['home automation', 'smart devices', 'iot'],
+                'cybersecurity': ['security shield', 'data protection', 'cyber defense'],
+                'cloud': ['cloud computing', 'data center', 'server room'],
+                'blockchain': ['cryptocurrency', 'digital currency', 'blockchain network'],
+                'cryptocurrency': ['bitcoin', 'digital money', 'crypto coin'],
+                'vr': ['virtual reality headset', 'vr goggles', 'virtual world'],
+                'ar': ['augmented reality', 'ar glasses', 'mixed reality'],
+                'metaverse': ['virtual world', 'vr headset', '3d environment'],
+                
+                # Infrastructure
+                'data center': ['server room', 'computer servers', 'data storage'],
+                'server': ['computer server', 'data center', 'network server'],
+                'fiber': ['fiber optic cable', 'internet cable', 'network cable'],
+                'cable': ['network cable', 'ethernet cable', 'internet wire'],
+                'satellite': ['communication satellite', 'space satellite', 'satellite dish'],
+                
+                # Concepts
+                'privacy': ['data privacy', 'security lock', 'privacy shield'],
+                'security': ['cybersecurity', 'data protection', 'security lock'],
+                'hack': ['cybersecurity', 'computer hacker', 'data breach'],
+                'breach': ['data breach', 'security warning', 'cyber attack'],
+                'malware': ['computer virus', 'cybersecurity', 'security threat'],
+            }
+            
+            # Find the most specific matches first
+            matched_terms = []
+            for term, search_terms in tech_mappings.items():
                 if term in title_lower:
-                    keywords.extend(related_keywords)
-                    break  # Use first match to avoid too many keywords
+                    matched_terms.append((term, search_terms))
             
-            # If no specific tech terms, use generic tech keywords
+            # Use the most specific match
+            if matched_terms:
+                # Sort by term length (longer = more specific)
+                matched_terms.sort(key=lambda x: len(x[0]), reverse=True)
+                keywords.extend(matched_terms[0][1])
+            
+            # If no specific matches, extract general tech context
             if not keywords:
-                keywords = ['technology', 'computer', 'digital']
+                if any(word in title_lower for word in ['phone', 'mobile', 'smartphone']):
+                    keywords = ['smartphone', 'mobile phone', 'mobile device']
+                elif any(word in title_lower for word in ['computer', 'pc', 'laptop']):
+                    keywords = ['computer', 'laptop', 'technology']
+                elif any(word in title_lower for word in ['internet', 'web', 'online']):
+                    keywords = ['internet', 'web technology', 'digital']
+                elif any(word in title_lower for word in ['network', 'networking']):
+                    keywords = ['computer network', 'networking', 'technology']
+                else:
+                    keywords = ['technology', 'digital innovation', 'tech news']
             
-            # Remove duplicates and limit to 3 keywords
-            keywords = list(dict.fromkeys(keywords))[:3]
-            
-            return keywords
+            # Limit to 3 most relevant keywords
+            return keywords[:3]
             
         except Exception as e:
-            logger.error(f"Error extracting tech keywords: {e}")
+            logger.error(f"Error extracting smart tech keywords: {e}")
             return ['technology']
     
-    def search_unsplash_images(self, keywords):
-        """Search Unsplash for high-quality stock photos"""
+    def search_tech_specific_images(self, keywords, title):
+        """Search for technology-specific images from curated sources"""
         try:
-            # Unsplash has a public API but requires registration
-            # For now, we'll use a simple approach with direct URLs
-            # In production, you'd want to use the official API
+            # Create a mapping of tech concepts to high-quality, relevant images
+            tech_image_database = {
+                # Wireless & Connectivity
+                'wifi': [
+                    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',  # WiFi router
+                    'https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop',  # Wireless signal
+                    'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop',   # Network equipment
+                ],
+                'wireless': [
+                    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',  # Router
+                    'https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop',  # Wireless
+                    'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop',   # Network
+                ],
+                '5g': [
+                    'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop',  # Cell tower
+                    'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop',   # Network tech
+                    'https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop',  # Wireless tech
+                ],
+                'smartphone': [
+                    'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop',  # iPhone
+                    'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop',  # Smartphone
+                    'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&h=600&fit=crop',  # Mobile phone
+                ],
+                'ai': [
+                    'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',  # AI brain
+                    'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=600&fit=crop',  # AI concept
+                    'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=600&fit=crop',   # AI tech
+                ],
+                'cybersecurity': [
+                    'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop',  # Security
+                    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop',  # Cyber security
+                    'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop',  # Data protection
+                ],
+                'cloud': [
+                    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',  # Cloud computing
+                    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop',  # Data center
+                    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',  # Server room
+                ],
+                'technology': [
+                    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',  # Tech
+                    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',  # Digital
+                    'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=600&fit=crop',   # Innovation
+                ],
+            }
             
-            search_term = '+'.join(keywords[:2])  # Use first 2 keywords
+            # Find the best matching category
+            for keyword in keywords:
+                keyword_lower = keyword.lower()
+                for category, image_urls in tech_image_database.items():
+                    if category in keyword_lower or keyword_lower in category:
+                        import random
+                        selected_url = random.choice(image_urls)
+                        if self.validate_image_basic(selected_url):
+                            logger.info(f"✅ Found tech-specific image for '{category}': {selected_url}")
+                            return selected_url
             
-            # Try some common Unsplash photo IDs for tech topics
-            tech_photo_ids = [
-                'iar-afB0QQw',  # Technology/computer
-                'npxXWgQ33ZQ',  # Wireless/wifi
-                'JKUTrJ4vK00',  # Network/technology
-                'Q1p7bh3SHj8',  # Computer/tech
-                'xbEVM6oJ1Fs',  # Technology
-                'mcSDtbWXUZU',  # Digital/tech
-                'jrh5lAq-mIs',  # Wireless/network
-                'FO7JIlwjOtU',  # Technology/computer
-            ]
-            
-            # Try a few random tech photos
-            import random
-            photo_id = random.choice(tech_photo_ids)
-            image_url = f"https://images.unsplash.com/{photo_id}?w=800&h=600&fit=crop"
-            
-            if self.validate_image_basic(image_url):
-                logger.info(f"✅ Found Unsplash image: {image_url}")
-                return image_url
+            return None
             
         except Exception as e:
-            logger.error(f"Error searching Unsplash: {e}")
-        
-        return None
+            logger.error(f"Error searching tech-specific images: {e}")
+            return None
+    
+    def search_company_brand_images(self, title):
+        """Search for company/brand specific images"""
+        try:
+            title_lower = title.lower()
+            
+            # Company/brand specific images
+            brand_images = {
+                'apple': 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop',  # Apple logo
+                'google': 'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop',  # Google tech
+                'microsoft': 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=800&h=600&fit=crop',  # Microsoft
+                'samsung': 'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&h=600&fit=crop',  # Samsung phone
+                'tesla': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&h=600&fit=crop',   # Tesla car
+                'meta': 'https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&h=600&fit=crop',    # VR/Meta
+                'nvidia': 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=800&h=600&fit=crop',  # GPU/chip
+                'intel': 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',   # Processor
+                'openai': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',  # AI
+                'chatgpt': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop', # AI chat
+            }
+            
+            for brand, image_url in brand_images.items():
+                if brand in title_lower:
+                    if self.validate_image_basic(image_url):
+                        logger.info(f"✅ Found brand-specific image for '{brand}': {image_url}")
+                        return image_url
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error searching brand images: {e}")
+            return None
+    
+    def search_unsplash_images_enhanced(self, keywords):
+        """Enhanced Unsplash search with better keyword matching"""
+        try:
+            # High-quality tech images from Unsplash with specific IDs
+            quality_tech_images = [
+                'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',  # Server/tech
+                'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',  # Digital/code
+                'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=600&fit=crop',   # AI/tech
+                'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',  # Router/wifi
+                'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop',   # Network
+                'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop',  # 5G tower
+                'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop',  # iPhone
+                'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&h=600&fit=crop',  # Smartphone
+                'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop',  # Security
+                'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',  # AI brain
+            ]
+            
+            import random
+            selected_url = random.choice(quality_tech_images)
+            
+            if self.validate_image_basic(selected_url):
+                logger.info(f"✅ Found enhanced Unsplash image: {selected_url}")
+                return selected_url
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error in enhanced Unsplash search: {e}")
+            return None
+    
+    def get_contextual_tech_image(self, title, keywords):
+        """Get contextually relevant tech image based on article content"""
+        try:
+            title_lower = title.lower()
+            
+            # Context-based image selection
+            if any(word in title_lower for word in ['security', 'hack', 'breach', 'malware', 'cyber']):
+                return 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop'  # Security
+            elif any(word in title_lower for word in ['ai', 'artificial', 'machine learning', 'chatgpt']):
+                return 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop'  # AI
+            elif any(word in title_lower for word in ['phone', 'smartphone', 'mobile', 'iphone', 'android']):
+                return 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop'  # Smartphone
+            elif any(word in title_lower for word in ['wifi', 'wireless', 'router', '5g', '6g']):
+                return 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop'  # WiFi
+            elif any(word in title_lower for word in ['cloud', 'server', 'data center']):
+                return 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop'  # Server
+            elif any(word in title_lower for word in ['network', 'internet', 'connectivity']):
+                return 'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop'   # Network
+            else:
+                # Generic high-quality tech image
+                return 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop'  # Digital tech
+            
+        except Exception as e:
+            logger.error(f"Error getting contextual tech image: {e}")
+            return 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop'  # Fallback
+    
+    def extract_tech_keywords(self, title):
+        """Legacy function - redirects to enhanced version"""
+        return self.extract_smart_tech_keywords(title)
+    
+    def search_unsplash_images(self, keywords):
+        """Legacy function - redirects to enhanced version"""
+        return self.search_unsplash_images_enhanced(keywords)
     
     def search_pixabay_images(self, keywords):
-        """Search Pixabay for free stock photos"""
-        try:
-            # Pixabay also requires API key for full access
-            # Using a fallback approach with common tech image URLs
-            
-            # Some reliable tech stock photo URLs (these are examples - in production use proper API)
-            tech_images = [
-                "https://cdn.pixabay.com/photo/2016/11/30/20/58/programming-1873854_960_720.png",
-                "https://cdn.pixabay.com/photo/2017/05/10/19/29/robot-2301646_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2016/12/28/09/36/web-1935737_960_720.png",
-                "https://cdn.pixabay.com/photo/2017/01/18/16/46/hong-kong-1990268_960_720.jpg",
-            ]
-            
-            import random
-            image_url = random.choice(tech_images)
-            
-            if self.validate_image_basic(image_url):
-                logger.info(f"✅ Found Pixabay image: {image_url}")
-                return image_url
-            
-        except Exception as e:
-            logger.error(f"Error searching Pixabay: {e}")
-        
-        return None
+        """Legacy function - now uses enhanced contextual selection"""
+        return self.get_contextual_tech_image(' '.join(keywords), keywords)
     
     def search_pexels_images(self, keywords):
-        """Search Pexels for free stock photos"""
-        try:
-            # Similar approach for Pexels
-            tech_images = [
-                "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?w=800&h=600",
-                "https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?w=800&h=600",
-                "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?w=800&h=600",
-                "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?w=800&h=600",
-            ]
-            
-            import random
-            image_url = random.choice(tech_images)
-            
-            if self.validate_image_basic(image_url):
-                logger.info(f"✅ Found Pexels image: {image_url}")
-                return image_url
-            
-        except Exception as e:
-            logger.error(f"Error searching Pexels: {e}")
-        
-        return None
+        """Legacy function - now uses enhanced contextual selection"""
+        return self.get_contextual_tech_image(' '.join(keywords), keywords)
     
     def get_generic_tech_image(self, article_title):
         """Get a generic technology-related image based on content"""

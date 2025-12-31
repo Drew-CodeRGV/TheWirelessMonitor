@@ -7099,3 +7099,67 @@
 2025-12-31 00:35:06,002 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -
 2025-12-31 00:35:06,007 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -
 2025-12-31 00:35:06,011 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:29,048 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:29] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:35:30,755 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:30] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:35:32,718 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:32] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:35:33,856 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:33] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:34,365 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:34,631 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:34] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:35,018 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:35] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:36:52,038 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:36:52,058 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:36:52,330 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:36:52,330 - __main__ - INFO - Database initialized
+2025-12-31 00:36:52,335 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:36:52,335 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:36:52,336 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:36:52,337 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:36:52,364 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:36:52,373 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:36:52,573 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:36:52,767 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:36:53,139 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:36:53,714 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:36:57,690 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:36:58,513 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:36:59,028 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:36:59,779 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:36:59,802 - __main__ - INFO - Auto-categorized 4 articles for events
+2025-12-31 00:38:14,650 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:38:14,671 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:38:14,937 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:38:14,937 - __main__ - INFO - Database initialized
+2025-12-31 00:38:14,941 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:38:14,941 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:38:14,942 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:38:14,944 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:38:14,971 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:38:14,984 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:38:15,163 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:38:15,305 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:38:15,587 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:38:16,176 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:38:16,371 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:38:16,726 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:38:17,001 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:38:17,324 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:38:25,430 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:38:25,450 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:38:25,713 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:38:25,714 - __main__ - INFO - Database initialized
+2025-12-31 00:38:25,719 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:38:25,719 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:38:25,719 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:38:25,720 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:38:25,754 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:38:25,765 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:38:26,101 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:38:26,244 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:38:26,549 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:38:27,087 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:38:27,232 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:38:27,633 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:38:27,915 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:38:28,321 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:38:43,147 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:38:43,169 - werkzeug - INFO -  * Restarting with stat
