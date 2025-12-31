@@ -1170,3 +1170,14 @@
 2025-12-30 18:30:00,575 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
 2025-12-30 18:30:00,880 - __main__ - INFO - Fetching feed: Google News: wifi
 2025-12-30 18:30:01,186 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 18:33:29,527 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:33:29] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:33:33,331 - __main__ - INFO - 🎨 Generating photorealistic image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 18:33:33,332 - __main__ - INFO - Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 18:33:36,942 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 18:33:38,635 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Get this M3 iPad Air with 5G for less than Apple charges f...
+2025-12-30 18:33:38,635 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 18:33:38,635 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Get this M3 iPad Air with 5G for less than Apple charges f...
+2025-12-30 18:33:56,842 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_3d8d75ebe2c3.png
+2025-12-30 18:33:56,844 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_3d8d75ebe2c3.png
+2025-12-30 18:33:56,845 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:33:56] "POST /api/generate_article_image/93 HTTP/1.1" 200 -
+2025-12-30 18:33:56,852 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:33:56] "GET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1" 200 -
