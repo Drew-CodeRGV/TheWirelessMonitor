@@ -33,6 +33,7 @@ try:
     import psutil
 except ImportError:
     psutil = None
+    print("Warning: psutil not available - system stats will be limited")
     
 try:
     from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
@@ -668,14 +669,30 @@ class WirelessMonitor:
             # Get AI model status
             ai_status = self.get_ai_model_status()
             
-            # Get system info
-            import psutil
-            system_info = {
-                'cpu_percent': psutil.cpu_percent(interval=1),
-                'memory_percent': psutil.virtual_memory().percent,
-                'disk_percent': psutil.disk_usage('/').percent,
-                'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
-            }
+            # Get system info (handle missing psutil gracefully)
+            if psutil:
+                try:
+                    system_info = {
+                        'cpu_percent': psutil.cpu_percent(interval=1),
+                        'memory_percent': psutil.virtual_memory().percent,
+                        'disk_percent': psutil.disk_usage('/').percent,
+                        'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
+                    }
+                except Exception as e:
+                    logger.warning(f"Error getting system info: {e}")
+                    system_info = {
+                        'cpu_percent': 0,
+                        'memory_percent': 0,
+                        'disk_percent': 0,
+                        'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
+                    }
+            else:
+                system_info = {
+                    'cpu_percent': 0,
+                    'memory_percent': 0,
+                    'disk_percent': 0,
+                    'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
+                }
             
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
@@ -695,17 +712,26 @@ class WirelessMonitor:
         def system_status():
             """Get real-time system status"""
             try:
-                import psutil
-                
-                status = {
-                    'cpu_percent': psutil.cpu_percent(interval=0.1),
-                    'memory_percent': psutil.virtual_memory().percent,
-                    'disk_percent': psutil.disk_usage('/').percent,
-                    'network_io': dict(psutil.net_io_counters()._asdict()),
-                    'process_count': len(psutil.pids()),
-                    'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0,
-                    'ai_models': self.get_ai_model_status()
-                }
+                if psutil:
+                    status = {
+                        'cpu_percent': psutil.cpu_percent(interval=0.1),
+                        'memory_percent': psutil.virtual_memory().percent,
+                        'disk_percent': psutil.disk_usage('/').percent,
+                        'network_io': dict(psutil.net_io_counters()._asdict()),
+                        'process_count': len(psutil.pids()),
+                        'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0,
+                        'ai_models': self.get_ai_model_status()
+                    }
+                else:
+                    status = {
+                        'cpu_percent': 0,
+                        'memory_percent': 0,
+                        'disk_percent': 0,
+                        'network_io': {},
+                        'process_count': 0,
+                        'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0,
+                        'ai_models': self.get_ai_model_status()
+                    }
                 
                 return jsonify({'success': True, 'status': status})
             except Exception as e:
@@ -3376,13 +3402,9 @@ class WirelessMonitor:
             return False
     
     def generate_ai_image_local(self, title, description):
-        """Generate photorealistic stock photo-style images based on article content using Stable Diffusion"""
+        """Generate photorealistic images using Stable Diffusion - NO TEXT OVERLAYS"""
         try:
-            logger.info(f"Generating photorealistic image for: {title[:50]}...")
-            
-            if not Image:
-                logger.warning("PIL Image not available")
-                return None
+            logger.info(f"🎨 Generating photorealistic image for: {title[:50]}...")
             
             # Create content hash for caching
             content = f"{title} {description}"
@@ -3396,85 +3418,106 @@ class WirelessMonitor:
             
             # Check if image already exists
             if os.path.exists(image_path):
+                logger.info(f"Using cached image: {image_path}")
                 return f'/static/generated_images/article_{content_hash}.png'
             
-            # Try Stable Diffusion first (if available)
+            # PRIORITY 1: Try Stable Diffusion (REQUIRED - no fallback to text overlays)
+            logger.info(f"🚀 Attempting Stable Diffusion generation...")
             if self.try_stable_diffusion_generation(title, description, image_path):
+                logger.info(f"✅ Stable Diffusion SUCCESS: {image_path}")
                 return f'/static/generated_images/article_{content_hash}.png'
             
-            # Fallback to enhanced photorealistic PIL generation
-            img = self.create_photorealistic_stock_image(title, description, content)
-            
-            if img:
-                # Save the image
-                img.save(image_path, 'PNG', quality=95, optimize=True)
-                logger.info(f"✅ Photorealistic image saved: {image_path}")
-                return f'/static/generated_images/article_{content_hash}.png'
-            else:
-                logger.warning("Failed to create photorealistic image")
-                return None
+            # If Stable Diffusion fails, DO NOT create text overlay images
+            logger.warning(f"❌ Stable Diffusion failed for: {title[:50]}... - NO FALLBACK TO TEXT OVERLAYS")
+            return None
             
         except Exception as e:
-            logger.error(f"Error generating photorealistic AI image: {e}")
+            logger.error(f"Error in AI image generation: {e}")
             return None
     
     def try_stable_diffusion_generation(self, title, description, image_path):
-        """Try to generate image using Stable Diffusion"""
+        """Try to generate image using Stable Diffusion with exact headline text"""
         try:
+            logger.info(f"🔍 Checking Stable Diffusion availability...")
+            
             # Check if we have Stable Diffusion available
             try:
-                from diffusers import StableDiffusionPipeline
                 import torch
+                from diffusers import StableDiffusionPipeline
+                logger.info(f"✅ Stable Diffusion imports successful")
                 
                 # Use CPU-optimized model for compatibility
                 model_id = "runwayml/stable-diffusion-v1-5"
                 
                 # Check if we have a cached pipeline
                 if not hasattr(self, '_sd_pipeline'):
-                    logger.info("Loading Stable Diffusion model (this may take a few minutes on first run)...")
-                    self._sd_pipeline = StableDiffusionPipeline.from_pretrained(
-                        model_id,
-                        torch_dtype=torch.float32,  # Use float32 for CPU compatibility
-                        use_safetensors=True
-                    )
-                    # Optimize for CPU/low memory
-                    self._sd_pipeline.enable_attention_slicing()
-                    if hasattr(self._sd_pipeline, 'enable_sequential_cpu_offload'):
-                        self._sd_pipeline.enable_sequential_cpu_offload()
+                    logger.info("📥 Loading Stable Diffusion model (this may take a few minutes on first run)...")
+                    try:
+                        # Use CPU and proper device handling
+                        device = "cpu"  # Force CPU to avoid CUDA issues
+                        
+                        self._sd_pipeline = StableDiffusionPipeline.from_pretrained(
+                            model_id,
+                            torch_dtype=torch.float32,  # Use float32 for CPU compatibility
+                            use_safetensors=True,
+                            device_map=None  # Don't use device_map for CPU
+                        )
+                        
+                        # Move to CPU explicitly
+                        self._sd_pipeline = self._sd_pipeline.to(device)
+                        
+                        # Optimize for CPU/low memory
+                        self._sd_pipeline.enable_attention_slicing()
+                        if hasattr(self._sd_pipeline, 'enable_sequential_cpu_offload'):
+                            self._sd_pipeline.enable_sequential_cpu_offload()
+                        
+                        logger.info("✅ Stable Diffusion pipeline loaded successfully")
+                    except Exception as load_error:
+                        logger.error(f"❌ Failed to load Stable Diffusion pipeline: {load_error}")
+                        return False
                 
-                # Create a detailed prompt using the EXACT headline text as requested
-                prompt = self.create_photorealistic_prompt_from_headline(title, description)
+                # Create the exact prompt as requested: "create a photorealistic image depicting HEADLINE TEXT HERE"
+                prompt = f"create a photorealistic image depicting {title}"
                 
-                # Create comprehensive negative prompt to avoid text and simple backgrounds
-                negative_prompt = "text, words, letters, typography, captions, logos, watermarks, simple background, plain background, solid color background, graphic design, cartoon, anime, low quality, blurry, text overlay, writing, signs, labels"
+                # Enhanced negative prompt to prevent text overlays
+                negative_prompt = "text, words, letters, typography, captions, logos, watermarks, simple background, plain background, solid color background, graphic design, cartoon, anime, low quality, blurry, text overlay, writing, signs, labels, banners, headlines, titles"
                 
-                # Generate image with improved settings
-                logger.info(f"🎨 Generating Stable Diffusion image for: '{title[:60]}...'")
-                logger.info(f"📝 Using prompt: {prompt[:100]}...")
+                # Generate image with optimal settings
+                logger.info(f"🎨 Generating Stable Diffusion image...")
+                logger.info(f"📝 Prompt: '{prompt}'")
+                logger.info(f"🚫 Negative: '{negative_prompt[:50]}...'")
                 
-                image = self._sd_pipeline(
-                    prompt,
-                    negative_prompt=negative_prompt,
-                    num_inference_steps=30,  # Increased for better quality
-                    guidance_scale=9.0,      # Increased for better adherence to prompt
-                    width=512,   # Must be divisible by 8
-                    height=320   # Must be divisible by 8
-                ).images[0]
-                
-                # Resize to desired dimensions
-                image = image.resize((400, 250), Image.Resampling.LANCZOS)
-                
-                # Save image
-                image.save(image_path)
-                logger.info(f"✅ Stable Diffusion image saved: {image_path}")
-                return True
+                try:
+                    with torch.no_grad():  # Reduce memory usage
+                        image = self._sd_pipeline(
+                            prompt,
+                            negative_prompt=negative_prompt,
+                            num_inference_steps=20,  # Reduced for faster generation
+                            guidance_scale=7.5,      # Standard guidance scale
+                            width=512,   # Must be divisible by 8
+                            height=320   # Must be divisible by 8
+                        ).images[0]
+                    
+                    logger.info(f"✅ Stable Diffusion generation completed")
+                    
+                    # Resize to desired dimensions
+                    image = image.resize((400, 250), Image.Resampling.LANCZOS)
+                    
+                    # Save image
+                    image.save(image_path)
+                    logger.info(f"✅ Stable Diffusion image saved: {image_path}")
+                    return True
+                    
+                except Exception as gen_error:
+                    logger.error(f"❌ Stable Diffusion generation failed: {gen_error}")
+                    return False
                 
             except ImportError as e:
-                logger.warning(f"Stable Diffusion not available: {e}")
+                logger.warning(f"❌ Stable Diffusion not available (import error): {e}")
                 return False
                 
         except Exception as e:
-            logger.error(f"Stable Diffusion generation failed: {e}")
+            logger.error(f"❌ Stable Diffusion generation failed: {e}")
             return False
     
     def create_photorealistic_prompt_from_headline(self, title, description):
@@ -3551,71 +3594,9 @@ class WirelessMonitor:
         return full_prompt
     
     def generate_enhanced_pil_image(self, article_title, article_description, image_path, content_hash):
-        """Generate enhanced PIL image with better graphics and composition"""
-        try:
-            from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
-            import io
-            import requests
-            import random
-            import math
-            
-            # Create a 400x250 image with professional design
-            img = Image.new('RGB', (400, 250), color='#1a1a1a')
-            draw = ImageDraw.Draw(img)
-            
-            # Load fonts with better fallbacks
-            try:
-                font_title = ImageFont.truetype('/System/Library/Fonts/SF-Pro-Display-Bold.ttf', 18)
-                font_subtitle = ImageFont.truetype('/System/Library/Fonts/SF-Pro-Display-Regular.ttf', 12)
-            except:
-                try:
-                    font_title = ImageFont.truetype('/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf', 18)
-                    font_subtitle = ImageFont.truetype('/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf', 12)
-                except:
-                    font_title = ImageFont.load_default()
-                    font_subtitle = ImageFont.load_default()
-            
-            # Create sophisticated background based on content
-            content = f"{article_title} {article_description}".lower()
-            
-            if any(word in content for word in ['5g', '6g', 'cellular']):
-                # 5G/Cellular theme - dynamic wave pattern
-                self.draw_cellular_background(draw, img)
-            elif any(word in content for word in ['wifi', 'wi-fi', 'wireless']):
-                # Wi-Fi theme - signal waves
-                self.draw_wifi_background(draw, img)
-            elif any(word in content for word in ['ai', 'artificial', 'machine']):
-                # AI theme - neural network
-                self.draw_ai_background(draw, img)
-            else:
-                # Tech theme - circuit pattern
-                self.draw_tech_background(draw, img)
-            
-            # Add WirelessNerd logo
-            self.add_logo_to_image(img, draw)
-            
-            # Add article title with better typography
-            self.add_title_to_image(draw, article_title, font_title, font_subtitle)
-            
-            # Add tech elements and indicators
-            self.add_tech_elements(draw, content)
-            
-            # Apply final enhancements
-            enhancer = ImageEnhance.Contrast(img)
-            img = enhancer.enhance(1.2)
-            
-            enhancer = ImageEnhance.Sharpness(img)
-            img = enhancer.enhance(1.1)
-            
-            # Save the image
-            img.save(image_path, 'PNG', quality=95)
-            logger.info(f"✅ Enhanced PIL image saved: {image_path}")
-            
-            return f'/static/generated_images/article_{content_hash}.png'
-            
-        except Exception as e:
-            logger.error(f"Enhanced PIL generation failed: {e}")
-            return self.generate_fallback_svg()
+        """DEPRECATED: This function should not be used - it creates text overlay images"""
+        logger.warning(f"❌ DEPRECATED: generate_enhanced_pil_image called for: {article_title[:50]}... - This should not happen!")
+        return None
     
     def draw_cellular_background(self, draw, img):
         """Draw cellular/5G themed background"""
@@ -3775,38 +3756,9 @@ class WirelessMonitor:
 
     
     def create_photorealistic_stock_image(self, title, description, content):
-        """Create a photorealistic stock photo-style image"""
-        try:
-            # Create base image with realistic dimensions
-            img = Image.new('RGB', (400, 250), color=(240, 240, 240))
-            
-            # Analyze content to determine the best photorealistic approach
-            content_lower = content.lower()
-            
-            # Create realistic background based on content
-            if any(word in content_lower for word in ['wifi', 'wi-fi', 'wireless', 'router', 'network']):
-                img = self.create_realistic_tech_office_scene(img, 'wifi')
-            elif any(word in content_lower for word in ['5g', '6g', 'cellular', 'tower', 'antenna']):
-                img = self.create_realistic_tech_office_scene(img, 'cellular')
-            elif any(word in content_lower for word in ['ai', 'artificial', 'machine learning', 'algorithm']):
-                img = self.create_realistic_tech_office_scene(img, 'ai')
-            elif any(word in content_lower for word in ['security', 'privacy', 'encryption', 'cyber']):
-                img = self.create_realistic_tech_office_scene(img, 'security')
-            elif any(word in content_lower for word in ['smartphone', 'phone', 'mobile', 'device']):
-                img = self.create_realistic_tech_office_scene(img, 'mobile')
-            elif any(word in content_lower for word in ['data', 'cloud', 'server', 'computing']):
-                img = self.create_realistic_tech_office_scene(img, 'data')
-            else:
-                img = self.create_realistic_tech_office_scene(img, 'general')
-            
-            # Add professional title overlay with realistic styling
-            img = self.add_photorealistic_title_overlay(img, title)
-            
-            return img
-            
-        except Exception as e:
-            logger.error(f"Error creating photorealistic stock image: {e}")
-            return None
+        """DEPRECATED: This function creates text overlay images - should not be used"""
+        logger.warning(f"❌ DEPRECATED: create_photorealistic_stock_image called for: {title[:50]}... - This should not happen!")
+        return None
     
     def create_realistic_tech_office_scene(self, img, theme):
         """Create a realistic tech office/workspace scene"""
@@ -3991,67 +3943,9 @@ class WirelessMonitor:
             logger.error(f"Error adding realistic lighting: {e}")
     
     def add_photorealistic_title_overlay(self, img, title):
-        """Add professional title overlay that looks like real photo text"""
-        try:
-            # Create overlay for text with realistic transparency
-            overlay = Image.new('RGBA', img.size, (0, 0, 0, 0))
-            draw = ImageDraw.Draw(overlay)
-            
-            # Create realistic text background (like a real photo overlay)
-            draw.rectangle([20, 180, 380, 230], fill=(0, 0, 0, 120))
-            
-            # Load professional fonts
-            try:
-                font_title = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 14)
-            except:
-                font_title = ImageFont.load_default()
-            
-            # Smart text wrapping for realistic layout
-            words = title.split()
-            lines = []
-            current_line = ""
-            
-            for word in words:
-                test_line = f"{current_line} {word}".strip()
-                try:
-                    bbox = draw.textbbox((0, 0), test_line, font=font_title)
-                    text_width = bbox[2] - bbox[0]
-                except AttributeError:
-                    text_width = draw.textsize(test_line, font=font_title)[0]
-                
-                if text_width < 340:
-                    current_line = test_line
-                else:
-                    if current_line:
-                        lines.append(current_line)
-                    current_line = word
-                    if len(lines) >= 2:
-                        break
-            
-            if current_line and len(lines) < 2:
-                lines.append(current_line)
-            
-            # Draw title with professional styling
-            y_start = 190 if len(lines) == 1 else 185
-            
-            for i, line in enumerate(lines):
-                y_pos = y_start + (i * 18)
-                # Text shadow for depth (like real photo text)
-                draw.text((26, y_pos + 1), line, fill=(0, 0, 0, 200), font=font_title)
-                # Main text
-                draw.text((25, y_pos), line, fill=(255, 255, 255, 255), font=font_title)
-            
-            # Add subtle "WIRELESS TECH" label
-            draw.text((26, 215), "WIRELESS TECH", fill=(200, 200, 200, 180), font=font_title)
-            
-            # Composite the overlay
-            img = Image.alpha_composite(img.convert('RGBA'), overlay).convert('RGB')
-            
-            return img
-            
-        except Exception as e:
-            logger.error(f"Error adding photorealistic title overlay: {e}")
-            return img
+        """DEPRECATED: This function adds text overlays - should not be used"""
+        logger.warning(f"❌ DEPRECATED: add_photorealistic_title_overlay called - This should not happen!")
+        return img
     
     def create_wifi_background(self, img, draw):
         """Create WiFi-themed background with circuit patterns"""

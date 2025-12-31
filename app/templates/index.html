@@ -90,7 +90,7 @@
                             <img src="{{ stories[0].image_url }}" alt="{{ stories[0].title }}" 
                                  style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;">
                         {% else %}
-                            <div data-article-id="{{ stories[0].id }}" style="width: 100%; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
+                            <div data-article-id="{{ stories[0].id }}" class="image-placeholder" style="width: 100%; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
                                  onclick="generateArticleImage({{ stories[0].id }}, this)">
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
@@ -116,7 +116,7 @@
                             <img src="{{ stories[1].image_url }}" alt="{{ stories[1].title }}" 
                                  style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
                         {% else %}
-                            <div data-article-id="{{ stories[1].id }}" style="width: 100%; height: 250px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
+                            <div data-article-id="{{ stories[1].id }}" class="image-placeholder" style="width: 100%; height: 250px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
                                  onclick="generateArticleImage({{ stories[1].id }}, this)">
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
@@ -132,55 +132,59 @@
                 {% endif %}
             </div>
 
-            <!-- RIGHT SIDE: Two Columns (50% total = 25% each) -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- RIGHT SIDE: Unified Top News Section (50% total) -->
+            <div>
+                <!-- Unified Top News Header -->
+                <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #e52d27; padding-bottom: 8px;">Top News</h3>
                 
-                <!-- Right Column 1: Top News (Stories 2-7) -->
-                <div>
-                    <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #e52d27; padding-bottom: 8px;">Top News</h3>
-                    {% for story in stories[2:8] %}
-                        {% if not story.event_name %}
-                        <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
-                            {% if story.image_url %}
-                                <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
-                            {% else %}
-                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
-                                     onclick="generateArticleImage({{ story.id }}, this)">
-                                    <span style="color: #666; font-size: 0.8rem;">📸</span>
-                                </div>
+                <!-- Two Columns for Articles -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    
+                    <!-- Left Column (Stories 2-7) -->
+                    <div>
+                        {% for story in stories[2:8] %}
+                            {% if not story.event_name %}
+                            <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
+                                {% if story.image_url %}
+                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                         style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
+                                {% else %}
+                                    <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
+                                         onclick="generateArticleImage({{ story.id }}, this)">
+                                        <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                    </div>
+                                {% endif %}
+                                <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
+                                    <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
+                                </h4>
+                                <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                            </article>
                             {% endif %}
-                            <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
-                                <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
-                            </h4>
-                            <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
-                        </article>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
 
-                <!-- Right Column 2: Latest News (Stories 8-12) -->
-                <div>
-                    <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #3498db; padding-bottom: 8px;">Latest News</h3>
-                    {% for story in stories[8:13] %}
-                        {% if not story.event_name %}
-                        <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
-                            {% if story.image_url %}
-                                <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
-                            {% else %}
-                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
-                                     onclick="generateArticleImage({{ story.id }}, this)">
-                                    <span style="color: #666; font-size: 0.8rem;">📸</span>
-                                </div>
+                    <!-- Right Column (Stories 8-12) -->
+                    <div>
+                        {% for story in stories[8:13] %}
+                            {% if not story.event_name %}
+                            <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
+                                {% if story.image_url %}
+                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                         style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
+                                {% else %}
+                                    <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
+                                         onclick="generateArticleImage({{ story.id }}, this)">
+                                        <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                    </div>
+                                {% endif %}
+                                <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
+                                    <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
+                                </h4>
+                                <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                            </article>
                             {% endif %}
-                            <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
-                                <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
-                            </h4>
-                            <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
-                        </article>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,7 +212,7 @@
                         <img src="{{ event_story.image_url }}" alt="{{ event_story.title }}" 
                              style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 15px;">
                     {% else %}
-                        <div data-article-id="{{ event_story.id }}" style="width: 100%; height: 120px; background: linear-gradient(135deg, #9c27b0, #8e24aa); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 15px;" 
+                        <div data-article-id="{{ event_story.id }}" class="image-placeholder" style="width: 100%; height: 120px; background: linear-gradient(135deg, #9c27b0, #8e24aa); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 15px;" 
                              onclick="generateArticleImage({{ event_story.id }}, this)">
                             <span style="color: white;">🎪 Generate</span>
                         </div>
@@ -254,7 +258,7 @@
                         <img src="{{ story.image_url }}" alt="{{ story.title }}" 
                              style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 15px;">
                     {% else %}
-                        <div data-article-id="{{ story.id }}" style="width: 100%; height: 150px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; margin-bottom: 15px;" 
+                        <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 150px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; margin-bottom: 15px;" 
                              onclick="generateArticleImage({{ story.id }}, this)">
                             <span style="color: #666;">📸 Generate Image</span>
                         </div>
@@ -291,10 +295,10 @@
     <script>
     // Auto-generate images for articles without them on page load
     document.addEventListener('DOMContentLoaded', function() {
-        const placeholders = document.querySelectorAll('[data-article-id]');
+        const placeholders = document.querySelectorAll('.image-placeholder[data-article-id]');
         placeholders.forEach(placeholder => {
             const articleId = placeholder.getAttribute('data-article-id');
-            if (articleId && placeholder.innerHTML.includes('Generate Image')) {
+            if (articleId && (placeholder.innerHTML.includes('📸') || placeholder.innerHTML.includes('🎪') || placeholder.innerHTML.includes('Generate'))) {
                 // Show nyancat loader immediately
                 showNyancatLoader(placeholder);
                 // Start generating image
@@ -328,7 +332,7 @@
                 img.alt = 'Generated image';
                 img.style.cssText = placeholderElement.style.cssText;
                 img.style.objectFit = 'cover';
-                img.style.borderRadius = '6px';
+                img.style.borderRadius = '4px';
                 
                 placeholderElement.parentNode.replaceChild(img, placeholderElement);
             } else {
@@ -383,5 +387,56 @@
         }
     }
     </script>
+
+    <style>
+    .nyancat-loader {
+        width: 40px;
+        height: 20px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
+        background-size: 200% 100%;
+        animation: nyancat 1s linear infinite;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .nyancat-loader::before {
+        content: '🌈';
+        position: absolute;
+        left: -15px;
+        top: -2px;
+        font-size: 12px;
+        animation: rainbow 0.5s linear infinite;
+    }
+
+    .nyancat-loader::after {
+        content: '🐱';
+        position: absolute;
+        right: -15px;
+        top: -2px;
+        font-size: 12px;
+        animation: bounce 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes nyancat {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+    }
+
+    @keyframes rainbow {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    @keyframes bounce {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-3px); }
+    }
+
+    .image-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>
 {% endif %}
 {% endblock %}

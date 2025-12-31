@@ -705,3 +705,1103 @@
 2025-12-30 23:05:54,720 - __main__ - INFO - ✅ Using scraped image: https://cdn.arstechnica.net/wp-content/uploads/2023/03/getty-twitter-logo-1152x648-1765369763.jpg
 2025-12-30 23:05:54,724 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:05:54] "POST /api/bulk_regenerate_images HTTP/1.1" 200 -
 2025-12-30 23:05:59,809 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:05:59] "HEAD /image_gallery HTTP/1.1" 200 -
+2025-12-30 23:06:28,239 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "GET /image_gallery?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:06:28,257 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_e5570d0fe91d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,260 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_805feb5a6bad.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,261 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_15bdeab9a99d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,261 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_a0de25d66947.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,262 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_7e1ecef38819.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,263 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:28,263 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:28] "[36mGET /static/generated_images/article_fc6bd697b568.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:34,965 - __main__ - INFO - 📷 Scraping image from article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...
+2025-12-30 23:06:34,966 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:06:34,966 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:06:35,483 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:06:35,506 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:06:35,507 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...'
+2025-12-30 23:06:35,507 - __main__ - INFO - Generating photorealistic image for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:06:35,507 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_e5570d0fe91d.png
+2025-12-30 23:06:35,514 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:35] "POST /api/bulk_regenerate_images HTTP/1.1" 200 -
+2025-12-30 23:06:37,028 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "GET /image_gallery?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:06:37,037 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_e5570d0fe91d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,037 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_805feb5a6bad.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,039 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_15bdeab9a99d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,040 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_a0de25d66947.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,040 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_7e1ecef38819.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,040 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:37,042 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:37] "[36mGET /static/generated_images/article_fc6bd697b568.png HTTP/1.1[0m" 304 -
+2025-12-30 23:06:59,835 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:06:59] "POST /api/bulk_delete_images HTTP/1.1" 200 -
+2025-12-30 23:07:01,059 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:01] "GET /image_gallery?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:07:01,067 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:01] "[36mGET /static/generated_images/article_a0de25d66947.png HTTP/1.1[0m" 304 -
+2025-12-30 23:07:12,218 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:12] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:07:26,139 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:26] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:07:26,149 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:26] "[36mGET /static/generated_images/article_a0de25d66947.png HTTP/1.1[0m" 304 -
+2025-12-30 23:07:26,160 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that can solve mo...
+2025-12-30 23:07:26,160 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:07:26,160 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:07:26,161 - __main__ - INFO - 📷 Scraping image from article: Get this M3 iPad Air with 5G for less than Apple charges for...
+2025-12-30 23:07:26,161 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:07:26,161 - __main__ - INFO - 📷 Scraping image from article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...
+2025-12-30 23:07:26,162 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:07:26,162 - __main__ - INFO - 📷 Scraping image from article: 5G vs. public Wi-Fi – is it safer to just use your data in 2...
+2025-12-30 23:07:26,162 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:07:26,162 - __main__ - INFO - 📷 Scraping image from article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...
+2025-12-30 23:07:26,162 - __main__ - INFO - 📷 Scraping image from article: 3 networking tools from Home Depot that will fix your home's...
+2025-12-30 23:07:26,162 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:07:26,163 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:07:26,163 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:07:26,163 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:07:26,163 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:07:26,163 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:07:26,163 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:07:26,546 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,567 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,568 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '3 networking tools from Home Depot that will fix your home's...'
+2025-12-30 23:07:26,568 - __main__ - INFO - Generating photorealistic image for: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:07:26,577 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,590 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,591 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '5G vs. public Wi-Fi – is it safer to just use your data in 2...'
+2025-12-30 23:07:26,591 - __main__ - INFO - Generating photorealistic image for: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:07:26,601 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,612 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,613 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 23:07:26,613 - __main__ - INFO - Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:07:26,618 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,629 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,629 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...'
+2025-12-30 23:07:26,629 - __main__ - INFO - Generating photorealistic image for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:07:26,634 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,644 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,647 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:07:26,648 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that can solve mo...'
+2025-12-30 23:07:26,657 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:07:26,657 - __main__ - INFO - Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:07:26,658 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...'
+2025-12-30 23:07:26,658 - __main__ - INFO - Generating photorealistic image for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:07:27,458 - __main__ - WARNING - Stable Diffusion not available: cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:07:27,459 - __main__ - WARNING - Stable Diffusion not available: cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:07:27,465 - __main__ - WARNING - Stable Diffusion not available: cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:07:27,521 - __main__ - WARNING - Stable Diffusion not available: cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:07:27,767 - __main__ - WARNING - Stable Diffusion not available: cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:07:28,791 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_3d8d75ebe2c3.png
+2025-12-30 23:07:28,792 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_15bdeab9a99d.png
+2025-12-30 23:07:28,792 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_e5570d0fe91d.png
+2025-12-30 23:07:28,792 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_7e1ecef38819.png
+2025-12-30 23:07:28,793 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_fc6bd697b568.png
+2025-12-30 23:07:28,798 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_e5570d0fe91d.png
+2025-12-30 23:07:28,798 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "POST /api/generate_article_image/22 HTTP/1.1" 200 -
+2025-12-30 23:07:28,803 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_7e1ecef38819.png
+2025-12-30 23:07:28,803 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "POST /api/generate_article_image/34 HTTP/1.1" 200 -
+2025-12-30 23:07:28,804 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_fc6bd697b568.png
+2025-12-30 23:07:28,804 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "POST /api/generate_article_image/36 HTTP/1.1" 200 -
+2025-12-30 23:07:28,807 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "GET /static/generated_images/article_e5570d0fe91d.png HTTP/1.1" 200 -
+2025-12-30 23:07:28,810 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "GET /static/generated_images/article_7e1ecef38819.png HTTP/1.1" 200 -
+2025-12-30 23:07:28,810 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "GET /static/generated_images/article_fc6bd697b568.png HTTP/1.1" 200 -
+2025-12-30 23:07:28,816 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_15bdeab9a99d.png
+2025-12-30 23:07:28,816 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 23:07:28,816 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_3d8d75ebe2c3.png
+2025-12-30 23:07:28,816 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "POST /api/generate_article_image/35 HTTP/1.1" 200 -
+2025-12-30 23:07:28,819 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "GET /static/generated_images/article_15bdeab9a99d.png HTTP/1.1" 200 -
+2025-12-30 23:07:28,819 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:28] "GET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1" 200 -
+2025-12-30 23:07:29,968 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:07:30,964 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: 3 networking tools from Home Depot that will fix your home...
+2025-12-30 23:07:30,964 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: '3 networking tools from Home Depot that will fix your home's...'
+2025-12-30 23:07:30,964 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: 3 networking tools from Home Depot that will fix your home...
+2025-12-30 23:07:49,270 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_805feb5a6bad.png
+2025-12-30 23:07:49,272 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_805feb5a6bad.png
+2025-12-30 23:07:49,278 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:49] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 23:07:49,284 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:07:49] "GET /static/generated_images/article_805feb5a6bad.png HTTP/1.1" 200 -
+2025-12-30 23:09:02,823 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:02] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:09:04,190 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:04] "GET /event/1?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:09:06,352 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:09:06,633 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:09:06,903 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:09:06,904 - __main__ - INFO - Database initialized
+2025-12-30 23:09:06,908 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:09:06,909 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:09:06,909 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:09:06,911 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:09:06,931 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:09:06,938 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:09:07,157 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:09:07,349 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:09:07,638 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:09:08,203 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:09:08,411 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:09:09,117 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:09:09,559 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:09:10,358 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:09:10,390 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:10] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:09:18,561 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_a0de25d66947.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_15bdeab9a99d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_7e1ecef38819.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_e5570d0fe91d.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,579 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_fc6bd697b568.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:18,583 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:09:18] "[36mGET /static/generated_images/article_805feb5a6bad.png HTTP/1.1[0m" 304 -
+2025-12-30 23:09:26,617 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:09:26,637 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:09:26,978 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:09:26,978 - __main__ - INFO - Database initialized
+2025-12-30 23:09:26,983 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:09:26,983 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:09:26,983 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:09:26,985 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:09:27,022 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:09:27,034 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:09:27,169 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:09:27,335 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:09:27,609 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:09:28,516 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:09:28,724 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:09:29,052 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:09:29,354 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:09:29,753 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:11:32,966 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:11:32,987 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:11:33,244 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:11:33,245 - __main__ - INFO - Database initialized
+2025-12-30 23:11:33,249 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:11:33,249 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:11:33,250 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:11:33,252 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:11:33,273 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:11:33,286 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:11:33,475 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:11:33,670 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:11:33,937 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:11:34,487 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:11:34,723 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:11:35,532 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:11:36,002 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:11:36,809 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:12:15,968 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:12:15,988 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:12:16,255 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:12:16,255 - __main__ - INFO - Database initialized
+2025-12-30 23:12:16,260 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:12:16,260 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:12:16,260 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:12:16,261 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:12:16,282 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:12:16,291 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:12:16,705 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:12:16,881 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:12:17,126 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:12:17,681 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:12:17,887 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:12:18,278 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:12:18,749 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:12:19,545 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:18:23,606 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:18:23,627 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:18:23,866 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:18:23,867 - __main__ - INFO - Database initialized
+2025-12-30 23:18:23,871 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:18:23,871 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:18:23,871 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:18:23,872 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:18:23,897 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:18:23,909 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:18:24,086 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:18:24,252 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:18:24,551 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:18:25,444 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:18:30,051 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:18:31,094 - __main__ - INFO - 🎨 Auto-generating image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:18:31,094 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:18:31,094 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:18:31,094 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:18:31,643 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:18:31,662 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:18:31,662 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:18:31,662 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:18:31,663 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:18:31,663 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:18:32,601 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:18:32,741 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:18:33,160 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:18:33,160 - __main__ - INFO - Database initialized
+2025-12-30 23:18:33,165 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:18:33,165 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:18:33,165 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:18:33,166 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:18:33,201 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:18:33,215 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:18:33,439 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:18:33,666 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:18:33,988 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:18:35,912 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:18:36,144 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:18:36,640 - __main__ - INFO - 🎨 Auto-generating image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:18:36,640 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:18:36,640 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:18:36,640 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:18:37,164 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:18:37,177 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:18:37,178 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:18:37,178 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:18:37,178 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:18:37,178 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:18:40,436 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:18:40,436 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:18:41,701 - __main__ - INFO - ✅ Stable Diffusion pipeline loaded successfully
+2025-12-30 23:18:41,702 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:18:41,702 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer'
+2025-12-30 23:18:41,702 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:18:55,342 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:18:55,665 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:19:31,198 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:19:31,198 - __main__ - INFO - Database initialized
+2025-12-30 23:19:31,202 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:19:31,202 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:19:31,202 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:19:31,203 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:19:31,406 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 23:19:31,406 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 23:19:31,415 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:19:31,673 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:19:31,814 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:19:31,815 - __main__ - INFO - Database initialized
+2025-12-30 23:19:31,820 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:19:31,820 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:19:31,820 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:19:31,821 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:19:31,850 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:19:31,862 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:19:31,896 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:19:32,236 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:19:33,053 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:19:33,496 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:19:34,063 - __main__ - INFO - 🎨 Auto-generating image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:19:34,063 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:19:34,063 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:19:34,063 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:19:34,579 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:19:34,594 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:19:34,594 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:19:34,594 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:19:34,594 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:19:34,594 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:19:37,498 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:19:37,499 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:19:38,606 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:19:38] "POST /api/generate_article_image/1 HTTP/1.1" 200 -
+2025-12-30 23:19:38,670 - __main__ - INFO - ✅ Stable Diffusion pipeline loaded successfully
+2025-12-30 23:19:38,670 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:19:38,670 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer'
+2025-12-30 23:19:38,670 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:19:52,362 - __main__ - INFO - ✅ Stable Diffusion generation completed
+2025-12-30 23:19:52,409 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_079b325d9537.png
+2025-12-30 23:19:52,409 - __main__ - INFO - ✅ Stable Diffusion SUCCESS: static/generated_images/article_079b325d9537.png
+2025-12-30 23:19:52,410 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_079b325d9537.png
+2025-12-30 23:19:52,410 - __main__ - INFO - ✅ Auto-generated image for article 62: /static/generated_images/article_079b325d9537.png
+2025-12-30 23:19:52,410 - __main__ - INFO - 🎨 Auto-generating image for: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:19:52,410 - __main__ - INFO - 📷 Scraping image from article: AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...
+2025-12-30 23:19:52,410 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:19:52,410 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:19:52,952 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:19:52,970 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:19:52,971 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...'
+2025-12-30 23:19:52,971 - __main__ - INFO - 🎨 Generating photorealistic image for: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:19:52,971 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:19:52,971 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:19:52,971 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:19:52,971 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:19:52,971 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting AT&T bringing faster Wi-Fi to residents near Texas Motor Speedway - Fort Worth Report'
+2025-12-30 23:19:52,972 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:20:01,987 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2025-12-30 23:20:01,987 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:20:02,160 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2025-12-30 23:20:02,160 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:20:02,436 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2025-12-30 23:20:02,437 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:20:03,020 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2025-12-30 23:20:03,020 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:20:03,224 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2025-12-30 23:20:03,224 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:20:03,549 - __main__ - ERROR - Error fetching feed Google News: Wi-Fi: database is locked
+2025-12-30 23:20:03,549 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:20:04,054 - __main__ - ERROR - Error fetching feed Google News: "Drew Lentz": database is locked
+2025-12-30 23:20:04,054 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:20:04,802 - __main__ - ERROR - Error fetching feed Google News: HaLow: database is locked
+2025-12-30 23:20:05,483 - __main__ - INFO - ✅ Stable Diffusion generation completed
+2025-12-30 23:20:05,523 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_0b6d086a9c4c.png
+2025-12-30 23:20:05,523 - __main__ - INFO - ✅ Stable Diffusion SUCCESS: static/generated_images/article_0b6d086a9c4c.png
+2025-12-30 23:20:05,523 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_0b6d086a9c4c.png
+2025-12-30 23:20:05,523 - __main__ - INFO - ✅ Auto-generated image for article 63: /static/generated_images/article_0b6d086a9c4c.png
+2025-12-30 23:20:05,523 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:20:05,814 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:20:06,239 - __main__ - INFO - RSS fetch completed: 2 new articles
+2025-12-30 23:20:14,164 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:20:14] "GET / HTTP/1.1" 200 -
+2025-12-30 23:20:18,804 - __main__ - INFO - Cleared all generated images
+2025-12-30 23:20:18,805 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:20:18] "POST /api/clear_generated_images HTTP/1.1" 200 -
+2025-12-30 23:20:23,286 - __main__ - INFO - 📷 Scraping image from article: Browser extensions with 8 million users collect extended AI ...
+2025-12-30 23:20:23,286 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/security/2025/12/browser-extensions-with-8-million-users-collect-extended-ai-conversations/
+2025-12-30 23:20:23,916 - __main__ - INFO - ✅ Image passed relaxed validation: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-30 23:20:23,917 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-30 23:20:23,920 - __main__ - INFO - ✅ Using scraped image: https://cdn.arstechnica.net/wp-content/uploads/2025/12/electronic-privacy-invasion-1152x648.jpg
+2025-12-30 23:20:23,922 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:20:23] "POST /api/generate_article_image/2 HTTP/1.1" 200 -
+2025-12-30 23:20:29,200 - __main__ - INFO - 📷 Scraping image from article: 2026 6G predictions from Keysight (Reader Forum)...
+2025-12-30 23:20:29,201 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.rcrwireless.com/20251219/6g/6g-predictions-keysight
+2025-12-30 23:20:29,834 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-12-30 23:20:29,841 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:20:29,842 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '2026 6G predictions from Keysight (Reader Forum)...'
+2025-12-30 23:20:29,842 - __main__ - INFO - 🎨 Generating photorealistic image for: 2026 6G predictions from Keysight (Reader Forum)...
+2025-12-30 23:20:29,842 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:20:29,842 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:20:33,603 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:20:33,603 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:20:34,614 - __main__ - INFO - ✅ Stable Diffusion pipeline loaded successfully
+2025-12-30 23:20:34,614 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:20:34,614 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 2026 6G predictions from Keysight (Reader Forum)'
+2025-12-30 23:20:34,614 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:20:48,107 - __main__ - INFO - ✅ Stable Diffusion generation completed
+2025-12-30 23:20:48,138 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_03c95f369b8b.png
+2025-12-30 23:20:48,138 - __main__ - INFO - ✅ Stable Diffusion SUCCESS: static/generated_images/article_03c95f369b8b.png
+2025-12-30 23:20:48,141 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_03c95f369b8b.png
+2025-12-30 23:20:48,144 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:20:48] "POST /api/generate_article_image/10 HTTP/1.1" 200 -
+2025-12-30 23:21:21,955 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:21] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:21:21,973 - __main__ - INFO - 📷 Scraping image from article: Get this M3 iPad Air with 5G for less than Apple charges for...
+2025-12-30 23:21:21,973 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:21:21,973 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:21:21,974 - __main__ - INFO - 📷 Scraping image from article: 5G vs. public Wi-Fi – is it safer to just use your data in 2...
+2025-12-30 23:21:21,974 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:21:21,974 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:21:21,975 - __main__ - INFO - 📷 Scraping image from article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...
+2025-12-30 23:21:21,975 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:21:21,976 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:21:21,976 - __main__ - INFO - 📷 Scraping image from article: Coming Wi-Fi 8 will bring reliability rather than greater sp...
+2025-12-30 23:21:21,976 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that can solve mo...
+2025-12-30 23:21:21,977 - __main__ - INFO - 📷 Scraping image from article: AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...
+2025-12-30 23:21:21,977 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:21:21,977 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:21:21,977 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:21:21,977 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:21:21,977 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:21:21,977 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:21:22,348 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,368 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,369 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 23:21:22,369 - __main__ - INFO - 🎨 Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:21:22,370 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,370 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,370 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,370 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,370 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld'
+2025-12-30 23:21:22,370 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,382 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,396 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,396 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...'
+2025-12-30 23:21:22,397 - __main__ - INFO - 🎨 Generating photorealistic image for: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:21:22,397 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,397 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,397 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,398 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,402 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,402 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting AT&T bringing faster Wi-Fi to residents near Texas Motor Speedway - Fort Worth Report'
+2025-12-30 23:21:22,409 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,416 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,418 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '5G vs. public Wi-Fi – is it safer to just use your data in 2...'
+2025-12-30 23:21:22,418 - __main__ - INFO - 🎨 Generating photorealistic image for: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:21:22,419 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,419 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,419 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,420 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,420 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide'
+2025-12-30 23:21:22,420 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,427 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,438 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,443 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...'
+2025-12-30 23:21:22,443 - __main__ - INFO - 🎨 Generating photorealistic image for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:21:22,444 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,444 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,444 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,444 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,444 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET'
+2025-12-30 23:21:22,444 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,454 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,465 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,467 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that can solve mo...'
+2025-12-30 23:21:22,467 - __main__ - INFO - 🎨 Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:21:22,470 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,470 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,470 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,470 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,470 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET'
+2025-12-30 23:21:22,470 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,686 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:22,688 - __main__ - WARNING - ❌ Stable Diffusion failed for: 5G vs. public Wi-Fi – is it safer to just use your... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:22,695 - __main__ - WARNING - ❌ No image available for article: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:21:22,704 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:22,705 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:22] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 23:21:22,715 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:22,716 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Coming Wi-Fi 8 will bring reliability rather than greater sp...'
+2025-12-30 23:21:22,716 - __main__ - INFO - 🎨 Generating photorealistic image for: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:21:22,718 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:22,721 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:22,721 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:22,722 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:22,722 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com'
+2025-12-30 23:21:22,722 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:22,731 - __main__ - INFO - 📷 Scraping image from article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...
+2025-12-30 23:21:22,731 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:21:22,731 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:21:23,011 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:23,012 - __main__ - WARNING - ❌ Stable Diffusion failed for: Get this M3 iPad Air with 5G for less than Apple c... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:23,013 - __main__ - WARNING - ❌ No image available for article: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:21:23,014 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:23] "POST /api/generate_article_image/35 HTTP/1.1" 200 -
+2025-12-30 23:21:23,023 - __main__ - INFO - 📷 Scraping image from article: 3 networking tools from Home Depot that will fix your home's...
+2025-12-30 23:21:23,024 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:21:23,024 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:21:23,077 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:23,079 - __main__ - WARNING - ❌ Stable Diffusion failed for: AT&T bringing faster Wi-Fi to residents near Texas... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:23,079 - __main__ - WARNING - ❌ No image available for article: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:21:23,080 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:23] "POST /api/generate_article_image/63 HTTP/1.1" 200 -
+2025-12-30 23:21:23,089 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:21:23,089 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:21:23,090 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:21:23,095 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:23,106 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:23,107 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...'
+2025-12-30 23:21:23,107 - __main__ - INFO - 🎨 Generating photorealistic image for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:21:23,109 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:23,109 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:23,109 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:23,109 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:23,109 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider'
+2025-12-30 23:21:23,109 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:23,468 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:23,481 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:23,482 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '3 networking tools from Home Depot that will fix your home's...'
+2025-12-30 23:21:23,483 - __main__ - INFO - 🎨 Generating photorealistic image for: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:21:23,485 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:23,485 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:23,486 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:23,486 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:23,486 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf'
+2025-12-30 23:21:23,487 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:23,531 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:23,543 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:23,545 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:21:23,546 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:21:23,548 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:23,548 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:23,549 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:23,549 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:23,549 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer'
+2025-12-30 23:21:23,551 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:25,060 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:25,060 - __main__ - WARNING - ❌ Stable Diffusion failed for: Coming Wi-Fi 8 will bring reliability rather than ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:25,060 - __main__ - WARNING - ❌ No image available for article: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:21:25,064 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:25] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 23:21:25,075 - __main__ - INFO - 📷 Scraping image from article: Samsung unveils its new $200 Galaxy A17 5G smartphone, arriv...
+2025-12-30 23:21:25,076 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/mobile/smartphones/samsung-unveils-its-new-200-galaxy-a17-5g-smartphone-arriving-in-january-184846560.html?src=rss
+2025-12-30 23:21:26,233 - __main__ - INFO - ✅ Image passed relaxed validation: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 23:21:26,235 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 23:21:26,246 - __main__ - INFO - ✅ Using scraped image: https://s.yimg.com/ny/api/res/1.2/RA2St678hZxGYJ52ljekig--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/Samsung_Galaxy_A17_5G_and_Galaxy_Tab_A11%20.jpg
+2025-12-30 23:21:26,249 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:26] "POST /api/generate_article_image/12 HTTP/1.1" 200 -
+2025-12-30 23:21:26,262 - __main__ - INFO - 📷 Scraping image from article: TCL introduces its own take on a color Kindle Scribe...
+2025-12-30 23:21:26,262 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/mobile/tablets/tcl-introduces-its-own-take-on-a-color-kindle-scribe-140000207.html?src=rss
+2025-12-30 23:21:26,534 - __main__ - ERROR - ❌ Stable Diffusion generation failed: index 1001 is out of bounds for dimension 0 with size 1000
+2025-12-30 23:21:26,535 - __main__ - WARNING - ❌ Stable Diffusion failed for: Your Samsung phone has a secret Wi-Fi menu that ca... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:26,535 - __main__ - WARNING - ❌ No image available for article: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:21:26,535 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:26] "POST /api/generate_article_image/34 HTTP/1.1" 200 -
+2025-12-30 23:21:26,539 - __main__ - INFO - 📷 Scraping image from article: IDC warns of major PC market downturn due to memory crunch...
+2025-12-30 23:21:26,539 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/computing/idc-warns-of-major-pc-market-downturn-due-to-memory-crunch-214510197.html?src=rss
+2025-12-30 23:21:26,776 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:26,777 - __main__ - WARNING - ❌ Stable Diffusion failed for: No joke, the best piece of hardware I've used in 2... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:26,777 - __main__ - WARNING - ❌ No image available for article: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:21:26,778 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:26] "POST /api/generate_article_image/62 HTTP/1.1" 200 -
+2025-12-30 23:21:26,786 - __main__ - INFO - 📷 Scraping image from article: The best iPad cases for 2026...
+2025-12-30 23:21:26,788 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://www.engadget.com/computing/accessories/best-ipad-cases-to-protect-your-tablet-130033533.html?src=rss
+2025-12-30 23:21:26,892 - __main__ - ERROR - ❌ Stable Diffusion generation failed: index 1001 is out of bounds for dimension 0 with size 1000
+2025-12-30 23:21:26,893 - __main__ - WARNING - ❌ Stable Diffusion failed for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:26,893 - __main__ - WARNING - ❌ No image available for article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:21:26,893 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:26] "POST /api/generate_article_image/36 HTTP/1.1" 200 -
+2025-12-30 23:21:27,144 - __main__ - INFO - ✅ Image passed relaxed validation: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 23:21:27,145 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 23:21:27,148 - __main__ - INFO - ✅ Using scraped image: https://s.yimg.com/ny/api/res/1.2/Sd18oZQgg9w7ALi3_Fg92w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://d29szjachogqwa.cloudfront.net/images/user-uploaded/TCL-Note-A1-NXTPAPER.jpg
+2025-12-30 23:21:27,148 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:27] "POST /api/generate_article_image/14 HTTP/1.1" 200 -
+2025-12-30 23:21:27,150 - __main__ - ERROR - ❌ Stable Diffusion generation failed: index 1001 is out of bounds for dimension 0 with size 1000
+2025-12-30 23:21:27,150 - __main__ - WARNING - ❌ Stable Diffusion failed for: 3 networking tools from Home Depot that will fix y... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:27,150 - __main__ - WARNING - ❌ No image available for article: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:21:27,150 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:27] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 23:21:27,389 - __main__ - INFO - ✅ Image passed relaxed validation: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-30 23:21:27,390 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-30 23:21:27,392 - __main__ - INFO - ✅ Using scraped image: https://s.yimg.com/ny/api/res/1.2/oqzx_Kd3bGd7RuVzO4zurA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://d29szjachogqwa.cloudfront.net/images/2025-12/c002b674-626f-4750-915e-a02f3dde61fd
+2025-12-30 23:21:27,392 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:27] "POST /api/generate_article_image/11 HTTP/1.1" 200 -
+2025-12-30 23:21:27,544 - __main__ - ERROR - ❌ Stable Diffusion generation failed: unsupported operand type(s) for *: 'Tensor' and 'NoneType'
+2025-12-30 23:21:27,545 - __main__ - WARNING - ❌ Stable Diffusion failed for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:27,545 - __main__ - WARNING - ❌ No image available for article: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:21:27,545 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:27] "POST /api/generate_article_image/22 HTTP/1.1" 200 -
+2025-12-30 23:21:28,059 - __main__ - INFO - ✅ Image passed relaxed validation: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 23:21:28,060 - __main__ - INFO - ✅ Found high-quality Open Graph image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 23:21:28,061 - __main__ - INFO - ✅ Using scraped image: https://s.yimg.com/ny/api/res/1.2/g8CZnkAb_cw0Rm0Bhh1aeg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03MjA-/https://s.yimg.com/os/creatr-uploaded-images/2025-12/6138bc00-d447-11f0-bfff-2f2847add4fb
+2025-12-30 23:21:28,064 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:28] "POST /api/generate_article_image/16 HTTP/1.1" 200 -
+2025-12-30 23:21:31,570 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:31] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:21:31,587 - __main__ - INFO - 📷 Scraping image from article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...
+2025-12-30 23:21:31,587 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:21:31,587 - __main__ - INFO - 📷 Scraping image from article: Get this M3 iPad Air with 5G for less than Apple charges for...
+2025-12-30 23:21:31,587 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:21:31,587 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:21:31,588 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:21:31,590 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that can solve mo...
+2025-12-30 23:21:31,590 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:21:31,590 - __main__ - INFO - 📷 Scraping image from article: AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...
+2025-12-30 23:21:31,590 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:21:31,590 - __main__ - INFO - 📷 Scraping image from article: 5G vs. public Wi-Fi – is it safer to just use your data in 2...
+2025-12-30 23:21:31,591 - __main__ - INFO - 📷 Scraping image from article: Coming Wi-Fi 8 will bring reliability rather than greater sp...
+2025-12-30 23:21:31,591 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:21:31,591 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:21:31,591 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:21:31,591 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:21:31,592 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:21:31,592 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:21:32,009 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,019 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,020 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 23:21:32,020 - __main__ - INFO - 🎨 Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:21:32,021 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,021 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,021 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,021 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,021 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Get this M3 iPad Air with 5G for less than Apple charges for the Wi-Fi model - Macworld'
+2025-12-30 23:21:32,021 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,029 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,032 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,042 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,046 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,056 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,067 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,067 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that can solve mo...'
+2025-12-30 23:21:32,070 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,071 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...'
+2025-12-30 23:21:32,071 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Coming Wi-Fi 8 will bring reliability rather than greater sp...'
+2025-12-30 23:21:32,072 - __main__ - INFO - 🎨 Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:21:32,083 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,083 - __main__ - INFO - 🎨 Generating photorealistic image for: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:21:32,083 - __main__ - INFO - 🎨 Generating photorealistic image for: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:21:32,083 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,084 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...'
+2025-12-30 23:21:32,084 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,084 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,084 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,084 - __main__ - INFO - 🎨 Generating photorealistic image for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:21:32,084 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,085 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,085 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,085 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,085 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,085 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,085 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,085 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET'
+2025-12-30 23:21:32,085 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,085 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,085 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,090 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,090 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,090 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,090 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting AT&T bringing faster Wi-Fi to residents near Texas Motor Speedway - Fort Worth Report'
+2025-12-30 23:21:32,090 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com'
+2025-12-30 23:21:32,100 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,102 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,103 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,103 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,105 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '5G vs. public Wi-Fi – is it safer to just use your data in 2...'
+2025-12-30 23:21:32,105 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET'
+2025-12-30 23:21:32,108 - __main__ - INFO - 🎨 Generating photorealistic image for: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:21:32,109 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,110 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,110 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,111 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,111 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,111 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 5G vs. public Wi-Fi – is it safer to just use your data in 2026? - Tom's Guide'
+2025-12-30 23:21:32,111 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,150 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,153 - __main__ - WARNING - ❌ Stable Diffusion failed for: 5G vs. public Wi-Fi – is it safer to just use your... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,153 - __main__ - WARNING - ❌ No image available for article: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:21:32,155 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 23:21:32,159 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,160 - __main__ - WARNING - ❌ Stable Diffusion failed for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,160 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,161 - __main__ - WARNING - ❌ No image available for article: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:21:32,162 - __main__ - INFO - 📷 Scraping image from article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...
+2025-12-30 23:21:32,162 - __main__ - WARNING - ❌ Stable Diffusion failed for: Get this M3 iPad Air with 5G for less than Apple c... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,163 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/22 HTTP/1.1" 200 -
+2025-12-30 23:21:32,163 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:21:32,163 - __main__ - WARNING - ❌ No image available for article: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:21:32,163 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:21:32,165 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/35 HTTP/1.1" 200 -
+2025-12-30 23:21:32,169 - __main__ - INFO - 📷 Scraping image from article: 3 networking tools from Home Depot that will fix your home's...
+2025-12-30 23:21:32,170 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:21:32,170 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:21:32,172 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:21:32,172 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:21:32,172 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:21:32,370 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,372 - __main__ - WARNING - ❌ Stable Diffusion failed for: Your Samsung phone has a secret Wi-Fi menu that ca... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,372 - __main__ - WARNING - ❌ No image available for article: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:21:32,373 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/34 HTTP/1.1" 200 -
+2025-12-30 23:21:32,584 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,595 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,596 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:21:32,596 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:21:32,596 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,596 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,596 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,596 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,597 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer'
+2025-12-30 23:21:32,598 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,603 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,614 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,615 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...'
+2025-12-30 23:21:32,616 - __main__ - INFO - 🎨 Generating photorealistic image for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:21:32,618 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,618 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,618 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,618 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,618 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider'
+2025-12-30 23:21:32,618 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,630 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:32,646 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:32,649 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '3 networking tools from Home Depot that will fix your home's...'
+2025-12-30 23:21:32,650 - __main__ - INFO - 🎨 Generating photorealistic image for: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:21:32,651 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:32,651 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:32,651 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:32,651 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:32,651 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf'
+2025-12-30 23:21:32,651 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:21:32,659 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,662 - __main__ - WARNING - ❌ Stable Diffusion failed for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,662 - __main__ - WARNING - ❌ No image available for article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:21:32,662 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/36 HTTP/1.1" 200 -
+2025-12-30 23:21:32,910 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:32,913 - __main__ - WARNING - ❌ Stable Diffusion failed for: Coming Wi-Fi 8 will bring reliability rather than ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:32,914 - __main__ - WARNING - ❌ No image available for article: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:21:32,914 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:32] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 23:21:33,136 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 23:21:33,137 - __main__ - WARNING - ❌ Stable Diffusion failed for: 3 networking tools from Home Depot that will fix y... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:33,138 - __main__ - WARNING - ❌ No image available for article: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:21:33,138 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:33] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 23:21:34,431 - __main__ - ERROR - ❌ Stable Diffusion generation failed: index 1001 is out of bounds for dimension 0 with size 1000
+2025-12-30 23:21:34,431 - __main__ - WARNING - ❌ Stable Diffusion failed for: No joke, the best piece of hardware I've used in 2... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:34,431 - __main__ - WARNING - ❌ No image available for article: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:21:34,431 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:34] "POST /api/generate_article_image/62 HTTP/1.1" 200 -
+2025-12-30 23:21:34,821 - __main__ - ERROR - ❌ Stable Diffusion generation failed: unsupported operand type(s) for *: 'Tensor' and 'NoneType'
+2025-12-30 23:21:34,821 - __main__ - WARNING - ❌ Stable Diffusion failed for: AT&T bringing faster Wi-Fi to residents near Texas... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:21:34,821 - __main__ - WARNING - ❌ No image available for article: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:21:34,822 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:21:34] "POST /api/generate_article_image/63 HTTP/1.1" 200 -
+2025-12-30 23:21:50,416 - __main__ - INFO - 📷 Scraping image from article: Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi S...
+2025-12-30 23:21:50,416 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMinwFBVV95cUxOSEhUTDJvUi03RDJkSTRwMnk4dF9mLW1NTXlJMXN3enhpb2kwX3l5U0k4bGRTSGMyTXl6YVFDaFZVTGVzckZyTGFBdGV6cHhfc21UdEFyMUVLV3k0UFNCcFRWUlV3Q1lrOUxoNTMzT0R1TnlMNHpTS3JvVy1kTVFyeDJKLXlZakYtUkFZOXFLUjA4MktzemtNZ2JubHpodTQ?oc=5
+2025-12-30 23:21:50,416 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMinwFBVV95cUxOSEhUTDJvUi03RDJkSTRwMnk4dF9mLW1NTXlJMXN3enhpb2kwX3l5U0k4bGRTSGMyTXl6YVFDaFZVTGVzckZyTGFBdGV6cHhfc21UdEFyMUVLV3k0UFNCcFRWUlV3Q1lrOUxoNTMzT0R1TnlMNHpTS3JvVy1kTVFyeDJKLXlZakYtUkFZOXFLUjA4MktzemtNZ2JubHpodTQ?oc=5
+2025-12-30 23:21:50,809 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:21:50,823 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:21:50,824 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi S...'
+2025-12-30 23:21:50,824 - __main__ - INFO - 🎨 Generating photorealistic image for: Libraries and Schools Urge FCC to Restore Off-Camp...
+2025-12-30 23:21:50,824 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:21:50,824 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:21:50,824 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:21:50,824 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:21:50,824 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi Support - Broadband Breakfast'
+2025-12-30 23:21:50,824 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:22:03,123 - __main__ - INFO - ✅ Stable Diffusion generation completed
+2025-12-30 23:22:03,149 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_4b9132b0b942.png
+2025-12-30 23:22:03,149 - __main__ - INFO - ✅ Stable Diffusion SUCCESS: static/generated_images/article_4b9132b0b942.png
+2025-12-30 23:22:03,154 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_4b9132b0b942.png
+2025-12-30 23:22:03,157 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:22:03] "POST /api/generate_article_image/31 HTTP/1.1" 200 -
+2025-12-30 23:22:03,165 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:22:03] "GET /static/generated_images/article_4b9132b0b942.png HTTP/1.1" 200 -
+2025-12-30 23:24:19,285 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:24:19,587 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:24:20,030 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:24:20,031 - __main__ - INFO - Database initialized
+2025-12-30 23:24:20,036 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:24:20,036 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:24:20,037 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:24:20,038 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:24:20,076 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:24:20,087 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:24:20,425 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:24:20,582 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:24:20,828 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:24:21,490 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:24:21,674 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:24:22,522 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:24:22,996 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:24:23,723 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:24:35,216 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:24:35,240 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:24:35,484 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:24:35,484 - __main__ - INFO - Database initialized
+2025-12-30 23:24:35,489 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:24:35,489 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:24:35,489 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:24:35,490 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:24:35,519 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:24:35,530 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:24:35,664 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:24:35,819 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:24:36,078 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:24:36,654 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:24:36,870 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:24:37,172 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:24:37,473 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:24:37,765 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:24:51,729 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 23:24:51,753 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:24:52,005 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:24:52,005 - __main__ - INFO - Database initialized
+2025-12-30 23:24:52,010 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:24:52,010 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:24:52,010 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:24:52,011 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:24:52,036 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:24:52,048 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:24:52,211 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:24:52,370 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:24:52,813 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:24:53,403 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:24:53,631 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:24:53,997 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:24:54,286 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:24:54,582 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:26:20,282 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:26:20,282 - __main__ - INFO - Database initialized
+2025-12-30 23:26:20,287 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:26:20,287 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:26:20,287 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:26:20,289 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:26:20,324 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 23:26:20,324 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 23:26:20,330 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 23:26:20,545 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:26:20,576 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 23:26:20,576 - __main__ - INFO - Database initialized
+2025-12-30 23:26:20,581 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 23:26:20,581 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 23:26:20,581 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 23:26:20,582 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 23:26:20,606 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 23:26:20,614 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 23:26:20,687 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:26:21,048 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:26:21,949 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:26:22,150 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:26:22,911 - __main__ - INFO - 🎨 Auto-generating image for: NSHE, City of Reno to launch eduroam Wi-Fi access ...
+2025-12-30 23:26:22,911 - __main__ - INFO - 📷 Scraping image from article: NSHE, City of Reno to launch eduroam Wi-Fi access at public ...
+2025-12-30 23:26:22,911 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMi4AFBVV95cUxPa0lYQ09mQ2dWZXVmNHJKeloyMXJDbm9ZT3NRXzY1UGp2UHhZOFI5cjQ0YnhDbkNMYnFEeVAxQmhnczE2RnNvQUF5ekdQcVJwc3hyNFVMcUtGVEQ3Vy0tckViTmNmNGxZMU83MldIN0lUdVZLZmJwRFUxZXpiNDJuQi1lNmhFVFA5a1gxWFBVbkwxMVJfaXRnSi1MY0V4Y2E4RjdQaXNzcnlCaUpZaVFFMHZ6NEpoQm5Panc3Z2lZTGJjYXUxUnNKMjVTMGVPbW13OHlKZjJ5RV9MOHdualFhYg?oc=5
+2025-12-30 23:26:22,911 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMi4AFBVV95cUxPa0lYQ09mQ2dWZXVmNHJKeloyMXJDbm9ZT3NRXzY1UGp2UHhZOFI5cjQ0YnhDbkNMYnFEeVAxQmhnczE2RnNvQUF5ekdQcVJwc3hyNFVMcUtGVEQ3Vy0tckViTmNmNGxZMU83MldIN0lUdVZLZmJwRFUxZXpiNDJuQi1lNmhFVFA5a1gxWFBVbkwxMVJfaXRnSi1MY0V4Y2E4RjdQaXNzcnlCaUpZaVFFMHZ6NEpoQm5Panc3Z2lZTGJjYXUxUnNKMjVTMGVPbW13OHlKZjJ5RV9MOHdualFhYg?oc=5
+2025-12-30 23:26:23,375 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:26:23,389 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:26:23,390 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'NSHE, City of Reno to launch eduroam Wi-Fi access at public ...'
+2025-12-30 23:26:23,390 - __main__ - INFO - 🎨 Generating photorealistic image for: NSHE, City of Reno to launch eduroam Wi-Fi access ...
+2025-12-30 23:26:23,390 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:26:23,390 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:26:27,291 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:26:27,291 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:26:29,031 - __main__ - INFO - ✅ Stable Diffusion pipeline loaded successfully
+2025-12-30 23:26:29,032 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:26:29,032 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting NSHE, City of Reno to launch eduroam Wi-Fi access at public sites - KTVN'
+2025-12-30 23:26:29,032 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:26:32,846 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:26:32] "GET /admin HTTP/1.1" 200 -
+2025-12-30 23:26:38,073 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:26:38] "GET / HTTP/1.1" 200 -
+2025-12-30 23:26:42,073 - __main__ - INFO - ✅ Stable Diffusion generation completed
+2025-12-30 23:26:42,103 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_d60a2eacea1b.png
+2025-12-30 23:26:42,103 - __main__ - INFO - ✅ Stable Diffusion SUCCESS: static/generated_images/article_d60a2eacea1b.png
+2025-12-30 23:26:42,103 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_d60a2eacea1b.png
+2025-12-30 23:26:42,103 - __main__ - INFO - ✅ Auto-generated image for article 64: /static/generated_images/article_d60a2eacea1b.png
+2025-12-30 23:26:42,103 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:26:42,561 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:26:43,323 - __main__ - INFO - RSS fetch completed: 1 new articles
+2025-12-30 23:26:43,323 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 23:26:43,571 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 23:26:43,882 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 23:26:44,868 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 23:26:45,117 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 23:26:45,484 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-30 23:26:45,937 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-30 23:26:46,395 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-30 23:27:28,302 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:28] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 23:27:28,322 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:28] "[36mGET /static/generated_images/article_4b9132b0b942.png HTTP/1.1[0m" 304 -
+2025-12-30 23:27:28,323 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:28] "GET /static/generated_images/article_d60a2eacea1b.png HTTP/1.1" 200 -
+2025-12-30 23:27:28,332 - __main__ - INFO - 📷 Scraping image from article: Get this M3 iPad Air with 5G for less than Apple charges for...
+2025-12-30 23:27:28,332 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:27:28,332 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:27:28,333 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that's highly use...
+2025-12-30 23:27:28,333 - __main__ - INFO - 📷 Scraping image from article: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGBIC...
+2025-12-30 23:27:28,333 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMie0FVX3lxTE95cE9vQldYcm9uMGRUZjI0Rjd4T2YtdHVId05peVJqN2ZzUm5rX2hBZ2NOSTliWjNNdUNMSEJ4TGlLdC1sbEktMV9tNnlkMGdEMDVxeWVCUEM4S3NMRUdtUEp1V2V5OFFDdnI2cUd3M08xa3cweHIzSTJDSQ?oc=5
+2025-12-30 23:27:28,333 - __main__ - INFO - 📷 Scraping image from article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmod...
+2025-12-30 23:27:28,333 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiwwFBVV95cUxPZjFiQzdDV2FsMXVLVmdqT3I2dGZPRzNPUlRHeWdfTWZuZW9TZmY2d0tFUmZGb3JvTzVsMGRmQkxwZ2t0QVlhV3VwdFV6UzA1RlBpa3M4NUR6SldCTWYtSzVmQk1CUXN1bWpZaEpmNl9kd3FWNzBLM3U5WU0wQWh1ZnR3Z0VkbFQ1NF92ajhnUWQyeXU2dGlZQ0dQd1FUWUpNYmZRaWVSaUxGaFdNYzAtazU2YldHRWpOZEx5MUM2d2ZRQVk?oc=5
+2025-12-30 23:27:28,334 - __main__ - INFO - 📷 Scraping image from article: You spin me right round (like a Wi-Fi identifier) - Six Colo...
+2025-12-30 23:27:28,334 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMie0FVX3lxTE95cE9vQldYcm9uMGRUZjI0Rjd4T2YtdHVId05peVJqN2ZzUm5rX2hBZ2NOSTliWjNNdUNMSEJ4TGlLdC1sbEktMV9tNnlkMGdEMDVxeWVCUEM4S3NMRUdtUEp1V2V5OFFDdnI2cUd3M08xa3cweHIzSTJDSQ?oc=5
+2025-12-30 23:27:28,334 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiiAFBVV95cUxQNDlYMFluQXJUcEE4anEzMjJHYUZGLTlUMnJrakV0R1BCbldoNV9IYXlYdWdBNWE5SFBxN1JUUFVaZkZlbXlUSjd2aFEzS2FpRVY5T1l2V0l0UlVQQlZ6THNRYms1MkxYT2xJT2gza1poaWYycWtEYzR4S2FGMDU2b2Njb2gwanU4?oc=5
+2025-12-30 23:27:28,334 - __main__ - INFO - 📷 Scraping image from article: 5G vs. public Wi-Fi – is it safer to just use your data in 2...
+2025-12-30 23:27:28,334 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiwwFBVV95cUxPZjFiQzdDV2FsMXVLVmdqT3I2dGZPRzNPUlRHeWdfTWZuZW9TZmY2d0tFUmZGb3JvTzVsMGRmQkxwZ2t0QVlhV3VwdFV6UzA1RlBpa3M4NUR6SldCTWYtSzVmQk1CUXN1bWpZaEpmNl9kd3FWNzBLM3U5WU0wQWh1ZnR3Z0VkbFQ1NF92ajhnUWQyeXU2dGlZQ0dQd1FUWUpNYmZRaWVSaUxGaFdNYzAtazU2YldHRWpOZEx5MUM2d2ZRQVk?oc=5
+2025-12-30 23:27:28,334 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVVRyTllGLWVKYnpDZ3ZVZlNjbndRTVk2V2xfNXR1b0JJYjhRUXA0MEtZSXNqbWo3dHVCUXBTMTVoZ1hkV3hsTHhzNG13cGgzNWd1eUtpbUJ1Mndjd1VyeTZoVFpYa2lOMzQ3azhSdHpvRDR2dkN5ckRYWWdnWmJrSlNKVjllRDB0VHpN?oc=5
+2025-12-30 23:27:28,335 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiiAFBVV95cUxQNDlYMFluQXJUcEE4anEzMjJHYUZGLTlUMnJrakV0R1BCbldoNV9IYXlYdWdBNWE5SFBxN1JUUFVaZkZlbXlUSjd2aFEzS2FpRVY5T1l2V0l0UlVQQlZ6THNRYms1MkxYT2xJT2gza1poaWYycWtEYzR4S2FGMDU2b2Njb2gwanU4?oc=5
+2025-12-30 23:27:28,335 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:27:28,335 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVVRyTllGLWVKYnpDZ3ZVZlNjbndRTVk2V2xfNXR1b0JJYjhRUXA0MEtZSXNqbWo3dHVCUXBTMTVoZ1hkV3hsTHhzNG13cGgzNWd1eUtpbUJ1Mndjd1VyeTZoVFpYa2lOMzQ3azhSdHpvRDR2dkN5ckRYWWdnWmJrSlNKVjllRDB0VHpN?oc=5
+2025-12-30 23:27:28,336 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiowFBVV95cUxNWlFtN0RLVXVSZmE0dlVNMTlDMWNDLWd1X3g5RGxwankzSG9CUFVxeld3OVBnWml6ZVcxTk5NSVRLZEx2U2FOSjVYc2Q3OUlYQVNnbTR6QXNGd0lIOUo5VHJrZTJuY0t0cVZ5dTgxYzBkcVlDdUVldDNnSEZjUWpFQjc0XzVCaE9WU3FRZkdEWkIycFQ0a2Z3Q3lzbWlBVjVTV09v?oc=5
+2025-12-30 23:27:28,706 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,724 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,725 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGBIC...'
+2025-12-30 23:27:28,725 - __main__ - INFO - 🎨 Generating photorealistic image for: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% ...
+2025-12-30 23:27:28,726 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,726 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:28,825 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,836 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,837 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 23:27:28,837 - __main__ - INFO - 🎨 Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:27:28,853 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,854 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:28,882 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,893 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,893 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'You spin me right round (like a Wi-Fi identifier) - Six Colo...'
+2025-12-30 23:27:28,897 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,897 - __main__ - INFO - 🎨 Generating photorealistic image for: You spin me right round (like a Wi-Fi identifier) ...
+2025-12-30 23:27:28,908 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,912 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,918 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that's highly use...'
+2025-12-30 23:27:28,919 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,923 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,923 - __main__ - INFO - 🎨 Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that's ...
+2025-12-30 23:27:28,924 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:28,925 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Samsung’s New Wi-Fi Speaker Has Big Monolith Energy - Gizmod...'
+2025-12-30 23:27:28,925 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,925 - __main__ - INFO - 🎨 Generating photorealistic image for: Samsung’s New Wi-Fi Speaker Has Big Monolith Energ...
+2025-12-30 23:27:28,925 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:28,929 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:28,939 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:28,939 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,940 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:28,940 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '5G vs. public Wi-Fi – is it safer to just use your data in 2...'
+2025-12-30 23:27:28,940 - __main__ - INFO - 🎨 Generating photorealistic image for: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:27:28,940 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:28,940 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:29,506 - __main__ - WARNING - ❌ Stable Diffusion not available (import error): cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:27:29,506 - __main__ - WARNING - ❌ Stable Diffusion failed for: Get this M3 iPad Air with 5G for less than Apple c... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:29,506 - __main__ - WARNING - ❌ No image available for article: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:27:29,506 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:29] "POST /api/generate_article_image/35 HTTP/1.1" 200 -
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ Stable Diffusion not available (import error): cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ Stable Diffusion failed for: Samsung’s New Wi-Fi Speaker Has Big Monolith Energ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ Stable Diffusion not available (import error): cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ No image available for article: Samsung’s New Wi-Fi Speaker Has Big Monolith Energ...
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ Stable Diffusion failed for: 5G vs. public Wi-Fi – is it safer to just use your... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:29,507 - __main__ - WARNING - ❌ No image available for article: 5G vs. public Wi-Fi – is it safer to just use your...
+2025-12-30 23:27:29,507 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:29] "POST /api/generate_article_image/27 HTTP/1.1" 200 -
+2025-12-30 23:27:29,507 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:29] "POST /api/generate_article_image/24 HTTP/1.1" 200 -
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ Stable Diffusion not available (import error): cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ Stable Diffusion not available (import error): cannot import name 'StableDiffusionPipeline' from 'diffusers' (/Users/drlentz/Library/Python/3.9/lib/python/site-packages/diffusers/__init__.py)
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ Stable Diffusion failed for: Your Samsung phone has a secret Wi-Fi menu that's ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ Stable Diffusion failed for: You spin me right round (like a Wi-Fi identifier) ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ No image available for article: Your Samsung phone has a secret Wi-Fi menu that's ...
+2025-12-30 23:27:29,508 - __main__ - WARNING - ❌ No image available for article: You spin me right round (like a Wi-Fi identifier) ...
+2025-12-30 23:27:29,509 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:29] "POST /api/generate_article_image/23 HTTP/1.1" 200 -
+2025-12-30 23:27:29,509 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:29] "POST /api/generate_article_image/37 HTTP/1.1" 200 -
+2025-12-30 23:27:29,510 - __main__ - INFO - 📷 Scraping image from article: Get this M3 iPad Air with 5G for less than Apple charges for...
+2025-12-30 23:27:29,510 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:27:29,510 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMivwFBVV95cUxOODM1SlB1M1J1OUo5V1NxYUp0bV8xT3hobG0xdndBbktmODNlSUVrazJZdGdZQlY3MzZvYk5lMWhXVjJ1eTYwVWpDUE9EcEN2bkpGSS1nSWdjX0diS2lmamtwTmVRcjFnS3NLUkpfWm8yRWQxdjUtTFJPbGo3VEQ2emhyb0pORUZEa2lQSEtYQUlyQTRFZlUyZldSVms0ekN3OWsxYVJJeG5pZ2lGQ3Bxc3VYeTBUZzVIVDd4RjdoZw?oc=5
+2025-12-30 23:27:29,511 - __main__ - INFO - 📷 Scraping image from article: ASUS ROG Magic Box X Wi-Fi 7 Gaming Router Introduced with 7...
+2025-12-30 23:27:29,512 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMigwFBVV95cUxNdUtTS3lvMW84aktSWVBlZTRCRnNkWEtCMWd2QXNsRE0xMTJ6U2JVd0FlLWtBWkVsRjBTZlRkc1lEcWNSZGwxel9GSElBRzZaMWU1LW10SkFpOFFiX2h5WlFQY20zNXpwT1poSFROajZ6aVpURS15SlhyMXBUWHZqYVFnWQ?oc=5
+2025-12-30 23:27:29,512 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMigwFBVV95cUxNdUtTS3lvMW84aktSWVBlZTRCRnNkWEtCMWd2QXNsRE0xMTJ6U2JVd0FlLWtBWkVsRjBTZlRkc1lEcWNSZGwxel9GSElBRzZaMWU1LW10SkFpOFFiX2h5WlFQY20zNXpwT1poSFROajZ6aVpURS15SlhyMXBUWHZqYVFnWQ?oc=5
+2025-12-30 23:27:29,513 - __main__ - INFO - 📷 Scraping image from article: Westermo Launches Next-Generation Wi-Fi 7 Access Points for ...
+2025-12-30 23:27:29,513 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMinAFBVV95cUxPeE8teUJqaVBZbEpxMktDUllBRm1ubWdBX2prWjB6UE5SSHNkc1l2bXNYYnJieUNEV3ZTSmtXUEU2MmNlNTJaYTR0ekRTOTN5U25fQU93RFFRazJjTWVPMmhXWFJoNlF2TmdYeHVNSUl6MTZlT3VnZnlVMFBiR1c1MzN6YlVjUHJTSjFtWDFMMnhKNzhhd0hoOVJHX2g?oc=5
+2025-12-30 23:27:29,513 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMinAFBVV95cUxPeE8teUJqaVBZbEpxMktDUllBRm1ubWdBX2prWjB6UE5SSHNkc1l2bXNYYnJieUNEV3ZTSmtXUEU2MmNlNTJaYTR0ekRTOTN5U25fQU93RFFRazJjTWVPMmhXWFJoNlF2TmdYeHVNSUl6MTZlT3VnZnlVMFBiR1c1MzN6YlVjUHJTSjFtWDFMMnhKNzhhd0hoOVJHX2g?oc=5
+2025-12-30 23:27:29,514 - __main__ - INFO - 📷 Scraping image from article: Your Android phone can double up as a travel router and bypa...
+2025-12-30 23:27:29,514 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMib0FVX3lxTFBPM0duVEJzbkMybW9LczNadkxiaTFaNGk3aTI2aHlmWHh2MWtBalQ2ZjVzRFJoUnZKN0phU3lrejZsNlFJYmxMV1pHSGFyTUxhWnJBX1pUNFdRekdQR0hMb09kQ01Sa1BWdFgzSDFIZw?oc=5
+2025-12-30 23:27:29,514 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMib0FVX3lxTFBPM0duVEJzbkMybW9LczNadkxiaTFaNGk3aTI2aHlmWHh2MWtBalQ2ZjVzRFJoUnZKN0phU3lrejZsNlFJYmxMV1pHSGFyTUxhWnJBX1pUNFdRekdQR0hMb09kQ01Sa1BWdFgzSDFIZw?oc=5
+2025-12-30 23:27:29,514 - __main__ - INFO - 📷 Scraping image from article: Wi-Fi hi-fi headphones, super-versatile systems and CD's ren...
+2025-12-30 23:27:29,514 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMi2gFBVV95cUxPZE4wZzNaQjc1aUpJUmFoU1hXVVo4ZU5zUnZKUVcxN3JRVlR6bTl2QmJobjBCcUllMjRjZDVyMkJPaDVkV1Flb25NbnM3R2VPdElrYmJDQ1ZlY3dXM0NJS21VVm9faVM0cmpCNml6aDRPelA4VHd1cGxESlBrX3lKSFllRWJWOGZGaWdPYlN3aUY2dlJvd01mU0k5VjV6cVNtbDItcUo0bERqbDUtY2lXWHlNLVF6cmZqMWlWY215dUJuOGtMXzRtSElQTmxIQzE2RTNPYlVsSERwQQ?oc=5
+2025-12-30 23:27:29,514 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMi2gFBVV95cUxPZE4wZzNaQjc1aUpJUmFoU1hXVVo4ZU5zUnZKUVcxN3JRVlR6bTl2QmJobjBCcUllMjRjZDVyMkJPaDVkV1Flb25NbnM3R2VPdElrYmJDQ1ZlY3dXM0NJS21VVm9faVM0cmpCNml6aDRPelA4VHd1cGxESlBrX3lKSFllRWJWOGZGaWdPYlN3aUY2dlJvd01mU0k5VjV6cVNtbDItcUo0bERqbDUtY2lXWHlNLVF6cmZqMWlWY215dUJuOGtMXzRtSElQTmxIQzE2RTNPYlVsSERwQQ?oc=5
+2025-12-30 23:27:29,881 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:29,891 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:29,892 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Android phone can double up as a travel router and bypa...'
+2025-12-30 23:27:29,896 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:29,896 - __main__ - INFO - 🎨 Generating photorealistic image for: Your Android phone can double up as a travel route...
+2025-12-30 23:27:29,907 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:29,908 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:29,908 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:29,908 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Westermo Launches Next-Generation Wi-Fi 7 Access Points for ...'
+2025-12-30 23:27:29,908 - __main__ - INFO - 🎨 Generating photorealistic image for: Westermo Launches Next-Generation Wi-Fi 7 Access P...
+2025-12-30 23:27:29,912 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:29,922 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:29,922 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:29,923 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Get this M3 iPad Air with 5G for less than Apple charges for...'
+2025-12-30 23:27:29,923 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:29,923 - __main__ - INFO - 🎨 Generating photorealistic image for: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:27:29,924 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:29,924 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:29,929 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:29,939 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:29,940 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'ASUS ROG Magic Box X Wi-Fi 7 Gaming Router Introduced with 7...'
+2025-12-30 23:27:29,940 - __main__ - INFO - 🎨 Generating photorealistic image for: ASUS ROG Magic Box X Wi-Fi 7 Gaming Router Introdu...
+2025-12-30 23:27:29,944 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:29,944 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:29,955 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:29,955 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:29,955 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Wi-Fi hi-fi headphones, super-versatile systems and CD's ren...'
+2025-12-30 23:27:29,955 - __main__ - INFO - 🎨 Generating photorealistic image for: Wi-Fi hi-fi headphones, super-versatile systems an...
+2025-12-30 23:27:29,956 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:29,956 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:30,547 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:30,547 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:30,547 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:30,548 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:30,548 - __main__ - INFO - 📥 Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 23:27:34,073 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,073 - __main__ - WARNING - ❌ Stable Diffusion failed for: ASUS ROG Magic Box X Wi-Fi 7 Gaming Router Introdu... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,073 - __main__ - WARNING - ❌ No image available for article: ASUS ROG Magic Box X Wi-Fi 7 Gaming Router Introdu...
+2025-12-30 23:27:34,074 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/38 HTTP/1.1" 200 -
+2025-12-30 23:27:34,081 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that can solve mo...
+2025-12-30 23:27:34,081 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:27:34,081 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTFBQSUZ4ZHlvT0QxT0lTR0R3MXdFQUFUU2hYN2piQmdsY3UtOGpRcFcyeUpXT2FWNlBscEo1cU5YZUJPQUVxLWEyNmNBN0lUbjZrVk5sNnBVMUYzRkc1c0ctZFNVSUNWbVU0akFQaXhCblV1SFU?oc=5
+2025-12-30 23:27:34,116 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,116 - __main__ - WARNING - ❌ Stable Diffusion failed for: Wi-Fi hi-fi headphones, super-versatile systems an... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,116 - __main__ - WARNING - ❌ No image available for article: Wi-Fi hi-fi headphones, super-versatile systems an...
+2025-12-30 23:27:34,117 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/25 HTTP/1.1" 200 -
+2025-12-30 23:27:34,123 - __main__ - INFO - 📷 Scraping image from article: I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...
+2025-12-30 23:27:34,123 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:27:34,123 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMimwFBVV95cUxOb3VIaVJ4M3hqTVU5Sm5QOFljQkR3M3oxMGgwNUhxLS1HWGlyalZwaWg4RDgxRHFXdENDYUJ3MkR4NHhpa3VYajVCSTlnQndKRlJieWctcW9jNXUxcTgzWC1iYXVpME9EaVh1OE1WZlYwbUxqNldFel9mcGF1QlVNRGg4dnpaQkd0b19pTC1sdVN5NGJjUDEyYi15TQ?oc=5
+2025-12-30 23:27:34,139 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,139 - __main__ - WARNING - ❌ Stable Diffusion failed for: Your Android phone can double up as a travel route... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,139 - __main__ - WARNING - ❌ No image available for article: Your Android phone can double up as a travel route...
+2025-12-30 23:27:34,140 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/21 HTTP/1.1" 200 -
+2025-12-30 23:27:34,145 - __main__ - INFO - 📷 Scraping image from article: AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...
+2025-12-30 23:27:34,145 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:27:34,145 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMipwFBVV95cUxOa19QWGg0Zkx3U3dWY0g1TXZ6bDcwVk5iUm1xYk9hSUJFZHl0MEgtZS1DalZPNFRHbXhCc1JWQW5uNWZwMmhsRzVBTV9JTGFxSldWeUxaS29rWkRGWlJ1V3JCcTlwLWkwS21uVllWLTNNTm9CQjNpcllsZFZFY0NyYTVfSF9KSkZuZEtvWFFhZHZ0RnR2ZnJkNWU2SlZvYWRKUUY0Y0ZmQQ?oc=5
+2025-12-30 23:27:34,166 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,166 - __main__ - WARNING - ❌ Stable Diffusion failed for: Get this M3 iPad Air with 5G for less than Apple c... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,166 - __main__ - WARNING - ❌ No image available for article: Get this M3 iPad Air with 5G for less than Apple c...
+2025-12-30 23:27:34,166 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/35 HTTP/1.1" 200 -
+2025-12-30 23:27:34,172 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,172 - __main__ - INFO - 📷 Scraping image from article: Coming Wi-Fi 8 will bring reliability rather than greater sp...
+2025-12-30 23:27:34,172 - __main__ - WARNING - ❌ Stable Diffusion failed for: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,172 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:27:34,172 - __main__ - WARNING - ❌ No image available for article: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% ...
+2025-12-30 23:27:34,172 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMic0FVX3lxTE5HRWUxYTNfZ3dwZGRYR2hNS2xIUmUtMlFMTWhZYURvdE9NS2EtYmJqclZnbXNLdHlDS3Q4ZU5CUlJFY2tLWkdheDZHMHF5ZVpRY0JCRG9QWDhsdC1yanZQdmVGdW1ocHBRMGVBc0Fid2txVDQ?oc=5
+2025-12-30 23:27:34,173 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/39 HTTP/1.1" 200 -
+2025-12-30 23:27:34,174 - __main__ - ERROR - ❌ Failed to load Stable Diffusion pipeline: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-12-30 23:27:34,174 - __main__ - WARNING - ❌ Stable Diffusion failed for: Westermo Launches Next-Generation Wi-Fi 7 Access P... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:34,174 - __main__ - WARNING - ❌ No image available for article: Westermo Launches Next-Generation Wi-Fi 7 Access P...
+2025-12-30 23:27:34,174 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:34] "POST /api/generate_article_image/33 HTTP/1.1" 200 -
+2025-12-30 23:27:34,175 - __main__ - INFO - 📷 Scraping image from article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...
+2025-12-30 23:27:34,175 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:27:34,175 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiogFBVV95cUxNNnY4cE8xSkN2dHZCZ1VsdjRwMm4ycWxTN3NjdU9oemM0T04yd3JZbUZOeE1OamRQRGRmc0VtQzNzb2dWTHE2WHRVNXNXeGxEUTIwZzFXRmFlNGIxWWtjLWxOZl9mRWRXam04WHk1dUR0QTNKQ2tKMy0waklrSDQ1R0tpMGV0aXBPMS15VDhlUk9hclR3V2Jac3Q4WDhSRkRVR2c?oc=5
+2025-12-30 23:27:34,177 - __main__ - INFO - 📷 Scraping image from article: 3 networking tools from Home Depot that will fix your home's...
+2025-12-30 23:27:34,177 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:27:34,177 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMiakFVX3lxTE9TZmtpTWdfWm5YbEl1bXZWVHZOOU9iNElQWXpyTkFMSjdSdDQxeGM1NGxZeDZjVUpDbjIwdUxwbm5mUE9aazVIZGFvN2V4NW5CRXNKUnlESi1xY3hnYUh6ZGllaU15TGlSTkE?oc=5
+2025-12-30 23:27:34,473 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,486 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,487 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET...'
+2025-12-30 23:27:34,487 - __main__ - INFO - 🎨 Generating photorealistic image for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:27:34,491 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,502 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,503 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,503 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,504 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,504 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,504 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting I Can't Stop Gawking at Samsung's New Wi-Fi Speaker - CNET'
+2025-12-30 23:27:34,504 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:34,506 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that can solve mo...'
+2025-12-30 23:27:34,506 - __main__ - INFO - 🎨 Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:27:34,507 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,507 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,507 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,507 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,507 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Your Samsung phone has a secret Wi-Fi menu that can solve most internet problems - how to access - ZDNET'
+2025-12-30 23:27:34,507 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:34,515 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,526 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,527 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Coming Wi-Fi 8 will bring reliability rather than greater sp...'
+2025-12-30 23:27:34,527 - __main__ - INFO - 🎨 Generating photorealistic image for: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:27:34,528 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,528 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,528 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,528 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,528 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Coming Wi-Fi 8 will bring reliability rather than greater speed - theregister.com'
+2025-12-30 23:27:34,528 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:34,540 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,550 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,551 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'AT&T bringing faster Wi-Fi to residents near Texas Motor Spe...'
+2025-12-30 23:27:34,552 - __main__ - INFO - 🎨 Generating photorealistic image for: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:27:34,553 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,553 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,553 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,553 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,554 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting AT&T bringing faster Wi-Fi to residents near Texas Motor Speedway - Fort Worth Report'
+2025-12-30 23:27:34,554 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:34,571 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,582 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,584 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBik...'
+2025-12-30 23:27:34,584 - __main__ - INFO - 🎨 Generating photorealistic image for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:27:34,585 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,586 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,587 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,587 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,587 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting Amber's best tech in 2025: Apple TV, mesh Wi-Fi, and an eBike - AppleInsider'
+2025-12-30 23:27:34,587 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:34,614 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:34,625 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:34,626 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: '3 networking tools from Home Depot that will fix your home's...'
+2025-12-30 23:27:34,626 - __main__ - INFO - 🎨 Generating photorealistic image for: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:27:34,628 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:34,628 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:34,628 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:34,628 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:34,628 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting 3 networking tools from Home Depot that will fix your home's messy internet setup - MakeUseOf'
+2025-12-30 23:27:34,628 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:35,294 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,297 - __main__ - WARNING - ❌ Stable Diffusion failed for: Your Samsung phone has a secret Wi-Fi menu that ca... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,297 - __main__ - WARNING - ❌ No image available for article: Your Samsung phone has a secret Wi-Fi menu that ca...
+2025-12-30 23:27:35,298 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/34 HTTP/1.1" 200 -
+2025-12-30 23:27:35,299 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,300 - __main__ - WARNING - ❌ Stable Diffusion failed for: Coming Wi-Fi 8 will bring reliability rather than ... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,300 - __main__ - WARNING - ❌ No image available for article: Coming Wi-Fi 8 will bring reliability rather than ...
+2025-12-30 23:27:35,301 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/28 HTTP/1.1" 200 -
+2025-12-30 23:27:35,302 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,303 - __main__ - WARNING - ❌ Stable Diffusion failed for: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,303 - __main__ - WARNING - ❌ No image available for article: Amber's best tech in 2025: Apple TV, mesh Wi-Fi, a...
+2025-12-30 23:27:35,304 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/36 HTTP/1.1" 200 -
+2025-12-30 23:27:35,304 - __main__ - INFO - 📷 Scraping image from article: No joke, the best piece of hardware I've used in 2025 is act...
+2025-12-30 23:27:35,305 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:27:35,305 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://news.google.com/rss/articles/CBMihAJBVV95cUxQYTFnaV9QQ3J1THBKTDUwRHREOGVRelM4WHA4Q1l3RlE5Tm1BV2l1UzZFM09kMEpWMi1kVndSaUlSYzFtdnI5OG8wc1BDbzMzbmthTld2SmxlWlZlb0cwN09CdkVFRl94RGtqQWp1TXR0cG9JUDN5X09QNVFZeUhKbXFyNUk4NFIzMDlON1pwazB6QWQwTkRlY3VsUGZMVS1tM0kzUjJpTS1RaTIybmlJLW1sb1RnVlFlZ1lkVks2d1NoRkhTLUUyTjlQTkE3UnZ5Tlhka21TaUF3VG9ld0ppN2ExZWEzODdRTFI1MVVZUHlMZXM3S3VmblN5eEtzcnhVSHNQWg?oc=5
+2025-12-30 23:27:35,306 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,307 - __main__ - WARNING - ❌ Stable Diffusion failed for: AT&T bringing faster Wi-Fi to residents near Texas... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,307 - __main__ - WARNING - ❌ No image available for article: AT&T bringing faster Wi-Fi to residents near Texas...
+2025-12-30 23:27:35,307 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/63 HTTP/1.1" 200 -
+2025-12-30 23:27:35,309 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,309 - __main__ - WARNING - ❌ Stable Diffusion failed for: I Can't Stop Gawking at Samsung's New Wi-Fi Speake... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,309 - __main__ - WARNING - ❌ No image available for article: I Can't Stop Gawking at Samsung's New Wi-Fi Speake...
+2025-12-30 23:27:35,309 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/22 HTTP/1.1" 200 -
+2025-12-30 23:27:35,316 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,316 - __main__ - WARNING - ❌ Stable Diffusion failed for: 3 networking tools from Home Depot that will fix y... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,316 - __main__ - WARNING - ❌ No image available for article: 3 networking tools from Home Depot that will fix y...
+2025-12-30 23:27:35,316 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/26 HTTP/1.1" 200 -
+2025-12-30 23:27:35,710 - __main__ - INFO - ❌ Rejecting due to strict blocklist 'lh3.googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 23:27:35,731 - __main__ - WARNING - ❌ No images found after ultra-aggressive scraping
+2025-12-30 23:27:35,732 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'No joke, the best piece of hardware I've used in 2025 is act...'
+2025-12-30 23:27:35,732 - __main__ - INFO - 🎨 Generating photorealistic image for: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:27:35,732 - __main__ - INFO - 🚀 Attempting Stable Diffusion generation...
+2025-12-30 23:27:35,732 - __main__ - INFO - 🔍 Checking Stable Diffusion availability...
+2025-12-30 23:27:35,732 - __main__ - INFO - ✅ Stable Diffusion imports successful
+2025-12-30 23:27:35,732 - __main__ - INFO - 🎨 Generating Stable Diffusion image...
+2025-12-30 23:27:35,732 - __main__ - INFO - 📝 Prompt: 'create a photorealistic image depicting No joke, the best piece of hardware I've used in 2025 is actually a router. - PC Gamer'
+2025-12-30 23:27:35,732 - __main__ - INFO - 🚫 Negative: 'text, words, letters, typography, captions, logos,...'
+2025-12-30 23:27:35,806 - __main__ - ERROR - ❌ Stable Diffusion generation failed: Tensor on device cpu is not on the expected device meta!
+2025-12-30 23:27:35,806 - __main__ - WARNING - ❌ Stable Diffusion failed for: No joke, the best piece of hardware I've used in 2... - NO FALLBACK TO TEXT OVERLAYS
+2025-12-30 23:27:35,806 - __main__ - WARNING - ❌ No image available for article: No joke, the best piece of hardware I've used in 2...
+2025-12-30 23:27:35,806 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 23:27:35] "POST /api/generate_article_image/62 HTTP/1.1" 200 -
