@@ -2807,23 +2807,40 @@ class WirelessMonitor:
         try:
             # Skip obvious low-quality indicators
             low_quality_indicators = [
-                'logo', 'icon', 'avatar', 'placeholder', 'default',
-                'blank', 'empty', '1x1', 'pixel', 'spacer'
+                'googleusercontent.com',  # Skip Google News generic thumbnails
+                'logo',
+                'icon',
+                'avatar',
+                'placeholder',
+                'default',
+                'generic',
+                'thumbnail_small',
+                'favicon'
             ]
             
+            # Check URL for low-quality indicators
             url_lower = image_url.lower()
-            if any(indicator in url_lower for indicator in low_quality_indicators):
-                return False
+            for indicator in low_quality_indicators:
+                if indicator in url_lower:
+                    logger.info(f"Rejecting image due to low-quality indicator '{indicator}': {image_url}")
+                    return False
             
-            # Check image dimensions if possible from URL
-            if any(dim in url_lower for dim in ['50x50', '100x100', '32x32', '64x64']):
-                return False
+            # Check image dimensions if possible
+            try:
+                response = requests.head(image_url, timeout=5)
+                content_length = response.headers.get('content-length')
+                if content_length and int(content_length) < 5000:  # Less than 5KB
+                    logger.info(f"Rejecting image due to small file size: {image_url}")
+                    return False
+            except:
+                pass  # If we can't check, assume it's okay
             
-            # Additional validation could be added here (actual image download and analysis)
+            # Image passed validation
             return True
             
         except Exception:
             return False
+    
     def generate_ai_image_local(self, title, description):
         """Generate photorealistic stock photo-style images based on article content using Stable Diffusion"""
         try:
@@ -3717,30 +3734,12 @@ class WirelessMonitor:
     def get_or_create_article_image(self, article, db_conn=None):
         """Get existing image or create new photorealistic one for article"""
         try:
-            # Check if article already has an AI-generated image (not scraped)
-            if article.get('image_url') and '/static/generated_images/' in article['image_url']:
+            # Check if article already has a good image
+            if article.get('image_url') and not article['image_url'].startswith('data:image/svg'):
                 return article['image_url']
             
-            # PRIORITY 1: Generate photorealistic AI image using exact headline text
-            logger.info(f"🎨 Generating photorealistic image for: '{article['title'][:60]}...'")
-            ai_image = self.generate_ai_image_local(article['title'], article.get('description', ''))
-            if ai_image:
-                # Store the AI image URL in database
-                if db_conn:
-                    db_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
-                               (ai_image, article['id']))
-                    db_conn.commit()
-                else:
-                    conn = self.get_db_connection()
-                    conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
-                               (ai_image, article['id']))
-                    conn.commit()
-                    conn.close()
-                logger.info(f"✅ Generated AI image: {ai_image}")
-                return ai_image
-            
-            # FALLBACK: Only try scraping if AI generation completely fails
-            logger.warning(f"AI generation failed, trying scraping for: {article['title'][:50]}...")
+            # PRIORITY 1: Scrape high-quality image from the actual article
+            logger.info(f"📷 Scraping image from article: {article['title'][:60]}...")
             scraped_image = self.scrape_article_image(article['url'], article['title'])
             if scraped_image:
                 # Store the scraped image URL in database
@@ -3754,8 +3753,26 @@ class WirelessMonitor:
                                (scraped_image, article['id']))
                     conn.commit()
                     conn.close()
-                logger.info(f"📷 Using scraped image as fallback: {scraped_image}")
+                logger.info(f"✅ Using scraped image: {scraped_image}")
                 return scraped_image
+            
+            # FALLBACK: Generate AI image only if scraping fails
+            logger.info(f"🎨 No scraped image found, generating AI image for: '{article['title'][:60]}...'")
+            ai_image = self.generate_ai_image_local(article['title'], article.get('description', ''))
+            if ai_image:
+                # Store the AI image URL in database
+                if db_conn:
+                    db_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (ai_image, article['id']))
+                    db_conn.commit()
+                else:
+                    conn = self.get_db_connection()
+                    conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (ai_image, article['id']))
+                    conn.commit()
+                    conn.close()
+                logger.info(f"✅ Generated AI fallback image: {ai_image}")
+                return ai_image
             
             # No image available
             logger.warning(f"❌ No image available for article: {article['title'][:50]}...")

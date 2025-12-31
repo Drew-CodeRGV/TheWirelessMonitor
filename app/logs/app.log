@@ -1181,3 +1181,228 @@
 2025-12-30 18:33:56,844 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_3d8d75ebe2c3.png
 2025-12-30 18:33:56,845 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:33:56] "POST /api/generate_article_image/93 HTTP/1.1" 200 -
 2025-12-30 18:33:56,852 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:33:56] "GET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1" 200 -
+2025-12-30 18:34:22,328 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:22] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:34:27,679 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:27] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:34:31,787 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:31] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:34:34,053 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:34] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:34:35,228 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:35] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:34:51,473 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:34:51] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:36:52,911 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:36:52] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 18:36:52,928 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:36:52] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 18:36:56,732 - __main__ - INFO - 🎨 Generating photorealistic image for: 'Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi S...'
+2025-12-30 18:36:56,732 - __main__ - INFO - Generating photorealistic image for: Libraries and Schools Urge FCC to Restore Off-Camp...
+2025-12-30 18:36:56,732 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi...
+2025-12-30 18:36:56,732 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi S...'
+2025-12-30 18:36:56,732 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Libraries and Schools Urge FCC to Restore Off-Campus Wi-Fi...
+2025-12-30 18:36:57,286 - __main__ - INFO - 🎨 Generating photorealistic image for: 'Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage h...'
+2025-12-30 18:36:57,287 - __main__ - INFO - Generating photorealistic image for: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. ...
+2025-12-30 18:36:57,287 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage...
+2025-12-30 18:36:57,287 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage h...'
+2025-12-30 18:36:57,287 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Amazon eero WiFi 7 mesh system with 7,500 sq. ft. coverage...
+2025-12-30 18:36:58,019 - __main__ - INFO - 🎨 Generating photorealistic image for: 'TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Leve...'
+2025-12-30 18:36:58,019 - __main__ - INFO - Generating photorealistic image for: TESSAN Announces WiFi Plug Strip as the Ultimate '...
+2025-12-30 18:36:58,019 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Le...
+2025-12-30 18:36:58,019 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Leve...'
+2025-12-30 18:36:58,019 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: TESSAN Announces WiFi Plug Strip as the Ultimate 'Entry-Le...
+2025-12-30 18:36:58,728 - __main__ - INFO - 🎨 Generating photorealistic image for: 'Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGBIC...'
+2025-12-30 18:36:58,729 - __main__ - INFO - Generating photorealistic image for: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% ...
+2025-12-30 18:36:58,730 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGB...
+2025-12-30 18:36:58,732 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGBIC...'
+2025-12-30 18:36:58,732 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Govee’s 1.8ft LED Backlight Is Back at Nearly 50% Off, RGB...
+2025-12-30 18:37:00,242 - __main__ - ERROR - Stable Diffusion generation failed: Tensor on device meta is not on the expected device mps:0!
+2025-12-30 18:37:00,569 - __main__ - INFO - ✅ Photorealistic image saved: static/generated_images/article_4b9132b0b942.png
+2025-12-30 18:37:00,575 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_4b9132b0b942.png
+2025-12-30 18:37:00,576 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:00] "POST /api/generate_article_image/89 HTTP/1.1" 200 -
+2025-12-30 18:37:00,588 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:00] "GET /static/generated_images/article_4b9132b0b942.png HTTP/1.1" 200 -
+2025-12-30 18:37:52,833 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_d7e0abb00a72.png
+2025-12-30 18:37:52,843 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_d7e0abb00a72.png
+2025-12-30 18:37:52,844 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:52] "POST /api/generate_article_image/103 HTTP/1.1" 200 -
+2025-12-30 18:37:52,851 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:52] "GET /static/generated_images/article_d7e0abb00a72.png HTTP/1.1" 200 -
+2025-12-30 18:37:53,854 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_8f0b6e4e1be4.png
+2025-12-30 18:37:53,857 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_8f0b6e4e1be4.png
+2025-12-30 18:37:53,857 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:53] "POST /api/generate_article_image/106 HTTP/1.1" 200 -
+2025-12-30 18:37:53,866 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:53] "GET /static/generated_images/article_8f0b6e4e1be4.png HTTP/1.1" 200 -
+2025-12-30 18:37:54,354 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_d7aa3fcdab07.png
+2025-12-30 18:37:54,357 - __main__ - INFO - ✅ Generated AI image: /static/generated_images/article_d7aa3fcdab07.png
+2025-12-30 18:37:54,357 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:54] "POST /api/generate_article_image/96 HTTP/1.1" 200 -
+2025-12-30 18:37:54,362 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 18:37:54] "GET /static/generated_images/article_d7aa3fcdab07.png HTTP/1.1" 200 -
+2025-12-30 18:41:29,611 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 18:41:29,924 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 18:41:30,181 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 18:41:30,181 - __main__ - INFO - Database initialized
+2025-12-30 18:41:30,185 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 18:41:30,185 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 18:41:30,186 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 18:41:30,186 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 18:41:30,207 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 18:41:30,224 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 18:41:30,650 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 18:41:30,832 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 18:41:31,153 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 18:41:32,087 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 18:41:32,333 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 18:41:33,101 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 18:41:33,818 - __main__ - INFO - Auto-generating image for: WiFi signals can measure heart rate—no wearables n...
+2025-12-30 18:41:33,818 - __main__ - INFO - 📷 Scraping image from article: WiFi signals can measure heart rate—no wearables needed - UC...
+2025-12-30 18:41:33,818 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiZkFVX3lxTE1adkNTX0FIM21abXpHYVBFc3R6T21adDcweFFuV0RuVDF6OGlEdXhQZDF6V3E0LUFzYjk2TGdEVXh6Tm15bHRJblo1eFJRNHZxTXdxcWRXOURkREJ3MkhNMGI2cXE4UQ?oc=5
+2025-12-30 18:41:33,819 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMiZkFVX3lxTE1adkNTX0FIM21abXpHYVBFc3R6T21adDcweFFuV0RuVDF6OGlEdXhQZDF6V3E0LUFzYjk2TGdEVXh6Tm15bHRJblo1eFJRNHZxTXdxcWRXOURkREJ3MkhNMGI2cXE4UQ?oc=5
+2025-12-30 18:41:34,301 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 18:41:38,448 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-30 18:41:38,474 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 21:59:06,286 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 21:59:06,286 - __main__ - INFO - Database initialized
+2025-12-30 21:59:06,291 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 21:59:06,291 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 21:59:06,291 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 21:59:06,291 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 21:59:06,427 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.7.101:8080
+2025-12-30 21:59:06,427 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-30 21:59:06,429 - werkzeug - INFO -  * Restarting with stat
+2025-12-30 21:59:06,565 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 21:59:06,739 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 21:59:06,805 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-30 21:59:06,805 - __main__ - INFO - Database initialized
+2025-12-30 21:59:06,810 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-30 21:59:06,810 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-30 21:59:06,810 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-30 21:59:06,810 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-30 21:59:06,840 - werkzeug - WARNING -  * Debugger is active!
+2025-12-30 21:59:06,850 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-30 21:59:07,131 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 21:59:07,756 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 21:59:11,717 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 21:59:12,267 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2025-12-30 21:59:12,267 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-30 21:59:12,430 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2025-12-30 21:59:12,430 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-30 21:59:12,637 - __main__ - INFO - Auto-generating image for: Build A Pocket-Sized Wi-Fi Analyzer - Hackaday...
+2025-12-30 21:59:12,639 - __main__ - INFO - 📷 Scraping image from article: Build A Pocket-Sized Wi-Fi Analyzer - Hackaday...
+2025-12-30 21:59:12,639 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMid0FVX3lxTE9qVG9pSUoxOVpRc2FqUS11U1I1dGkyblZvRjBYWXR2ZTI2cHU2OUswMHM5ZGF2M2pNeGt0NEF2ZjZUeWw5Rjk0U2Q5ZmJOTk45OTcyYVFNUXpOT0JrcDdNSURVYnpaaFM1Mi1PekJBUER4YWwtSndZ?oc=5
+2025-12-30 21:59:12,639 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMid0FVX3lxTE9qVG9pSUoxOVpRc2FqUS11U1I1dGkyblZvRjBYWXR2ZTI2cHU2OUswMHM5ZGF2M2pNeGt0NEF2ZjZUeWw5Rjk0U2Q5ZmJOTk45OTcyYVFNUXpOT0JrcDdNSURVYnpaaFM1Mi1PekJBUER4YWwtSndZ?oc=5
+2025-12-30 21:59:12,696 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2025-12-30 21:59:12,696 - __main__ - INFO - Fetching feed: Engadget
+2025-12-30 21:59:13,027 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 21:59:13,027 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 21:59:13,027 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 21:59:13,027 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Build A Pocket-Sized Wi-Fi Analyzer - Hackaday...'
+2025-12-30 21:59:13,027 - __main__ - INFO - Generating photorealistic image for: Build A Pocket-Sized Wi-Fi Analyzer - Hackaday...
+2025-12-30 21:59:13,242 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 21:59:13] "HEAD / HTTP/1.1" 200 -
+2025-12-30 21:59:13,623 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2025-12-30 21:59:13,624 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-30 21:59:13,819 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2025-12-30 21:59:13,819 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-30 21:59:14,175 - __main__ - ERROR - Error fetching feed Google News: Wi-Fi: database is locked
+2025-12-30 21:59:14,176 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 21:59:14,946 - __main__ - ERROR - Error fetching feed Google News: wifi: database is locked
+2025-12-30 21:59:16,294 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 21:59:17,427 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Build A Pocket-Sized Wi-Fi Analyzer - Hackaday. profession...
+2025-12-30 21:59:17,427 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Build A Pocket-Sized Wi-Fi Analyzer - Hackaday...'
+2025-12-30 21:59:17,427 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Build A Pocket-Sized Wi-Fi Analyzer - Hackaday. profession...
+2025-12-30 21:59:35,761 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_d31ae1d81041.png
+2025-12-30 22:00:00,544 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 22:00:00,556 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 22:00:00,565 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "[36mGET /static/generated_images/article_4b9132b0b942.png HTTP/1.1[0m" 304 -
+2025-12-30 22:00:00,565 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "[36mGET /static/generated_images/article_d7aa3fcdab07.png HTTP/1.1[0m" 304 -
+2025-12-30 22:00:00,565 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "[36mGET /static/generated_images/article_8f0b6e4e1be4.png HTTP/1.1[0m" 304 -
+2025-12-30 22:00:00,566 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:00:00] "[36mGET /static/generated_images/article_d7e0abb00a72.png HTTP/1.1[0m" 304 -
+2025-12-30 22:00:06,095 - __main__ - ERROR - Error getting/creating article image: database is locked
+2025-12-30 22:00:06,096 - __main__ - WARNING - ❌ Failed to generate image for article 117
+2025-12-30 22:00:06,097 - __main__ - INFO - Fetching feed: Google News: wifi
+2025-12-30 22:00:06,585 - __main__ - INFO - Auto-generating image for: What the Tech: How to get your WiFi moving after C...
+2025-12-30 22:00:06,586 - __main__ - INFO - 📷 Scraping image from article: What the Tech: How to get your WiFi moving after Christmas -...
+2025-12-30 22:00:06,586 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiiwFBVV95cUxNX2RSVmY1RFQtSUl2OF9yeDZsTlRscGpqNE8yR3pMZUJWZGNmbFdFNmhqVEw3b0VKSHl0NWt3M3FndVp0ZTVXXzdpX0g1VkRUWkF3bnJVbGo2bEQ2MXJkc1V2SHBOV2J2dktjaTZKV2pnWlFIa0NPZ093ZDJ6MkxRN0VnQ1RzakNXendF0gGfAUFVX3lxTFBwcktta2xPTC1DUE4zYXUzUFNZSGlVUnR2RXZfb2hYU0trX2ZUSFB4T1owd01ycEpzMkNzb19nTkdneTJDcnlTcEtxZ2UxV2FqN2xabENrS012dnhIWEdJMTJHbE90TlFZYzJVaDhqa0x0WU11dWQ3UDJmTFhfVWlSOFlWc2ZUbzJYeFExT2xmblVOV0pRRVBlR3FCZ3M3NA?oc=5
+2025-12-30 22:00:06,586 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMiiwFBVV95cUxNX2RSVmY1RFQtSUl2OF9yeDZsTlRscGpqNE8yR3pMZUJWZGNmbFdFNmhqVEw3b0VKSHl0NWt3M3FndVp0ZTVXXzdpX0g1VkRUWkF3bnJVbGo2bEQ2MXJkc1V2SHBOV2J2dktjaTZKV2pnWlFIa0NPZ093ZDJ6MkxRN0VnQ1RzakNXendF0gGfAUFVX3lxTFBwcktta2xPTC1DUE4zYXUzUFNZSGlVUnR2RXZfb2hYU0trX2ZUSFB4T1owd01ycEpzMkNzb19nTkdneTJDcnlTcEtxZ2UxV2FqN2xabENrS012dnhIWEdJMTJHbE90TlFZYzJVaDhqa0x0WU11dWQ3UDJmTFhfVWlSOFlWc2ZUbzJYeFExT2xmblVOV0pRRVBlR3FCZ3M3NA?oc=5
+2025-12-30 22:00:07,052 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:07,052 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:07,052 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:07,053 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'What the Tech: How to get your WiFi moving after Christmas -...'
+2025-12-30 22:00:07,053 - __main__ - INFO - Generating photorealistic image for: What the Tech: How to get your WiFi moving after C...
+2025-12-30 22:00:07,053 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: What the Tech: How to get your WiFi moving after Christmas...
+2025-12-30 22:00:07,053 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'What the Tech: How to get your WiFi moving after Christmas -...'
+2025-12-30 22:00:07,053 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: What the Tech: How to get your WiFi moving after Christmas...
+2025-12-30 22:00:24,373 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_7b4a339f182d.png
+2025-12-30 22:00:54,686 - __main__ - ERROR - Error getting/creating article image: database is locked
+2025-12-30 22:00:54,687 - __main__ - WARNING - ❌ Failed to generate image for article 118
+2025-12-30 22:00:54,689 - __main__ - INFO - Auto-generating image for: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|...
+2025-12-30 22:00:54,690 - __main__ - INFO - 📷 Scraping image from article: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum...
+2025-12-30 22:00:54,690 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAFBVV95cUxPRjlTVXdPaTByMEJFZnRIY0VIVGJRdW94ZHZuVHB4Y1QwU3I4aVYyOXJPVmZXTnhjanFOa2wxNDZFdjdwX01sSzFGNXRoclFBZEFFNFZySnhyMW56UHJ6dEttOGN1NzI0Ni1GSjFBekt6aURuZXM0ajdTQ3JTN2RwUndKeHI?oc=5
+2025-12-30 22:00:54,690 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMihAFBVV95cUxPRjlTVXdPaTByMEJFZnRIY0VIVGJRdW94ZHZuVHB4Y1QwU3I4aVYyOXJPVmZXTnhjanFOa2wxNDZFdjdwX01sSzFGNXRoclFBZEFFNFZySnhyMW56UHJ6dEttOGN1NzI0Ni1GSjFBekt6aURuZXM0ajdTQ3JTN2RwUndKeHI?oc=5
+2025-12-30 22:00:55,145 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:55,145 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:55,145 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:00:55,146 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum...'
+2025-12-30 22:00:55,146 - __main__ - INFO - Generating photorealistic image for: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|...
+2025-12-30 22:00:55,146 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum. p...
+2025-12-30 22:00:55,146 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum...'
+2025-12-30 22:00:55,146 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum. p...
+2025-12-30 22:01:12,719 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_576f52042310.png
+2025-12-30 22:01:43,055 - __main__ - ERROR - Error getting/creating article image: database is locked
+2025-12-30 22:01:43,055 - __main__ - WARNING - ❌ Failed to generate image for article 119
+2025-12-30 22:01:43,056 - __main__ - INFO - Auto-generating image for: The Best WiFi Router of 2025 - TechGearLab...
+2025-12-30 22:01:43,056 - __main__ - INFO - 📷 Scraping image from article: The Best WiFi Router of 2025 - TechGearLab...
+2025-12-30 22:01:43,057 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMifkFVX3lxTE9Udmhra0tEU0tCM3NVUmdaOXJMR3loZHhZaDl5dm91WHNQU0xrbGRDUEJFTXhlczU0VDBNbGZqMWFGSWlUMzhKaFRNZ2ZvYkxfUjZRMlFEYmRkcnNubzZDcGFFaVloMHV2aWlxcVk3RW9hY3BHcG1fR1hWcFlmZw?oc=5
+2025-12-30 22:01:43,057 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMifkFVX3lxTE9Udmhra0tEU0tCM3NVUmdaOXJMR3loZHhZaDl5dm91WHNQU0xrbGRDUEJFTXhlczU0VDBNbGZqMWFGSWlUMzhKaFRNZ2ZvYkxfUjZRMlFEYmRkcnNubzZDcGFFaVloMHV2aWlxcVk3RW9hY3BHcG1fR1hWcFlmZw?oc=5
+2025-12-30 22:01:43,589 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:01:43,589 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:01:43,589 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:01:43,590 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'The Best WiFi Router of 2025 - TechGearLab...'
+2025-12-30 22:01:43,591 - __main__ - INFO - Generating photorealistic image for: The Best WiFi Router of 2025 - TechGearLab...
+2025-12-30 22:01:43,591 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: The Best WiFi Router of 2025 - TechGearLab. professional p...
+2025-12-30 22:01:43,591 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'The Best WiFi Router of 2025 - TechGearLab...'
+2025-12-30 22:01:43,591 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: The Best WiFi Router of 2025 - TechGearLab. professional p...
+2025-12-30 22:02:00,884 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_466ddb513756.png
+2025-12-30 22:02:31,232 - __main__ - ERROR - Error getting/creating article image: database is locked
+2025-12-30 22:02:31,233 - __main__ - WARNING - ❌ Failed to generate image for article 120
+2025-12-30 22:02:31,234 - __main__ - INFO - Auto-generating image for: Bad Wi-Fi at home? Try my 10 go-to ways to fix you...
+2025-12-30 22:02:31,234 - __main__ - INFO - 📷 Scraping image from article: Bad Wi-Fi at home? Try my 10 go-to ways to fix your internet...
+2025-12-30 22:02:31,234 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMikAFBVV95cUxObjJ1c2o0czdyc2l6SHlsSS0tdXFLVmlZeGRVV0VfdE5KNXRlUGhiMlN3YnFtM1poYXhteTZiWG9oTl9MekdUS083OVdDSHlpenJmTTM5M3p5RmlzajVoTDY5OXhOUlU0bjlUNnNxaU4wVmxPcC1JQnpKd2JiQm9OQjRtZi1WRkFoXzNqTlIxV00?oc=5
+2025-12-30 22:02:31,234 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMikAFBVV95cUxObjJ1c2o0czdyc2l6SHlsSS0tdXFLVmlZeGRVV0VfdE5KNXRlUGhiMlN3YnFtM1poYXhteTZiWG9oTl9MekdUS083OVdDSHlpenJmTTM5M3p5RmlzajVoTDY5OXhOUlU0bjlUNnNxaU4wVmxPcC1JQnpKd2JiQm9OQjRtZi1WRkFoXzNqTlIxV00?oc=5
+2025-12-30 22:02:31,583 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:02:31,583 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:02:31,584 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:02:31,584 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Bad Wi-Fi at home? Try my 10 go-to ways to fix your internet...'
+2025-12-30 22:02:31,584 - __main__ - INFO - Generating photorealistic image for: Bad Wi-Fi at home? Try my 10 go-to ways to fix you...
+2025-12-30 22:02:31,584 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Bad Wi-Fi at home? Try my 10 go-to ways to fix your intern...
+2025-12-30 22:02:31,584 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Bad Wi-Fi at home? Try my 10 go-to ways to fix your internet...'
+2025-12-30 22:02:31,584 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Bad Wi-Fi at home? Try my 10 go-to ways to fix your intern...
+2025-12-30 22:02:48,849 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_ad17139ce7e3.png
+2025-12-30 22:03:19,168 - __main__ - ERROR - Error getting/creating article image: database is locked
+2025-12-30 22:03:19,169 - __main__ - WARNING - ❌ Failed to generate image for article 121
+2025-12-30 22:03:19,173 - __main__ - INFO - RSS fetch completed: 5 new articles
+2025-12-30 22:03:19,209 - __main__ - INFO - Auto-categorized 1 articles for events
+2025-12-30 22:16:53,841 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-30 22:16:53,853 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "[36mGET /static/generated_images/article_3d8d75ebe2c3.png HTTP/1.1[0m" 304 -
+2025-12-30 22:16:53,855 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "[36mGET /static/generated_images/article_4b9132b0b942.png HTTP/1.1[0m" 304 -
+2025-12-30 22:16:53,856 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "[36mGET /static/generated_images/article_d7e0abb00a72.png HTTP/1.1[0m" 304 -
+2025-12-30 22:16:53,857 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "[36mGET /static/generated_images/article_d7aa3fcdab07.png HTTP/1.1[0m" 304 -
+2025-12-30 22:16:53,857 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:53] "[36mGET /static/generated_images/article_8f0b6e4e1be4.png HTTP/1.1[0m" 304 -
+2025-12-30 22:16:56,254 - __main__ - INFO - 📷 Scraping image from article: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum...
+2025-12-30 22:16:56,254 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAFBVV95cUxPRjlTVXdPaTByMEJFZnRIY0VIVGJRdW94ZHZuVHB4Y1QwU3I4aVYyOXJPVmZXTnhjanFOa2wxNDZFdjdwX01sSzFGNXRoclFBZEFFNFZySnhyMW56UHJ6dEttOGN1NzI0Ni1GSjFBekt6aURuZXM0ajdTQ3JTN2RwUndKeHI?oc=5
+2025-12-30 22:16:56,254 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMihAFBVV95cUxPRjlTVXdPaTByMEJFZnRIY0VIVGJRdW94ZHZuVHB4Y1QwU3I4aVYyOXJPVmZXTnhjanFOa2wxNDZFdjdwX01sSzFGNXRoclFBZEFFNFZySnhyMW56UHJ6dEttOGN1NzI0Ni1GSjFBekt6aURuZXM0ajdTQ3JTN2RwUndKeHI?oc=5
+2025-12-30 22:16:56,757 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:56,757 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:56,758 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:56,758 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|Forum...'
+2025-12-30 22:16:56,758 - __main__ - INFO - Generating photorealistic image for: FS: Asus ROG STRIX B850-A Gaming WiFi R2 - [H]ard|...
+2025-12-30 22:16:56,761 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_576f52042310.png
+2025-12-30 22:16:56,761 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:56] "POST /api/generate_article_image/119 HTTP/1.1" 200 -
+2025-12-30 22:16:56,769 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:16:56] "GET /static/generated_images/article_576f52042310.png HTTP/1.1" 200 -
+2025-12-30 22:16:58,111 - __main__ - INFO - 📷 Scraping image from article: Your Samsung phone has a secret Wi-Fi menu that's highly use...
+2025-12-30 22:16:58,111 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMie0FVX3lxTE95cE9vQldYcm9uMGRUZjI0Rjd4T2YtdHVId05peVJqN2ZzUm5rX2hBZ2NOSTliWjNNdUNMSEJ4TGlLdC1sbEktMV9tNnlkMGdEMDVxeWVCUEM4S3NMRUdtUEp1V2V5OFFDdnI2cUd3M08xa3cweHIzSTJDSQ?oc=5
+2025-12-30 22:16:58,111 - __main__ - INFO - Scraping image from: https://news.google.com/rss/articles/CBMie0FVX3lxTE95cE9vQldYcm9uMGRUZjI0Rjd4T2YtdHVId05peVJqN2ZzUm5rX2hBZ2NOSTliWjNNdUNMSEJ4TGlLdC1sbEktMV9tNnlkMGdEMDVxeWVCUEM4S3NMRUdtUEp1V2V5OFFDdnI2cUd3M08xa3cweHIzSTJDSQ?oc=5
+2025-12-30 22:16:58,550 - __main__ - INFO - Found Open Graph image: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:58,550 - __main__ - INFO - Rejecting image due to low-quality indicator 'googleusercontent.com': https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:58,550 - __main__ - INFO - Image failed quality validation: https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300-rw
+2025-12-30 22:16:58,551 - __main__ - INFO - 🎨 No scraped image found, generating AI image for: 'Your Samsung phone has a secret Wi-Fi menu that's highly use...'
+2025-12-30 22:16:58,551 - __main__ - INFO - Generating photorealistic image for: Your Samsung phone has a secret Wi-Fi menu that's ...
+2025-12-30 22:17:02,169 - __main__ - INFO - Loading Stable Diffusion model (this may take a few minutes on first run)...
+2025-12-30 22:17:03,254 - __main__ - INFO - Generated SD prompt: Create a photorealistic scene that shows: Your Samsung phone has a secret Wi-Fi menu that's highly u...
+2025-12-30 22:17:03,255 - __main__ - INFO - 🎨 Generating Stable Diffusion image for: 'Your Samsung phone has a secret Wi-Fi menu that's highly use...'
+2025-12-30 22:17:03,255 - __main__ - INFO - 📝 Using prompt: Create a photorealistic scene that shows: Your Samsung phone has a secret Wi-Fi menu that's highly u...
+2025-12-30 22:17:28,099 - __main__ - INFO - ✅ Stable Diffusion image saved: static/generated_images/article_6098d020cb04.png
+2025-12-30 22:17:28,102 - __main__ - INFO - ✅ Generated AI fallback image: /static/generated_images/article_6098d020cb04.png
+2025-12-30 22:17:28,102 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:17:28] "POST /api/generate_article_image/80 HTTP/1.1" 200 -
+2025-12-30 22:17:28,107 - werkzeug - INFO - 127.0.0.1 - - [30/Dec/2025 22:17:28] "GET /static/generated_images/article_6098d020cb04.png HTTP/1.1" 200 -
