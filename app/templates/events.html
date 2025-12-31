@@ -11,6 +11,40 @@
     </div>
 </div>
 
+<!-- Manual Event Addition Form -->
+<div style="{% if view_mode == 'reader' %}padding: 15px 20px; background: #f0f8ff; border-bottom: 1px solid #ddd; margin: 0 -40px 20px -40px;{% else %}background: linear-gradient(135deg, #e3f2fd, #f8f9fa); border: 2px solid #2196f3; border-radius: 12px; padding: 25px; margin-bottom: 30px;{% endif %}">
+    <h3 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1.1rem; color: #1976d2; margin-bottom: 15px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #1976d2; margin-bottom: 20px;{% endif %}">
+        ➕ Add New Event Manually
+    </h3>
+    
+    <div style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+            <label for="eventNameInput" style="display: block; font-weight: 600; color: #2c3e50; margin-bottom: 8px; font-size: 0.9rem;">Event Name:</label>
+            <input 
+                type="text" 
+                id="eventNameInput" 
+                placeholder="e.g., CES 2026, Mobile World Congress 2026, Tech Summit 2026"
+                style="width: 100%; padding: 12px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: border-color 0.2s ease;"
+                onkeypress="if(event.key==='Enter') addManualEvent()"
+            />
+            <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 5px;">
+                💡 Include the year for better detection (e.g., "CES 2026")
+            </div>
+        </div>
+        
+        <button 
+            onclick="addManualEvent()" 
+            class="btn" 
+            id="addEventBtn"
+            style="{% if view_mode == 'reader' %}background: #1976d2; color: white; padding: 12px 20px; font-size: 0.9rem;{% else %}background: linear-gradient(135deg, #1976d2, #1565c0); color: white; padding: 12px 25px; font-size: 1rem; box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);{% endif %}"
+        >
+            🔍 Find & Add Event
+        </button>
+    </div>
+    
+    <div id="manual-event-status" style="margin-top: 15px;"></div>
+</div>
+
 <div id="analysis-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
 
 {% if events %}
@@ -49,13 +83,20 @@
                 {% endif %}
             </div>
             
-            <div>
-                <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;{% else %}font-size: 0.9rem; padding: 10px 20px; margin-right: 10px;{% endif %}">
-                    📰 View Coverage
-                </a>
-                <button onclick="fetchEventContent({{ event.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #28a745;{% else %}font-size: 0.9rem; padding: 10px 20px; background: #28a745;{% endif %}">
-                    🔍 Fetch Latest
-                </button>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div>
+                    <a href="{{ url_for('event_detail', event_id=event.id, view=view_mode) }}" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;{% else %}font-size: 0.9rem; padding: 10px 20px; margin-right: 10px;{% endif %}">
+                        📰 View Coverage
+                    </a>
+                    <button onclick="fetchEventContent({{ event.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #28a745;{% else %}font-size: 0.9rem; padding: 10px 20px; background: #28a745;{% endif %}">
+                        🔍 Fetch Latest
+                    </button>
+                </div>
+                <div>
+                    <button onclick="removeEvent({{ event.id }}, '{{ event.name|replace("'", "\\'") }}')" class="btn remove-btn" style="{% if view_mode == 'reader' %}font-size: 0.75rem; padding: 4px 8px; background: #dc3545; color: white; border: 1px solid #c82333;{% else %}font-size: 0.8rem; padding: 6px 12px; background: #dc3545; color: white; border: 1px solid #c82333; transition: all 0.2s ease;{% endif %}" onmouseover="this.style.background='#c82333'; this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#dc3545'; this.style.transform='translateY(0)'">
+                        🗑️ Remove Event
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -70,6 +111,269 @@
 {% endif %}
 
 <script>
+async function removeEvent(eventId, eventName) {
+    // Create and show custom confirmation modal
+    const modal = createRemoveEventModal(eventId, eventName);
+    document.body.appendChild(modal);
+    modal.style.display = 'block';
+}
+
+function createRemoveEventModal(eventId, eventName) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        ">
+            <h3 style="color: #dc3545; margin-bottom: 20px; font-size: 1.4rem;">
+                ⚠️ Remove Event Confirmation
+            </h3>
+            
+            <div style="margin-bottom: 20px; line-height: 1.6;">
+                <p style="margin-bottom: 15px;">
+                    Are you sure you want to remove <strong>"${eventName}"</strong>?
+                </p>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107; margin-bottom: 15px;">
+                    <strong>⚠️ This action will:</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Permanently delete the event from the database</li>
+                        <li>Remove all article associations</li>
+                        <li>Cannot be undone</li>
+                    </ul>
+                </div>
+                
+                <p style="margin-bottom: 15px;">
+                    <strong>Type "DELETE" to confirm:</strong>
+                </p>
+                <input 
+                    type="text" 
+                    id="deleteConfirmInput" 
+                    placeholder="Type DELETE here"
+                    style="
+                        width: 100%;
+                        padding: 10px;
+                        border: 2px solid #ddd;
+                        border-radius: 6px;
+                        font-size: 1rem;
+                        margin-bottom: 20px;
+                    "
+                />
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button 
+                    onclick="closeRemoveEventModal()"
+                    style="
+                        padding: 10px 20px;
+                        background: #6c757d;
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                    "
+                >
+                    Cancel
+                </button>
+                <button 
+                    onclick="confirmRemoveEvent(${eventId}, '${eventName.replace(/'/g, "\\'")}', this)"
+                    id="confirmDeleteBtn"
+                    disabled
+                    style="
+                        padding: 10px 20px;
+                        background: #dc3545;
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                        opacity: 0.5;
+                    "
+                >
+                    🗑️ Remove Event
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Add event listener for confirmation input
+    const input = modal.querySelector('#deleteConfirmInput');
+    const confirmBtn = modal.querySelector('#confirmDeleteBtn');
+    
+    input.addEventListener('input', function() {
+        if (this.value === 'DELETE') {
+            confirmBtn.disabled = false;
+            confirmBtn.style.opacity = '1';
+            confirmBtn.style.cursor = 'pointer';
+        } else {
+            confirmBtn.disabled = true;
+            confirmBtn.style.opacity = '0.5';
+            confirmBtn.style.cursor = 'not-allowed';
+        }
+    });
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeRemoveEventModal();
+        }
+    });
+    
+    return modal;
+}
+
+function closeRemoveEventModal() {
+    const modal = document.querySelector('[style*="position: fixed"][style*="z-index: 1000"]');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+async function confirmRemoveEvent(eventId, eventName, button) {
+    const input = document.getElementById('deleteConfirmInput');
+    
+    if (input.value !== 'DELETE') {
+        alert('❌ You must type "DELETE" exactly to confirm removal.');
+        return;
+    }
+    
+    // Close modal
+    closeRemoveEventModal();
+    
+    const statusDiv = document.getElementById('analysis-status');
+    
+    // Show loading state
+    statusDiv.innerHTML = '<div class="alert alert-info">🗑️ Removing event and cleaning up associations...</div>';
+    
+    try {
+        const response = await fetch(`/api/remove_event/${eventId}`, {
+            method: 'DELETE'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <div style="font-weight: 600; margin-bottom: 8px;">✅ Successfully removed event: ${eventName}</div>
+                    <div style="font-size: 0.9rem;">
+                        🗑️ <strong>Event deleted:</strong> ${data.event_name}<br>
+                        📰 <strong>Article associations removed:</strong> ${data.articles_unlinked}<br>
+                        🧹 <strong>Cleanup completed</strong>
+                    </div>
+                </div>
+            `;
+            
+            // Reload page after 2 seconds to show updated event list
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error removing event: ${data.error}</div>`;
+        }
+        
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    }
+    
+    // Clear status after 10 seconds if not successful
+    setTimeout(() => {
+        if (statusDiv.innerHTML.includes('Error') || statusDiv.innerHTML.includes('Network error')) {
+            statusDiv.innerHTML = '';
+        }
+    }, 10000);
+}
+
+async function addManualEvent() {
+    const eventNameInput = document.getElementById('eventNameInput');
+    const statusDiv = document.getElementById('manual-event-status');
+    const button = document.getElementById('addEventBtn');
+    
+    const eventName = eventNameInput.value.trim();
+    
+    if (!eventName) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Please enter an event name</div>';
+        return;
+    }
+    
+    // Disable button and show loading state
+    button.disabled = true;
+    button.textContent = '⏳ Processing...';
+    statusDiv.innerHTML = '<div class="alert alert-info">🔍 Searching for event information and related articles...</div>';
+    
+    try {
+        const response = await fetch('/api/add_manual_event', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                event_name: eventName
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <div style="font-weight: 600; margin-bottom: 8px;">✅ Successfully added event: ${data.event_name}</div>
+                    <div style="font-size: 0.9rem;">
+                        📅 <strong>Dates:</strong> ${data.start_date} to ${data.end_date}<br>
+                        📍 <strong>Location:</strong> ${data.location}<br>
+                        📰 <strong>Articles found:</strong> ${data.articles_found}<br>
+                        🏷️ <strong>Hashtags:</strong> ${data.hashtags}
+                    </div>
+                </div>
+            `;
+            
+            // Clear input
+            eventNameInput.value = '';
+            
+            // Reload page after 3 seconds to show the new event
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+            
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+        
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        // Re-enable button
+        button.disabled = false;
+        button.textContent = '🔍 Find & Add Event';
+        
+        // Clear status after 10 seconds
+        setTimeout(() => {
+            if (statusDiv.innerHTML.includes('Successfully added')) {
+                statusDiv.innerHTML = '';
+            }
+        }, 10000);
+    }
+}
+
 async function refreshAllEvents() {
     const statusDiv = document.getElementById('analysis-status');
     const button = event.target;

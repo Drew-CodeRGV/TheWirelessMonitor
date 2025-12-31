@@ -1107,6 +1107,134 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/add_manual_event', methods=['POST'])
+        def add_manual_event():
+            """Manually add a new event and process it"""
+            try:
+                data = request.get_json()
+                event_name = data.get('event_name', '').strip()
+                
+                if not event_name:
+                    return jsonify({'success': False, 'error': 'Event name is required'})
+                
+                conn = self.get_db_connection()
+                
+                # Extract year from event name or use current year
+                import re
+                year_match = re.search(r'20\d{2}', event_name)
+                if year_match:
+                    year = int(year_match.group(0))
+                else:
+                    year = datetime.now().year
+                
+                # Check if event already exists
+                existing = conn.execute('''
+                    SELECT id, name FROM industry_events 
+                    WHERE LOWER(name) LIKE ? OR LOWER(name) LIKE ?
+                ''', (f"%{event_name.lower()}%", f"%{event_name.lower().replace(str(year), '').strip()}%")).fetchone()
+                
+                if existing:
+                    conn.close()
+                    return jsonify({
+                        'success': False, 
+                        'error': f'Event "{existing["name"]}" already exists in the database'
+                    })
+                
+                # Estimate event dates
+                estimated_dates = self.estimate_event_dates(event_name, year)
+                
+                # Generate hashtags from event name
+                hashtags = self.generate_event_hashtags(event_name)
+                
+                # Determine location (try to extract from name or use TBD)
+                location = self.extract_event_location(event_name)
+                
+                # Create event description
+                description = f"Manually added industry event: {event_name}"
+                
+                # Insert new event
+                cursor = conn.execute('''
+                    INSERT INTO industry_events 
+                    (name, hashtags, start_date, end_date, location, description, active)
+                    VALUES (?, ?, ?, ?, ?, ?, 1)
+                ''', (
+                    event_name,
+                    hashtags,
+                    estimated_dates['start'],
+                    estimated_dates['end'],
+                    location,
+                    description
+                ))
+                
+                event_id = cursor.lastrowid
+                
+                # Search for related articles
+                articles_found = self.search_and_link_event_articles(conn, event_id, event_name, hashtags)
+                
+                conn.commit()
+                conn.close()
+                
+                logger.info(f"Manually added event: {event_name} (ID: {event_id}) with {articles_found} articles")
+                
+                return jsonify({
+                    'success': True,
+                    'event_id': event_id,
+                    'event_name': event_name,
+                    'start_date': estimated_dates['start'],
+                    'end_date': estimated_dates['end'],
+                    'location': location,
+                    'hashtags': hashtags,
+                    'articles_found': articles_found
+                })
+                
+            except Exception as e:
+                logger.error(f"Error adding manual event: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/remove_event/<int:event_id>', methods=['DELETE'])
+        def remove_event(event_id):
+            """Remove an event and all its associations"""
+            try:
+                conn = self.get_db_connection()
+                
+                # First, get event details for logging and response
+                event = conn.execute('''
+                    SELECT id, name FROM industry_events WHERE id = ?
+                ''', (event_id,)).fetchone()
+                
+                if not event:
+                    conn.close()
+                    return jsonify({'success': False, 'error': 'Event not found'})
+                
+                event_name = event['name']
+                
+                # Count article associations before removal
+                articles_count = conn.execute('''
+                    SELECT COUNT(*) as count FROM event_articles WHERE event_id = ?
+                ''', (event_id,)).fetchone()['count']
+                
+                # Remove article associations first (foreign key constraint)
+                conn.execute('DELETE FROM event_articles WHERE event_id = ?', (event_id,))
+                
+                # Remove the event itself
+                conn.execute('DELETE FROM industry_events WHERE id = ?', (event_id,))
+                
+                conn.commit()
+                conn.close()
+                
+                logger.info(f"Manually removed event: {event_name} (ID: {event_id}) with {articles_count} article associations")
+                
+                return jsonify({
+                    'success': True,
+                    'event_id': event_id,
+                    'event_name': event_name,
+                    'articles_unlinked': articles_count
+                })
+                
+            except Exception as e:
+                logger.error(f"Error removing event {event_id}: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
         @self.app.route('/api/share_article', methods=['POST'])
         def share_article():
             """Share an article on social media"""
@@ -2807,6 +2935,173 @@ class WirelessMonitor:
             'generated_at': datetime.now().isoformat(),
             'articles_analyzed': 0
         }
+    
+    def generate_event_hashtags(self, event_name):
+        """Generate hashtags for an event based on its name"""
+        try:
+            import re
+            
+            # Extract key terms from event name
+            words = re.findall(r'\b\w+\b', event_name.lower())
+            
+            # Common tech event hashtags
+            hashtags = []
+            
+            # Add main event hashtag (remove spaces and special chars)
+            main_hashtag = re.sub(r'[^\w]', '', event_name.replace(' ', ''))
+            hashtags.append(f"#{main_hashtag}")
+            
+            # Add specific technology hashtags based on event name
+            tech_keywords = {
+                'ces': ['#CES', '#TechShow', '#Innovation', '#ConsumerTech'],
+                'mwc': ['#MWC', '#Mobile', '#5G', '#Wireless'],
+                'computex': ['#Computex', '#Computing', '#Hardware', '#Tech'],
+                'wwdc': ['#WWDC', '#Apple', '#iOS', '#macOS'],
+                'google': ['#GoogleIO', '#Android', '#AI', '#Cloud'],
+                'microsoft': ['#MSBuild', '#Azure', '#Windows', '#Developer'],
+                'aws': ['#AWSreInvent', '#Cloud', '#DevOps', '#Infrastructure'],
+                'rsa': ['#RSAConference', '#Cybersecurity', '#InfoSec', '#Security'],
+                'black hat': ['#BlackHat', '#Hacking', '#Security', '#Pentesting'],
+                'def con': ['#DEFCON', '#Hacking', '#Security', '#InfoSec'],
+                'ifa': ['#IFA', '#Electronics', '#Innovation', '#Tech'],
+                'nab': ['#NABShow', '#Broadcasting', '#Media', '#Technology'],
+                'oracle': ['#OracleOpenWorld', '#Database', '#Enterprise', '#Cloud']
+            }
+            
+            # Check for known events
+            event_lower = event_name.lower()
+            for key, tags in tech_keywords.items():
+                if key in event_lower:
+                    hashtags.extend(tags[:4])  # Add up to 4 specific tags
+                    break
+            
+            # Add generic tech hashtags if no specific ones found
+            if len(hashtags) == 1:  # Only main hashtag
+                generic_tags = ['#Technology', '#Innovation', '#TechEvent', '#Industry']
+                hashtags.extend(generic_tags[:3])
+            
+            # Add year if present
+            year_match = re.search(r'20\d{2}', event_name)
+            if year_match:
+                hashtags.append(f"#{year_match.group(0)}")
+            
+            # Remove duplicates and limit to 8 hashtags
+            unique_hashtags = list(dict.fromkeys(hashtags))[:8]
+            
+            return ','.join(unique_hashtags)
+            
+        except Exception as e:
+            logger.error(f"Error generating event hashtags: {e}")
+            return f"#{event_name.replace(' ', '')},#TechEvent,#Innovation"
+    
+    def extract_event_location(self, event_name):
+        """Extract or estimate event location from event name"""
+        try:
+            # Common event locations
+            known_locations = {
+                'ces': 'Las Vegas, NV',
+                'mwc': 'Barcelona, Spain',
+                'computex': 'Taipei, Taiwan',
+                'wwdc': 'San Jose, CA',
+                'google i/o': 'Mountain View, CA',
+                'microsoft build': 'Seattle, WA',
+                'aws re:invent': 'Las Vegas, NV',
+                'rsa conference': 'San Francisco, CA',
+                'black hat': 'Las Vegas, NV',
+                'def con': 'Las Vegas, NV',
+                'ifa': 'Berlin, Germany',
+                'nab show': 'Las Vegas, NV',
+                'oracle openworld': 'San Francisco, CA'
+            }
+            
+            event_lower = event_name.lower()
+            
+            # Check for known events
+            for key, location in known_locations.items():
+                if key in event_lower or key.replace(' ', '') in event_lower.replace(' ', ''):
+                    return location
+            
+            # Try to extract location from event name
+            import re
+            
+            # Look for city, state patterns
+            location_patterns = [
+                r'(\w+,\s*\w{2})',  # City, ST
+                r'(\w+,\s*\w+)',    # City, Country
+                r'in\s+(\w+)',      # "in City"
+                r'at\s+(\w+)',      # "at City"
+            ]
+            
+            for pattern in location_patterns:
+                match = re.search(pattern, event_name, re.IGNORECASE)
+                if match:
+                    return match.group(1)
+            
+            # Default location
+            return 'TBD'
+            
+        except Exception as e:
+            logger.error(f"Error extracting event location: {e}")
+            return 'TBD'
+    
+    def search_and_link_event_articles(self, conn, event_id, event_name, hashtags):
+        """Search for articles related to the event and link them"""
+        try:
+            articles_found = 0
+            
+            # Extract keywords from hashtags
+            hashtag_list = hashtags.split(',') if hashtags else []
+            keywords = [tag.replace('#', '').lower().strip() for tag in hashtag_list]
+            
+            # Add event name words as keywords
+            import re
+            event_words = re.findall(r'\b\w+\b', event_name.lower())
+            keywords.extend([word for word in event_words if len(word) > 2])
+            
+            # Remove duplicates
+            keywords = list(set(keywords))
+            
+            # Search for articles with these keywords
+            for keyword in keywords[:10]:  # Limit to first 10 keywords
+                if len(keyword) < 3:  # Skip very short keywords
+                    continue
+                    
+                articles = conn.execute('''
+                    SELECT id, title, description, published_date, relevance_score
+                    FROM articles
+                    WHERE (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)
+                    AND DATE(published_date) >= DATE('now', '-30 days')
+                    AND id NOT IN (SELECT article_id FROM event_articles WHERE event_id = ?)
+                    ORDER BY published_date DESC
+                    LIMIT 20
+                ''', (f'%{keyword}%', f'%{keyword}%', event_id)).fetchall()
+                
+                for article in articles:
+                    # Calculate relevance score
+                    title_matches = sum(1 for kw in keywords if kw in article['title'].lower())
+                    desc_matches = sum(1 for kw in keywords if kw in (article['description'] or '').lower())
+                    
+                    event_relevance = min((title_matches * 0.4 + desc_matches * 0.3) / len(keywords), 1.0)
+                    
+                    if event_relevance > 0.15:  # Only add if reasonably relevant
+                        # Check if already linked
+                        existing = conn.execute('''
+                            SELECT id FROM event_articles 
+                            WHERE event_id = ? AND article_id = ?
+                        ''', (event_id, article['id'])).fetchone()
+                        
+                        if not existing:
+                            conn.execute('''
+                                INSERT INTO event_articles (event_id, article_id, relevance_score)
+                                VALUES (?, ?, ?)
+                            ''', (event_id, article['id'], event_relevance))
+                            articles_found += 1
+            
+            return articles_found
+            
+        except Exception as e:
+            logger.error(f"Error searching and linking event articles: {e}")
+            return 0
     
     def cleanup_old_articles(self):
         """Remove articles older than 30 days"""
