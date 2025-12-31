@@ -47,12 +47,37 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
         <h2>📰 Latest Wireless Technology Headlines</h2>
         <div style="display: flex; gap: 10px;">
+            {% if not show_all and total_articles > relevant_articles %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+            {% elif show_all %}
+                <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only ({{ relevant_articles }})</a>
+            {% elif total_articles > relevant_articles %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+            {% endif %}
             <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
         </div>
     </div>
 
+    {% if show_all and stories %}
+    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #f39c12;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #856404; margin: 0;">
+            <strong>📋 Showing all {{ stories|length }} articles from the last 7 days</strong> - including lower relevance items. 
+            <a href="{{ url_for('index', view=view_mode) }}" style="color: #856404; text-decoration: underline;">Show relevant only ({{ relevant_articles }})</a>
+        </p>
+    </div>
+    {% elif not show_all and stories %}
+    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #27ae60;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #2d5a2d; margin: 0;">
+            <strong>🎯 Showing {{ stories|length }} most relevant articles</strong> from the last 7 days. 
+            {% if total_articles > relevant_articles %}
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" style="color: #2d5a2d; text-decoration: underline;">Show all {{ total_articles }} articles</a>
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+
     {% if stories %}
-        <!-- AL JAZEERA LAYOUT: Hero Left + Two Right Columns -->
+        <!-- AL JAZEERA LAYOUT: Hero Left (50%) + Two Right Columns (25% each) -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px;">
             
             <!-- LEFT SIDE: Hero Stories (50%) -->
@@ -63,9 +88,9 @@
                     <div style="position: relative; margin-bottom: 20px;">
                         {% if stories[0].image_url %}
                             <img src="{{ stories[0].image_url }}" alt="{{ stories[0].title }}" 
-                                 style="width: 100%; height: 350px; object-fit: cover;">
+                                 style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;">
                         {% else %}
-                            <div data-article-id="{{ stories[0].id }}" style="width: 100%; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
+                            <div data-article-id="{{ stories[0].id }}" style="width: 100%; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
                                  onclick="generateArticleImage({{ stories[0].id }}, this)">
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
@@ -89,9 +114,9 @@
                     <div style="position: relative; margin-bottom: 15px;">
                         {% if stories[1].image_url %}
                             <img src="{{ stories[1].image_url }}" alt="{{ stories[1].title }}" 
-                                 style="width: 100%; height: 250px; object-fit: cover;">
+                                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
                         {% else %}
-                            <div data-article-id="{{ stories[1].id }}" style="width: 100%; height: 250px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
+                            <div data-article-id="{{ stories[1].id }}" style="width: 100%; height: 250px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
                                  onclick="generateArticleImage({{ stories[1].id }}, this)">
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
@@ -110,7 +135,7 @@
             <!-- RIGHT SIDE: Two Columns (50% total = 25% each) -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 
-                <!-- Right Column 1: Stories 2-7 -->
+                <!-- Right Column 1: Top News (Stories 2-7) -->
                 <div>
                     <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #e52d27; padding-bottom: 8px;">Top News</h3>
                     {% for story in stories[2:8] %}
@@ -118,9 +143,9 @@
                         <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
                             {% if story.image_url %}
                                 <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px;">
+                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
                             {% else %}
-                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px;" 
+                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
                                      onclick="generateArticleImage({{ story.id }}, this)">
                                     <span style="color: #666; font-size: 0.8rem;">📸</span>
                                 </div>
@@ -134,7 +159,7 @@
                     {% endfor %}
                 </div>
 
-                <!-- Right Column 2: Stories 8-12 -->
+                <!-- Right Column 2: Latest News (Stories 8-12) -->
                 <div>
                     <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #3498db; padding-bottom: 8px;">Latest News</h3>
                     {% for story in stories[8:13] %}
@@ -142,9 +167,9 @@
                         <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
                             {% if story.image_url %}
                                 <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px;">
+                                     style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
                             {% else %}
-                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px;" 
+                                <div data-article-id="{{ story.id }}" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
                                      onclick="generateArticleImage({{ story.id }}, this)">
                                     <span style="color: #666; font-size: 0.8rem;">📸</span>
                                 </div>
@@ -160,7 +185,7 @@
             </div>
         </div>
 
-        <!-- EVENT COVERAGE ROW - Full Width with 4 Stories -->
+        <!-- EVENT COVERAGE ROW - Full Width Bar Below Main Layout -->
         {% set event_articles = [] %}
         {% for story in stories %}
             {% if story.event_name %}
@@ -169,14 +194,14 @@
         {% endfor %}
         
         {% if event_articles %}
-        <div style="background: linear-gradient(135deg, #f8f4ff, #f0ebff); border: 2px solid #9c27b0; border-radius: 12px; padding: 30px; margin: 50px 0;">
+        <div style="background: linear-gradient(135deg, #f8f4ff, #f0ebff); border: 2px solid #9c27b0; border-radius: 12px; padding: 30px; margin: 50px 0; width: 100%;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
                 <h2 style="font-size: 2rem; color: #9c27b0; margin: 0;">🎪 Event Coverage</h2>
                 <button onclick="refreshAllEvents()" class="btn" style="background: #9c27b0;">🔄 Fetch Event News</button>
             </div>
             
             <!-- 4 Event Stories in a Row -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 25px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px;">
                 {% for event_story in event_articles[:4] %}
                 <article style="background: white; border-radius: 8px; padding: 20px; border: 1px solid #e1c7f7;">
                     {% if event_story.image_url %}
@@ -214,7 +239,7 @@
 
         <!-- MORE STORIES - Lower Relevance Stories -->
         {% set more_stories = [] %}
-        {% for story in stories[8:] %}
+        {% for story in stories[13:] %}
             {% if not story.event_name %}
                 {% set _ = more_stories.append(story) %}
             {% endif %}
@@ -222,7 +247,6 @@
         
         {% if more_stories %}
         <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #eee;">
-            <h2 style="font-size: 1.8rem; margin-bottom: 30px;">More Stories</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 {% for story in more_stories %}
                 <article style="border: 1px solid #eee; border-radius: 8px; padding: 20px;">

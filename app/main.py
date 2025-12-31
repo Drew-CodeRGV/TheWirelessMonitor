@@ -420,7 +420,7 @@ class WirelessMonitor:
                             OR 
                             (date(ie.end_date) BETWEEN date('now', '-5 days') AND date('now'))
                         )
-                    WHERE (DATE(a.published_date) >= DATE('now', '-5 days') OR ie.name IS NOT NULL)
+                    WHERE (DATE(a.published_date) >= DATE('now', '-7 days') OR ie.name IS NOT NULL)
                     ORDER BY a.relevance_score DESC, a.published_date DESC
                     LIMIT 100
                 ''').fetchall()
@@ -438,7 +438,7 @@ class WirelessMonitor:
                             OR 
                             (date(ie.end_date) BETWEEN date('now', '-5 days') AND date('now'))
                         )
-                    WHERE (DATE(a.published_date) >= DATE('now', '-5 days') AND a.relevance_score > 0.1) OR ie.name IS NOT NULL
+                    WHERE (DATE(a.published_date) >= DATE('now', '-7 days') AND a.relevance_score > 0.05) OR ie.name IS NOT NULL
                     ORDER BY a.relevance_score DESC, a.published_date DESC
                     LIMIT 50
                 ''').fetchall()
@@ -1724,11 +1724,6 @@ class WirelessMonitor:
                 parsed_feed = feedparser.parse(response.content)
                 
                 for entry in parsed_feed.entries[:20]:  # Limit to 20 most recent
-                    # Skip Google News articles completely
-                    if 'news.google.com' in entry.link:
-                        logger.info(f"Skipping Google News article: {entry.get('title', 'No Title')}")
-                        continue
-                    
                     # Check if article already exists
                     existing = conn.execute('SELECT id FROM articles WHERE url = ?', (entry.link,)).fetchone()
                     if existing:
@@ -1772,10 +1767,49 @@ class WirelessMonitor:
                     
                     # Only store articles with some relevance
                     if relevance_score > 0.05:  # Lower threshold to capture more articles
-                        conn.execute('''
+                        cursor = conn.execute('''
                             INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                         ''', (feed['id'], title, entry.link, description, content, published_date, relevance_score, keywords_str))
+                        
+                        # Get the new article ID and automatically generate image
+                        article_id = cursor.lastrowid
+                        article_dict = {
+                            'id': article_id,
+                            'title': title,
+                            'description': description,
+                            'url': entry.link
+                        }
+                        
+                        # Generate image automatically in background
+                        try:
+                            logger.info(f"Auto-generating image for: {title[:50]}...")
+                            
+                            # Use a separate connection for image generation to avoid locks
+                            image_conn = sqlite3.connect(self.db_path, timeout=30.0)
+                            image_conn.row_factory = sqlite3.Row
+                            
+                            article_dict = {
+                                'id': article_id,
+                                'title': title,
+                                'description': description,
+                                'url': entry.link
+                            }
+                            
+                            image_url = self.get_or_create_article_image(article_dict, image_conn)
+                            if image_url:
+                                image_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', (image_url, article_id))
+                                image_conn.commit()
+                                logger.info(f"✅ Auto-generated image for article {article_id}")
+                            else:
+                                logger.warning(f"❌ Failed to generate image for article {article_id}")
+                            
+                            image_conn.close()
+                            
+                        except Exception as img_error:
+                            logger.error(f"Error generating image for article {article_id}: {img_error}")
+                            if 'image_conn' in locals():
+                                image_conn.close()
                         
                         total_new_articles += 1
                 
@@ -2712,8 +2746,84 @@ class WirelessMonitor:
             return google_news_url
     
     def scrape_article_image(self, article_url, article_title):
-        """Scrape image from article URL - DISABLED to force AI generation"""
-        return None  # Force AI generation
+        """Scrape image from article URL with quality validation"""
+        try:
+            # First resolve Google News URLs to actual article URLs
+            resolved_url = self.resolve_google_news_url(article_url)
+            
+            logger.info(f"Scraping image from: {resolved_url}")
+            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+            
+            response = requests.get(resolved_url, headers=headers, timeout=15)
+            if response.status_code != 200:
+                logger.warning(f"Failed to fetch article page: {response.status_code}")
+                return None
+                
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Try multiple methods to find a high-quality image
+            image_url = None
+            
+            # Method 1: Open Graph image (most reliable)
+            og_image = soup.find('meta', property='og:image')
+            if og_image and og_image.get('content'):
+                image_url = og_image['content']
+                logger.info(f"Found Open Graph image: {image_url}")
+            
+            # Method 2: Twitter card image
+            if not image_url:
+                twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
+                if twitter_image and twitter_image.get('content'):
+                    image_url = twitter_image['content']
+                    logger.info(f"Found Twitter card image: {image_url}")
+            
+            # Method 3: Look for article images
+            if not image_url:
+                article_images = soup.find_all('img', {'class': ['article-image', 'hero-image', 'featured-image']})
+                for img in article_images:
+                    if img.get('src'):
+                        image_url = img['src']
+                        break
+            
+            # Validate image quality (avoid simple backgrounds/logos)
+            if image_url:
+                if self.validate_image_quality(image_url):
+                    return image_url
+                else:
+                    logger.info(f"Image failed quality validation: {image_url}")
+                    return None
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error scraping image: {e}")
+            return None
+    
+    def validate_image_quality(self, image_url):
+        """Validate that an image is high quality and not a simple background"""
+        try:
+            # Skip obvious low-quality indicators
+            low_quality_indicators = [
+                'logo', 'icon', 'avatar', 'placeholder', 'default',
+                'blank', 'empty', '1x1', 'pixel', 'spacer'
+            ]
+            
+            url_lower = image_url.lower()
+            if any(indicator in url_lower for indicator in low_quality_indicators):
+                return False
+            
+            # Check image dimensions if possible from URL
+            if any(dim in url_lower for dim in ['50x50', '100x100', '32x32', '64x64']):
+                return False
+            
+            # Additional validation could be added here (actual image download and analysis)
+            return True
+            
+        except Exception:
+            return False
     def generate_ai_image_local(self, title, description):
         """Generate photorealistic stock photo-style images based on article content using Stable Diffusion"""
         try:
@@ -2781,15 +2891,21 @@ class WirelessMonitor:
                     if hasattr(self._sd_pipeline, 'enable_sequential_cpu_offload'):
                         self._sd_pipeline.enable_sequential_cpu_offload()
                 
-                # Create a detailed prompt for wireless/tech news
+                # Create a detailed prompt using the EXACT headline text as requested
                 prompt = self.create_photorealistic_prompt_from_headline(title, description)
                 
-                # Generate image
-                logger.info(f"Generating Stable Diffusion image with prompt: {prompt[:100]}...")
+                # Create comprehensive negative prompt to avoid text and simple backgrounds
+                negative_prompt = "text, words, letters, typography, captions, logos, watermarks, simple background, plain background, solid color background, graphic design, cartoon, anime, low quality, blurry, text overlay, writing, signs, labels"
+                
+                # Generate image with improved settings
+                logger.info(f"🎨 Generating Stable Diffusion image for: '{title[:60]}...'")
+                logger.info(f"📝 Using prompt: {prompt[:100]}...")
+                
                 image = self._sd_pipeline(
                     prompt,
-                    num_inference_steps=20,  # Reduced for speed
-                    guidance_scale=7.5,
+                    negative_prompt=negative_prompt,
+                    num_inference_steps=30,  # Increased for better quality
+                    guidance_scale=9.0,      # Increased for better adherence to prompt
                     width=512,   # Must be divisible by 8
                     height=320   # Must be divisible by 8
                 ).images[0]
@@ -2802,8 +2918,8 @@ class WirelessMonitor:
                 logger.info(f"✅ Stable Diffusion image saved: {image_path}")
                 return True
                 
-            except ImportError:
-                logger.info("Stable Diffusion not available, using enhanced PIL generation...")
+            except ImportError as e:
+                logger.warning(f"Stable Diffusion not available: {e}")
                 return False
                 
         except Exception as e:
@@ -2813,18 +2929,19 @@ class WirelessMonitor:
     def create_photorealistic_prompt_from_headline(self, title, description):
         """Create a Stable Diffusion prompt using the exact headline text for photorealistic scene generation"""
         
-        # Use the exact headline text as the main subject
+        # Use the exact headline text as the main subject - this is what the user specifically requested
         main_prompt = f"Create a photorealistic scene that shows: {title}"
         
-        # Add professional photography style
-        style_prompt = "professional photography, photorealistic, high quality, cinematic lighting, detailed, sharp focus, commercial photography style"
+        # Add professional photography style with emphasis on NO TEXT
+        style_prompt = "professional photography, photorealistic, high quality, cinematic lighting, detailed, sharp focus, commercial photography style, no text, no words, no letters, no typography, pure visual scene"
         
         # Add technical quality specifications
-        quality_prompt = "8k resolution, professional studio lighting, highly detailed, perfect composition"
+        quality_prompt = "8k resolution, professional studio lighting, highly detailed, perfect composition, realistic lighting, depth of field"
         
-        # Combine all elements
+        # Combine all elements - the key is using the exact headline as the scene description
         full_prompt = f"{main_prompt}. {style_prompt}, {quality_prompt}"
         
+        logger.info(f"Generated SD prompt: {full_prompt[:100]}...")
         return full_prompt
     
     def try_ollama_image_generation(self, title, description, image_path):
@@ -3597,37 +3714,51 @@ class WirelessMonitor:
         
         draw.text((330, 215), "LIVE", fill=(255, 255, 255), font=font_small)
     
-    def get_or_create_article_image(self, article):
+    def get_or_create_article_image(self, article, db_conn=None):
         """Get existing image or create new photorealistic one for article"""
         try:
-            # Check if article already has an image
-            if article.get('image_url') and not article['image_url'].startswith('data:image/svg'):
+            # Check if article already has an AI-generated image (not scraped)
+            if article.get('image_url') and '/static/generated_images/' in article['image_url']:
                 return article['image_url']
             
-            # Try to scrape image from article first
-            scraped_image = self.scrape_article_image(article['url'], article['title'])
-            if scraped_image:
-                # Store the scraped image URL in database
-                conn = self.get_db_connection()
-                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
-                           (scraped_image, article['id']))
-                conn.commit()
-                conn.close()
-                return scraped_image
-            
-            # Generate photorealistic AI image (no fallback to placeholder)
+            # PRIORITY 1: Generate photorealistic AI image using exact headline text
+            logger.info(f"🎨 Generating photorealistic image for: '{article['title'][:60]}...'")
             ai_image = self.generate_ai_image_local(article['title'], article.get('description', ''))
             if ai_image:
                 # Store the AI image URL in database
-                conn = self.get_db_connection()
-                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
-                           (ai_image, article['id']))
-                conn.commit()
-                conn.close()
+                if db_conn:
+                    db_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (ai_image, article['id']))
+                    db_conn.commit()
+                else:
+                    conn = self.get_db_connection()
+                    conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (ai_image, article['id']))
+                    conn.commit()
+                    conn.close()
+                logger.info(f"✅ Generated AI image: {ai_image}")
                 return ai_image
             
-            # Force regeneration - no placeholder allowed
-            logger.warning(f"Failed to generate image for article: {article['title'][:50]}...")
+            # FALLBACK: Only try scraping if AI generation completely fails
+            logger.warning(f"AI generation failed, trying scraping for: {article['title'][:50]}...")
+            scraped_image = self.scrape_article_image(article['url'], article['title'])
+            if scraped_image:
+                # Store the scraped image URL in database
+                if db_conn:
+                    db_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (scraped_image, article['id']))
+                    db_conn.commit()
+                else:
+                    conn = self.get_db_connection()
+                    conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                               (scraped_image, article['id']))
+                    conn.commit()
+                    conn.close()
+                logger.info(f"📷 Using scraped image as fallback: {scraped_image}")
+                return scraped_image
+            
+            # No image available
+            logger.warning(f"❌ No image available for article: {article['title'][:50]}...")
             return None
             
         except Exception as e:

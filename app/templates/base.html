@@ -580,18 +580,11 @@
             content: "🍞";
         }
         
-        /* Gentle pulse animation for image loading instead of spinning */
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        
-        .image-loading-placeholder {
-        }
-        
-        .secondary-image-placeholder {
-        }
-        
+        /* Remove all image animations - no bouncing or spinning */
+        .image-loading-placeholder,
+        .secondary-image-placeholder,
         .hero-image-placeholder {
+            /* No animations - static placeholders only */
         }
         
         /* Al Jazeera Style Hero Layout */
