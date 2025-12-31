@@ -1,13 +1,6 @@
 {
-    "version": "2.0.0",
-    "edition": "streamlined",
-    "build_date": "2025-01-01",
-    "description": "The Wireless Monitor - Streamlined Edition",
-    "features": [
-        "Single service architecture",
-        "Minimal dependencies", 
-        "Built-in scheduler",
-        "Embedded SQLite",
-        "Fast keyword-based analysis"
-    ]
+    "version": "1.0.0",
+    "build": "fresh-start",
+    "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+    "status": "clean-slate"
 }
