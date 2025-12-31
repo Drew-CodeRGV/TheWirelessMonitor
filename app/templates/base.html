@@ -580,7 +580,64 @@
             content: "🍞";
         }
         
-        /* Remove all image animations - no bouncing or spinning */
+        /* Nyancat Loading Animation */
+        @keyframes nyancat-fly {
+            0% { transform: translateX(-20px); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(-20px); }
+        }
+        
+        @keyframes rainbow-trail {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .nyancat-loader {
+            position: relative;
+            width: 60px;
+            height: 40px;
+            margin: 20px auto;
+            animation: nyancat-fly 2s ease-in-out infinite;
+        }
+        
+        .nyancat-loader::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 20px;
+            background: linear-gradient(90deg, 
+                #ff0000 0%, #ff8000 16.66%, #ffff00 33.33%, 
+                #00ff00 50%, #0080ff 66.66%, #8000ff 83.33%, #ff0080 100%);
+            background-size: 200% 100%;
+            animation: rainbow-trail 1s linear infinite;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        .nyancat-loader::after {
+            content: '🐱';
+            position: absolute;
+            font-size: 24px;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .image-loading {
+            background: linear-gradient(135deg, #87CEEB, #E0F6FF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #4A90E2;
+            border-radius: 8px;
+        }
+        
+        /* Remove all other image animations - no bouncing or spinning */
         .image-loading-placeholder,
         .secondary-image-placeholder,
         .hero-image-placeholder {

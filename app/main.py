@@ -485,6 +485,37 @@ class WirelessMonitor:
                                  total_articles=total_articles,
                                  relevant_articles=relevant_articles)
         
+        @self.app.route('/image_gallery')
+        def image_gallery():
+            """Show gallery of all generated images"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get all articles with images
+            images_raw = conn.execute('''
+                SELECT a.id, a.title, a.image_url, a.created_at, f.name as feed_name, a.url
+                FROM articles a
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE a.image_url IS NOT NULL
+                ORDER BY a.created_at DESC
+            ''').fetchall()
+            
+            # Convert to dictionaries
+            images = [dict(row) for row in images_raw]
+            
+            # Count scraped vs AI generated
+            scraped_count = sum(1 for img in images if '/static/generated_images/' not in img['image_url'])
+            ai_generated_count = sum(1 for img in images if '/static/generated_images/' in img['image_url'])
+            
+            conn.close()
+            
+            return render_template('image_gallery.html', 
+                                 images=images,
+                                 scraped_count=scraped_count,
+                                 ai_generated_count=ai_generated_count,
+                                 view_mode=view_mode)
+
         @self.app.route('/feeds')
         def manage_feeds():
             conn = self.get_db_connection()
@@ -1283,6 +1314,98 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/bulk_delete_images', methods=['POST'])
+        def bulk_delete_images():
+            """Delete multiple images by article IDs"""
+            try:
+                data = request.get_json()
+                article_ids = data.get('article_ids', [])
+                
+                if not article_ids:
+                    return jsonify({'success': False, 'error': 'No article IDs provided'})
+                
+                conn = self.get_db_connection()
+                
+                # Get image URLs to delete files
+                placeholders = ','.join(['?' for _ in article_ids])
+                images_to_delete = conn.execute(f'''
+                    SELECT image_url FROM articles 
+                    WHERE id IN ({placeholders}) AND image_url LIKE '/static/generated_images/%'
+                ''', article_ids).fetchall()
+                
+                # Delete physical files
+                deleted_files = 0
+                for row in images_to_delete:
+                    image_path = row['image_url'].replace('/static/', 'static/')
+                    if os.path.exists(image_path):
+                        os.remove(image_path)
+                        deleted_files += 1
+                
+                # Clear image URLs from database
+                conn.execute(f'''
+                    UPDATE articles SET image_url = NULL 
+                    WHERE id IN ({placeholders})
+                ''', article_ids)
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True, 
+                    'deleted_count': len(article_ids),
+                    'files_deleted': deleted_files
+                })
+                
+            except Exception as e:
+                logger.error(f"Error in bulk delete: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/bulk_regenerate_images', methods=['POST'])
+        def bulk_regenerate_images():
+            """Regenerate images for multiple articles"""
+            try:
+                data = request.get_json()
+                article_ids = data.get('article_ids', [])
+                
+                if not article_ids:
+                    return jsonify({'success': False, 'error': 'No article IDs provided'})
+                
+                conn = self.get_db_connection()
+                
+                # Get articles to regenerate
+                placeholders = ','.join(['?' for _ in article_ids])
+                articles = conn.execute(f'''
+                    SELECT id, title, description, url FROM articles 
+                    WHERE id IN ({placeholders})
+                ''', article_ids).fetchall()
+                
+                regenerated = 0
+                for article_row in articles:
+                    article_dict = dict(article_row)
+                    
+                    # Clear existing image
+                    conn.execute('UPDATE articles SET image_url = NULL WHERE id = ?', (article_dict['id'],))
+                    
+                    # Generate new image
+                    image_url = self.get_or_create_article_image_sync(article_dict, conn)
+                    if image_url:
+                        conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', 
+                                   (image_url, article_dict['id']))
+                        regenerated += 1
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({
+                    'success': True, 
+                    'regenerated_count': regenerated,
+                    'total_requested': len(article_ids)
+                })
+                
+            except Exception as e:
+                logger.error(f"Error in bulk regenerate: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+
         @self.app.route('/api/generate_article_image/<int:article_id>', methods=['POST'])
         def generate_article_image(article_id):
             """Generate or find an image for an article"""
@@ -1772,28 +1895,18 @@ class WirelessMonitor:
                     
                     # Only store articles with some relevance
                     if relevance_score > 0.05:  # Lower threshold to capture more articles
+                        # Store article first, then generate image automatically
                         cursor = conn.execute('''
                             INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                         ''', (feed['id'], title, entry.link, description, content, published_date, relevance_score, keywords_str))
                         
-                        # Get the new article ID and automatically generate image
                         article_id = cursor.lastrowid
-                        article_dict = {
-                            'id': article_id,
-                            'title': title,
-                            'description': description,
-                            'url': entry.link
-                        }
+                        total_new_articles += 1
                         
-                        # Generate image automatically in background
+                        # Generate image automatically (using same connection to avoid locks)
                         try:
-                            logger.info(f"Auto-generating image for: {title[:50]}...")
-                            
-                            # Use a separate connection for image generation to avoid locks
-                            image_conn = sqlite3.connect(self.db_path, timeout=30.0)
-                            image_conn.row_factory = sqlite3.Row
-                            
+                            logger.info(f"🎨 Auto-generating image for: {title[:50]}...")
                             article_dict = {
                                 'id': article_id,
                                 'title': title,
@@ -1801,22 +1914,16 @@ class WirelessMonitor:
                                 'url': entry.link
                             }
                             
-                            image_url = self.get_or_create_article_image(article_dict, image_conn)
+                            # Use the same connection to avoid database locks
+                            image_url = self.get_or_create_article_image_sync(article_dict, conn)
                             if image_url:
-                                image_conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', (image_url, article_id))
-                                image_conn.commit()
-                                logger.info(f"✅ Auto-generated image for article {article_id}")
+                                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', (image_url, article_id))
+                                logger.info(f"✅ Auto-generated image for article {article_id}: {image_url}")
                             else:
-                                logger.warning(f"❌ Failed to generate image for article {article_id}")
-                            
-                            image_conn.close()
-                            
+                                logger.warning(f"❌ No image generated for article {article_id}")
+                                
                         except Exception as img_error:
                             logger.error(f"Error generating image for article {article_id}: {img_error}")
-                            if 'image_conn' in locals():
-                                image_conn.close()
-                        
-                        total_new_articles += 1
                 
                 # Update last fetched time
                 conn.execute('UPDATE rss_feeds SET last_fetched = CURRENT_TIMESTAMP WHERE id = ?', (feed['id'],))
@@ -2751,80 +2858,322 @@ class WirelessMonitor:
             return google_news_url
     
     def scrape_article_image(self, article_url, article_title):
-        """Enhanced aggressive image scraping from article URL with multiple fallback strategies"""
+        """Ultra-aggressive image scraping with multiple fallback strategies"""
         try:
             # First resolve Google News URLs to actual article URLs
             resolved_url = self.resolve_google_news_url(article_url)
             
-            logger.info(f"🔍 Aggressively scraping image from: {resolved_url}")
+            logger.info(f"🔍 Ultra-aggressive scraping from: {resolved_url}")
             
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/avif,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
                 'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1'
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Cache-Control': 'max-age=0'
             }
             
             # Try multiple times with different strategies
-            for attempt in range(3):
+            for attempt in range(5):  # Increased attempts
                 try:
-                    response = requests.get(resolved_url, headers=headers, timeout=20, allow_redirects=True)
+                    response = requests.get(resolved_url, headers=headers, timeout=25, allow_redirects=True)
                     if response.status_code == 200:
                         break
                     logger.warning(f"Attempt {attempt + 1} failed with status {response.status_code}")
                 except Exception as e:
                     logger.warning(f"Attempt {attempt + 1} failed: {e}")
-                    if attempt < 2:
+                    if attempt < 4:
                         import time
-                        time.sleep(2)  # Wait before retry
+                        time.sleep(1)  # Shorter wait between retries
                         continue
                     else:
                         return None
             
             if response.status_code != 200:
-                logger.warning(f"Failed to fetch article page after 3 attempts: {response.status_code}")
+                logger.warning(f"Failed to fetch article page after 5 attempts: {response.status_code}")
                 return None
                 
             soup = BeautifulSoup(response.content, 'html.parser')
             
             # STRATEGY 1: Open Graph image (most reliable for news sites)
             image_url = self.try_open_graph_image(soup)
-            if image_url and self.validate_image_quality(image_url):
+            if image_url and self.validate_image_quality_relaxed(image_url):
                 logger.info(f"✅ Found high-quality Open Graph image: {image_url}")
                 return image_url
             
             # STRATEGY 2: Twitter card image
             image_url = self.try_twitter_card_image(soup)
-            if image_url and self.validate_image_quality(image_url):
+            if image_url and self.validate_image_quality_relaxed(image_url):
                 logger.info(f"✅ Found high-quality Twitter card image: {image_url}")
                 return image_url
             
-            # STRATEGY 3: Article-specific image selectors (news site patterns)
-            image_url = self.try_article_specific_images(soup)
-            if image_url and self.validate_image_quality(image_url):
+            # STRATEGY 3: Article-specific image selectors (expanded list)
+            image_url = self.try_article_specific_images_enhanced(soup)
+            if image_url and self.validate_image_quality_relaxed(image_url):
                 logger.info(f"✅ Found high-quality article image: {image_url}")
                 return image_url
             
-            # STRATEGY 4: Look for largest images on the page
-            image_url = self.try_largest_images(soup, resolved_url)
-            if image_url and self.validate_image_quality(image_url):
+            # STRATEGY 4: Look for largest images on the page (more aggressive)
+            image_url = self.try_largest_images_enhanced(soup, resolved_url)
+            if image_url and self.validate_image_quality_relaxed(image_url):
                 logger.info(f"✅ Found high-quality large image: {image_url}")
                 return image_url
             
             # STRATEGY 5: JSON-LD structured data
             image_url = self.try_json_ld_image(soup)
-            if image_url and self.validate_image_quality(image_url):
+            if image_url and self.validate_image_quality_relaxed(image_url):
                 logger.info(f"✅ Found high-quality JSON-LD image: {image_url}")
                 return image_url
             
-            logger.warning(f"❌ No high-quality images found after exhaustive scraping")
+            # STRATEGY 6: Aggressive content area scanning
+            image_url = self.try_content_area_images(soup, resolved_url)
+            if image_url and self.validate_image_quality_relaxed(image_url):
+                logger.info(f"✅ Found content area image: {image_url}")
+                return image_url
+            
+            # STRATEGY 7: Fallback to any decent sized image
+            image_url = self.try_any_decent_image(soup, resolved_url)
+            if image_url and self.validate_image_quality_relaxed(image_url):
+                logger.info(f"✅ Found fallback image: {image_url}")
+                return image_url
+            
+            logger.warning(f"❌ No images found after ultra-aggressive scraping")
             return None
             
         except Exception as e:
-            logger.error(f"Error in enhanced image scraping: {e}")
+            logger.error(f"Error in ultra-aggressive image scraping: {e}")
             return None
+    
+    def try_article_specific_images_enhanced(self, soup):
+        """Enhanced article-specific image selectors for more news sites"""
+        # Expanded list of selectors for different news sites
+        selectors = [
+            # Hero/Featured images
+            'img.hero-image', 'img.featured-image', 'img.article-image', 'img.lead-image', 'img.story-image',
+            '.hero img', '.featured img', '.article-header img', '.post-thumbnail img', '.entry-content img:first-of-type',
+            'figure.lead img', 'figure.hero img', '.wp-post-image', '.attachment-large',
+            
+            # Site-specific selectors
+            '.post-featured-image img', '.featured-media img', '.article-featured-image img',
+            '.story-header img', '.content-header img', '.main-image img', '.primary-image img',
+            '.article-top-image img', '.story-lead-image img', '.post-image img',
+            
+            # Content area images
+            '.article-content img:first-of-type', '.post-content img:first-of-type', '.entry img:first-of-type',
+            '.content img:first-of-type', '.story-content img:first-of-type', '.article-body img:first-of-type',
+            
+            # Figure elements
+            'figure img:first-of-type', '.figure img', '.image-figure img', '.wp-caption img',
+            
+            # Lazy loading variations
+            'img[data-src]', 'img[data-lazy-src]', 'img[data-original]', 'img[data-srcset]'
+        ]
+        
+        for selector in selectors:
+            try:
+                imgs = soup.select(selector)
+                for img in imgs[:3]:  # Try first 3 matches
+                    src = img.get('src') or img.get('data-src') or img.get('data-lazy-src') or img.get('data-original')
+                    if src:
+                        return self.make_absolute_url(src, soup)
+            except:
+                continue
+        return None
+    
+    def try_largest_images_enhanced(self, soup, base_url):
+        """Enhanced largest image finder with better scoring"""
+        try:
+            all_images = soup.find_all('img')
+            image_candidates = []
+            
+            for img in all_images:
+                src = img.get('src') or img.get('data-src') or img.get('data-lazy-src') or img.get('data-original')
+                if not src:
+                    continue
+                
+                # Convert relative URLs to absolute
+                src = self.make_absolute_url(src, soup, base_url)
+                if not src:
+                    continue
+                
+                # Calculate comprehensive size score
+                size_score = self.calculate_image_score(img, src)
+                
+                if size_score > 0:
+                    image_candidates.append((src, size_score))
+            
+            # Sort by size score and return the best
+            image_candidates.sort(key=lambda x: x[1], reverse=True)
+            
+            for img_url, score in image_candidates[:10]:  # Try top 10
+                if self.validate_image_quality_relaxed(img_url):
+                    return img_url
+            
+        except Exception as e:
+            logger.error(f"Error finding largest images: {e}")
+        
+        return None
+    
+    def try_content_area_images(self, soup, base_url):
+        """Scan main content areas for images"""
+        content_selectors = [
+            '.article', '.post', '.content', '.main', '.story', '.entry',
+            '#content', '#main', '#article', '#post', '.article-content',
+            '.post-content', '.entry-content', '.story-content'
+        ]
+        
+        for selector in content_selectors:
+            try:
+                content_area = soup.select_one(selector)
+                if content_area:
+                    imgs = content_area.find_all('img')[:5]  # First 5 images in content
+                    for img in imgs:
+                        src = img.get('src') or img.get('data-src')
+                        if src:
+                            src = self.make_absolute_url(src, soup, base_url)
+                            if src and self.validate_image_quality_relaxed(src):
+                                return src
+            except:
+                continue
+        return None
+    
+    def try_any_decent_image(self, soup, base_url):
+        """Last resort: find any decent-sized image"""
+        try:
+            all_imgs = soup.find_all('img')
+            for img in all_imgs:
+                src = img.get('src') or img.get('data-src')
+                if src:
+                    src = self.make_absolute_url(src, soup, base_url)
+                    if src and self.is_decent_image_url(src):
+                        return src
+        except:
+            pass
+        return None
+    
+    def make_absolute_url(self, url, soup, base_url=None):
+        """Convert relative URLs to absolute"""
+        if not url:
+            return None
+            
+        if url.startswith('//'):
+            return 'https:' + url
+        elif url.startswith('/'):
+            if base_url:
+                from urllib.parse import urljoin
+                return urljoin(base_url, url)
+            else:
+                # Try to get base from soup
+                base_tag = soup.find('base')
+                if base_tag and base_tag.get('href'):
+                    from urllib.parse import urljoin
+                    return urljoin(base_tag['href'], url)
+        elif url.startswith('http'):
+            return url
+        
+        return None
+    
+    def calculate_image_score(self, img, src):
+        """Calculate comprehensive image quality score"""
+        score = 0
+        
+        # Dimension scoring
+        width = self.extract_dimension(img.get('width'))
+        height = self.extract_dimension(img.get('height'))
+        
+        if width and height:
+            score += width * height / 1000  # Pixel area score
+        
+        # URL quality indicators
+        url_lower = src.lower()
+        
+        # Positive indicators
+        if any(indicator in url_lower for indicator in ['large', 'hero', 'featured', 'main', 'primary']):
+            score += 50000
+        if any(indicator in url_lower for indicator in ['1200', '1024', '800', '600']):
+            score += 30000
+        if 'jpg' in url_lower or 'jpeg' in url_lower or 'png' in url_lower:
+            score += 10000
+        
+        # Negative indicators (but don't completely exclude)
+        if any(indicator in url_lower for indicator in ['thumb', 'small', 'icon', 'avatar']):
+            score -= 20000
+        
+        # Class and alt scoring
+        img_class = ' '.join(img.get('class', [])).lower()
+        if any(indicator in img_class for indicator in ['hero', 'featured', 'main', 'large']):
+            score += 25000
+        
+        alt_text = (img.get('alt') or '').lower()
+        if len(alt_text) > 10:  # Descriptive alt text is good
+            score += 5000
+        
+        return max(score, 0)
+    
+    def is_decent_image_url(self, url):
+        """Quick check if URL looks like a decent image"""
+        url_lower = url.lower()
+        
+        # Must be an image
+        if not any(ext in url_lower for ext in ['.jpg', '.jpeg', '.png', '.webp']):
+            return False
+        
+        # Avoid obvious bad ones
+        bad_indicators = ['icon', 'favicon', 'logo', 'avatar', 'thumb', '16x16', '32x32', '50x50']
+        if any(bad in url_lower for bad in bad_indicators):
+            return False
+        
+        return True
+    
+    def validate_image_quality_relaxed(self, image_url):
+        """More relaxed image quality validation to get more images"""
+        try:
+            # Skip only the worst quality indicators
+            strict_blocklist = [
+                'lh3.googleusercontent.com',  # Google News thumbnails
+                'favicon',
+                '16x16', '32x32', '24x24',
+                'loading.gif', 'spinner.gif',
+                'blank.png', 'transparent.png'
+            ]
+            
+            url_lower = image_url.lower()
+            for indicator in strict_blocklist:
+                if indicator in url_lower:
+                    logger.info(f"❌ Rejecting due to strict blocklist '{indicator}': {image_url}")
+                    return False
+            
+            # More lenient file size check
+            try:
+                response = requests.head(image_url, timeout=8)
+                content_length = response.headers.get('content-length')
+                if content_length and int(content_length) < 3000:  # Less than 3KB (was 8KB)
+                    logger.info(f"❌ Rejecting due to small file size ({content_length} bytes): {image_url}")
+                    return False
+                
+                # Check content type
+                content_type = response.headers.get('content-type', '').lower()
+                if content_type and not any(img_type in content_type for img_type in ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']):
+                    logger.info(f"❌ Rejecting non-image content type '{content_type}': {image_url}")
+                    return False
+                    
+            except Exception as e:
+                logger.warning(f"Could not validate image headers for {image_url}: {e}")
+                # If we can't check headers, be more lenient
+                pass
+            
+            # Image passed relaxed validation
+            logger.info(f"✅ Image passed relaxed validation: {image_url}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error in relaxed image validation: {e}")
+            return False
     
     def try_open_graph_image(self, soup):
         """Try to get Open Graph image"""
@@ -3916,6 +4265,35 @@ class WirelessMonitor:
         
         draw.text((330, 215), "LIVE", fill=(255, 255, 255), font=font_small)
     
+    def get_or_create_article_image_sync(self, article, conn):
+        """Synchronous version that uses existing connection to avoid locks"""
+        try:
+            # Check if article already has a good image
+            if article.get('image_url') and not article['image_url'].startswith('data:image/svg'):
+                return article['image_url']
+            
+            # PRIORITY 1: Scrape high-quality image from the actual article
+            logger.info(f"📷 Scraping image from article: {article['title'][:60]}...")
+            scraped_image = self.scrape_article_image(article['url'], article['title'])
+            if scraped_image:
+                logger.info(f"✅ Using scraped image: {scraped_image}")
+                return scraped_image
+            
+            # FALLBACK: Generate AI image only if scraping fails
+            logger.info(f"🎨 No scraped image found, generating AI image for: '{article['title'][:60]}...'")
+            ai_image = self.generate_ai_image_local(article['title'], article.get('description', ''))
+            if ai_image:
+                logger.info(f"✅ Generated AI fallback image: {ai_image}")
+                return ai_image
+            
+            # No image available
+            logger.warning(f"❌ No image available for article: {article['title'][:50]}...")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error getting/creating article image: {e}")
+            return None
+
     def get_or_create_article_image(self, article, db_conn=None):
         """Get existing image or create new photorealistic one for article"""
         try:

@@ -289,8 +289,30 @@
     {% endif %}
 
     <script>
+    // Auto-generate images for articles without them on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const placeholders = document.querySelectorAll('[data-article-id]');
+        placeholders.forEach(placeholder => {
+            const articleId = placeholder.getAttribute('data-article-id');
+            if (articleId && placeholder.innerHTML.includes('Generate Image')) {
+                // Show nyancat loader immediately
+                showNyancatLoader(placeholder);
+                // Start generating image
+                generateArticleImage(articleId, placeholder);
+            }
+        });
+    });
+
+    function showNyancatLoader(element) {
+        element.innerHTML = '<div class="nyancat-loader"></div>';
+        element.classList.add('image-loading');
+    }
+
     async function generateArticleImage(articleId, placeholderElement) {
-        placeholderElement.innerHTML = '<span style="color: #666;">⏳ Generating...</span>';
+        // Show nyancat loader if not already shown
+        if (!placeholderElement.classList.contains('image-loading')) {
+            showNyancatLoader(placeholderElement);
+        }
         
         try {
             const response = await fetch(`/api/generate_article_image/${articleId}`, {
@@ -300,15 +322,22 @@
             const data = await response.json();
             
             if (data.success) {
-                placeholderElement.outerHTML = `
-                    <img src="${data.image_url}" alt="Generated image" 
-                         style="width: 100%; height: ${placeholderElement.style.height}; object-fit: cover; border-radius: 6px;">
-                `;
+                // Replace with actual image
+                const img = document.createElement('img');
+                img.src = data.image_url;
+                img.alt = 'Generated image';
+                img.style.cssText = placeholderElement.style.cssText;
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '6px';
+                
+                placeholderElement.parentNode.replaceChild(img, placeholderElement);
             } else {
                 placeholderElement.innerHTML = '<span style="color: #dc3545;">❌ Failed</span>';
+                placeholderElement.classList.remove('image-loading');
             }
         } catch (error) {
             placeholderElement.innerHTML = '<span style="color: #dc3545;">❌ Error</span>';
+            placeholderElement.classList.remove('image-loading');
         }
     }
 
