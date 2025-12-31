@@ -1,0 +1,37 @@
+2025-12-31 00:00:23,954 - __main__ - INFO - Added social platform: Twitter
+2025-12-31 00:00:23,954 - __main__ - INFO - Added social platform: LinkedIn
+2025-12-31 00:00:23,954 - __main__ - INFO - Added social platform: Facebook
+2025-12-31 00:00:23,954 - __main__ - INFO - Added social platform: Mastodon
+2025-12-31 00:00:23,954 - __main__ - INFO - Added social platform: Instagram
+2025-12-31 00:00:23,954 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: Ars Technica Technology
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: TechCrunch
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: The Verge
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: IEEE Spectrum
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: Fierce Wireless
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: RCR Wireless News
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: Engadget
+2025-12-31 00:00:23,955 - __main__ - INFO - Added default feed: Wired Technology
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Airport Wi-Fi Password Becomes Tourist Attraction
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Smart Doorbell Alerts Neighbor About Package Theft
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Coffee Shop Creates "Productivity Zones" Based on Wi-Fi Speed
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Retirement Home Residents Become Wi-Fi Troubleshooters
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Food Truck Uses Wi-Fi Heat Map to Find Best Parking Spots
+2025-12-31 00:00:23,955 - __main__ - INFO - Added Wild Wi-Fi story: Smart Home Goes Rogue During Power Outage
+2025-12-31 00:00:23,955 - __main__ - INFO - Database initialized
+2025-12-31 00:00:23,960 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:00:23,960 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:00:23,960 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:00:23,963 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:04:40,762 - main - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:04:40,762 - main - INFO - Database initialized
+2025-12-31 00:04:40,767 - main - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:04:40,767 - main - INFO - Starting RSS feed fetch...
+2025-12-31 00:05:00,834 - main - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:05:00,834 - main - INFO - Database initialized
+2025-12-31 00:05:00,838 - main - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:05:00,838 - main - INFO - Starting RSS feed fetch...
+2025-12-31 00:13:19,390 - main - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:13:19,390 - main - INFO - Database initialized
+2025-12-31 00:13:19,394 - main - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:13:19,395 - main - INFO - Starting RSS feed fetch...

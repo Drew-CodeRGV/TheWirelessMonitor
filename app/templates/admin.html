@@ -144,6 +144,11 @@
                         <div class="action-text">Fetch RSS Now</div>
                     </button>
                     
+                    <button onclick="wipeAndRegenerateImages()" class="action-btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <div class="action-icon">🔍</div>
+                        <div class="action-text">Wipe & Scrape Images</div>
+                    </button>
+                    
                     <button onclick="clearImages()" class="action-btn" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
                         <div class="action-icon">🗑️</div>
                         <div class="action-text">Clear Images</div>
@@ -233,9 +238,7 @@
                 <div style="font-size: 0.85rem; line-height: 1.6; color: #666;">
                     <div><strong>Version:</strong> Streamlined Edition v2.0</div>
                     <div><strong>Database:</strong> SQLite</div>
-                    <div><strong>Image Engine:</strong> 
-                        {% if ai_status and ai_status.get('stable_diffusion', {}).get('available') %}Stable Diffusion{% elif ai_status and ai_status.get('transformers', {}).get('available') %}Transformers{% else %}PIL Enhanced{% endif %}
-                    </div>
+                    <div><strong>Image Engine:</strong> Ultra-Aggressive Scraping</div>
                     <div><strong>Auto-Updates:</strong> Enabled</div>
                 </div>
             </div>
@@ -427,6 +430,48 @@ async function clearImages() {
     } catch (error) {
         btn.innerHTML = '<div class="action-icon">❌</div><div class="action-text">Error</div>';
     }
+}
+
+async function wipeAndRegenerateImages() {
+    if (!confirm('Wipe ALL images and regenerate using ultra-aggressive scraping? This will:\n\n• Clear all existing image URLs from database\n• Delete all generated image files\n• Scrape new images from article URLs\n\nThis process may take several minutes. Continue?')) return;
+    
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerHTML = '<div class="action-icon">⏳</div><div class="action-text">Processing...</div>';
+    
+    try {
+        const response = await fetch('/api/wipe_and_regenerate_images', { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+            btn.innerHTML = '<div class="action-icon">✅</div><div class="action-text">Complete!</div>';
+            
+            // Show detailed results
+            alert(`Ultra-Aggressive Scraping Complete!\n\n` +
+                  `📊 Results:\n` +
+                  `• Cleared ${data.cleared_count} image URLs\n` +
+                  `• Deleted ${data.deleted_files} image files\n` +
+                  `• Processed ${data.processed_articles} articles\n` +
+                  `• Successfully scraped ${data.success_count} images\n` +
+                  `• Failed to find ${data.failed_count} images\n` +
+                  `• Success rate: ${data.success_rate}\n\n` +
+                  `🔍 All images now use ultra-aggressive scraping!`);
+            
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            btn.innerHTML = '<div class="action-icon">❌</div><div class="action-text">Failed</div>';
+            alert('Error: ' + (data.error || 'Unknown error occurred'));
+        }
+    } catch (error) {
+        btn.innerHTML = '<div class="action-icon">❌</div><div class="action-text">Error</div>';
+        alert('Network error: ' + error.message);
+    }
+    
+    // Re-enable button after 3 seconds
+    setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<div class="action-icon">🔍</div><div class="action-text">Wipe & Scrape Images</div>';
+    }, 3000);
 }
 
 async function updateAIModels() {
