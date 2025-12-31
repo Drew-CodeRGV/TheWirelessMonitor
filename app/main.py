@@ -387,9 +387,14 @@ class WirelessMonitor:
         logger.info("Database initialized")
     
     def get_db_connection(self):
-        """Get database connection with row factory"""
-        conn = sqlite3.connect(self.db_path)
+        """Get database connection with row factory and proper timeout"""
+        conn = sqlite3.connect(self.db_path, timeout=30.0)
         conn.row_factory = sqlite3.Row
+        # Enable WAL mode for better concurrent access
+        conn.execute('PRAGMA journal_mode=WAL')
+        conn.execute('PRAGMA synchronous=NORMAL')
+        conn.execute('PRAGMA cache_size=10000')
+        conn.execute('PRAGMA temp_store=memory')
         return conn
     
     def setup_routes(self):
@@ -2746,60 +2751,213 @@ class WirelessMonitor:
             return google_news_url
     
     def scrape_article_image(self, article_url, article_title):
-        """Scrape image from article URL with quality validation"""
+        """Enhanced aggressive image scraping from article URL with multiple fallback strategies"""
         try:
             # First resolve Google News URLs to actual article URLs
             resolved_url = self.resolve_google_news_url(article_url)
             
-            logger.info(f"Scraping image from: {resolved_url}")
+            logger.info(f"🔍 Aggressively scraping image from: {resolved_url}")
             
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1'
             }
             
-            response = requests.get(resolved_url, headers=headers, timeout=15)
+            # Try multiple times with different strategies
+            for attempt in range(3):
+                try:
+                    response = requests.get(resolved_url, headers=headers, timeout=20, allow_redirects=True)
+                    if response.status_code == 200:
+                        break
+                    logger.warning(f"Attempt {attempt + 1} failed with status {response.status_code}")
+                except Exception as e:
+                    logger.warning(f"Attempt {attempt + 1} failed: {e}")
+                    if attempt < 2:
+                        import time
+                        time.sleep(2)  # Wait before retry
+                        continue
+                    else:
+                        return None
+            
             if response.status_code != 200:
-                logger.warning(f"Failed to fetch article page: {response.status_code}")
+                logger.warning(f"Failed to fetch article page after 3 attempts: {response.status_code}")
                 return None
                 
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            # Try multiple methods to find a high-quality image
-            image_url = None
+            # STRATEGY 1: Open Graph image (most reliable for news sites)
+            image_url = self.try_open_graph_image(soup)
+            if image_url and self.validate_image_quality(image_url):
+                logger.info(f"✅ Found high-quality Open Graph image: {image_url}")
+                return image_url
             
-            # Method 1: Open Graph image (most reliable)
-            og_image = soup.find('meta', property='og:image')
-            if og_image and og_image.get('content'):
-                image_url = og_image['content']
-                logger.info(f"Found Open Graph image: {image_url}")
+            # STRATEGY 2: Twitter card image
+            image_url = self.try_twitter_card_image(soup)
+            if image_url and self.validate_image_quality(image_url):
+                logger.info(f"✅ Found high-quality Twitter card image: {image_url}")
+                return image_url
             
-            # Method 2: Twitter card image
-            if not image_url:
-                twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
-                if twitter_image and twitter_image.get('content'):
-                    image_url = twitter_image['content']
-                    logger.info(f"Found Twitter card image: {image_url}")
+            # STRATEGY 3: Article-specific image selectors (news site patterns)
+            image_url = self.try_article_specific_images(soup)
+            if image_url and self.validate_image_quality(image_url):
+                logger.info(f"✅ Found high-quality article image: {image_url}")
+                return image_url
             
-            # Method 3: Look for article images
-            if not image_url:
-                article_images = soup.find_all('img', {'class': ['article-image', 'hero-image', 'featured-image']})
-                for img in article_images:
-                    if img.get('src'):
-                        image_url = img['src']
-                        break
+            # STRATEGY 4: Look for largest images on the page
+            image_url = self.try_largest_images(soup, resolved_url)
+            if image_url and self.validate_image_quality(image_url):
+                logger.info(f"✅ Found high-quality large image: {image_url}")
+                return image_url
             
-            # Validate image quality (avoid simple backgrounds/logos)
-            if image_url:
-                if self.validate_image_quality(image_url):
-                    return image_url
-                else:
-                    logger.info(f"Image failed quality validation: {image_url}")
-                    return None
+            # STRATEGY 5: JSON-LD structured data
+            image_url = self.try_json_ld_image(soup)
+            if image_url and self.validate_image_quality(image_url):
+                logger.info(f"✅ Found high-quality JSON-LD image: {image_url}")
+                return image_url
             
+            logger.warning(f"❌ No high-quality images found after exhaustive scraping")
             return None
             
         except Exception as e:
-            logger.error(f"Error scraping image: {e}")
+            logger.error(f"Error in enhanced image scraping: {e}")
+            return None
+    
+    def try_open_graph_image(self, soup):
+        """Try to get Open Graph image"""
+        og_image = soup.find('meta', property='og:image')
+        if og_image and og_image.get('content'):
+            return og_image['content']
+        return None
+    
+    def try_twitter_card_image(self, soup):
+        """Try to get Twitter card image"""
+        twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
+        if twitter_image and twitter_image.get('content'):
+            return twitter_image['content']
+        return None
+    
+    def try_article_specific_images(self, soup):
+        """Try article-specific image selectors for common news sites"""
+        # Common news site image selectors
+        selectors = [
+            'img.hero-image',
+            'img.featured-image', 
+            'img.article-image',
+            'img.lead-image',
+            'img.story-image',
+            '.hero img',
+            '.featured img',
+            '.article-header img',
+            '.post-thumbnail img',
+            '.entry-content img:first-of-type',
+            'figure.lead img',
+            'figure.hero img',
+            '.wp-post-image',
+            '.attachment-large'
+        ]
+        
+        for selector in selectors:
+            try:
+                img = soup.select_one(selector)
+                if img and img.get('src'):
+                    return img['src']
+                elif img and img.get('data-src'):  # Lazy loaded images
+                    return img['data-src']
+            except:
+                continue
+        return None
+    
+    def try_largest_images(self, soup, base_url):
+        """Find the largest images on the page"""
+        try:
+            all_images = soup.find_all('img')
+            image_candidates = []
+            
+            for img in all_images:
+                src = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
+                if not src:
+                    continue
+                
+                # Convert relative URLs to absolute
+                if src.startswith('//'):
+                    src = 'https:' + src
+                elif src.startswith('/'):
+                    from urllib.parse import urljoin
+                    src = urljoin(base_url, src)
+                
+                # Get image dimensions from attributes
+                width = self.extract_dimension(img.get('width'))
+                height = self.extract_dimension(img.get('height'))
+                
+                # Estimate size score
+                size_score = 0
+                if width and height:
+                    size_score = width * height
+                elif 'large' in src.lower() or 'hero' in src.lower():
+                    size_score = 100000  # High priority for large/hero images
+                
+                image_candidates.append((src, size_score))
+            
+            # Sort by size score and return the largest
+            image_candidates.sort(key=lambda x: x[1], reverse=True)
+            
+            for img_url, score in image_candidates[:5]:  # Try top 5 largest
+                if self.validate_image_quality(img_url):
+                    return img_url
+            
+        except Exception as e:
+            logger.error(f"Error finding largest images: {e}")
+        
+        return None
+    
+    def try_json_ld_image(self, soup):
+        """Try to extract image from JSON-LD structured data"""
+        try:
+            json_scripts = soup.find_all('script', type='application/ld+json')
+            for script in json_scripts:
+                try:
+                    import json
+                    data = json.loads(script.string)
+                    
+                    # Handle both single objects and arrays
+                    if isinstance(data, list):
+                        data = data[0] if data else {}
+                    
+                    # Look for image in various JSON-LD properties
+                    image = data.get('image')
+                    if image:
+                        if isinstance(image, str):
+                            return image
+                        elif isinstance(image, dict) and image.get('url'):
+                            return image['url']
+                        elif isinstance(image, list) and image:
+                            first_img = image[0]
+                            if isinstance(first_img, str):
+                                return first_img
+                            elif isinstance(first_img, dict) and first_img.get('url'):
+                                return first_img['url']
+                
+                except json.JSONDecodeError:
+                    continue
+        except Exception as e:
+            logger.error(f"Error parsing JSON-LD: {e}")
+        
+        return None
+    
+    def extract_dimension(self, dim_str):
+        """Extract numeric dimension from string"""
+        if not dim_str:
+            return None
+        try:
+            # Remove 'px' and other units, extract number
+            import re
+            match = re.search(r'(\d+)', str(dim_str))
+            return int(match.group(1)) if match else None
+        except:
             return None
     
     def validate_image_quality(self, image_url):
@@ -2808,6 +2966,7 @@ class WirelessMonitor:
             # Skip obvious low-quality indicators
             low_quality_indicators = [
                 'googleusercontent.com',  # Skip Google News generic thumbnails
+                'lh3.googleusercontent.com',  # Specific Google thumbnail domain
                 'logo',
                 'icon',
                 'avatar',
@@ -2815,30 +2974,56 @@ class WirelessMonitor:
                 'default',
                 'generic',
                 'thumbnail_small',
-                'favicon'
+                'favicon',
+                'blank',
+                'empty',
+                '1x1',
+                'pixel',
+                'spacer',
+                'loading',
+                'spinner'
             ]
             
             # Check URL for low-quality indicators
             url_lower = image_url.lower()
             for indicator in low_quality_indicators:
                 if indicator in url_lower:
-                    logger.info(f"Rejecting image due to low-quality indicator '{indicator}': {image_url}")
+                    logger.info(f"❌ Rejecting image due to low-quality indicator '{indicator}': {image_url}")
                     return False
             
-            # Check image dimensions if possible
+            # Reject very small dimensions in URL
+            small_dimensions = ['50x50', '100x100', '32x32', '64x64', '16x16', '24x24']
+            for dim in small_dimensions:
+                if dim in url_lower:
+                    logger.info(f"❌ Rejecting image due to small dimensions '{dim}': {image_url}")
+                    return False
+            
+            # Check image file size if possible
             try:
-                response = requests.head(image_url, timeout=5)
+                response = requests.head(image_url, timeout=10)
                 content_length = response.headers.get('content-length')
-                if content_length and int(content_length) < 5000:  # Less than 5KB
-                    logger.info(f"Rejecting image due to small file size: {image_url}")
+                if content_length and int(content_length) < 8000:  # Less than 8KB
+                    logger.info(f"❌ Rejecting image due to small file size ({content_length} bytes): {image_url}")
                     return False
-            except:
-                pass  # If we can't check, assume it's okay
+                
+                # Check content type
+                content_type = response.headers.get('content-type', '').lower()
+                if content_type and not any(img_type in content_type for img_type in ['image/jpeg', 'image/png', 'image/webp']):
+                    logger.info(f"❌ Rejecting non-image content type '{content_type}': {image_url}")
+                    return False
+                    
+            except Exception as e:
+                logger.warning(f"Could not validate image headers for {image_url}: {e}")
+                # If we can't check headers, be more strict about URL patterns
+                if any(bad in url_lower for bad in ['google', 'thumbnail', 'small', 'icon']):
+                    return False
             
-            # Image passed validation
+            # Image passed all validation checks
+            logger.info(f"✅ Image passed quality validation: {image_url}")
             return True
             
-        except Exception:
+        except Exception as e:
+            logger.error(f"Error validating image quality: {e}")
             return False
     
     def generate_ai_image_local(self, title, description):
