@@ -35,3 +35,9 @@
 2025-12-31 00:13:19,390 - main - INFO - Database initialized
 2025-12-31 00:13:19,394 - main - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
 2025-12-31 00:13:19,395 - main - INFO - Starting RSS feed fetch...
+2025-12-31 00:34:59,640 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:34:59,640 - __main__ - INFO - Database initialized
+2025-12-31 00:34:59,645 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:34:59,645 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:34:59,645 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:34:59,646 - __main__ - INFO - Fetching feed: Ars Technica Technology

@@ -2664,32 +2664,29 @@ class WirelessMonitor:
                     truncated_title = article['title'][:available_length-3] + "..."
                     content = f"{truncated_title} {attribution}"
                 
-                share_url = f"https://twitter.com/intent/tweet?text={content}&url={article['url']}"
+                # Twitter automatically appends the URL, so we include it in the share_url
+                import urllib.parse
+                share_url = f"https://twitter.com/intent/tweet?text={urllib.parse.quote(content)}&url={urllib.parse.quote(article['url'])}"
+                
+                # For preview, show what the user will see (Twitter adds the URL automatically)
+                content_preview = f"{content}\n\n🔗 {article['url']}"
                 
             elif platform == 'LinkedIn':
-                # LinkedIn sharing with updated API format
+                # LinkedIn sharing with proper URL inclusion
                 import urllib.parse
                 
-                # Create rich content for LinkedIn
+                # Create rich content for LinkedIn with URL
                 title = article['title']
-                summary = article['description'][:300] if article['description'] else "Discover the latest in wireless technology and connectivity innovations"
+                summary = article['description'][:200] if article['description'] else "Discover the latest in wireless technology and connectivity innovations"
                 
-                # Enhanced LinkedIn content with better formatting
-                linkedin_content = f"{title}\n\n{summary}\n\n{attribution}"
+                # LinkedIn content with URL included in text
+                linkedin_content = f"{title}\n\n{summary}\n\n{attribution}\n\n🔗 Read more: {article['url']}"
                 
-                # Use LinkedIn's updated sharing URL format
-                linkedin_params = {
-                    'url': article['url'],
-                    'title': title,
-                    'summary': f"{summary} {attribution}",
-                    'source': 'The Wireless Monitor'
-                }
-                
-                # Try the newer LinkedIn sharing format first
-                query_string = urllib.parse.urlencode(linkedin_params, quote_via=urllib.parse.quote)
+                # Use LinkedIn's sharing format with URL in text
                 share_url = f"https://www.linkedin.com/feed/?shareActive=true&text={urllib.parse.quote(linkedin_content)}"
                 
                 content = linkedin_content
+                content_preview = linkedin_content
                 
             elif platform == 'Facebook':
                 # Facebook sharing with better parameters
@@ -2704,11 +2701,14 @@ class WirelessMonitor:
                 share_url = f"https://www.facebook.com/sharer/sharer.php?{query_string}"
                 content = f"{article['title']} {attribution}"
                 
+                # Facebook automatically includes the URL, show preview
+                content_preview = f"{content}\n\n🔗 {article['url']}"
+                
             elif platform == 'Mastodon':
-                # Mastodon sharing
+                # Mastodon sharing with URL in content
                 import urllib.parse
                 
-                mastodon_text = f"{article['title']}\n\n{article['description'][:200] if article['description'] else ''}\n\n{attribution}\n\n{article['url']}"
+                mastodon_text = f"{article['title']}\n\n{article['description'][:200] if article['description'] else ''}\n\n{attribution}\n\n🔗 {article['url']}"
                 
                 mastodon_params = {
                     'text': mastodon_text
@@ -2717,19 +2717,22 @@ class WirelessMonitor:
                 query_string = urllib.parse.urlencode(mastodon_params)
                 share_url = f"https://mastodon.social/share?{query_string}"
                 content = mastodon_text
+                content_preview = mastodon_text
                 
             elif platform == 'Instagram':
                 # Instagram doesn't support direct URL sharing, so we'll create a copy-to-clipboard approach
-                content = f"{article['title']}\n\n{article['description'][:150] if article['description'] else ''}\n\n{attribution}\n\nRead more: {article['url']}"
+                content = f"{article['title']}\n\n{article['description'][:150] if article['description'] else ''}\n\n{attribution}\n\n🔗 Read more: {article['url']}"
                 share_url = f"https://www.instagram.com/"  # Just open Instagram
+                content_preview = content
                 
             else:
                 # Generic sharing
-                content = f"{article['title']} {attribution}"
+                content = f"{article['title']} {attribution}\n\n🔗 {article['url']}"
                 share_url = article['url']
+                content_preview = content
             
             return {
-                'content': content,
+                'content': content_preview if 'content_preview' in locals() else content,
                 'share_url': share_url,
                 'platform': platform,
                 'attribution': attribution,

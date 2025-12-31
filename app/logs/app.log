@@ -6916,3 +6916,186 @@
 2025-12-31 00:24:19,138 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:24:19] "POST /api/add_manual_event HTTP/1.1" 200 -
 2025-12-31 00:24:54,886 - __main__ - INFO - Manually removed event: Complete Test Event 2026 (ID: 7) with 4 article associations
 2025-12-31 00:24:54,887 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:24:54] "DELETE /api/remove_event/7 HTTP/1.1" 200 -
+2025-12-31 00:25:41,191 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:25:41] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:25:45,427 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:25:45] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:25:45,441 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: CES 2026 Preview: 6G and Wi-Fi 8 Technologies to Take Center...
+2025-12-31 00:25:45,441 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://arstechnica.com/ces-2026-6g-wifi8-preview
+2025-12-31 00:25:46,149 - __main__ - WARNING - Attempt 1 failed with status 404
+2025-12-31 00:25:46,400 - __main__ - WARNING - Attempt 2 failed with status 404
+2025-12-31 00:25:46,665 - __main__ - WARNING - Attempt 3 failed with status 404
+2025-12-31 00:25:46,919 - __main__ - WARNING - Attempt 4 failed with status 404
+2025-12-31 00:25:47,167 - __main__ - WARNING - Attempt 5 failed with status 404
+2025-12-31 00:25:47,167 - __main__ - WARNING - Failed to fetch article page after 5 attempts: 404
+2025-12-31 00:25:47,167 - __main__ - INFO - 🔍 Searching for images with keywords: wifi, wireless, router
+2025-12-31 00:25:47,167 - __main__ - INFO - ✅ Found Pixabay image: https://cdn.pixabay.com/photo/2017/01/18/16/46/hong-kong-1990268_960_720.jpg
+2025-12-31 00:25:47,170 - __main__ - INFO - ✅ Successfully scraped and stored image: https://cdn.pixabay.com/photo/2017/01/18/16/46/hong-kong-1990268_960_720.jpg
+2025-12-31 00:25:47,171 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:25:47] "POST /api/generate_article_image/68 HTTP/1.1" 200 -
+2025-12-31 00:25:49,738 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:25:49] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:25:56,458 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:25:56] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:26:06,922 - __main__ - INFO - Manually added event: NRF 2026 (ID: 8) with 5 articles
+2025-12-31 00:26:06,923 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:06] "POST /api/add_manual_event HTTP/1.1" 200 -
+2025-12-31 00:26:09,934 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:09] "GET /events?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:26:15,419 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:15] "GET /event/8?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:26:20,583 - __main__ - INFO - Found 4 new articles for NRF 2026
+2025-12-31 00:26:20,586 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:20] "POST /api/fetch_event_content/8 HTTP/1.1" 200 -
+2025-12-31 00:26:22,611 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:22] "GET /event/8?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:26:27,407 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:27] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:26:27,424 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: NRF 2026: Retail Technology Trends Set to Transform Commerce...
+2025-12-31 00:26:27,424 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://retaildive.com/nrf-2026-retail-tech-preview
+2025-12-31 00:26:27,425 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: NRF 2026: Advanced Wireless Payment Solutions and Metaverse ...
+2025-12-31 00:26:27,425 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://pymnts.com/nrf-2026-wireless-metaverse-payments
+2025-12-31 00:26:27,426 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: NRF 2026: The Future of Retail Wireless Infrastructure and S...
+2025-12-31 00:26:27,426 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://fierceretail.com/nrf-2026-wireless-sustainability
+2025-12-31 00:26:27,427 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Digital Transformation Preview: NRF 2026's IoT and Edge AI I...
+2025-12-31 00:26:27,427 - __main__ - INFO - 🔍 Ultra-aggressive scraping from: https://chainstoreage.com/nrf-2026-iot-edge-ai-preview
+2025-12-31 00:26:27,647 - __main__ - WARNING - Attempt 1 failed with status 403
+2025-12-31 00:26:27,849 - __main__ - WARNING - Attempt 2 failed with status 403
+2025-12-31 00:26:28,031 - __main__ - WARNING - Attempt 3 failed with status 403
+2025-12-31 00:26:28,194 - __main__ - WARNING - Attempt 1 failed with status 404
+2025-12-31 00:26:28,204 - __main__ - WARNING - Attempt 4 failed with status 403
+2025-12-31 00:26:28,367 - __main__ - WARNING - Attempt 1 failed with status 404
+2025-12-31 00:26:28,387 - __main__ - WARNING - Attempt 5 failed with status 403
+2025-12-31 00:26:28,387 - __main__ - WARNING - Failed to fetch article page after 5 attempts: 403
+2025-12-31 00:26:28,388 - __main__ - INFO - 🔍 Searching for images with keywords: iot, smart, connected
+2025-12-31 00:26:28,388 - __main__ - INFO - ✅ Found Pixabay image: https://cdn.pixabay.com/photo/2017/05/10/19/29/robot-2301646_960_720.jpg
+2025-12-31 00:26:28,396 - __main__ - INFO - ✅ Successfully scraped and stored image: https://cdn.pixabay.com/photo/2017/05/10/19/29/robot-2301646_960_720.jpg
+2025-12-31 00:26:28,396 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:28] "POST /api/generate_article_image/73 HTTP/1.1" 200 -
+2025-12-31 00:26:28,703 - __main__ - WARNING - Attempt 2 failed with status 404
+2025-12-31 00:26:29,124 - __main__ - WARNING - Attempt 2 failed with status 404
+2025-12-31 00:26:29,158 - __main__ - WARNING - Attempt 3 failed with status 404
+2025-12-31 00:26:29,643 - __main__ - WARNING - Attempt 4 failed with status 404
+2025-12-31 00:26:29,886 - __main__ - WARNING - Attempt 3 failed with status 404
+2025-12-31 00:26:30,118 - __main__ - WARNING - Attempt 5 failed with status 404
+2025-12-31 00:26:30,118 - __main__ - WARNING - Failed to fetch article page after 5 attempts: 404
+2025-12-31 00:26:30,118 - __main__ - INFO - 🔍 Searching for images with keywords: artificial intelligence, technology, computer
+2025-12-31 00:26:30,118 - __main__ - INFO - ✅ Found Pixabay image: https://cdn.pixabay.com/photo/2017/05/10/19/29/robot-2301646_960_720.jpg
+2025-12-31 00:26:30,123 - __main__ - INFO - ✅ Successfully scraped and stored image: https://cdn.pixabay.com/photo/2017/05/10/19/29/robot-2301646_960_720.jpg
+2025-12-31 00:26:30,124 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:30] "POST /api/generate_article_image/71 HTTP/1.1" 200 -
+2025-12-31 00:26:30,730 - __main__ - WARNING - Attempt 4 failed with status 404
+2025-12-31 00:26:31,545 - __main__ - WARNING - Attempt 5 failed with status 404
+2025-12-31 00:26:31,546 - __main__ - WARNING - Failed to fetch article page after 5 attempts: 404
+2025-12-31 00:26:31,546 - __main__ - INFO - 🔍 Searching for images with keywords: wireless, wifi, antenna
+2025-12-31 00:26:31,546 - __main__ - INFO - ✅ Found Pixabay image: https://cdn.pixabay.com/photo/2016/12/28/09/36/web-1935737_960_720.png
+2025-12-31 00:26:31,548 - __main__ - INFO - ✅ Successfully scraped and stored image: https://cdn.pixabay.com/photo/2016/12/28/09/36/web-1935737_960_720.png
+2025-12-31 00:26:31,549 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:26:31] "POST /api/generate_article_image/72 HTTP/1.1" 200 -
+2025-12-31 00:26:47,515 - __main__ - WARNING - Attempt 1 failed with status 522
+2025-12-31 00:27:07,158 - __main__ - WARNING - Attempt 2 failed with status 522
+2025-12-31 00:27:26,828 - __main__ - WARNING - Attempt 3 failed with status 522
+2025-12-31 00:27:46,553 - __main__ - WARNING - Attempt 4 failed with status 522
+2025-12-31 00:28:06,550 - __main__ - WARNING - Attempt 5 failed with status 522
+2025-12-31 00:28:06,550 - __main__ - WARNING - Failed to fetch article page after 5 attempts: 522
+2025-12-31 00:28:06,550 - __main__ - INFO - 🔍 Searching for images with keywords: wireless, wifi, antenna
+2025-12-31 00:28:06,551 - __main__ - INFO - ✅ Found Pixabay image: https://cdn.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_960_720.jpg
+2025-12-31 00:28:06,554 - __main__ - INFO - ✅ Successfully scraped and stored image: https://cdn.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_960_720.jpg
+2025-12-31 00:28:06,559 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:28:06] "POST /api/generate_article_image/74 HTTP/1.1" 200 -
+2025-12-31 00:28:34,287 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:28:34] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:28:49,567 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:28:49] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:28:59,805 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:28:59] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:29:33,587 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:29:33] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:29:41,032 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:29:41] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:29:47,215 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:29:47] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:29:54,171 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:29:54] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:01,536 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:01] "GET / HTTP/1.1" 200 -
+2025-12-31 00:30:30,022 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/test_social_sharing.py', reloading
+2025-12-31 00:30:30,039 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:30:30,271 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:30:30,271 - __main__ - INFO - Database initialized
+2025-12-31 00:30:30,275 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:30:30,276 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:30:30,276 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:30:30,277 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:30:30,301 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:30:30,312 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:30:30,709 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:30:30,902 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:30:31,210 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:30:32,709 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:32] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:30:32,862 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:30:34,388 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:30:35,309 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:30:35,846 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:30:36,655 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:30:36,714 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:36] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:36,723 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:36] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:36,730 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:36] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:36,767 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:36] "GET / HTTP/1.1" 200 -
+2025-12-31 00:30:47,553 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:47] "GET /?view=newspaper HTTP/1.1" 200 -
+2025-12-31 00:30:56,574 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:56] "GET /api/get_social_config HTTP/1.1" 200 -
+2025-12-31 00:30:57,339 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:57] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:58,352 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:58] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:58,386 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:58] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:58,736 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:58] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:58,775 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:58] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:30:59,336 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:30:59] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:31:58,755 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:31:58] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:32:05,407 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:32:05] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:32:30,123 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:32:30,146 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:32:30,420 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:32:30,420 - __main__ - INFO - Database initialized
+2025-12-31 00:32:30,425 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:32:30,425 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:32:30,425 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:32:30,426 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:32:30,453 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:32:30,462 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:32:30,664 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:32:30,881 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:32:31,137 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:32:31,874 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:32:32,997 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:32:33,372 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:32:33,689 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:32:34,041 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:32:36,521 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/app/main.py', reloading
+2025-12-31 00:32:36,545 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:32:36,873 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:32:36,873 - __main__ - INFO - Database initialized
+2025-12-31 00:32:36,879 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:32:36,879 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:32:36,879 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:32:36,881 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:32:36,907 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:32:36,912 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:32:37,205 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:32:37,352 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:32:37,603 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:32:38,435 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:32:38,568 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:32:39,290 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:32:39,666 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:32:40,364 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:32:48,498 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:32:48] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:32:55,710 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:32:55] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:33:02,362 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:33:02] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:33:10,977 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:33:10] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:33:18,337 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:33:18] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:33:32,635 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:33:32] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:33:49,891 - werkzeug - INFO -  * Detected change in '/Users/drlentz/Kiro/test_social_urls.py', reloading
+2025-12-31 00:33:49,911 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 00:33:50,161 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2025-12-31 00:33:50,161 - __main__ - INFO - Database initialized
+2025-12-31 00:33:50,166 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2025-12-31 00:33:50,166 - __main__ - INFO - Starting RSS feed fetch...
+2025-12-31 00:33:50,166 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2025-12-31 00:33:50,167 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2025-12-31 00:33:50,192 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 00:33:50,206 - werkzeug - INFO -  * Debugger PIN: 130-130-455
+2025-12-31 00:33:50,535 - __main__ - INFO - Fetching feed: TechCrunch
+2025-12-31 00:33:50,683 - __main__ - INFO - Fetching feed: RCR Wireless News
+2025-12-31 00:33:50,939 - __main__ - INFO - Fetching feed: Engadget
+2025-12-31 00:33:52,495 - __main__ - INFO - Fetching feed: Wired Technology
+2025-12-31 00:33:52,712 - __main__ - INFO - Fetching feed: Google News: Wi-Fi
+2025-12-31 00:33:53,467 - __main__ - INFO - Fetching feed: Google News: "Drew Lentz"
+2025-12-31 00:33:53,905 - __main__ - INFO - Fetching feed: Google News: HaLow
+2025-12-31 00:33:54,685 - __main__ - INFO - RSS fetch completed: 0 new articles
+2025-12-31 00:34:40,693 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:34:40] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:34:40,699 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:34:40] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:34:40,703 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:34:40] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:34:40,708 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:34:40] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:34:40,714 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:34:40] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:05,989 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:05] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:05,996 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:05] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:06,002 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:06,007 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -
+2025-12-31 00:35:06,011 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 00:35:06] "POST /api/share_article HTTP/1.1" 200 -

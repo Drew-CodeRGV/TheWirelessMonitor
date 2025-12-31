@@ -104,6 +104,8 @@
                     {% endif %}
                     <div style="display: flex; gap: 10px;">
                         <a href="{{ stories[0].url }}" target="_blank" class="btn">Read More</a>
+                        <button onclick="shareArticle({{ stories[0].id }})" class="btn" style="background: #3498db; color: white;" title="Share this article on social media">📤 Share</button>
+                        <button onclick="addToDigest({{ stories[0].id }})" class="btn" style="background: #f39c12; color: white;" title="Add to weekly digest">📋 Add to Digest</button>
                     </div>
                 </article>
                 {% endif %}
@@ -128,6 +130,11 @@
                     {% if stories[1].description %}
                         <p style="color: #666; margin-bottom: 15px;">{{ stories[1].description[:150] }}...</p>
                     {% endif %}
+                    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                        <a href="{{ stories[1].url }}" target="_blank" class="btn" style="font-size: 0.9rem; padding: 8px 16px;">Read More</a>
+                        <button onclick="shareArticle({{ stories[1].id }})" class="btn" style="background: #3498db; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Share this article">📤 Share</button>
+                        <button onclick="addToDigest({{ stories[1].id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Add to digest">📋 Digest</button>
+                    </div>
                 </article>
                 {% endif %}
             </div>
@@ -157,7 +164,11 @@
                                 <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
                                     <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
                                 </h4>
-                                <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <div style="display: flex; gap: 4px;">
+                                    <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
+                                    <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                                </div>
                             </article>
                             {% endif %}
                         {% endfor %}
@@ -180,7 +191,11 @@
                                 <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
                                     <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
                                 </h4>
-                                <p style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <div style="display: flex; gap: 4px;">
+                                    <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
+                                    <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                                </div>
                             </article>
                             {% endif %}
                         {% endfor %}
@@ -234,6 +249,8 @@
                     
                     <div style="display: flex; gap: 8px;">
                         <a href="{{ event_story.url }}" target="_blank" class="btn" style="font-size: 0.8rem; padding: 6px 12px;">Read More</a>
+                        <button onclick="shareArticle({{ event_story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.8rem; padding: 6px 12px;">📤</button>
+                        <button onclick="addToDigest({{ event_story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.8rem; padding: 6px 12px;">📋</button>
                     </div>
                 </article>
                 {% endfor %}
@@ -274,9 +291,13 @@
                     
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span style="font-size: 0.8rem; color: #666;">{{ story.feed_name }} • {{ story.published_date[:10] }}</span>
-                        <span style="background: #f39c12; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem;">
-                            {{ "%.0f"|format(story.relevance_score * 100) }}%
-                        </span>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <span style="background: #f39c12; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem;">
+                                {{ "%.0f"|format(story.relevance_score * 100) }}%
+                            </span>
+                            <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
+                            <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                        </div>
                     </div>
                 </article>
                 {% endfor %}
@@ -436,6 +457,40 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    
+    /* Enhanced share button styling */
+    .btn[onclick*="shareArticle"] {
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn[onclick*="shareArticle"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        background: #2980b9 !important;
+    }
+    
+    .btn[onclick*="addToDigest"] {
+        transition: all 0.2s ease;
+    }
+    
+    .btn[onclick*="addToDigest"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+        background: #e67e22 !important;
+    }
+    
+    /* Share button pulse animation */
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+    }
+    
+    .btn[onclick*="shareArticle"]:active {
+        animation: pulse 0.6s;
     }
     </style>
 {% endif %}
