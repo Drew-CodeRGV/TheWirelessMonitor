@@ -3246,157 +3246,131 @@ class WirelessMonitor:
             return google_news_url
     
     def scrape_article_image(self, article_url, article_title):
-        """Ultra-aggressive image scraping with multiple fallback strategies - Enhanced for near 100% success"""
+        """ULTRA-AGGRESSIVE article image scraping - tries everything possible to get real article images"""
         try:
             # First resolve Google News URLs to actual article URLs
             resolved_url = self.resolve_google_news_url(article_url)
             
-            logger.info(f"🔍 Ultra-aggressive scraping from: {resolved_url}")
+            logger.info(f"🔍 ULTRA-AGGRESSIVE scraping from: {resolved_url}")
             
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/avif,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
-                'Cache-Control': 'max-age=0'
-            }
+            # Multiple user agents to try if one fails
+            user_agents = [
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15',
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            ]
             
-            # Try multiple times with different strategies
-            for attempt in range(5):  # Increased attempts
-                try:
-                    response = requests.get(resolved_url, headers=headers, timeout=25, allow_redirects=True)
-                    if response.status_code == 200:
-                        break
-                    logger.warning(f"Attempt {attempt + 1} failed with status {response.status_code}")
-                except Exception as e:
-                    logger.warning(f"Attempt {attempt + 1} failed: {e}")
-                    if attempt < 4:
-                        import time
-                        time.sleep(1)  # Shorter wait between retries
-                        continue
-                    else:
-                        # If article scraping fails, try keyword-based search immediately
-                        logger.info("🔍 Article scraping failed, trying keyword-based image search...")
-                        return self.search_images_by_keywords(article_title)
+            soup = None
+            response = None
             
-            if response.status_code != 200:
-                logger.warning(f"Failed to fetch article page after 5 attempts: {response.status_code}")
-                # Fallback to keyword search
-                return self.search_images_by_keywords(article_title)
+            # Try multiple user agents and strategies to get the page
+            for ua_index, user_agent in enumerate(user_agents):
+                headers = {
+                    'User-Agent': user_agent,
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/avif,*/*;q=0.8',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Connection': 'keep-alive',
+                    'Upgrade-Insecure-Requests': '1',
+                    'Sec-Fetch-Dest': 'document',
+                    'Sec-Fetch-Mode': 'navigate',
+                    'Sec-Fetch-Site': 'none',
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
                 
-            soup = BeautifulSoup(response.content, 'html.parser')
+                # Try multiple attempts with this user agent
+                for attempt in range(3):
+                    try:
+                        logger.info(f"🔄 Attempt {attempt + 1} with User Agent {ua_index + 1}")
+                        
+                        # Add delay to let page load
+                        import time
+                        if attempt > 0:
+                            time.sleep(2)
+                        
+                        response = requests.get(resolved_url, headers=headers, timeout=30, allow_redirects=True)
+                        
+                        if response.status_code == 200:
+                            # Add extra delay to ensure page is fully loaded
+                            time.sleep(1)
+                            soup = BeautifulSoup(response.content, 'html.parser')
+                            logger.info(f"✅ Successfully loaded page with User Agent {ua_index + 1}")
+                            break
+                        else:
+                            logger.warning(f"❌ Status {response.status_code} with User Agent {ua_index + 1}")
+                            
+                    except Exception as e:
+                        logger.warning(f"❌ Error with User Agent {ua_index + 1}, attempt {attempt + 1}: {e}")
+                        continue
+                
+                if soup is not None:
+                    break
             
-            # STRATEGY 1: Open Graph image (most reliable for news sites)
-            image_url = self.try_open_graph_image(soup)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found high-quality Open Graph image: {image_url}")
+            if soup is None:
+                logger.warning("❌ Failed to load page with all user agents")
+                return self.search_images_by_keywords(article_title)
+            
+            # Now try EVERY possible way to extract images from the article
+            
+            # PHASE 1: Standard metadata approaches
+            logger.info("🔍 PHASE 1: Trying standard metadata...")
+            
+            # 1.1: Open Graph image (most common)
+            image_url = self.try_open_graph_image_enhanced(soup, resolved_url)
+            if image_url:
+                logger.info(f"✅ Found Open Graph image: {image_url}")
                 return image_url
             
-            # STRATEGY 2: Twitter card image
-            image_url = self.try_twitter_card_image(soup)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found high-quality Twitter card image: {image_url}")
+            # 1.2: Twitter card image
+            image_url = self.try_twitter_card_image_enhanced(soup, resolved_url)
+            if image_url:
+                logger.info(f"✅ Found Twitter card image: {image_url}")
                 return image_url
             
-            # STRATEGY 3: Article-specific image selectors (expanded list)
-            image_url = self.try_article_specific_images_enhanced(soup)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found high-quality article image: {image_url}")
+            # 1.3: JSON-LD structured data
+            image_url = self.try_json_ld_image_enhanced(soup, resolved_url)
+            if image_url:
+                logger.info(f"✅ Found JSON-LD image: {image_url}")
                 return image_url
             
-            # STRATEGY 4: Look for largest images on the page (more aggressive)
-            image_url = self.try_largest_images_enhanced(soup, resolved_url)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found high-quality large image: {image_url}")
+            # PHASE 2: Article-specific selectors
+            logger.info("🔍 PHASE 2: Trying article-specific selectors...")
+            image_url = self.try_article_specific_selectors_ultra(soup, resolved_url)
+            if image_url:
+                logger.info(f"✅ Found article-specific image: {image_url}")
                 return image_url
             
-            # STRATEGY 5: JSON-LD structured data
-            image_url = self.try_json_ld_image(soup)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found high-quality JSON-LD image: {image_url}")
-                return image_url
-            
-            # STRATEGY 6: Aggressive content area scanning
-            image_url = self.try_content_area_images(soup, resolved_url)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
+            # PHASE 3: Content area analysis
+            logger.info("🔍 PHASE 3: Analyzing content areas...")
+            image_url = self.try_content_area_analysis_ultra(soup, resolved_url)
+            if image_url:
                 logger.info(f"✅ Found content area image: {image_url}")
                 return image_url
             
-            # STRATEGY 7: Fallback to any decent sized image (very relaxed)
-            image_url = self.try_any_decent_image(soup, resolved_url)
-            if image_url and self.validate_image_quality_ultra_relaxed(image_url):
-                logger.info(f"✅ Found fallback image: {image_url}")
-                return image_url
-            
-            # STRATEGY 8: Accept ANY image from the page (last resort from article)
-            image_url = self.try_any_image_from_page(soup, resolved_url)
-            if image_url and self.validate_image_basic(image_url):
-                logger.info(f"✅ Found basic image from page: {image_url}")
-                return image_url
-            
-            # STRATEGY 9: Keyword-based image search (external sources)
-            logger.info("🔍 No images found on article page, trying keyword-based search...")
-            image_url = self.search_images_by_keywords(article_title)
+            # PHASE 4: Aggressive image hunting
+            logger.info("🔍 PHASE 4: Aggressive image hunting...")
+            image_url = self.try_aggressive_image_hunting(soup, resolved_url)
             if image_url:
-                logger.info(f"✅ Found keyword-based image: {image_url}")
+                logger.info(f"✅ Found through aggressive hunting: {image_url}")
                 return image_url
             
-            # STRATEGY 10: Generic tech stock images based on content
-            logger.info("🔍 Trying generic tech stock images...")
-            image_url = self.get_generic_tech_image(article_title)
+            # PHASE 5: Last resort - any reasonable image
+            logger.info("🔍 PHASE 5: Last resort - any reasonable image...")
+            image_url = self.try_any_reasonable_image(soup, resolved_url)
             if image_url:
-                logger.info(f"✅ Found generic tech image: {image_url}")
+                logger.info(f"✅ Found reasonable image: {image_url}")
                 return image_url
             
-            logger.warning(f"❌ No images found after all strategies")
-            return None
+            # Only if absolutely nothing found on the actual article page
+            logger.warning("❌ No images found on article page after exhaustive search")
+            return self.search_images_by_keywords(article_title)
             
         except Exception as e:
             logger.error(f"Error in ultra-aggressive image scraping: {e}")
-            # Final fallback to keyword search
-            try:
-                return self.search_images_by_keywords(article_title)
-            except:
-                return None
-            image_url = self.try_twitter_card_image(soup)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found high-quality Twitter card image: {image_url}")
-                return image_url
-            
-            # STRATEGY 3: Article-specific image selectors (expanded list)
-            image_url = self.try_article_specific_images_enhanced(soup)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found high-quality article image: {image_url}")
-                return image_url
-            
-            # STRATEGY 4: Look for largest images on the page (more aggressive)
-            image_url = self.try_largest_images_enhanced(soup, resolved_url)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found high-quality large image: {image_url}")
-                return image_url
-            
-            # STRATEGY 5: JSON-LD structured data
-            image_url = self.try_json_ld_image(soup)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found high-quality JSON-LD image: {image_url}")
-                return image_url
-            
-            # STRATEGY 6: Aggressive content area scanning
-            image_url = self.try_content_area_images(soup, resolved_url)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found content area image: {image_url}")
-                return image_url
-            
-            # STRATEGY 7: Fallback to any decent sized image
-            image_url = self.try_any_decent_image(soup, resolved_url)
-            if image_url and self.validate_image_quality_relaxed(image_url):
-                logger.info(f"✅ Found fallback image: {image_url}")
-                return image_url
+            return self.search_images_by_keywords(article_title)
             
             logger.warning(f"❌ No images found after ultra-aggressive scraping")
             return None
@@ -3626,22 +3600,46 @@ class WirelessMonitor:
             return False
     
     def validate_image_basic(self, image_url):
-        """Basic image validation - just check if it's a valid image URL"""
+        """Basic image validation - very permissive for real article images"""
         try:
             if not image_url or len(image_url) < 10:
                 return False
             
-            # Must look like an image URL
-            url_lower = image_url.lower()
-            if not any(ext in url_lower for ext in ['.jpg', '.jpeg', '.png', '.webp', '.gif']):
+            # Must be HTTP/HTTPS
+            if not image_url.startswith(('http://', 'https://')):
                 return False
             
-            # Skip obvious bad ones
-            bad_indicators = ['favicon.ico', 'loading.gif', 'spinner.gif', 'blank.png']
+            # Skip obvious bad ones but be very permissive
+            bad_indicators = [
+                'favicon.ico', 'loading.gif', 'spinner.gif', 'blank.png',
+                'data:image', '1x1.gif', 'pixel.gif', 'spacer.gif',
+                'lh3.googleusercontent.com'  # Google's placeholder images
+            ]
+            
+            url_lower = image_url.lower()
             if any(bad in url_lower for bad in bad_indicators):
                 return False
             
-            return True
+            # Accept if it looks like an image file OR is from a known news site
+            is_image_file = any(ext in url_lower for ext in ['.jpg', '.jpeg', '.png', '.webp', '.gif'])
+            
+            # Known news/tech sites that serve images without extensions
+            known_image_hosts = [
+                'cdn.arstechnica.net',
+                's.yimg.com',
+                'techcrunch.com',
+                'cdn.vox-cdn.com',
+                'engadget.com',
+                'spectrum.ieee.org',
+                'fiercewireless.com',
+                'images.unsplash.com',
+                'd29szjachogqwa.cloudfront.net'
+            ]
+            
+            is_from_known_host = any(host in url_lower for host in known_image_hosts)
+            
+            # Accept if it's an image file OR from a known host
+            return is_image_file or is_from_known_host
             
         except Exception as e:
             logger.error(f"Error in basic image validation: {e}")
@@ -4030,12 +4028,503 @@ class WirelessMonitor:
         
         return None
     
-    def try_open_graph_image(self, soup):
-        """Try to get Open Graph image"""
-        og_image = soup.find('meta', property='og:image')
-        if og_image and og_image.get('content'):
-            return og_image['content']
-        return None
+    def try_open_graph_image_enhanced(self, soup, base_url):
+        """Enhanced Open Graph image extraction"""
+        try:
+            # Try multiple Open Graph properties
+            og_selectors = [
+                'meta[property="og:image"]',
+                'meta[property="og:image:url"]',
+                'meta[property="og:image:secure_url"]',
+                'meta[name="og:image"]',
+                'meta[content*="og:image"]'
+            ]
+            
+            for selector in og_selectors:
+                og_tags = soup.select(selector)
+                for tag in og_tags:
+                    content = tag.get('content')
+                    if content:
+                        image_url = self.resolve_image_url(content, base_url)
+                        if self.validate_image_enhanced(image_url):
+                            return image_url
+            return None
+        except Exception as e:
+            logger.error(f"Error in enhanced Open Graph extraction: {e}")
+            return None
+    
+    def try_twitter_card_image_enhanced(self, soup, base_url):
+        """Enhanced Twitter card image extraction"""
+        try:
+            # Try multiple Twitter card properties
+            twitter_selectors = [
+                'meta[name="twitter:image"]',
+                'meta[name="twitter:image:src"]',
+                'meta[property="twitter:image"]',
+                'meta[property="twitter:image:src"]'
+            ]
+            
+            for selector in twitter_selectors:
+                twitter_tags = soup.select(selector)
+                for tag in twitter_tags:
+                    content = tag.get('content')
+                    if content:
+                        image_url = self.resolve_image_url(content, base_url)
+                        if self.validate_image_enhanced(image_url):
+                            return image_url
+            return None
+        except Exception as e:
+            logger.error(f"Error in enhanced Twitter card extraction: {e}")
+            return None
+    
+    def try_json_ld_image_enhanced(self, soup, base_url):
+        """Enhanced JSON-LD structured data image extraction"""
+        try:
+            import json
+            
+            # Find all JSON-LD scripts
+            json_scripts = soup.find_all('script', type='application/ld+json')
+            
+            for script in json_scripts:
+                try:
+                    data = json.loads(script.string)
+                    
+                    # Handle both single objects and arrays
+                    if isinstance(data, list):
+                        data_items = data
+                    else:
+                        data_items = [data]
+                    
+                    for item in data_items:
+                        # Look for image in various JSON-LD structures
+                        image_candidates = []
+                        
+                        # Direct image property
+                        if 'image' in item:
+                            if isinstance(item['image'], str):
+                                image_candidates.append(item['image'])
+                            elif isinstance(item['image'], dict) and 'url' in item['image']:
+                                image_candidates.append(item['image']['url'])
+                            elif isinstance(item['image'], list):
+                                for img in item['image']:
+                                    if isinstance(img, str):
+                                        image_candidates.append(img)
+                                    elif isinstance(img, dict) and 'url' in img:
+                                        image_candidates.append(img['url'])
+                        
+                        # Article-specific properties
+                        for prop in ['thumbnailUrl', 'logo', 'photo', 'primaryImageOfPage']:
+                            if prop in item:
+                                if isinstance(item[prop], str):
+                                    image_candidates.append(item[prop])
+                                elif isinstance(item[prop], dict) and 'url' in item[prop]:
+                                    image_candidates.append(item[prop]['url'])
+                        
+                        # Test each candidate
+                        for candidate in image_candidates:
+                            image_url = self.resolve_image_url(candidate, base_url)
+                            if self.validate_image_enhanced(image_url):
+                                return image_url
+                
+                except json.JSONDecodeError:
+                    continue
+            
+            return None
+        except Exception as e:
+            logger.error(f"Error in enhanced JSON-LD extraction: {e}")
+            return None
+    
+    def try_article_specific_selectors_ultra(self, soup, base_url):
+        """Ultra-comprehensive article-specific image selectors"""
+        try:
+            # Massive list of selectors used by major news sites
+            article_selectors = [
+                # Generic article images
+                'article img[src]',
+                '.article-image img[src]',
+                '.article-hero img[src]',
+                '.article-header img[src]',
+                '.article-content img[src]',
+                '.post-image img[src]',
+                '.post-thumbnail img[src]',
+                '.featured-image img[src]',
+                '.hero-image img[src]',
+                '.main-image img[src]',
+                '.lead-image img[src]',
+                '.story-image img[src]',
+                '.content-image img[src]',
+                
+                # News site specific selectors
+                '.entry-content img[src]',
+                '.post-content img[src]',
+                '.article-body img[src]',
+                '.story-body img[src]',
+                '.article-text img[src]',
+                '.article-wrapper img[src]',
+                '.content-wrapper img[src]',
+                '.main-content img[src]',
+                
+                # Ars Technica specific
+                '.post img[src]',
+                '.article img[src]',
+                
+                # TechCrunch specific
+                '.article-content img[src]',
+                '.wp-post-image',
+                
+                # The Verge specific
+                '.c-entry-content img[src]',
+                '.e-image img[src]',
+                
+                # Engadget specific
+                '.article-text img[src]',
+                '.o-article_block img[src]',
+                
+                # Wired specific
+                '.body__inner-container img[src]',
+                '.article__chunks img[src]',
+                
+                # IEEE Spectrum specific
+                '.field-name-body img[src]',
+                '.article-body img[src]',
+                
+                # Generic fallbacks
+                'img[class*="article"]',
+                'img[class*="hero"]',
+                'img[class*="featured"]',
+                'img[class*="main"]',
+                'img[class*="lead"]',
+                'img[class*="story"]',
+                'img[class*="post"]',
+                'img[class*="content"]',
+                
+                # By data attributes
+                'img[data-src]',
+                'img[data-original]',
+                'img[data-lazy]',
+                'img[data-image]',
+                
+                # Figure elements
+                'figure img[src]',
+                'figure img[data-src]',
+                '.figure img[src]',
+                
+                # Picture elements
+                'picture img[src]',
+                'picture source[srcset]',
+                
+                # Any img in main content areas
+                'main img[src]',
+                '#main img[src]',
+                '#content img[src]',
+                '.main img[src]',
+                '.content img[src]'
+            ]
+            
+            for selector in article_selectors:
+                try:
+                    elements = soup.select(selector)
+                    for element in elements:
+                        # Try different attributes
+                        for attr in ['src', 'data-src', 'data-original', 'data-lazy', 'data-image', 'srcset']:
+                            if element.has_attr(attr):
+                                src = element[attr]
+                                if src:
+                                    # Handle srcset (take first/largest image)
+                                    if attr == 'srcset':
+                                        src = src.split(',')[0].split(' ')[0]
+                                    
+                                    image_url = self.resolve_image_url(src, base_url)
+                                    if self.validate_image_enhanced(image_url):
+                                        return image_url
+                except Exception as e:
+                    continue
+            
+            return None
+        except Exception as e:
+            logger.error(f"Error in article-specific selectors: {e}")
+            return None
+    
+    def try_content_area_analysis_ultra(self, soup, base_url):
+        """Ultra-deep content area analysis"""
+        try:
+            # Look for content areas and analyze images within them
+            content_areas = [
+                'article', 'main', '.article', '.post', '.entry', '.content',
+                '.story', '.news-article', '.article-content', '.post-content',
+                '.entry-content', '.article-body', '.story-body', '.main-content'
+            ]
+            
+            for area_selector in content_areas:
+                areas = soup.select(area_selector)
+                for area in areas:
+                    # Find all images in this content area
+                    images = area.find_all('img')
+                    
+                    # Score images by their position and attributes
+                    scored_images = []
+                    
+                    for i, img in enumerate(images):
+                        score = 0
+                        
+                        # Position score (earlier = higher score)
+                        score += max(0, 100 - i * 10)
+                        
+                        # Size hints in attributes
+                        for attr in ['width', 'height', 'data-width', 'data-height']:
+                            if img.has_attr(attr):
+                                try:
+                                    size = int(img[attr])
+                                    if size >= 300:
+                                        score += 20
+                                    elif size >= 200:
+                                        score += 10
+                                except:
+                                    pass
+                        
+                        # Class name hints
+                        classes = img.get('class', [])
+                        class_str = ' '.join(classes).lower()
+                        
+                        if any(keyword in class_str for keyword in ['hero', 'featured', 'main', 'lead', 'primary']):
+                            score += 50
+                        if any(keyword in class_str for keyword in ['thumb', 'small', 'icon', 'avatar']):
+                            score -= 30
+                        
+                        # Alt text relevance
+                        alt = img.get('alt', '').lower()
+                        if alt and len(alt) > 10:
+                            score += 15
+                        
+                        # Get image URL
+                        img_url = None
+                        for attr in ['src', 'data-src', 'data-original', 'data-lazy']:
+                            if img.has_attr(attr) and img[attr]:
+                                img_url = self.resolve_image_url(img[attr], base_url)
+                                break
+                        
+                        if img_url:
+                            scored_images.append((score, img_url))
+                    
+                    # Sort by score and try highest scoring images
+                    scored_images.sort(reverse=True)
+                    
+                    for score, img_url in scored_images[:5]:  # Try top 5
+                        if self.validate_image_enhanced(img_url):
+                            return img_url
+            
+            return None
+        except Exception as e:
+            logger.error(f"Error in content area analysis: {e}")
+            return None
+    
+    def try_aggressive_image_hunting(self, soup, base_url):
+        """Aggressive image hunting - try everything"""
+        try:
+            # Find ALL images on the page
+            all_images = []
+            
+            # Regular img tags
+            for img in soup.find_all('img'):
+                for attr in ['src', 'data-src', 'data-original', 'data-lazy', 'data-image']:
+                    if img.has_attr(attr) and img[attr]:
+                        all_images.append(img[attr])
+            
+            # CSS background images
+            for element in soup.find_all(style=True):
+                style = element['style']
+                if 'background-image' in style:
+                    import re
+                    matches = re.findall(r'url\(["\']?([^"\']+)["\']?\)', style)
+                    all_images.extend(matches)
+            
+            # Inline CSS
+            for style_tag in soup.find_all('style'):
+                if style_tag.string:
+                    import re
+                    matches = re.findall(r'url\(["\']?([^"\']+)["\']?\)', style_tag.string)
+                    all_images.extend(matches)
+            
+            # Picture source elements
+            for source in soup.find_all('source'):
+                if source.has_attr('srcset'):
+                    srcset = source['srcset']
+                    # Take first image from srcset
+                    first_img = srcset.split(',')[0].split(' ')[0]
+                    all_images.append(first_img)
+            
+            # Score and filter images
+            scored_images = []
+            
+            for img_src in all_images:
+                if not img_src:
+                    continue
+                
+                img_url = self.resolve_image_url(img_src, base_url)
+                
+                # Basic filtering
+                if not img_url or not self.is_valid_image_url(img_url):
+                    continue
+                
+                score = 0
+                
+                # Size hints in URL
+                if any(size in img_url.lower() for size in ['large', 'big', 'full', 'original', '1200', '1000', '800']):
+                    score += 30
+                if any(size in img_url.lower() for size in ['thumb', 'small', 'icon', '100', '150', '200']):
+                    score -= 20
+                
+                # File type preference
+                if img_url.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                    score += 10
+                
+                # Avoid common non-content images
+                if any(avoid in img_url.lower() for avoid in ['logo', 'avatar', 'profile', 'icon', 'button', 'ad', 'banner']):
+                    score -= 15
+                
+                scored_images.append((score, img_url))
+            
+            # Sort by score and try best candidates
+            scored_images.sort(reverse=True)
+            
+            for score, img_url in scored_images[:10]:  # Try top 10
+                if self.validate_image_enhanced(img_url):
+                    return img_url
+            
+            return None
+        except Exception as e:
+            logger.error(f"Error in aggressive image hunting: {e}")
+            return None
+    
+    def try_any_reasonable_image(self, soup, base_url):
+        """Last resort - find any reasonable image"""
+        try:
+            # Very relaxed search for any decent image
+            all_imgs = soup.find_all('img')
+            
+            for img in all_imgs:
+                for attr in ['src', 'data-src', 'data-original']:
+                    if img.has_attr(attr) and img[attr]:
+                        img_url = self.resolve_image_url(img[attr], base_url)
+                        
+                        # Very basic validation
+                        if (img_url and 
+                            self.is_valid_image_url(img_url) and
+                            not any(avoid in img_url.lower() for avoid in ['icon', 'logo', 'avatar', 'button']) and
+                            self.validate_image_basic(img_url)):
+                            return img_url
+            
+            return None
+        except Exception as e:
+            logger.error(f"Error in reasonable image search: {e}")
+            return None
+    
+    def resolve_image_url(self, img_src, base_url):
+        """Resolve relative URLs to absolute URLs"""
+        try:
+            if not img_src:
+                return None
+            
+            # Already absolute
+            if img_src.startswith(('http://', 'https://')):
+                return img_src
+            
+            # Protocol relative
+            if img_src.startswith('//'):
+                return 'https:' + img_src
+            
+            # Relative to domain root
+            if img_src.startswith('/'):
+                from urllib.parse import urlparse
+                parsed = urlparse(base_url)
+                return f"{parsed.scheme}://{parsed.netloc}{img_src}"
+            
+            # Relative to current path
+            from urllib.parse import urljoin
+            return urljoin(base_url, img_src)
+            
+        except Exception as e:
+            logger.error(f"Error resolving image URL: {e}")
+            return None
+    
+    def is_valid_image_url(self, url):
+        """Check if URL looks like a valid image"""
+        if not url:
+            return False
+        
+        # Must be HTTP/HTTPS
+        if not url.startswith(('http://', 'https://')):
+            return False
+        
+        # Should have image extension or be from known image hosts
+        url_lower = url.lower()
+        
+        # Direct image files
+        if any(url_lower.endswith(ext) for ext in ['.jpg', '.jpeg', '.png', '.webp', '.gif']):
+            return True
+        
+        # Known image hosting patterns
+        image_hosts = [
+            'images.unsplash.com',
+            'cdn.arstechnica.net',
+            's.yimg.com',
+            'techcrunch.com/wp-content',
+            'cdn.vox-cdn.com',
+            'engadget.com/img',
+            'spectrum.ieee.org',
+            'fiercewireless.com'
+        ]
+        
+        if any(host in url_lower for host in image_hosts):
+            return True
+        
+        # Has image-like parameters
+        if any(param in url_lower for param in ['image', 'img', 'photo', 'pic']):
+            return True
+        
+        return False
+    
+    def validate_image_enhanced(self, image_url):
+        """Enhanced image validation"""
+        if not image_url or not self.is_valid_image_url(image_url):
+            return False
+        
+        # Skip known bad patterns
+        bad_patterns = [
+            'lh3.googleusercontent.com',
+            'data:image',
+            'base64',
+            'placeholder',
+            '1x1',
+            'pixel.gif',
+            'spacer.gif',
+            'blank.gif'
+        ]
+        
+        url_lower = image_url.lower()
+        if any(pattern in url_lower for pattern in bad_patterns):
+            return False
+        
+        # Try to validate by making a HEAD request
+        try:
+            import requests
+            response = requests.head(image_url, timeout=5, allow_redirects=True)
+            
+            if response.status_code == 200:
+                content_type = response.headers.get('content-type', '').lower()
+                if content_type.startswith('image/'):
+                    # Check content length if available
+                    content_length = response.headers.get('content-length')
+                    if content_length:
+                        size = int(content_length)
+                        # Prefer larger images (at least 5KB)
+                        return size >= 5000
+                    return True
+        except:
+            pass
+        
+        # If HEAD request fails, assume it's valid if URL looks good
+        return True
     
     def try_twitter_card_image(self, soup):
         """Try to get Twitter card image"""
