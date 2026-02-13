@@ -5679,25 +5679,62 @@ class WirelessMonitor:
         draw.text((330, 215), "LIVE", fill=(255, 255, 255), font=font_small)
     
     def get_or_create_article_image_sync(self, article, conn):
-        """Synchronous version that uses existing connection - SCRAPING ONLY"""
+        """Synchronous version that uses existing connection - ENHANCED SCRAPING"""
         try:
             # Check if article already has a good image
             if article.get('image_url') and not article['image_url'].startswith('data:image/svg'):
                 return article['image_url']
             
-            # AGGRESSIVE SCRAPING: Visit the actual article and find the best image
-            logger.info(f"🔍 Ultra-aggressive scraping from article: {article['title'][:60]}...")
-            scraped_image = self.scrape_article_image(article['url'], article['title'])
-            if scraped_image:
-                logger.info(f"✅ Successfully scraped image: {scraped_image}")
-                return scraped_image
+            # Use enhanced async scraper
+            import asyncio
             
-            # No image available - return None (no fallback)
-            logger.warning(f"❌ No image found for article: {article['title'][:50]}...")
+            # Create event loop if needed
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            logger.info(f"🔍 Enhanced scraping from article: {article['title'][:60]}...")
+            
+            # Run enhanced scraper
+            result = loop.run_until_complete(
+                self.enhanced_image_scraper.scrape_article_image(
+                    article['url'],
+                    article['title']
+                )
+            )
+            
+            if result and result.get('image_url'):
+                # Store metadata if available
+                if result.get('metadata') and article.get('id'):
+                    metadata = result['metadata']
+                    try:
+                        conn.execute("""
+                            INSERT INTO image_metadata
+                            (article_id, image_url, extraction_strategy, width, height, file_size, content_type)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """, (
+                            article['id'],
+                            result['image_url'],
+                            result.get('strategy'),
+                            metadata.get('width'),
+                            metadata.get('height'),
+                            metadata.get('file_size'),
+                            metadata.get('content_type')
+                        ))
+                    except Exception as e:
+                        logger.debug(f"Could not store image metadata: {e}")
+                
+                logger.info(f"✅ Enhanced scraper found image via {result.get('strategy')}: {result['image_url'][:80]}")
+                return result['image_url']
+            
+            # No image available
+            logger.warning(f"❌ Enhanced scraper found no image for: {article['title'][:50]}...")
             return None
             
         except Exception as e:
-            logger.error(f"Error scraping article image: {e}")
+            logger.error(f"Error in enhanced image scraping: {e}")
             return None
 
     def get_or_create_article_image(self, article, db_conn=None):

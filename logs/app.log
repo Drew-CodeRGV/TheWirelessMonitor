@@ -574,3 +574,141 @@
 2025-12-31 01:13:28,316 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
 2025-12-31 01:13:28,318 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
 2025-12-31 01:13:28,319 - werkzeug - INFO - 127.0.0.1 - - [31/Dec/2025 01:13:28] "POST /api/generate_article_image/22 HTTP/1.1" 200 -
+2026-02-12 19:01:58,874 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:01:59,703 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:02:00,149 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:02:00,164 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:02:00,165 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:02:00,166 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:02:00,166 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:02:00,167 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:02:00,252 - enhancements - INFO - Updated scores for 6 Wild Wi-Fi stories
+2026-02-12 19:02:00,292 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-12 19:02:00,293 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-12 19:02:00,444 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.147:8080
+2026-02-12 19:02:00,444 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-12 19:02:00,447 - werkzeug - INFO -  * Restarting with stat
+2026-02-12 19:02:01,382 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:02:01,383 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:02:01,823 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:02:01,843 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:02:01,845 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:02:01,845 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:02:01,845 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:02:01,848 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:02:01,902 - werkzeug - WARNING -  * Debugger is active!
+2026-02-12 19:02:01,905 - werkzeug - INFO -  * Debugger PIN: 114-446-496
+2026-02-12 19:02:03,053 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:05,227 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:06,885 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-12 19:02:07,092 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:07,136 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:02:07,541 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:02:10,247 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:12,385 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:14,604 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:16,827 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:19,093 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:21,306 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:23,574 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:25,169 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:27,376 - bs4.dammit - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-02-12 19:02:27,536 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:02:32,514 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2026-02-12 19:02:32,514 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:02:32,964 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2026-02-12 19:02:32,965 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:02:34,515 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2026-02-12 19:02:34,516 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:02:35,391 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2026-02-12 19:02:35,391 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:02:39,366 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2026-02-12 19:02:46,833 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:02:49,735 - __main__ - INFO - RSS fetch completed: 21 new articles
+2026-02-12 19:04:00,837 - werkzeug - INFO - 127.0.0.1 - - [12/Feb/2026 19:04:00] "GET / HTTP/1.1" 200 -
+2026-02-12 19:04:17,758 - werkzeug - INFO - 127.0.0.1 - - [12/Feb/2026 19:04:17] "GET /admin/social_accounts HTTP/1.1" 200 -
+2026-02-12 19:04:50,861 - werkzeug - INFO - 127.0.0.1 - - [12/Feb/2026 19:04:50] "GET / HTTP/1.1" 200 -
+2026-02-12 19:04:51,813 - werkzeug - INFO - 127.0.0.1 - - [12/Feb/2026 19:04:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-12 19:06:22,611 - werkzeug - INFO -  * Detected change in 'D:\\Kiro\\WirelessSignal\\check_images.py', reloading
+2026-02-12 19:06:22,781 - werkzeug - INFO -  * Restarting with stat
+2026-02-12 19:06:23,648 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:06:23,738 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:06:24,164 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:06:24,182 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:06:24,182 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:06:24,183 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:06:24,183 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:06:24,185 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:06:24,234 - werkzeug - WARNING -  * Debugger is active!
+2026-02-12 19:06:24,236 - werkzeug - INFO -  * Debugger PIN: 114-446-496
+2026-02-12 19:06:24,261 - enhancements - INFO - Updated scores for 6 Wild Wi-Fi stories
+2026-02-12 19:06:24,317 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-12 19:06:24,317 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-12 19:06:24,753 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:06:25,163 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:06:25,635 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:06:26,570 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:06:27,129 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-12 19:06:42,323 - werkzeug - INFO -  * Detected change in 'D:\\Kiro\\WirelessSignal\\test_image_scrape.py', reloading
+2026-02-12 19:06:42,514 - werkzeug - INFO -  * Restarting with stat
+2026-02-12 19:06:43,358 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:06:43,361 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:06:43,817 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:06:43,836 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:06:43,837 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:06:43,838 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:06:43,838 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:06:43,840 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:06:43,898 - werkzeug - WARNING -  * Debugger is active!
+2026-02-12 19:06:43,900 - werkzeug - INFO -  * Debugger PIN: 114-446-496
+2026-02-12 19:06:43,928 - enhancements - INFO - Updated scores for 6 Wild Wi-Fi stories
+2026-02-12 19:06:43,958 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-12 19:06:43,958 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-12 19:06:44,311 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:06:44,742 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:06:45,237 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:06:46,217 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:06:46,919 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-12 19:06:59,173 - werkzeug - INFO -  * Detected change in 'D:\\Kiro\\WirelessSignal\\test_image_validation.py', reloading
+2026-02-12 19:06:59,320 - werkzeug - INFO -  * Restarting with stat
+2026-02-12 19:07:00,136 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:07:00,137 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:07:00,569 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:07:00,585 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:07:00,586 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:07:00,586 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:07:00,586 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:07:00,588 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:07:00,640 - werkzeug - WARNING -  * Debugger is active!
+2026-02-12 19:07:00,644 - werkzeug - INFO -  * Debugger PIN: 114-446-496
+2026-02-12 19:07:00,661 - enhancements - INFO - Updated scores for 6 Wild Wi-Fi stories
+2026-02-12 19:07:00,699 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-12 19:07:00,700 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-12 19:07:01,031 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:07:01,414 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:07:01,854 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:07:02,735 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:07:03,445 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-12 19:07:46,838 - werkzeug - INFO -  * Detected change in 'D:\\Kiro\\WirelessSignal\\app\\main.py', reloading
+2026-02-12 19:07:47,042 - werkzeug - INFO -  * Restarting with stat
+2026-02-12 19:07:47,840 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-12 19:07:47,841 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-12 19:07:48,337 - enhancements - INFO - Initialized mock social media clients
+2026-02-12 19:07:48,356 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-12 19:07:48,357 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-12 19:07:48,357 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-12 19:07:48,358 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-12 19:07:48,359 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-12 19:07:48,415 - werkzeug - WARNING -  * Debugger is active!
+2026-02-12 19:07:48,419 - werkzeug - INFO -  * Debugger PIN: 114-446-496
+2026-02-12 19:07:48,460 - enhancements - INFO - Updated scores for 6 Wild Wi-Fi stories
+2026-02-12 19:07:48,499 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-12 19:07:48,500 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-12 19:07:48,876 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-12 19:07:49,249 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-12 19:07:49,726 - __main__ - INFO - Fetching feed: Engadget
+2026-02-12 19:07:50,548 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-12 19:07:51,092 - __main__ - INFO - RSS fetch completed: 0 new articles
