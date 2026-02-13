@@ -94,6 +94,21 @@ class WirelessMonitor:
         os.makedirs('data', exist_ok=True)
         os.makedirs('logs', exist_ok=True)
         
+        # Initialize enhancements
+        from enhancements import (
+            RateLimiter, EnhancedImageScraper, SocialMediaMonitor,
+            WildWiFiCurator, SocialEventDiscoverer
+        )
+        
+        self.rate_limiter = RateLimiter(self.db_path)
+        self.enhanced_image_scraper = EnhancedImageScraper()
+        self.social_media_monitor = SocialMediaMonitor(self.db_path, self.rate_limiter, self.wifi_keywords)
+        self.wild_wifi_curator = WildWiFiCurator(self.db_path)
+        self.social_event_discoverer = SocialEventDiscoverer(self.db_path)
+        
+        # Initialize social media clients
+        self.social_media_monitor.initialize_clients()
+        
         # Initialize database
         self.init_database()
         
@@ -383,9 +398,190 @@ class WirelessMonitor:
                 ''', (story['title'], story['story'], story['location'], story['category'], story['humor_rating'], story['tech_relevance']))
                 logger.info(f"Added Wild Wi-Fi story: {story['title']}")
         
+        # NEW ENHANCEMENT TABLES
+        
+        # Social media accounts table for monitoring
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS social_accounts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                platform TEXT NOT NULL,
+                username TEXT NOT NULL,
+                active INTEGER DEFAULT 1,
+                last_post_id TEXT,
+                last_fetched TIMESTAMP,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(platform, username)
+            )
+        ''')
+        
+        # Social media posts table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS social_posts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                account_id INTEGER NOT NULL,
+                post_id TEXT NOT NULL,
+                text TEXT,
+                created_at TIMESTAMP,
+                engagement_likes INTEGER DEFAULT 0,
+                engagement_shares INTEGER DEFAULT 0,
+                engagement_comments INTEGER DEFAULT 0,
+                raw_data TEXT,
+                FOREIGN KEY (account_id) REFERENCES social_accounts (id),
+                UNIQUE(account_id, post_id)
+            )
+        ''')
+        
+        # Social article shares linking table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS social_article_shares (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                article_id INTEGER NOT NULL,
+                post_id INTEGER NOT NULL,
+                account_id INTEGER NOT NULL,
+                shared_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (article_id) REFERENCES articles (id),
+                FOREIGN KEY (post_id) REFERENCES social_posts (id),
+                FOREIGN KEY (account_id) REFERENCES social_accounts (id)
+            )
+        ''')
+        
+        # Network contacts table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS network_contacts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                platform TEXT NOT NULL,
+                username TEXT NOT NULL,
+                relationship_type TEXT DEFAULT 'colleague',
+                active INTEGER DEFAULT 1,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(platform, username)
+            )
+        ''')
+        
+        # Event social mentions linking table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS event_social_mentions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_id INTEGER NOT NULL,
+                post_id INTEGER NOT NULL,
+                account_id INTEGER NOT NULL,
+                mentioned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (event_id) REFERENCES industry_events (id),
+                FOREIGN KEY (post_id) REFERENCES social_posts (id),
+                FOREIGN KEY (account_id) REFERENCES social_accounts (id)
+            )
+        ''')
+        
+        # Image metadata table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS image_metadata (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                article_id INTEGER NOT NULL,
+                image_url TEXT NOT NULL,
+                extraction_strategy TEXT,
+                width INTEGER,
+                height INTEGER,
+                file_size INTEGER,
+                content_type TEXT,
+                scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (article_id) REFERENCES articles (id)
+            )
+        ''')
+        
+        # Rate limit state table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS rate_limit_state (
+                platform TEXT NOT NULL,
+                endpoint TEXT NOT NULL,
+                request_count INTEGER DEFAULT 0,
+                window_start REAL,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (platform, endpoint)
+            )
+        ''')
+        
+        # Extend articles table with new columns
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN social_source INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN social_relevance_score REAL DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN share_count INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        # Extend wild_wifi_stories table with new columns
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN quality_score REAL DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN auto_discovered INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN source_article_id INTEGER')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN view_count INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN featured_duration INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        # Extend industry_events table with new columns
+        try:
+            conn.execute('ALTER TABLE industry_events ADD COLUMN confidence_score REAL DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE industry_events ADD COLUMN discovered_from_social INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE industry_events ADD COLUMN social_mention_count INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        # Extend social_config table with new columns
+        try:
+            conn.execute('ALTER TABLE social_config ADD COLUMN access_token_secret TEXT')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE social_config ADD COLUMN bearer_token TEXT')
+        except sqlite3.OperationalError:
+            pass
+        
+        # Create indexes for performance
+        try:
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_social_posts_account_created ON social_posts(account_id, created_at)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_social_article_shares_article ON social_article_shares(article_id)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_image_metadata_article ON image_metadata(article_id)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_articles_social_relevance ON articles(social_source, relevance_score)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_wild_wifi_quality_featured ON wild_wifi_stories(quality_score, featured)')
+        except sqlite3.OperationalError:
+            pass
+        
         conn.commit()
         conn.close()
-        logger.info("Database initialized")
+        logger.info("Database initialized with enhancement tables")
     
     def get_db_connection(self):
         """Get database connection with row factory and proper timeout"""
@@ -694,6 +890,125 @@ class WirelessMonitor:
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
             return render_template('admin.html', stats=stats, system_info=system_info, view_mode=view_mode)
+        
+        # ENHANCEMENT ROUTES
+        
+        @self.app.route('/admin/social_accounts')
+        def manage_social_accounts():
+            """Manage social media accounts"""
+            conn = self.get_db_connection()
+            cursor = conn.cursor()
+            
+            # Get all social accounts
+            cursor.execute("""
+                SELECT sa.*, 
+                       COUNT(DISTINCT sp.id) as post_count,
+                       COUNT(DISTINCT sas.article_id) as article_count
+                FROM social_accounts sa
+                LEFT JOIN social_posts sp ON sa.id = sp.account_id
+                LEFT JOIN social_article_shares sas ON sa.id = sas.account_id
+                GROUP BY sa.id
+                ORDER BY sa.platform, sa.username
+            """)
+            accounts = cursor.fetchall()
+            
+            # Get rate limit status
+            rate_limits = {}
+            for platform in ['twitter', 'linkedin']:
+                rate_limits[platform] = self.rate_limiter.get_status(platform, 'user_timeline')
+            
+            conn.close()
+            return render_template('social_accounts.html', accounts=accounts, rate_limits=rate_limits)
+        
+        @self.app.route('/api/social_accounts/add', methods=['POST'])
+        def add_social_account():
+            """Add a new social media account to monitor"""
+            try:
+                platform = request.form.get('platform')
+                username = request.form.get('username')
+                
+                if not platform or not username:
+                    return jsonify({'success': False, 'error': 'Platform and username required'})
+                
+                conn = self.get_db_connection()
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    INSERT INTO social_accounts (platform, username, active)
+                    VALUES (?, ?, 1)
+                """, (platform, username))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': f'Added {username} on {platform}'})
+            except sqlite3.IntegrityError:
+                return jsonify({'success': False, 'error': 'Account already exists'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/social_accounts/<int:account_id>/toggle', methods=['POST'])
+        def toggle_social_account(account_id):
+            """Toggle social account active status"""
+            try:
+                conn = self.get_db_connection()
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    UPDATE social_accounts
+                    SET active = 1 - active
+                    WHERE id = ?
+                """, (account_id,))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/social_accounts/<int:account_id>/delete', methods=['POST'])
+        def delete_social_account(account_id):
+            """Delete a social media account"""
+            try:
+                conn = self.get_db_connection()
+                cursor = conn.cursor()
+                
+                cursor.execute("DELETE FROM social_accounts WHERE id = ?", (account_id,))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/social_media/fetch_now', methods=['POST'])
+        def fetch_social_media_now():
+            """Manually trigger social media fetch"""
+            try:
+                threading.Thread(target=self.fetch_social_media, daemon=True).start()
+                return jsonify({'success': True, 'message': 'Social media fetch started'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/wild_wifi/curate_now', methods=['POST'])
+        def curate_wild_wifi_now():
+            """Manually trigger Wild Wi-Fi curation"""
+            try:
+                threading.Thread(target=self.curate_wild_wifi, daemon=True).start()
+                return jsonify({'success': True, 'message': 'Wild Wi-Fi curation started'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/events/discover_now', methods=['POST'])
+        def discover_events_now():
+            """Manually trigger event discovery"""
+            try:
+                threading.Thread(target=self.discover_social_events, daemon=True).start()
+                return jsonify({'success': True, 'message': 'Event discovery started'})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/api/update_ai_models', methods=['POST'])
         def update_ai_models():
@@ -5511,11 +5826,23 @@ class WirelessMonitor:
         # Schedule weekly digest generation every Tuesday at 8 AM Central Time
         schedule.every().tuesday.at("08:00").do(self.auto_generate_weekly_digest)
         
+        # ENHANCEMENT: Schedule social media fetching every 6 hours
+        schedule.every(6).hours.do(self.fetch_social_media)
+        
+        # ENHANCEMENT: Schedule Wild Wi-Fi curation every 8 hours
+        schedule.every(8).hours.do(self.curate_wild_wifi)
+        
+        # ENHANCEMENT: Schedule event discovery every 6 hours
+        schedule.every(6).hours.do(self.discover_social_events)
+        
         # Setup automatic AI model updates
         self.setup_auto_model_updates()
         
         # Initial fetch
         threading.Thread(target=self.fetch_rss_feeds, daemon=True).start()
+        
+        # Initial enhancement tasks
+        threading.Thread(target=self.curate_wild_wifi, daemon=True).start()
     
     def auto_generate_weekly_digest(self):
         """Automatically generate weekly digest on Tuesday mornings"""
@@ -5574,6 +5901,98 @@ class WirelessMonitor:
             
         except Exception as e:
             logger.error(f"Error auto-generating weekly digest: {e}")
+    
+    # ========================================================================
+    # ENHANCEMENT METHODS
+    # ========================================================================
+    
+    def fetch_social_media(self):
+        """Fetch posts from monitored social media accounts."""
+        try:
+            logger.info("Starting social media fetch...")
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            stats = loop.run_until_complete(self.social_media_monitor.fetch_all_accounts())
+            loop.close()
+            
+            logger.info(f"Social media fetch complete: {stats}")
+            
+            # Trigger event discovery after social media fetch
+            if stats['posts_fetched'] > 0:
+                self.discover_social_events()
+            
+        except Exception as e:
+            logger.error(f"Error fetching social media: {e}")
+    
+    def curate_wild_wifi(self):
+        """Curate Wild Wi-Fi stories with automatic scoring and featuring."""
+        try:
+            logger.info("Starting Wild Wi-Fi curation...")
+            
+            # Update scores for all stories
+            self.wild_wifi_curator.update_all_scores()
+            
+            # Update featured stories
+            self.wild_wifi_curator.update_featured_stories()
+            
+            logger.info("Wild Wi-Fi curation complete")
+            
+        except Exception as e:
+            logger.error(f"Error curating Wild Wi-Fi stories: {e}")
+    
+    def discover_social_events(self):
+        """Discover industry events from social media posts."""
+        try:
+            logger.info("Starting social event discovery...")
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            events_count = loop.run_until_complete(self.social_event_discoverer.discover_events_from_posts())
+            loop.close()
+            
+            logger.info(f"Social event discovery complete: {events_count} new events")
+            
+        except Exception as e:
+            logger.error(f"Error discovering social events: {e}")
+    
+    async def enhance_article_image(self, article_id: int, article_url: str, article_title: str):
+        """Use enhanced image scraper for an article."""
+        try:
+            result = await self.enhanced_image_scraper.scrape_article_image(article_url, article_title)
+            
+            if result.get('image_url'):
+                # Update article with new image
+                conn = self.get_db_connection()
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    UPDATE articles
+                    SET image_url = ?
+                    WHERE id = ?
+                """, (result['image_url'], article_id))
+                
+                # Store image metadata
+                metadata = result.get('metadata', {})
+                cursor.execute("""
+                    INSERT INTO image_metadata
+                    (article_id, image_url, extraction_strategy, width, height, file_size, content_type)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    article_id,
+                    result['image_url'],
+                    result.get('strategy'),
+                    metadata.get('width'),
+                    metadata.get('height'),
+                    metadata.get('file_size'),
+                    metadata.get('content_type')
+                ))
+                
+                conn.commit()
+                conn.close()
+                
+                logger.info(f"Enhanced image for article {article_id} using strategy: {result.get('strategy')}")
+            
+        except Exception as e:
+            logger.error(f"Error enhancing article image: {e}")
     
     def run_scheduler(self):
         """Run the background scheduler"""

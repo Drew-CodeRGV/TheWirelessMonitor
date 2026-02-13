@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Social Media Accounts - Wireless Monitor{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5em; margin-bottom: 10px;">Social Media Accounts</h1>
+    <p style="color: #666; margin-bottom: 30px;">Monitor wireless technology content from social media</p>
+    
+    <!-- Add Account Form -->
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+        <h3 style="margin-top: 0;">Add New Account</h3>
+        <form id="addAccountForm" style="display: flex; gap: 10px; align-items: end;">
+            <div style="flex: 1;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Platform</label>
+                <select name="platform" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="twitter">Twitter/X</option>
+                    <option value="linkedin">LinkedIn</option>
+                </select>
+            </div>
+            <div style="flex: 2;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Username</label>
+                <input type="text" name="username" required placeholder="@username" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Add Account
+            </button>
+        </form>
+    </div>
+    
+    <!-- Rate Limit Status -->
+    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+        <h4 style="margin-top: 0;">API Rate Limits</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+            {% for platform, status in rate_limits.items() %}
+            <div>
+                <strong>{{ platform.title() }}:</strong>
+                <div style="margin-top: 5px;">
+                    <div style="background: #e9ecef; height: 20px; border-radius: 10px; overflow: hidden;">
+                        <div style="background: {% if status.percentage_used < 50 %}#28a745{% elif status.percentage_used < 80 %}#ffc107{% else %}#dc3545{% endif %}; height: 100%; width: {{ status.percentage_used }}%;"></div>
+                    </div>
+                    <small>{{ status.remaining }} requests remaining</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Manual Actions -->
+    <div style="margin-bottom: 30px; display: flex; gap: 10px;">
+        <button onclick="fetchSocialMedia()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Fetch Social Media Now
+        </button>
+        <button onclick="curateWildWiFi()" style="padding: 10px 20px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Curate Wild Wi-Fi Now
+        </button>
+        <button onclick="discoverEvents()" style="padding: 10px 20px; background: #6f42c1; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Discover Events Now
+        </button>
+    </div>
+    
+    <!-- Accounts List -->
+    <div style="background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding: 15px; text-align: left;">Platform</th>
+                    <th style="padding: 15px; text-align: left;">Username</th>
+                    <th style="padding: 15px; text-align: center;">Posts</th>
+                    <th style="padding: 15px; text-align: center;">Articles</th>
+                    <th style="padding: 15px; text-align: left;">Last Fetched</th>
+                    <th style="padding: 15px; text-align: center;">Status</th>
+                    <th style="padding: 15px; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if accounts %}
+                    {% for account in accounts %}
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 15px;">
+                            <span style="display: inline-block; padding: 4px 8px; background: {% if account['platform'] == 'twitter' %}#1da1f2{% else %}#0077b5{% endif %}; color: white; border-radius: 4px; font-size: 0.85em;">
+                                {{ account['platform'].title() }}
+                            </span>
+                        </td>
+                        <td style="padding: 15px; font-weight: 600;">{{ account['username'] }}</td>
+                        <td style="padding: 15px; text-align: center;">{{ account['post_count'] }}</td>
+                        <td style="padding: 15px; text-align: center;">{{ account['article_count'] }}</td>
+                        <td style="padding: 15px;">
+                            {% if account['last_fetched'] %}
+                                {{ account['last_fetched'][:16] }}
+                            {% else %}
+                                Never
+                            {% endif %}
+                        </td>
+                        <td style="padding: 15px; text-align: center;">
+                            <span style="display: inline-block; padding: 4px 8px; background: {% if account['active'] %}#28a745{% else %}#6c757d{% endif %}; color: white; border-radius: 4px; font-size: 0.85em;">
+                                {% if account['active'] %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                        <td style="padding: 15px; text-align: center;">
+                            <button onclick="toggleAccount({{ account['id'] }})" style="padding: 5px 10px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px;">
+                                Toggle
+                            </button>
+                            <button onclick="deleteAccount({{ account['id'] }})" style="padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" style="padding: 40px; text-align: center; color: #666;">
+                            No social media accounts configured. Add one above to get started!
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/admin" style="color: #007bff; text-decoration: none;">← Back to Admin Dashboard</a>
+    </div>
+</div>
+
+<script>
+document.getElementById('addAccountForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    const response = await fetch('/api/social_accounts/add', {
+        method: 'POST',
+        body: formData
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+        location.reload();
+    } else {
+        alert('Error: ' + result.error);
+    }
+});
+
+async function toggleAccount(id) {
+    const response = await fetch(`/api/social_accounts/${id}/toggle`, {
+        method: 'POST'
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        location.reload();
+    } else {
+        alert('Error: ' + result.error);
+    }
+}
+
+async function deleteAccount(id) {
+    if (!confirm('Are you sure you want to delete this account?')) return;
+    
+    const response = await fetch(`/api/social_accounts/${id}/delete`, {
+        method: 'POST'
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        location.reload();
+    } else {
+        alert('Error: ' + result.error);
+    }
+}
+
+async function fetchSocialMedia() {
+    const response = await fetch('/api/social_media/fetch_now', {
+        method: 'POST'
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+    } else {
+        alert('Error: ' + result.error);
+    }
+}
+
+async function curateWildWiFi() {
+    const response = await fetch('/api/wild_wifi/curate_now', {
+        method: 'POST'
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+    } else {
+        alert('Error: ' + result.error);
+    }
+}
+
+async function discoverEvents() {
+    const response = await fetch('/api/events/discover_now', {
+        method: 'POST'
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+    } else {
+        alert('Error: ' + result.error);
+    }
+}
+</script>
+{% endblock %}

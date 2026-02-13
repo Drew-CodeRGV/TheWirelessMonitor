@@ -6,6 +6,8 @@ schedule==1.2.0
 Pillow==10.1.0
 lxml==4.9.3
 psutil==5.9.6
+# Enhancement dependencies
+aiohttp==3.9.1
 # Enhanced AI dependencies for photorealistic image generation
 diffusers>=0.21.0
 transformers>=4.35.0
