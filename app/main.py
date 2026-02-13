@@ -94,7 +94,10 @@ class WirelessMonitor:
         os.makedirs('data', exist_ok=True)
         os.makedirs('logs', exist_ok=True)
         
-        # Initialize enhancements
+        # Initialize database FIRST
+        self.init_database()
+        
+        # Initialize enhancements AFTER database is ready
         from enhancements import (
             RateLimiter, EnhancedImageScraper, SocialMediaMonitor,
             WildWiFiCurator, SocialEventDiscoverer
@@ -108,9 +111,6 @@ class WirelessMonitor:
         
         # Initialize social media clients
         self.social_media_monitor.initialize_clients()
-        
-        # Initialize database
-        self.init_database()
         
         # Setup routes
         self.setup_routes()
