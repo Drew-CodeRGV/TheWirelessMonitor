@@ -966,9 +966,12 @@ class WirelessMonitor:
                     'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
                 }
             
+            # Get AI model status
+            ai_status = self.get_ai_model_status()
+            
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('admin.html', stats=stats, system_info=system_info, view_mode=view_mode)
+            return render_template('admin.html', stats=stats, system_info=system_info, ai_status=ai_status, view_mode=view_mode)
         
         # ENHANCEMENT ROUTES
         
@@ -6671,6 +6674,83 @@ signal strength issue creative solution"""
             
     
     # AI model status functions removed - using scraping-only approach
+    
+    def get_ai_model_status(self):
+        """Get status and version information for AI models"""
+        import subprocess
+        import importlib.metadata
+        
+        ai_status = {}
+        
+        # Check Python AI/ML packages
+        packages = {
+            'stable_diffusion': 'diffusers',
+            'transformers': 'transformers',
+            'pytorch': 'torch',
+            'torchvision': 'torchvision',
+            'accelerate': 'accelerate',
+            'safetensors': 'safetensors'
+        }
+        
+        for display_name, package_name in packages.items():
+            try:
+                version = importlib.metadata.version(package_name)
+                ai_status[display_name] = {
+                    'available': True,
+                    'version': f'v{version}',
+                    'package': package_name
+                }
+            except importlib.metadata.PackageNotFoundError:
+                ai_status[display_name] = {
+                    'available': False,
+                    'version': 'Not installed',
+                    'package': package_name
+                }
+            except Exception as e:
+                ai_status[display_name] = {
+                    'available': False,
+                    'version': f'Error: {str(e)}',
+                    'package': package_name
+                }
+        
+        # Check Ollama models
+        try:
+            result = subprocess.run(['ollama', 'list'], 
+                                  capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                # Parse ollama list output to find llama2
+                if 'llama2' in result.stdout:
+                    ai_status['ollama_llama2'] = {
+                        'available': True,
+                        'version': 'Installed',
+                        'package': 'ollama'
+                    }
+                else:
+                    ai_status['ollama_llama2'] = {
+                        'available': False,
+                        'version': 'Not pulled',
+                        'package': 'ollama'
+                    }
+            else:
+                ai_status['ollama_llama2'] = {
+                    'available': False,
+                    'version': 'Ollama not running',
+                    'package': 'ollama'
+                }
+        except FileNotFoundError:
+            ai_status['ollama_llama2'] = {
+                'available': False,
+                'version': 'Ollama not installed',
+                'package': 'ollama'
+            }
+        except Exception as e:
+            ai_status['ollama_llama2'] = {
+                'available': False,
+                'version': f'Error: {str(e)}',
+                'package': 'ollama'
+            }
+        
+        return ai_status
     
     def update_ai_models(self):
         """Update AI models to latest versions"""
