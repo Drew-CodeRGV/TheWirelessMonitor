@@ -3,18 +3,108 @@
 {% block title %}Wild Wi-Fi - The Wireless Monitor{% endblock %}
 
 {% block content %}
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
+{% if view_mode == 'reader' %}
+    <!-- Google Reader Style -->
+    <div class="reader-page-header">
+        <h2>🌿 Wild Wi-Fi</h2>
+        <div class="subtitle">Real wireless stories from the wild - humorous, unexpected, and surprisingly insightful</div>
+    </div>
+    
+    <div class="reader-toolbar">
+        <button class="reader-toolbar-btn" onclick="refreshWildWifi()">🔄 Refresh</button>
+        <button class="reader-toolbar-btn {% if hide_read %}active{% endif %}" onclick="toggleHideRead()">
+            {% if hide_read %}👁️ Show Read{% else %}🙈 Hide Read{% endif %}
+        </button>
+        <div class="reader-toolbar-separator"></div>
+        <a href="{{ url_for('wild_wifi', view=view_mode, category='all') }}" 
+           class="reader-toolbar-btn {% if current_category == 'all' %}active{% endif %}">
+            All Stories
+        </a>
+        {% for category in categories %}
+        <a href="{{ url_for('wild_wifi', view=view_mode, category=category.category) }}" 
+           class="reader-toolbar-btn {% if current_category == category.category %}active{% endif %}">
+            {{ category.category|title }} ({{ category.count }})
+        </a>
+        {% endfor %}
+        <div class="reader-toolbar-separator"></div>
+        <button class="reader-toolbar-btn" onclick="showSubmitModal()">📝 Submit Story</button>
+        <a href="{{ url_for('wild_wifi_settings', view=view_mode) }}" class="reader-toolbar-btn">⚙️ Settings</a>
+    </div>
+    
+    <div id="submit-status" style="padding: 8px 16px;"></div>
+    
+    <div class="reader-article-list">
+        {% if stories %}
+            {% for story in stories %}
+            <div class="reader-article-item {% if not story.read_status %}unread{% endif %}">
+                {% if story.featured %}
+                <div style="display: inline-block; background: #f39c12; color: white; padding: 2px 8px; border-radius: 2px; font-size: 11px; font-weight: bold; margin-bottom: 4px;">
+                    ⭐ FEATURED
+                </div>
+                {% endif %}
+                <h3>{{ story.title }}</h3>
+                <div class="reader-article-snippet">
+                    {{ story.story }}
+                </div>
+                <div class="reader-article-meta">
+                    <span class="reader-feed-name">📍 {{ story.location }}</span>
+                    <span>•</span>
+                    <span style="color: {% if story.humor_rating >= 4 %}#27ae60{% elif story.humor_rating >= 3 %}#f39c12{% else %}#999{% endif %};">
+                        😄 Humor: {{ story.humor_rating }}/5
+                    </span>
+                    <span>•</span>
+                    <span>{{ story.category|title }}</span>
+                    <span>•</span>
+                    <span>{{ story.created_at[:10] }}</span>
+                </div>
+                {% if story.tech_relevance %}
+                <div style="margin-top: 8px; padding: 8px; background: #f9f9f9; border-left: 3px solid #4285f4; font-size: 12px; color: #666;">
+                    <strong>Tech Relevance:</strong> {{ story.tech_relevance }}
+                </div>
+                {% endif %}
+                <div class="reader-article-actions">
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); markStoryRead({{ story.id }})">✓ Read</button>
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); ignoreStory({{ story.id }})">🚫 Ignore</button>
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); shareWildStory('{{ story.title }}', '{{ story.location }}')">📤 Share</button>
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); addStoryToDigest({{ story.id }})">📋 Digest</button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="reader-empty-state">
+                <h3>🌿 No Wild Wi-Fi Stories</h3>
+                <p>
+                    {% if current_category != 'all' %}
+                        No stories found in the "{{ current_category|title }}" category. Try viewing all stories or submit your own!
+                    {% elif hide_read %}
+                        All stories have been read. Click "Show Read" to see them again.
+                    {% else %}
+                        No stories available yet. Be the first to submit one!
+                    {% endif %}
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+{% else %}
+    <!-- Newspaper Mode -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
     <div>
         <h2>🌿 Wild Wi-Fi</h2>
         <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">Real wireless stories from the wild - humorous, unexpected, and surprisingly insightful</p>
     </div>
     <div style="display: flex; gap: 10px;">
+        <button onclick="refreshWildWifi()" class="btn" style="background: #3498db;">🔄 Refresh</button>
+        <button onclick="toggleHideRead()" class="btn" style="background: {% if hide_read %}#e74c3c{% else %}#95a5a6{% endif %};">
+            {% if hide_read %}👁️ Show Read{% else %}🙈 Hide Read{% endif %}
+        </button>
         <button onclick="showSubmitModal()" class="btn" style="background: #28a745;">📝 Submit Story</button>
+        <a href="{{ url_for('wild_wifi_settings', view=view_mode) }}" class="btn" style="background: #6c757d;">⚙️ Settings</a>
     </div>
 </div>
 
 <!-- Category Filter -->
-<div style="{% if view_mode == 'reader' %}padding: 0 20px; margin-bottom: 20px;{% else %}margin-bottom: 30px;{% endif %}">
+<div style="margin-bottom: 30px;">
     <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
         <span style="font-family: 'Inter', sans-serif; font-weight: 600; color: #2c3e50;">Filter by category:</span>
         <a href="{{ url_for('wild_wifi', view=view_mode, category='all') }}" 
@@ -32,11 +122,11 @@
     </div>
 </div>
 
-<div id="submit-status" style="margin-bottom: {% if view_mode == 'reader' %}0{% else %}25px{% endif %}; {% if view_mode == 'reader' %}padding: 0 20px;{% endif %}"></div>
+<div id="submit-status" style="margin-bottom: 25px;"></div>
 
 {% if stories %}
     {% for story in stories %}
-    <div class="{% if view_mode == 'reader' %}article{% else %}article{% endif %}" style="{% if view_mode == 'reader' %}border-bottom: 1px solid #f0f0f0; padding: 15px 20px; margin: 0; background: white;{% else %}border: 1px solid #e1e5e9; border-radius: 12px; padding: 25px; margin-bottom: 25px; background: linear-gradient(135deg, #f8f9fa, #ffffff); position: relative;{% endif %}">
+    <div class="article" style="border: 1px solid #e1e5e9; border-radius: 12px; padding: 25px; margin-bottom: 25px; background: linear-gradient(135deg, #f8f9fa, #ffffff); position: relative;">
         
         {% if story.featured %}
         <div style="position: absolute; top: -8px; right: 20px; background: #f39c12; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; font-family: 'Inter', sans-serif;">
@@ -46,11 +136,11 @@
         
         <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
             <div style="flex: 1;">
-                <h3 style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 1.1rem; font-weight: bold; color: #1155cc; margin-bottom: 8px;{% else %}font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: #000; margin-bottom: 15px;{% endif %}">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: #000; margin-bottom: 15px;">
                     {{ story.title }}
                 </h3>
                 
-                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.8rem; color: #999; margin-bottom: 8px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;{% endif %}">
+                <div style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                     <span><strong>📍 Location:</strong> {{ story.location }}</span>
                     <span style="background: #{{ ['e74c3c', 'f39c12', '3498db', '27ae60', '9b59b6'][story.humor_rating - 1] }}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">
                         {{ '😐😊😄😂🤣'[story.humor_rating - 1] }} {{ story.humor_rating }}/5
@@ -60,7 +150,7 @@
                     </span>
                 </div>
                 
-                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.9rem; line-height: 1.5; color: #666; margin-bottom: 12px; padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px;{% else %}font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: #2c3e50; margin-bottom: 20px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);{% endif %}">
+                <div style="font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: #2c3e50; margin-bottom: 20px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     {{ story.story }}
                 </div>
                 
@@ -76,7 +166,7 @@
                 </div>
                 {% endif %}
                 
-                <div style="{% if view_mode == 'reader' %}font-family: 'Arial', sans-serif; font-size: 0.75rem; color: #aaa; margin-top: 10px;{% else %}font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #95a5a6; margin-top: 15px;{% endif %}">
+                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #95a5a6; margin-top: 15px;">
                     Submitted {{ story.created_at[:10] }}
                     {% if story.submitted_by != 'system' %}
                         by {{ story.submitted_by }}
@@ -85,10 +175,16 @@
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 8px;">
-                <button onclick="shareWildStory('{{ story.title }}', '{{ story.location }}')" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #1da1f2;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #1da1f2;{% endif %}">
+                <button onclick="markStoryRead({{ story.id }})" class="btn" style="font-size: 0.85rem; padding: 8px 16px; background: #27ae60;">
+                    ✓ Mark Read
+                </button>
+                <button onclick="ignoreStory({{ story.id }})" class="btn" style="font-size: 0.85rem; padding: 8px 16px; background: #95a5a6;">
+                    🚫 Ignore
+                </button>
+                <button onclick="shareWildStory('{{ story.title }}', '{{ story.location }}')" class="btn" style="font-size: 0.85rem; padding: 8px 16px; background: #1da1f2;">
                     📤 Share
                 </button>
-                <button onclick="addStoryToDigest({{ story.id }})" class="btn" style="{% if view_mode == 'reader' %}font-size: 0.8rem; padding: 6px 12px; background: #ff6b35;{% else %}font-size: 0.85rem; padding: 8px 16px; background: #ff6b35;{% endif %}">
+                <button onclick="addStoryToDigest({{ story.id }})" class="btn" style="font-size: 0.85rem; padding: 8px 16px; background: #ff6b35;">
                     📋 Digest
                 </button>
             </div>
@@ -96,9 +192,9 @@
     </div>
     {% endfor %}
 {% else %}
-    <div style="text-align: center; padding: {% if view_mode == 'reader' %}40px 20px{% else %}60px 20px{% endif %}; color: {% if view_mode == 'reader' %}#666{% else %}#7f8c8d{% endif %}; {% if view_mode != 'reader' %}background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;{% endif %}">
-        <h3 style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}1.4rem{% else %}2rem{% endif %}; margin-bottom: 15px; color: {% if view_mode == 'reader' %}#333{% else %}#2c3e50{% endif %};">🌿 No Wild Wi-Fi Stories</h3>
-        <p style="font-family: {% if view_mode == 'reader' %}'Inter', sans-serif{% else %}'Inter', sans-serif{% endif %}; font-size: {% if view_mode == 'reader' %}0.9rem{% else %}1.1rem{% endif %}; margin-bottom: 25px;">
+    <div style="text-align: center; padding: 60px 20px; color: #7f8c8d; background: #f8f9fa; border-radius: 10px; border: 2px dashed #dee2e6;">
+        <h3 style="font-family: 'Inter', sans-serif; font-size: 2rem; margin-bottom: 15px; color: #2c3e50;">🌿 No Wild Wi-Fi Stories</h3>
+        <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem; margin-bottom: 25px;">
             {% if current_category != 'all' %}
                 No stories found in the "{{ current_category|title }}" category. Try viewing all stories or submit your own!
             {% else %}
@@ -109,6 +205,7 @@
             📝 Submit Your Story
         </button>
     </div>
+{% endif %}
 {% endif %}
 
 <!-- Submit Story Modal -->
@@ -236,6 +333,109 @@ function shareWildStory(title, location) {
 
 function addStoryToDigest(storyId) {
     alert('Wild Wi-Fi stories will be integrated with the weekly digest in a future update!');
+}
+
+async function markStoryRead(storyId) {
+    const button = event.target;
+    const storyCard = button.closest('.article');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Marking...';
+    
+    try {
+        const response = await fetch(`/api/wild_story/${storyId}/mark_read`, {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            button.textContent = '✓ Read';
+            button.style.background = '#95a5a6';
+            
+            // If hide_read is enabled, fade out the story
+            const hideRead = new URLSearchParams(window.location.search).get('hide_read') === 'true';
+            if (hideRead) {
+                storyCard.style.transition = 'opacity 0.5s ease';
+                storyCard.style.opacity = '0';
+                setTimeout(() => storyCard.remove(), 500);
+            }
+        } else {
+            throw new Error(data.error || 'Failed to mark as read');
+        }
+    } catch (error) {
+        alert('Error marking story as read: ' + error.message);
+        button.disabled = false;
+        button.textContent = '✓ Mark Read';
+    }
+}
+
+async function ignoreStory(storyId) {
+    if (!confirm('Are you sure you want to ignore this story? It will be permanently hidden.')) {
+        return;
+    }
+    
+    const button = event.target;
+    const storyCard = button.closest('.article');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Ignoring...';
+    
+    try {
+        const response = await fetch(`/api/wild_story/${storyId}/ignore`, {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Fade out and remove the story
+            storyCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            storyCard.style.opacity = '0';
+            storyCard.style.transform = 'translateX(20px)';
+            setTimeout(() => storyCard.remove(), 500);
+        } else {
+            throw new Error(data.error || 'Failed to ignore story');
+        }
+    } catch (error) {
+        alert('Error ignoring story: ' + error.message);
+        button.disabled = false;
+        button.textContent = '🚫 Ignore';
+    }
+}
+
+async function refreshWildWifi() {
+    const button = event.target;
+    const statusDiv = document.getElementById('submit-status');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Refreshing...';
+    
+    try {
+        const response = await fetch('/api/wild_wifi/refresh', {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ ' + data.message + ' - Page will reload in 3 seconds...</div>';
+            setTimeout(() => location.reload(), 3000);
+        } else {
+            throw new Error(data.error || 'Failed to refresh');
+        }
+    } catch (error) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Error: ' + error.message + '</div>';
+        button.disabled = false;
+        button.textContent = '🔄 Refresh';
+    }
+}
+
+function toggleHideRead() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentHideRead = urlParams.get('hide_read') === 'true';
+    urlParams.set('hide_read', currentHideRead ? 'false' : 'true');
+    window.location.search = urlParams.toString();
 }
 
 // Close modal when clicking outside

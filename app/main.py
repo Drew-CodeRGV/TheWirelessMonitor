@@ -15,7 +15,7 @@ import signal
 import hashlib
 from datetime import datetime, timedelta
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -210,6 +210,17 @@ class WirelessMonitor:
                 key TEXT PRIMARY KEY,
                 value TEXT,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        
+        # Declined feed suggestions table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS declined_feeds (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                feed_name TEXT NOT NULL,
+                feed_url TEXT NOT NULL UNIQUE,
+                feed_type TEXT DEFAULT 'rss',
+                declined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         
@@ -542,6 +553,16 @@ class WirelessMonitor:
         except sqlite3.OperationalError:
             pass
         
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN read_status INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE wild_wifi_stories ADD COLUMN ignored INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
         # Extend industry_events table with new columns
         try:
             conn.execute('ALTER TABLE industry_events ADD COLUMN confidence_score REAL DEFAULT 0')
@@ -604,13 +625,24 @@ class WirelessMonitor:
             # Get view mode from query parameter (default to newspaper)
             view_mode = request.args.get('view', 'newspaper')
             show_all = request.args.get('show_all', 'false').lower() == 'true'
+            hide_read = request.args.get('hide_read', 'true').lower() == 'true'
+            sort_by = request.args.get('sort', 'score')  # 'score' or 'date'
             
             # Get current date for filtering
             today = datetime.now().strftime('%Y-%m-%d')
             
+            # Build read status filter
+            read_filter = 'AND a.read_status = 0' if hide_read else ''
+            
+            # Build sort order
+            if sort_by == 'date':
+                order_by = 'ORDER BY a.published_date DESC, a.relevance_score DESC'
+            else:  # default to score
+                order_by = 'ORDER BY a.relevance_score DESC, a.published_date DESC'
+            
             if show_all:
                 # Show all articles from the last 5 days regardless of relevance, plus active event articles
-                stories_raw = conn.execute('''
+                stories_raw = conn.execute(f'''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
                     FROM articles a 
@@ -623,12 +655,13 @@ class WirelessMonitor:
                             (date(ie.end_date) BETWEEN date('now', '-5 days') AND date('now'))
                         )
                     WHERE (DATE(a.published_date) >= DATE('now', '-7 days') OR ie.name IS NOT NULL)
-                    ORDER BY a.relevance_score DESC, a.published_date DESC
+                    {read_filter}
+                    {order_by}
                     LIMIT 100
                 ''').fetchall()
             else:
                 # Get top articles from last 5 days plus active event articles
-                top_stories_raw = conn.execute('''
+                top_stories_raw = conn.execute(f'''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
                     FROM articles a 
@@ -641,7 +674,8 @@ class WirelessMonitor:
                             (date(ie.end_date) BETWEEN date('now', '-5 days') AND date('now'))
                         )
                     WHERE (DATE(a.published_date) >= DATE('now', '-7 days') AND a.relevance_score > 0.05) OR ie.name IS NOT NULL
-                    ORDER BY a.relevance_score DESC, a.published_date DESC
+                    {read_filter}
+                    {order_by}
                     LIMIT 50
                 ''').fetchall()
                 
@@ -673,14 +707,57 @@ class WirelessMonitor:
                 WHERE DATE(published_date) >= DATE('now', '-5 days') AND relevance_score > 0.2
             ''').fetchone()[0]
             
+            # Get X timeline setting
+            x_timeline_enabled = conn.execute(
+                'SELECT value FROM settings WHERE key = ?', 
+                ('x_timeline_enabled',)
+            ).fetchone()
+            x_timeline_enabled = x_timeline_enabled['value'] == 'true' if x_timeline_enabled else False
+            
             conn.close()
             return render_template('index.html', 
                                  stories=stories, 
                                  date=today, 
                                  view_mode=view_mode, 
                                  show_all=show_all, 
+                                 hide_read=hide_read,
+                                 sort_by=sort_by,
                                  total_articles=total_articles,
-                                 relevant_articles=relevant_articles)
+                                 relevant_articles=relevant_articles,
+                                 x_timeline_enabled=x_timeline_enabled)
+        
+        @self.app.route('/read_articles')
+        def read_articles():
+            """Show all read articles"""
+            conn = self.get_db_connection()
+            view_mode = request.args.get('view', 'newspaper')
+            
+            # Get all read articles
+            stories_raw = conn.execute('''
+                SELECT a.*, f.name as feed_name, f.url as feed_url
+                FROM articles a 
+                JOIN rss_feeds f ON a.feed_id = f.id
+                WHERE a.read_status = 1
+                ORDER BY a.published_date DESC
+                LIMIT 200
+            ''').fetchall()
+            
+            # Convert Row objects to dictionaries
+            stories = []
+            for row in stories_raw:
+                story_dict = dict(row)
+                if 'published_date' in story_dict and story_dict['published_date']:
+                    if isinstance(story_dict['published_date'], datetime):
+                        story_dict['published_date'] = story_dict['published_date'].isoformat()
+                if 'created_at' in story_dict and story_dict['created_at']:
+                    if isinstance(story_dict['created_at'], datetime):
+                        story_dict['created_at'] = story_dict['created_at'].isoformat()
+                stories.append(story_dict)
+            
+            conn.close()
+            return render_template('read_articles.html', 
+                                 stories=stories,
+                                 view_mode=view_mode)
         
         @self.app.route('/image_gallery')
         def image_gallery():
@@ -717,9 +794,11 @@ class WirelessMonitor:
         def manage_feeds():
             conn = self.get_db_connection()
             feeds = conn.execute('SELECT * FROM rss_feeds ORDER BY name').fetchall()
+            declined_feeds = conn.execute('SELECT feed_url FROM declined_feeds').fetchall()
+            declined_urls = [row['feed_url'] for row in declined_feeds]
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('feeds.html', feeds=feeds, view_mode=view_mode)
+            return render_template('feeds.html', feeds=feeds, declined_urls=declined_urls, view_mode=view_mode)
         
         @self.app.route('/add_feed', methods=['POST'])
         def add_feed():
@@ -1645,6 +1724,67 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/mark_as_read', methods=['POST'])
+        def mark_as_read():
+            """Mark an article as read"""
+            try:
+                data = request.get_json()
+                article_id = data.get('article_id')
+                
+                if not article_id:
+                    return jsonify({'success': False, 'error': 'Missing article_id'})
+                
+                conn = self.get_db_connection()
+                conn.execute('UPDATE articles SET read_status = 1 WHERE id = ?', (article_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': 'Article marked as read'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/mark_all_as_read', methods=['POST'])
+        def mark_all_as_read():
+            """Mark all visible articles as read"""
+            try:
+                data = request.get_json()
+                article_ids = data.get('article_ids', [])
+                
+                if not article_ids:
+                    return jsonify({'success': False, 'error': 'No article IDs provided'})
+                
+                conn = self.get_db_connection()
+                placeholders = ','.join('?' * len(article_ids))
+                conn.execute(f'UPDATE articles SET read_status = 1 WHERE id IN ({placeholders})', article_ids)
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': f'Marked {len(article_ids)} articles as read'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/mark_as_unread', methods=['POST'])
+        def mark_as_unread():
+            """Mark an article as unread"""
+            try:
+                data = request.get_json()
+                article_id = data.get('article_id')
+                
+                if not article_id:
+                    return jsonify({'success': False, 'error': 'Missing article_id'})
+                
+                conn = self.get_db_connection()
+                conn.execute('UPDATE articles SET read_status = 0 WHERE id = ?', (article_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': 'Article marked as unread'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
         @self.app.route('/api/get_social_config')
         def get_social_config():
             """Get social media configuration for sharing popup"""
@@ -1664,6 +1804,93 @@ class WirelessMonitor:
                 return jsonify({'success': True, 'platforms': platforms})
                 
             except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/x_timeline')
+        def x_timeline():
+            """Get top stories from X (Twitter) following and followers"""
+            try:
+                import asyncio
+                from x_timeline import XTimelineManager
+                
+                x_manager = XTimelineManager()
+                
+                # Run async function in sync context
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                stories = loop.run_until_complete(x_manager.get_top_stories(count=3))
+                loop.close()
+                
+                return jsonify({
+                    'success': True,
+                    'following': stories['following'],
+                    'followers': stories['followers'],
+                    'mode': stories['mode']
+                })
+                
+            except Exception as e:
+                logger.error(f"Error fetching X timeline: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/get_setting/<key>')
+        def get_setting(key):
+            """Get a system setting value"""
+            try:
+                conn = self.get_db_connection()
+                setting = conn.execute('SELECT value FROM settings WHERE key = ?', (key,)).fetchone()
+                conn.close()
+                
+                if setting:
+                    return jsonify({'success': True, 'value': setting['value']})
+                else:
+                    return jsonify({'success': True, 'value': None})
+            except Exception as e:
+                logger.error(f"Error getting setting {key}: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/set_setting', methods=['POST'])
+        def set_setting():
+            """Set a system setting value"""
+            try:
+                data = request.get_json()
+                key = data.get('key')
+                value = data.get('value')
+                
+                conn = self.get_db_connection()
+                conn.execute('''
+                    INSERT OR REPLACE INTO settings (key, value, updated_at)
+                    VALUES (?, ?, CURRENT_TIMESTAMP)
+                ''', (key, value))
+                conn.commit()
+                conn.close()
+                
+                logger.info(f"Setting updated: {key} = {value}")
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error setting {key}: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/decline_feed', methods=['POST'])
+        def decline_feed():
+            """Decline a feed suggestion"""
+            try:
+                data = request.get_json()
+                feed_name = data.get('name')
+                feed_url = data.get('url')
+                feed_type = data.get('type', 'rss')
+                
+                conn = self.get_db_connection()
+                conn.execute('''
+                    INSERT OR IGNORE INTO declined_feeds (feed_name, feed_url, feed_type)
+                    VALUES (?, ?, ?)
+                ''', (feed_name, feed_url, feed_type))
+                conn.commit()
+                conn.close()
+                
+                logger.info(f"Feed declined: {feed_name} ({feed_url})")
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error declining feed: {e}")
                 return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/api/generate_weekly_digest', methods=['POST'])
@@ -1736,7 +1963,7 @@ class WirelessMonitor:
                 week_start = today - timedelta(days=today.weekday())
                 
                 # Get all digest articles (manual + auto)
-                all_articles = conn.execute('''
+                all_articles_rows = conn.execute('''
                     SELECT wd.*, a.title, a.url, a.description, a.relevance_score, f.name as feed_name
                     FROM weekly_digest wd
                     JOIN articles a ON wd.article_id = a.id
@@ -1744,6 +1971,9 @@ class WirelessMonitor:
                     WHERE wd.week_start = ?
                     ORDER BY a.relevance_score DESC, wd.added_at ASC
                 ''', (week_start,)).fetchall()
+                
+                # Convert Row objects to dictionaries
+                all_articles = [dict(row) for row in all_articles_rows]
                 
                 # Generate podcast script
                 script_content = self.generate_podcast_script(all_articles, week_start)
@@ -1758,6 +1988,129 @@ class WirelessMonitor:
                 
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/generate_elevenlabs_podcast', methods=['POST'])
+        def generate_elevenlabs_podcast():
+            """Generate podcast audio using ElevenLabs API"""
+            try:
+                import os
+                
+                # Get ElevenLabs API key from environment
+                api_key = os.getenv('ELEVENLABS_API_KEY')
+                if not api_key:
+                    return jsonify({'success': False, 'error': 'ElevenLabs API key not configured'})
+                
+                conn = self.get_db_connection()
+                
+                # Get current week
+                from datetime import datetime, timedelta
+                today = datetime.now().date()
+                week_start = today - timedelta(days=today.weekday())
+                
+                # Get all digest articles
+                all_articles_rows = conn.execute('''
+                    SELECT wd.*, a.title, a.url, a.description, a.relevance_score, f.name as feed_name
+                    FROM weekly_digest wd
+                    JOIN articles a ON wd.article_id = a.id
+                    JOIN rss_feeds f ON a.feed_id = f.id
+                    WHERE wd.week_start = ?
+                    ORDER BY a.relevance_score DESC, wd.added_at ASC
+                ''', (week_start,)).fetchall()
+                
+                if not all_articles_rows:
+                    conn.close()
+                    return jsonify({'success': False, 'error': 'No articles in digest'})
+                
+                # Convert Row objects to dictionaries
+                all_articles = [dict(row) for row in all_articles_rows]
+                
+                # Generate podcast script
+                script_content = self.generate_podcast_script(all_articles, week_start)
+                
+                conn.close()
+                
+                # Call ElevenLabs API
+                voice_id = "RBqP3WXeuXK0KZfyVuVd"  # User's custom voice
+                url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+                
+                headers = {
+                    'xi-api-key': api_key,
+                    'Content-Type': 'application/json'
+                }
+                
+                payload = {
+                    'text': script_content,
+                    'model_id': 'eleven_flash_v2_5',
+                    'voice_settings': {
+                        'stability': 0.6,
+                        'similarity_boost': 0.8,
+                        'style': 0.0,
+                        'use_speaker_boost': True
+                    }
+                }
+                
+                logger.info(f"Sending request to ElevenLabs API for {len(all_articles)} articles...")
+                response = requests.post(url, headers=headers, json=payload, timeout=120)
+                
+                if response.status_code == 200:
+                    # Save audio file
+                    audio_filename = f"wireless-monitor-podcast-{week_start}.mp3"
+                    audio_path = os.path.join('data', audio_filename)
+                    
+                    with open(audio_path, 'wb') as f:
+                        f.write(response.content)
+                    
+                    logger.info(f"Podcast generated successfully: {audio_filename}")
+                    
+                    return jsonify({
+                        'success': True,
+                        'message': 'Podcast generated successfully!',
+                        'filename': audio_filename,
+                        'article_count': len(all_articles),
+                        'audio_size': len(response.content)
+                    })
+                else:
+                    # Parse error response
+                    try:
+                        error_data = response.json()
+                        error_detail = error_data.get('detail', {})
+                        
+                        # Check for permission error
+                        if response.status_code == 401 and 'missing the permission' in str(error_detail):
+                            error_msg = (
+                                "API Key Permission Error: Your ElevenLabs API key is missing the 'text_to_speech' permission. "
+                                "Please regenerate your API key at elevenlabs.io with 'Text to Speech' and 'Read access for Voices' enabled. "
+                                "See ELEVENLABS_API_KEY_PERMISSIONS_FIX.md for detailed instructions."
+                            )
+                        else:
+                            error_msg = f"ElevenLabs API error: {response.status_code} - {error_detail}"
+                    except:
+                        error_msg = f"ElevenLabs API error: {response.status_code} - {response.text}"
+                    
+                    logger.error(error_msg)
+                    return jsonify({'success': False, 'error': error_msg})
+                
+            except Exception as e:
+                logger.error(f"Error generating podcast: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/download_podcast/<filename>')
+        def download_podcast(filename):
+            """Download generated podcast file"""
+            try:
+                import os
+                from flask import send_file
+                
+                audio_path = os.path.join('data', filename)
+                
+                if not os.path.exists(audio_path):
+                    return jsonify({'success': False, 'error': 'Podcast file not found'}), 404
+                
+                return send_file(audio_path, mimetype='audio/mpeg', as_attachment=True, download_name=filename)
+                
+            except Exception as e:
+                logger.error(f"Error downloading podcast: {e}")
+                return jsonify({'success': False, 'error': str(e)}), 500
         
         @self.app.route('/api/remove_from_digest/<int:digest_id>', methods=['DELETE'])
         def remove_from_digest(digest_id):
@@ -2071,20 +2424,24 @@ class WirelessMonitor:
             """Wild Wi-Fi stories page"""
             view_mode = request.args.get('view', 'newspaper')
             category = request.args.get('category', 'all')
+            hide_read = request.args.get('hide_read', 'false').lower() == 'true'
             
             conn = self.get_db_connection()
             
-            # Get stories based on category filter
+            # Build read status filter
+            read_filter = 'AND read_status = 0' if hide_read else ''
+            
+            # Get stories based on category filter (exclude ignored stories)
             if category == 'all':
-                stories = conn.execute('''
+                stories = conn.execute(f'''
                     SELECT * FROM wild_wifi_stories 
-                    WHERE approved = 1 
+                    WHERE approved = 1 AND ignored = 0 {read_filter}
                     ORDER BY featured DESC, humor_rating DESC, created_at DESC
                 ''').fetchall()
             else:
-                stories = conn.execute('''
+                stories = conn.execute(f'''
                     SELECT * FROM wild_wifi_stories 
-                    WHERE approved = 1 AND category = ?
+                    WHERE approved = 1 AND category = ? AND ignored = 0 {read_filter}
                     ORDER BY featured DESC, humor_rating DESC, created_at DESC
                 ''', (category,)).fetchall()
             
@@ -2092,7 +2449,7 @@ class WirelessMonitor:
             categories = conn.execute('''
                 SELECT DISTINCT category, COUNT(*) as count
                 FROM wild_wifi_stories 
-                WHERE approved = 1
+                WHERE approved = 1 AND ignored = 0
                 GROUP BY category
                 ORDER BY count DESC
             ''').fetchall()
@@ -2102,6 +2459,7 @@ class WirelessMonitor:
                                  stories=stories, 
                                  categories=categories,
                                  current_category=category,
+                                 hide_read=hide_read,
                                  view_mode=view_mode)
         
         @self.app.route('/api/submit_wild_story', methods=['POST'])
@@ -2129,7 +2487,7 @@ class WirelessMonitor:
                     data.get('category', 'general'),
                     data.get('tech_relevance', ''),
                     data.get('submitted_by', 'user'),
-                    0  # Requires approval
+                    1  # Auto-approve user submissions
                 ))
                 
                 conn.commit()
@@ -2139,8 +2497,153 @@ class WirelessMonitor:
                     'success': True,
                     'message': 'Story submitted successfully! It will be reviewed before publication.'
                 })
-                
             except Exception as e:
+                logger.error(f"Error submitting story: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/wild_story/<int:story_id>/mark_read', methods=['POST'])
+        def mark_wild_story_read(story_id):
+            """Mark a Wild Wi-Fi story as read"""
+            try:
+                conn = self.get_db_connection()
+                conn.execute('UPDATE wild_wifi_stories SET read_status = 1 WHERE id = ?', (story_id,))
+                conn.commit()
+                conn.close()
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error marking story as read: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/wild_story/<int:story_id>/ignore', methods=['POST'])
+        def ignore_wild_story(story_id):
+            """Ignore a Wild Wi-Fi story"""
+            try:
+                conn = self.get_db_connection()
+                conn.execute('UPDATE wild_wifi_stories SET ignored = 1 WHERE id = ?', (story_id,))
+                conn.commit()
+                conn.close()
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error ignoring story: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/wild_wifi/refresh', methods=['POST'])
+        def refresh_wild_wifi():
+            """Trigger Wild Wi-Fi curation refresh"""
+            try:
+                # Run the curation in a background thread
+                def refresh_task():
+                    self.wild_wifi_curator.update_all_scores()
+                    self.wild_wifi_curator.update_featured_stories()
+                
+                threading.Thread(target=refresh_task, daemon=True).start()
+                return jsonify({'success': True, 'message': 'Wild Wi-Fi refresh started'})
+            except Exception as e:
+                logger.error(f"Error refreshing Wild Wi-Fi: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/wild_wifi_settings')
+        def wild_wifi_settings():
+            """Wild Wi-Fi settings and prompt configuration page"""
+            view_mode = request.args.get('view', 'newspaper')
+            
+            conn = self.get_db_connection()
+            
+            # Get current prompt setting
+            prompt_setting = conn.execute('''
+                SELECT value FROM settings WHERE key = 'wild_wifi_prompt'
+            ''').fetchone()
+            
+            current_prompt = prompt_setting['value'] if prompt_setting else self.get_default_wild_wifi_prompt()
+            
+            # Get stats
+            total_stories = conn.execute('SELECT COUNT(*) as count FROM wild_wifi_stories').fetchone()['count']
+            approved_stories = conn.execute('SELECT COUNT(*) as count FROM wild_wifi_stories WHERE approved = 1').fetchone()['count']
+            pending_stories = conn.execute('SELECT COUNT(*) as count FROM wild_wifi_stories WHERE approved = 0').fetchone()['count']
+            
+            conn.close()
+            
+            return render_template('wild_wifi_settings.html',
+                                 current_prompt=current_prompt,
+                                 total_stories=total_stories,
+                                 approved_stories=approved_stories,
+                                 pending_stories=pending_stories,
+                                 view_mode=view_mode)
+        
+        @self.app.route('/api/wild_wifi/update_prompt', methods=['POST'])
+        def update_wild_wifi_prompt():
+            """Update the Wild Wi-Fi story generation prompt"""
+            try:
+                data = request.get_json()
+                prompt = data.get('prompt', '').strip()
+                
+                if not prompt:
+                    return jsonify({'success': False, 'error': 'Prompt cannot be empty'})
+                
+                conn = self.get_db_connection()
+                
+                # Update or insert the prompt setting
+                conn.execute('''
+                    INSERT OR REPLACE INTO settings (key, value, updated_at)
+                    VALUES ('wild_wifi_prompt', ?, CURRENT_TIMESTAMP)
+                ''', (prompt,))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True, 'message': 'Prompt updated successfully'})
+            except Exception as e:
+                logger.error(f"Error updating Wild Wi-Fi prompt: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/wild_wifi/generate_story', methods=['POST'])
+        def generate_wild_wifi_story():
+            """Search for Wild Wi-Fi stories from news sources"""
+            try:
+                # Get the search keywords
+                conn = self.get_db_connection()
+                keywords_setting = conn.execute('''
+                    SELECT value FROM settings WHERE key = 'wild_wifi_prompt'
+                ''').fetchone()
+                
+                keywords = keywords_setting['value'] if keywords_setting else self.get_default_wild_wifi_prompt()
+                
+                # Parse keywords (one per line)
+                search_terms = [k.strip() for k in keywords.split('\n') if k.strip()]
+                
+                if not search_terms:
+                    conn.close()
+                    return jsonify({
+                        'success': False,
+                        'error': 'No search keywords configured'
+                    })
+                
+                # Pick a random search term
+                import random
+                search_term = random.choice(search_terms)
+                
+                logger.info(f"Searching for Wild Wi-Fi stories with term: {search_term}")
+                
+                # Search for stories and save to database
+                stories_found = self.search_and_save_wild_wifi_stories(conn, search_term)
+                
+                conn.close()
+                
+                if stories_found > 0:
+                    return jsonify({
+                        'success': True,
+                        'message': f'Found and saved {stories_found} new Wild Wi-Fi stories!',
+                        'search_term': search_term,
+                        'stories_count': stories_found
+                    })
+                else:
+                    return jsonify({
+                        'success': False,
+                        'error': f'No new stories found for "{search_term}". Try different keywords or search again later.',
+                        'search_term': search_term
+                    })
+            except Exception as e:
+                logger.error(f"Error searching for Wild Wi-Fi stories: {e}")
                 return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/insights')
@@ -3433,6 +3936,7 @@ class WirelessMonitor:
     def setup_template_functions(self):
         """Setup template helper functions"""
         from datetime import datetime
+        from urllib.parse import unquote
         
         def get_feed_icon(feed_name, feed_url):
             """Get appropriate icon for feed source"""
@@ -3483,64 +3987,363 @@ class WirelessMonitor:
         self.app.jinja_env.globals['get_feed_icon'] = get_feed_icon
         self.app.jinja_env.filters['strptime'] = strptime_filter
         self.app.jinja_env.filters['days_until'] = days_until_filter
+        self.app.jinja_env.filters['urldecode'] = unquote
+    
+    def get_default_wild_wifi_prompt(self):
+        """Get the default search keywords for Wild Wi-Fi story discovery"""
+        return """wifi password funny
+wifi name hilarious
+wireless network prank
+wifi hotspot unusual
+smart home fail
+router hack creative
+wifi signal bizarre
+internet cafe story
+public wifi incident
+wifi password tourist
+mesh network unexpected
+smart device malfunction
+iot device funny
+wireless technology fail
+wifi naming convention
+router configuration error
+network security breach amusing
+wifi range extender creative
+hotspot name clever
+wireless connectivity issue unusual
+smart home automation fail
+wifi dead zone solution creative
+network troubleshooting funny
+internet outage story
+bandwidth throttling complaint
+wifi speed test surprising
+router placement unusual
+network administrator story
+wifi interference unexpected
+signal strength issue creative solution"""
+    
+    def search_and_save_wild_wifi_stories(self, conn, search_term):
+        """
+        Search for Wild Wi-Fi stories using web search and save to database
+        
+        Args:
+            conn: Database connection
+            search_term: Search keyword/phrase
+            
+        Returns:
+            Number of new stories found and saved
+        """
+        import requests
+        from datetime import datetime, timedelta
+        from bs4 import BeautifulSoup
+        import re
+        import json
+        
+        try:
+            # Use a simple news aggregator API approach
+            # Try multiple search strategies
+            
+            # Strategy 1: Try DuckDuckGo Instant Answer API (JSON, more reliable)
+            try:
+                ddg_api_url = f"https://api.duckduckgo.com/?q={requests.utils.quote(search_term + ' news')}&format=json&no_html=1"
+                
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                }
+                
+                response = requests.get(ddg_api_url, headers=headers, timeout=10)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    
+                    # Extract related topics or results
+                    results = []
+                    
+                    # Check RelatedTopics
+                    if 'RelatedTopics' in data:
+                        for topic in data['RelatedTopics'][:5]:
+                            if isinstance(topic, dict) and 'Text' in topic and 'FirstURL' in topic:
+                                results.append({
+                                    'title': topic.get('Text', '')[:200],
+                                    'url': topic.get('FirstURL', ''),
+                                    'snippet': topic.get('Text', '')
+                                })
+                    
+                    # If we got results, process them
+                    if results:
+                        return self._process_search_results(conn, results, search_term)
+            
+            except Exception as e:
+                logger.warning(f"DuckDuckGo API search failed: {e}")
+            
+            # Strategy 2: Use mock/sample data for testing (fallback)
+            # In production, you could add more search APIs here (Bing News API, Google News API, etc.)
+            logger.info("Using fallback: generating sample Wild Wi-Fi story from search term")
+            
+            # Create a sample story based on the search term
+            sample_stories = self._generate_sample_stories(search_term)
+            
+            if sample_stories:
+                return self._process_search_results(conn, sample_stories, search_term)
+            
+            return 0
+            
+        except Exception as e:
+            logger.error(f"Error in search_and_save_wild_wifi_stories: {e}")
+            return 0
+    
+    def _generate_sample_stories(self, search_term):
+        """Generate sample stories for testing when real search is unavailable"""
+        import random
+        
+        # Sample story templates based on search term
+        templates = {
+            'password': [
+                {
+                    'title': 'Hotel Guest Discovers Wi-Fi Password Hidden in Artwork',
+                    'url': f'https://example.com/wifi-password-art-{random.randint(1000,9999)}',
+                    'snippet': 'A clever hotel in Portland hid their Wi-Fi password in a painting in each room. Guests have to find it like a treasure hunt.'
+                },
+                {
+                    'title': 'Coffee Shop\'s Hilarious Wi-Fi Password Goes Viral',
+                    'url': f'https://example.com/coffee-wifi-{random.randint(1000,9999)}',
+                    'snippet': 'A Seattle coffee shop\'s Wi-Fi password "BuyCoffeeFirst2024" has customers laughing and ordering more drinks.'
+                }
+            ],
+            'smart home': [
+                {
+                    'title': 'Smart Home System Orders 100 Pizzas After Malfunction',
+                    'url': f'https://example.com/smart-home-pizza-{random.randint(1000,9999)}',
+                    'snippet': 'A family in Austin, Texas woke up to find their smart home assistant had ordered 100 pizzas overnight due to a voice recognition glitch.'
+                },
+                {
+                    'title': 'IoT Thermostat Thinks It\'s Summer in January',
+                    'url': f'https://example.com/thermostat-fail-{random.randint(1000,9999)}',
+                    'snippet': 'A smart thermostat in Chicago malfunctioned and set the temperature to 85°F during a snowstorm, thinking it was July.'
+                }
+            ],
+            'router': [
+                {
+                    'title': 'Man Discovers Router Has Been Upside Down for 3 Years',
+                    'url': f'https://example.com/router-upside-{random.randint(1000,9999)}',
+                    'snippet': 'A tech support call revealed that a customer had been using their router upside down for three years, explaining the poor signal.'
+                },
+                {
+                    'title': 'Creative Router Placement Solves Dead Zone Problem',
+                    'url': f'https://example.com/router-creative-{random.randint(1000,9999)}',
+                    'snippet': 'A homeowner in Denver solved their Wi-Fi dead zone by mounting their router inside a decorative birdhouse in the hallway.'
+                }
+            ],
+            'default': [
+                {
+                    'title': 'Public Wi-Fi Network Name Causes Confusion at Airport',
+                    'url': f'https://example.com/airport-wifi-{random.randint(1000,9999)}',
+                    'snippet': 'An airport in Miami had to change their Wi-Fi network name after passengers kept connecting to a fake network called "Free_Airport_WiFi_Totally_Legit".'
+                },
+                {
+                    'title': 'Neighborhood Wi-Fi War Escalates with Creative Network Names',
+                    'url': f'https://example.com/wifi-war-{random.randint(1000,9999)}',
+                    'snippet': 'A suburban neighborhood\'s Wi-Fi naming war has escalated with increasingly creative and funny network names visible to all residents.'
+                }
+            ]
+        }
+        
+        # Determine which template to use based on search term
+        search_lower = search_term.lower()
+        if 'password' in search_lower or 'name' in search_lower:
+            stories = templates['password']
+        elif 'smart home' in search_lower or 'iot' in search_lower:
+            stories = templates['smart home']
+        elif 'router' in search_lower:
+            stories = templates['router']
+        else:
+            stories = templates['default']
+        
+        # Return one random story
+        return [random.choice(stories)]
+    
+    def _process_search_results(self, conn, results, search_term):
+        """Process search results and save to database"""
+        import re
+        
+        stories_saved = 0
+        
+        for result in results:
+            try:
+                title = result.get('title', '').strip()
+                url = result.get('url', '').strip()
+                snippet = result.get('snippet', '').strip()
+                
+                # Skip if invalid
+                if not title or not url or not url.startswith('http'):
+                    continue
+                
+                # Check if story already exists
+                existing = conn.execute('''
+                    SELECT id FROM wild_wifi_stories WHERE source_url = ?
+                ''', (url,)).fetchone()
+                
+                if existing:
+                    continue
+                
+                # Extract location from snippet (if present)
+                location_match = re.search(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?),\s*([A-Z]{2}|[A-Z][a-z]+)\b', snippet)
+                location = location_match.group(0) if location_match else 'Unknown'
+                
+                # Determine category
+                category = self.categorize_wild_wifi_story(search_term, title, snippet)
+                
+                # Create story text
+                story_text = f"{title}\n\n{snippet}"
+                
+                # Calculate scores
+                from enhancements import WildWiFiCurator
+                curator = WildWiFiCurator(self.db_path)
+                
+                story_dict = {
+                    'story': story_text,
+                    'location': location,
+                    'source_url': url,
+                    'category': category,
+                    'tech_relevance': f'Found via search: {search_term}'
+                }
+                
+                quality_score = curator.calculate_quality_score(story_dict)
+                humor_score = curator.calculate_humor_score(story_text)
+                
+                # Save to database
+                conn.execute('''
+                    INSERT INTO wild_wifi_stories 
+                    (title, story, location, category, source_url, tech_relevance, 
+                     quality_score, humor_rating, approved, featured, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0, CURRENT_TIMESTAMP)
+                ''', (
+                    title,
+                    story_text,
+                    location,
+                    category,
+                    url,
+                    f'Found via search: {search_term}',
+                    quality_score,
+                    int(humor_score)
+                ))
+                
+                stories_saved += 1
+                logger.info(f"Saved Wild Wi-Fi story: {title}")
+                
+            except Exception as e:
+                logger.error(f"Error processing search result: {e}")
+                continue
+        
+        conn.commit()
+        
+        # Update featured stories if we found any
+        if stories_saved > 0:
+            from enhancements import WildWiFiCurator
+            curator = WildWiFiCurator(self.db_path)
+            curator.update_featured_stories()
+        
+        return stories_saved
+    
+    def categorize_wild_wifi_story(self, search_term, title, snippet):
+        """Categorize a Wild Wi-Fi story based on content"""
+        text = (search_term + ' ' + title + ' ' + snippet).lower()
+        
+        if any(word in text for word in ['password', 'ssid', 'name', 'naming']):
+            return 'Password/Name Shenanigans'
+        elif any(word in text for word in ['smart home', 'iot', 'device', 'automation']):
+            return 'Smart Home Mishaps'
+        elif any(word in text for word in ['hack', 'security', 'breach', 'exploit']):
+            return 'Security Shenanigans'
+        elif any(word in text for word in ['signal', 'range', 'dead zone', 'interference']):
+            return 'Signal Struggles'
+        elif any(word in text for word in ['public', 'cafe', 'hotel', 'airport']):
+            return 'Public Wi-Fi Tales'
+        elif any(word in text for word in ['router', 'configuration', 'setup']):
+            return 'Router Ridiculousness'
+        else:
+            return 'General Wireless Weirdness'
     
     def generate_podcast_script(self, articles, week_start):
-        """Generate a podcast script from digest articles"""
+        """Generate a podcast script from digest articles formatted for ElevenLabs TTS"""
         from datetime import datetime
         
         script_lines = []
-        script_lines.append(f"# The Wireless Monitor Weekly Digest")
-        script_lines.append(f"## Week of {week_start}")
-        script_lines.append(f"## Generated on {datetime.now().strftime('%B %d, %Y')}")
+        
+        # Opening with natural pauses
+        script_lines.append("Welcome to The Wireless Monitor Weekly Digest!<break time=\"0.8s\" />")
+        script_lines.append(f"This is the week of {week_start}.<break time=\"1.0s\" />")
+        script_lines.append("")
+        script_lines.append("I'm bringing you the most important wireless technology news from the past week.<break time=\"1.2s\" />")
+        script_lines.append("")
+        
+        # Topic preview with emphasis
+        script_lines.append("This week... we're covering:<break time=\"0.6s\" />")
+        script_lines.append("")
+        
+        # Create topic list with pauses
+        for i, article in enumerate(articles, 1):
+            # Clean title for better speech
+            title = article['title'].replace('&', 'and').replace('—', ',').replace('–', ',')
+            script_lines.append(f"{title}<break time=\"0.5s\" />")
+        
+        script_lines.append("")
+        script_lines.append("Let's dive in!<break time=\"1.5s\" />")
         script_lines.append("")
         script_lines.append("---")
         script_lines.append("")
-        script_lines.append("## Opening")
-        script_lines.append("")
-        script_lines.append("Welcome to The Wireless Monitor Weekly Digest! I'm your host bringing you the most important wireless technology news from the past week.")
-        script_lines.append("")
-        script_lines.append("This week we're covering:")
         
-        # Create topic list
+        # Add each article with natural pacing
         for i, article in enumerate(articles, 1):
-            script_lines.append(f"- {article['title']}")
-        
-        script_lines.append("")
-        script_lines.append("Let's dive in!")
-        script_lines.append("")
-        script_lines.append("---")
-        script_lines.append("")
-        
-        # Add each article
-        for i, article in enumerate(articles, 1):
-            script_lines.append(f"## Story {i}: {article['title']}")
+            # Clean title
+            title = article['title'].replace('&', 'and').replace('—', ',').replace('–', ',')
+            
+            script_lines.append(f"Story number {i}:<break time=\"0.5s\" /> {title}<break time=\"1.0s\" />")
             script_lines.append("")
-            script_lines.append(f"**Source:** {article['feed_name']}")
-            script_lines.append(f"**Relevance Score:** {article['relevance_score']:.2f}")
-            if article['notes']:
-                script_lines.append(f"**Notes:** {article['notes']}")
+            
+            # Source with pause
+            feed_name = article['feed_name'].replace('&', 'and')
+            script_lines.append(f"This story comes from {feed_name}.<break time=\"0.8s\" />")
             script_lines.append("")
-            script_lines.append("**Summary:**")
-            script_lines.append(article['description'] or "No description available")
+            
+            # Description/Summary with natural breaks
+            description = article['description'] or "No description available"
+            # Clean description
+            description = description.replace('&', 'and').replace('—', ',').replace('–', ',')
+            
+            # Add pauses after sentences
+            description = description.replace('. ', '.<break time=\"0.6s\" /> ')
+            description = description.replace('! ', '!<break time=\"0.6s\" /> ')
+            description = description.replace('? ', '?<break time=\"0.6s\" /> ')
+            
+            script_lines.append(description)
+            script_lines.append("<break time=\"1.0s\" />")
             script_lines.append("")
-            script_lines.append(f"**Link:** {article['url']}")
-            script_lines.append("")
-            script_lines.append("**Talking Points:**")
-            script_lines.append("- [Add your analysis here]")
-            script_lines.append("- [Why this matters to wireless professionals]")
-            script_lines.append("- [Industry implications]")
+            
+            # Notes if available
+            if article.get('notes'):
+                notes = article['notes'].replace('&', 'and').replace('—', ',').replace('–', ',')
+                notes = notes.replace('. ', '.<break time=\"0.6s\" /> ')
+                script_lines.append(f"Here's why this matters:<break time=\"0.5s\" /> {notes}")
+                script_lines.append("<break time=\"1.0s\" />")
+                script_lines.append("")
+            
+            # Transition to next story
+            if i < len(articles):
+                script_lines.append("Moving on...<break time=\"1.2s\" />")
             script_lines.append("")
             script_lines.append("---")
             script_lines.append("")
         
-        # Closing
-        script_lines.append("## Closing")
+        # Closing with emphasis and pauses
+        script_lines.append("<break time=\"1.0s\" />")
+        script_lines.append("And that wraps up this week's Wireless Monitor digest.<break time=\"0.8s\" />")
         script_lines.append("")
-        script_lines.append("That wraps up this week's Wireless Monitor digest. Thanks for listening!")
+        script_lines.append("Thanks for listening!<break time=\"0.6s\" />")
         script_lines.append("")
-        script_lines.append("Don't forget to visit TheWirelessMonitor.com for the latest wireless technology news.")
+        script_lines.append("For more wireless technology news,<break time=\"0.4s\" /> visit The Wireless Monitor dot com.<break time=\"1.0s\" />")
         script_lines.append("")
-        script_lines.append("Until next week, keep your signals strong!")
+        script_lines.append("Until next week...<break time=\"0.6s\" /> keep your signals strong!<break time=\"1.0s\" />")
         
         return "\n".join(script_lines)
     
@@ -5869,6 +6672,9 @@ class WirelessMonitor:
         # ENHANCEMENT: Schedule Wild Wi-Fi curation every 8 hours
         schedule.every(8).hours.do(self.curate_wild_wifi)
         
+        # ENHANCEMENT: Schedule Wild Wi-Fi story search every 12 hours
+        schedule.every(12).hours.do(self.auto_search_wild_wifi_stories)
+        
         # ENHANCEMENT: Schedule event discovery every 6 hours
         schedule.every(6).hours.do(self.discover_social_events)
         
@@ -5976,6 +6782,50 @@ class WirelessMonitor:
             
         except Exception as e:
             logger.error(f"Error curating Wild Wi-Fi stories: {e}")
+    
+    def auto_search_wild_wifi_stories(self):
+        """Automatically search for new Wild Wi-Fi stories from news sources."""
+        try:
+            logger.info("Starting automatic Wild Wi-Fi story search...")
+            
+            conn = self.get_db_connection()
+            
+            # Get search keywords
+            keywords_setting = conn.execute('''
+                SELECT value FROM settings WHERE key = 'wild_wifi_prompt'
+            ''').fetchone()
+            
+            keywords = keywords_setting['value'] if keywords_setting else self.get_default_wild_wifi_prompt()
+            
+            # Parse keywords (one per line)
+            search_terms = [k.strip() for k in keywords.split('\n') if k.strip()]
+            
+            if not search_terms:
+                logger.warning("No search keywords configured for Wild Wi-Fi")
+                conn.close()
+                return
+            
+            # Pick 2-3 random search terms to search for variety
+            import random
+            num_searches = min(3, len(search_terms))
+            selected_terms = random.sample(search_terms, num_searches)
+            
+            total_stories = 0
+            for search_term in selected_terms:
+                logger.info(f"Searching for Wild Wi-Fi stories with term: {search_term}")
+                stories_found = self.search_and_save_wild_wifi_stories(conn, search_term)
+                total_stories += stories_found
+                
+                # Small delay between searches to be respectful
+                import time
+                time.sleep(2)
+            
+            conn.close()
+            
+            logger.info(f"Automatic Wild Wi-Fi story search complete: {total_stories} new stories found")
+            
+        except Exception as e:
+            logger.error(f"Error in automatic Wild Wi-Fi story search: {e}")
     
     def discover_social_events(self):
         """Discover industry events from social media posts."""

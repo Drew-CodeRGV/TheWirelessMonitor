@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Wild Wi-Fi Settings - The Wireless Monitor{% endblock %}
+
+{% block content %}
+{% if view_mode == 'reader' %}
+    <!-- Google Reader Style -->
+    <div class="reader-page-header">
+        <h2>⚙️ Wild Wi-Fi Settings</h2>
+        <div class="subtitle">Configure AI prompt and story generation settings</div>
+    </div>
+    
+    <div class="reader-toolbar">
+        <a href="{{ url_for('wild_wifi', view=view_mode) }}" class="reader-toolbar-btn">← Back to Stories</a>
+    </div>
+    
+    <div style="padding: 20px; background: white;">
+        <div style="margin-bottom: 30px; padding: 16px; background: #f9f9f9; border-left: 4px solid #4285f4; border-radius: 4px;">
+            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #333;">📊 Statistics</h3>
+            <div style="font-size: 13px; color: #666;">
+                <div>Total Stories: {{ total_stories }}</div>
+                <div>Approved: {{ approved_stories }}</div>
+                <div>Pending: {{ pending_stories }}</div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 30px;">
+            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 12px; color: #333;">🔍 News Search Keywords</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 12px;">
+                Configure search keywords to find funny, unusual, or interesting Wi-Fi and wireless stories from news sources. 
+                Enter one search phrase per line. The system will use these to search for real news articles.
+            </p>
+            
+            <form id="promptForm">
+                <textarea id="promptText" rows="15" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial, sans-serif; font-size: 13px; resize: vertical;" placeholder="Enter search keywords, one per line...">{{ current_prompt }}</textarea>
+                
+                <div style="margin-top: 12px; display: flex; gap: 8px;">
+                    <button type="submit" class="reader-toolbar-btn" style="background: #4285f4; color: white; border-color: #4285f4;">💾 Save Keywords</button>
+                    <button type="button" onclick="resetToDefault()" class="reader-toolbar-btn">🔄 Reset to Default</button>
+                    <button type="button" onclick="searchNow()" class="reader-toolbar-btn" style="background: #27ae60; color: white; border-color: #27ae60;">🔍 Search Now</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="status" style="margin-top: 16px;"></div>
+        <div id="searchResults" style="margin-top: 16px;"></div>
+    </div>
+
+{% else %}
+    <!-- Newspaper Mode -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
+        <div>
+            <h2>⚙️ Wild Wi-Fi Settings</h2>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">Configure AI prompt and story generation settings</p>
+        </div>
+        <div>
+            <a href="{{ url_for('wild_wifi', view=view_mode) }}" class="btn" style="background: #3498db;">← Back to Stories</a>
+        </div>
+    </div>
+
+    <!-- Statistics Card -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 30px; margin-bottom: 30px; color: white;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px;">📊 Story Statistics</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 8px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 5px;">{{ total_stories }}</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">Total Stories</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 8px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 5px;">{{ approved_stories }}</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">Approved</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 8px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 5px;">{{ pending_stories }}</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">Pending Review</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prompt Configuration Card -->
+    <div style="background: white; border: 1px solid #e1e5e9; border-radius: 12px; padding: 30px; margin-bottom: 30px;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 15px; color: #2c3e50;">🔍 News Search Keywords</h3>
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #666; margin-bottom: 25px; line-height: 1.6;">
+            Configure search keywords to automatically find funny, unusual, or interesting Wi-Fi and wireless stories from news sources around the web. 
+            Enter one search phrase per line. The system will use these keywords to discover real news articles about humorous wireless incidents, 
+            creative Wi-Fi uses, smart home fails, and other entertaining wireless technology stories.
+        </p>
+        
+        <form id="promptForm">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 10px; color: #2c3e50;">Search Keywords (one per line)</label>
+                <textarea id="promptText" rows="20" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-family: Arial, sans-serif; font-size: 0.9rem; line-height: 1.6; resize: vertical;" placeholder="wifi password funny&#10;smart home fail&#10;router hack creative&#10;...">{{ current_prompt }}</textarea>
+                <div style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #999; margin-top: 8px;">
+                    💡 Tip: Use specific phrases like "wifi password funny", "smart home fail", "router hack creative", etc.
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button type="submit" class="btn" style="background: #28a745; padding: 12px 24px;">💾 Save Keywords</button>
+                <button type="button" onclick="resetToDefault()" class="btn" style="background: #6c757d; padding: 12px 24px;">🔄 Reset to Default</button>
+                <button type="button" onclick="searchNow()" class="btn" style="background: #17a2b8; padding: 12px 24px;">🔍 Search for Stories Now</button>
+            </div>
+        </form>
+        
+        <div id="status" style="margin-top: 25px;"></div>
+        <div id="searchResults" style="margin-top: 25px;"></div>
+    </div>
+
+    <!-- Help Card -->
+    <div style="background: #f8f9fa; border: 1px solid #e1e5e9; border-radius: 12px; padding: 25px;">
+        <h4 style="font-family: 'Inter', sans-serif; font-size: 1.2rem; margin-bottom: 15px; color: #2c3e50;">📚 Search Keyword Guidelines</h4>
+        <ul style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #666; line-height: 1.8; margin-left: 20px;">
+            <li><strong>Be Specific</strong>: Use phrases like "wifi password funny" instead of just "wifi"</li>
+            <li><strong>Target Humor</strong>: Include words like "funny", "fail", "prank", "unusual", "bizarre"</li>
+            <li><strong>Mix Topics</strong>: Cover different areas - smart home, public wifi, router names, IoT fails</li>
+            <li><strong>One Per Line</strong>: Each line should be a complete search phrase</li>
+            <li><strong>Recent Stories</strong>: System searches for stories from the last 30 days</li>
+            <li><strong>Real News</strong>: Finds actual news articles, not generated content</li>
+        </ul>
+        
+        <div style="margin-top: 20px; padding: 15px; background: white; border-left: 4px solid #17a2b8; border-radius: 4px;">
+            <strong style="color: #17a2b8;">💡 Example Keywords:</strong>
+            <div style="margin-top: 10px; font-family: 'Courier New', monospace; font-size: 0.85rem; color: #666;">
+                wifi password tourist attraction<br>
+                smart home device malfunction funny<br>
+                router name hilarious<br>
+                public wifi incident unusual<br>
+                iot device fail<br>
+                wifi signal creative solution
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<script>
+document.getElementById('promptForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const statusDiv = document.getElementById('status');
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const promptText = document.getElementById('promptText').value;
+    
+    submitButton.disabled = true;
+    submitButton.textContent = '⏳ Saving...';
+    
+    try {
+        const response = await fetch('/api/wild_wifi/update_prompt', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: promptText })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ ' + data.message + '</div>';
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        } else {
+            statusDiv.innerHTML = '<div class="alert alert-error">❌ Error: ' + data.error + '</div>';
+        }
+    } catch (error) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Network error: ' + error.message + '</div>';
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = '💾 Save Prompt';
+    }
+});
+
+async function resetToDefault() {
+    if (!confirm('Reset prompt to default? This will overwrite your current prompt.')) {
+        return;
+    }
+    
+    const statusDiv = document.getElementById('status');
+    
+    try {
+        const response = await fetch('/api/wild_wifi/update_prompt', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: '' })  // Empty prompt triggers default
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ Prompt reset to default. Reloading...</div>';
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            statusDiv.innerHTML = '<div class="alert alert-error">❌ Error: ' + data.error + '</div>';
+        }
+    } catch (error) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Network error: ' + error.message + '</div>';
+    }
+}
+
+async function searchNow() {
+    const statusDiv = document.getElementById('status');
+    const resultsDiv = document.getElementById('searchResults');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Searching...';
+    
+    statusDiv.innerHTML = '<div class="alert alert-info">🔍 Searching for Wild Wi-Fi stories from news sources...</div>';
+    resultsDiv.innerHTML = '';
+    
+    try {
+        const response = await fetch('/api/wild_wifi/generate_story', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h4 style="margin-bottom: 10px;">✅ Search Complete!</h4>
+                    <div style="font-size: 0.95rem;">
+                        <strong>Search Term:</strong> "${data.search_term}"<br>
+                        <strong>Stories Found:</strong> ${data.stories_count}<br><br>
+                        ${data.message}
+                    </div>
+                </div>
+            `;
+            
+            // Reload the page after 3 seconds to show new stories
+            setTimeout(() => {
+                window.location.href = '/wild_wifi?view=${new URLSearchParams(window.location.search).get('view') || 'newspaper'}';
+            }, 3000);
+        } else {
+            statusDiv.innerHTML = `
+                <div class="alert alert-error">
+                    <strong>❌ ${data.error}</strong><br><br>
+                    <div style="font-size: 0.9rem; margin-top: 10px;">
+                        <strong>Search Term Used:</strong> "${data.search_term || 'Unknown'}"<br>
+                        Try adjusting your search keywords or searching again later.
+                    </div>
+                </div>
+            `;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = '<div class="alert alert-error">❌ Network error: ' + error.message + '</div>';
+    } finally {
+        button.disabled = false;
+        button.textContent = '🔍 Search for Stories Now';
+    }
+}
+</script>
+{% endblock %}

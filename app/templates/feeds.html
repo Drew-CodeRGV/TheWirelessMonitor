@@ -57,24 +57,128 @@ https://example2.com/rss"></textarea>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
         <div>
             <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e; font-weight: 600;">Wireless Technology Feeds:</p>
-            <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
-                <strong>Wi-Fi Alliance:</strong> https://www.wi-fi.org/news-events/newsroom/rss<br>
-                <strong>Wireless Week:</strong> https://www.wirelessweek.com/rss.xml<br>
-                <strong>RCR Wireless:</strong> https://www.rcrwireless.com/feed<br>
-                <strong>Light Reading:</strong> https://www.lightreading.com/rss_simple.asp<br>
-                <strong>Mobile World Live:</strong> https://www.mobileworldlive.com/feed/<br>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                {% set existing_urls = feeds|map(attribute='url')|list %}
+                
+                {% set wireless_feeds = [
+                    ('Wi-Fi Alliance', 'https://www.wi-fi.org/news-events/newsroom/rss', 'wi-fi.org/news-events'),
+                    ('Wireless Week', 'https://www.wirelessweek.com/rss.xml', 'wirelessweek.com'),
+                    ('Light Reading', 'https://www.lightreading.com/rss_simple.asp', 'lightreading.com'),
+                    ('Mobile World Live', 'https://www.mobileworldlive.com/feed/', 'mobileworldlive.com'),
+                    ('SDxCentral', 'https://www.sdxcentral.com/feed/', 'sdxcentral.com'),
+                    ('FierceWireless', 'https://www.fiercewireless.com/rss/xml', 'fiercewireless.com'),
+                    ('Telecom TV', 'https://www.telecomtv.com/feed/', 'telecomtv.com'),
+                    ('Network World', 'https://www.networkworld.com/index.rss', 'networkworld.com'),
+                    ('ZDNet Networking', 'https://www.zdnet.com/topic/networking/rss.xml', 'zdnet.com/networking'),
+                    ('Android Authority', 'https://www.androidauthority.com/feed/', 'androidauthority.com'),
+                    ('9to5Mac', 'https://9to5mac.com/feed/', '9to5mac.com'),
+                    ('PhoneArena', 'https://www.phonearena.com/feed', 'phonearena.com'),
+                    ('GSMArena', 'https://www.gsmarena.com/rss-news-reviews.php3', 'gsmarena.com'),
+                    ('Droid Life', 'https://www.droid-life.com/feed/', 'droid-life.com')
+                ] %}
+                
+                {% for name, url, domain in wireless_feeds %}
+                    {% if url not in existing_urls and url not in declined_urls %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: white; border-radius: 6px; border: 1px solid #e9ecef;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2c3e50;">{{ name }}</strong><br>
+                            <span style="font-size: 0.8rem; color: #7f8c8d;">{{ domain }}</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button onclick="quickAddFeed('{{ name }}', '{{ url }}')" class="btn" style="background: #27ae60; color: white; padding: 6px 12px; font-size: 0.85rem;">
+                                ➕ Add
+                            </button>
+                            <button onclick="declineFeed('{{ name }}', '{{ url }}', 'rss')" class="btn" style="background: #95a5a6; color: white; padding: 6px 12px; font-size: 0.85rem;">
+                                ✕ Decline
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                
+                {% set visible_feeds = [] %}
+                {% for name, url, domain in wireless_feeds %}
+                    {% if url not in existing_urls and url not in declined_urls %}
+                        {% set _ = visible_feeds.append(url) %}
+                    {% endif %}
+                {% endfor %}
+                {% if visible_feeds|length == 0 %}
+                <div style="text-align: center; padding: 20px; color: #27ae60; background: #d4edda; border-radius: 6px;">
+                    ✅ All wireless feeds added or declined!
+                </div>
+                {% endif %}
             </div>
         </div>
         <div>
             <p style="margin-bottom: 15px; font-family: 'Inter', sans-serif; color: #34495e; font-weight: 600;">Popular Google News Keywords:</p>
-            <div style="font-size: 0.9rem; line-height: 1.8; font-family: 'Inter', sans-serif; color: #2c3e50;">
-                <strong>Wireless:</strong> "5G", "WiFi 6", "wireless technology"<br>
-                <strong>IoT:</strong> "Internet of Things", "smart home", "IoT security"<br>
-                <strong>Mobile:</strong> "smartphone", "mobile network", "cellular"<br>
-                <strong>Tech:</strong> "wireless charging", "Bluetooth", "NFC"<br>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                {% set existing_keywords = [] %}
+                {% for feed in feeds %}
+                    {% if 'news.google.com/rss/search?q=' in feed.url %}
+                        {% set keyword = feed.url.split('q=')[1].split('&')[0]|urldecode %}
+                        {% set _ = existing_keywords.append(keyword) %}
+                    {% endif %}
+                {% endfor %}
+                
+                {% set declined_keywords = [] %}
+                {% for url in declined_urls %}
+                    {% if 'news.google.com/rss/search?q=' in url %}
+                        {% set keyword = url.split('q=')[1].split('&')[0]|urldecode %}
+                        {% set _ = declined_keywords.append(keyword) %}
+                    {% endif %}
+                {% endfor %}
+                
+                {% set google_keywords = [
+                    ('5G Technology', '5G', 'Google News: 5G'),
+                    ('WiFi 6', 'WiFi 6', 'Google News: WiFi 6'),
+                    ('WiFi 7', 'WiFi 7', 'Google News: WiFi 7'),
+                    ('Internet of Things', 'Internet of Things', 'Google News: IoT'),
+                    ('Wireless Charging', 'wireless charging', 'Google News: wireless charging'),
+                    ('Smart Home', 'smart home', 'Google News: smart home'),
+                    ('Bluetooth', 'Bluetooth', 'Google News: Bluetooth'),
+                    ('NFC Technology', 'NFC', 'Google News: NFC'),
+                    ('Mesh Networks', 'mesh networks', 'Google News: mesh networks'),
+                    ('6G Technology', '6G', 'Google News: 6G'),
+                    ('Satellite Internet', 'satellite internet', 'Google News: satellite internet'),
+                    ('Private 5G', 'private 5G', 'Google News: private 5G'),
+                    ('Edge Computing', 'edge computing', 'Google News: edge computing'),
+                    ('Network Security', 'network security', 'Google News: network security')
+                ] %}
+                
+                {% for display_name, keyword, description in google_keywords %}
+                    {% if keyword not in existing_keywords and keyword not in declined_keywords %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: white; border-radius: 6px; border: 1px solid #e9ecef;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2c3e50;">{{ display_name }}</strong><br>
+                            <span style="font-size: 0.8rem; color: #7f8c8d;">{{ description }}</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button onclick="quickAddGoogleNews('{{ keyword }}')" class="btn" style="background: #4285f4; color: white; padding: 6px 12px; font-size: 0.85rem;">
+                                ➕ Add
+                            </button>
+                            <button onclick="declineGoogleNews('{{ display_name }}', '{{ keyword }}')" class="btn" style="background: #95a5a6; color: white; padding: 6px 12px; font-size: 0.85rem;">
+                                ✕ Decline
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                
+                {% set visible_keywords = [] %}
+                {% for display_name, keyword, description in google_keywords %}
+                    {% if keyword not in existing_keywords and keyword not in declined_keywords %}
+                        {% set _ = visible_keywords.append(keyword) %}
+                    {% endif %}
+                {% endfor %}
+                {% if visible_keywords|length == 0 %}
+                <div style="text-align: center; padding: 20px; color: #4285f4; background: #e3f2fd; border-radius: 6px;">
+                    ✅ All suggested keywords added or declined!
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
+    <div id="quick-add-status" style="margin-top: 15px;"></div>
 </div>
 
 <h3 style="margin-top: 45px; margin-bottom: 25px;">Current RSS Feeds</h3>
@@ -124,6 +228,193 @@ https://example2.com/rss"></textarea>
 </div>
 
 <script>
+async function declineFeed(name, url, type) {
+    const button = event.target;
+    const feedCard = button.closest('div[style*="padding: 10px"]');
+    const statusDiv = document.getElementById('quick-add-status');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Declining...';
+    
+    try {
+        const response = await fetch('/api/decline_feed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, url, type })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div style="background: #e3f2fd; color: #1976d2; padding: 12px; border-radius: 6px; border-left: 4px solid #2196f3;">
+                    ℹ️ <strong>${name}</strong> declined - won't show again
+                </div>
+            `;
+            
+            // Fade out and remove the card
+            feedCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            feedCard.style.opacity = '0';
+            feedCard.style.transform = 'translateX(20px)';
+            
+            setTimeout(() => feedCard.remove(), 500);
+        } else {
+            throw new Error(data.error || 'Failed to decline feed');
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `
+            <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; border-left: 4px solid #dc3545;">
+                ❌ Error declining feed: ${error.message}
+            </div>
+        `;
+        button.disabled = false;
+        button.textContent = '✕ Decline';
+    }
+    
+    // Clear status after 5 seconds
+    setTimeout(() => {
+        statusDiv.innerHTML = '';
+    }, 5000);
+}
+
+async function declineGoogleNews(displayName, keyword) {
+    const url = `https://news.google.com/rss/search?q=${encodeURIComponent(keyword)}&hl=en-US&gl=US&ceid=US:en`;
+    await declineFeed(displayName, url, 'google_news');
+}
+
+async function quickAddFeed(name, url) {
+    const button = event.target;
+    const feedCard = button.closest('div[style*="padding: 10px"]');
+    const statusDiv = document.getElementById('quick-add-status');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Adding...';
+    
+    try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('url', url);
+        
+        const response = await fetch('{{ url_for("add_feed", view=view_mode) }}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            statusDiv.innerHTML = `
+                <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;">
+                    ✅ Successfully added <strong>${name}</strong> to your feeds!
+                </div>
+            `;
+            
+            // Fade out and remove the card
+            feedCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            feedCard.style.opacity = '0';
+            feedCard.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                feedCard.remove();
+                // Reload page to show the new feed in the list below
+                setTimeout(() => location.reload(), 1000);
+            }, 500);
+        } else {
+            const text = await response.text();
+            if (text.includes('already exists')) {
+                statusDiv.innerHTML = `
+                    <div style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; border-left: 4px solid #ffc107;">
+                        ⚠️ <strong>${name}</strong> is already in your feeds
+                    </div>
+                `;
+                // Remove the card since it already exists
+                feedCard.style.transition = 'opacity 0.5s ease';
+                feedCard.style.opacity = '0';
+                setTimeout(() => feedCard.remove(), 500);
+            } else {
+                throw new Error('Failed to add feed');
+            }
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `
+            <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; border-left: 4px solid #dc3545;">
+                ❌ Error adding feed: ${error.message}
+            </div>
+        `;
+        button.disabled = false;
+        button.textContent = '➕ Add';
+    }
+    
+    // Clear status after 5 seconds
+    setTimeout(() => {
+        statusDiv.innerHTML = '';
+    }, 5000);
+}
+
+async function quickAddGoogleNews(keyword) {
+    const button = event.target;
+    const feedCard = button.closest('div[style*="padding: 10px"]');
+    const statusDiv = document.getElementById('quick-add-status');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Adding...';
+    
+    try {
+        const formData = new FormData();
+        formData.append('keyword', keyword);
+        
+        const response = await fetch('{{ url_for("add_google_news", view=view_mode) }}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            statusDiv.innerHTML = `
+                <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;">
+                    ✅ Successfully added Google News feed for <strong>${keyword}</strong>!
+                </div>
+            `;
+            
+            // Fade out and remove the card
+            feedCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            feedCard.style.opacity = '0';
+            feedCard.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                feedCard.remove();
+                // Reload page to show the new feed in the list below
+                setTimeout(() => location.reload(), 1000);
+            }, 500);
+        } else {
+            const text = await response.text();
+            if (text.includes('already exists')) {
+                statusDiv.innerHTML = `
+                    <div style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; border-left: 4px solid #ffc107;">
+                        ⚠️ Google News feed for <strong>${keyword}</strong> already exists
+                    </div>
+                `;
+                // Remove the card since it already exists
+                feedCard.style.transition = 'opacity 0.5s ease';
+                feedCard.style.opacity = '0';
+                setTimeout(() => feedCard.remove(), 500);
+            } else {
+                throw new Error('Failed to add feed');
+            }
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `
+            <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; border-left: 4px solid #dc3545;">
+                ❌ Error adding feed: ${error.message}
+            </div>
+        `;
+        button.disabled = false;
+        button.textContent = '➕ Add';
+    }
+    
+    // Clear status after 5 seconds
+    setTimeout(() => {
+        statusDiv.innerHTML = '';
+    }, 5000);
+}
+
 async function verifyFeed(feedId) {
     const statusDiv = document.getElementById(`feed-status-${feedId}`);
     const button = event.target;

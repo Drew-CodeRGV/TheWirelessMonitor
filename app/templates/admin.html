@@ -248,11 +248,73 @@
                     <div><strong>Auto-Updates:</strong> Enabled</div>
                 </div>
             </div>
+            
+            <!-- Feature Toggles -->
+            <div class="admin-section">
+                <h3>🎛️ Feature Toggles</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <div>
+                            <div style="font-weight: 600; color: #2c3e50;">𝕏 Timeline</div>
+                            <div style="font-size: 0.8rem; color: #7f8c8d;">Show X (Twitter) timeline on homepage</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="x-timeline-toggle" onchange="toggleXTimeline(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #1da1f2;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
 .stat-card {
     padding: 20px;
     border-radius: 12px;
@@ -394,6 +456,46 @@ function updateTime() {
 }
 updateTime();
 setInterval(updateTime, 1000);
+
+// Load X timeline setting
+async function loadXTimelineSetting() {
+    try {
+        const response = await fetch('/api/get_setting/x_timeline_enabled');
+        const data = await response.json();
+        if (data.success) {
+            document.getElementById('x-timeline-toggle').checked = data.value === 'true';
+        }
+    } catch (error) {
+        console.error('Error loading X timeline setting:', error);
+    }
+}
+loadXTimelineSetting();
+
+// Toggle X timeline
+async function toggleXTimeline(enabled) {
+    try {
+        const response = await fetch('/api/set_setting', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                key: 'x_timeline_enabled',
+                value: enabled ? 'true' : 'false'
+            })
+        });
+        const data = await response.json();
+        if (data.success) {
+            // Show notification
+            const notification = document.createElement('div');
+            notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000;';
+            notification.textContent = enabled ? '✅ X Timeline enabled' : '❌ X Timeline disabled';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    } catch (error) {
+        console.error('Error toggling X timeline:', error);
+        alert('Error updating setting');
+    }
+}
 
 // Quick Actions
 async function fetchRSSNow() {

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Read Articles - The Wireless Monitor{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
+    <h2>📚 Read Articles</h2>
+    <div style="display: flex; gap: 10px;">
+        <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #3498db;">← Back to Headlines</a>
+    </div>
+</div>
+
+<div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #2196f3;">
+    <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #1565c0; margin: 0;">
+        <strong>📚 Showing {{ stories|length }} read articles</strong> - Click "Mark as Unread" to move articles back to the main feed.
+    </p>
+</div>
+
+{% if stories %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px;">
+        {% for story in stories %}
+        <article class="article-card" data-article-id="{{ story.id }}" style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;">
+            {% if story.image_url %}
+                <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                     style="width: 100%; height: 200px; object-fit: cover;">
+            {% else %}
+                <div style="width: 100%; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: #999;">📰</span>
+                </div>
+            {% endif %}
+            
+            <div style="padding: 20px;">
+                <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; line-height: 1.3;">
+                    <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
+                </h3>
+                
+                {% if story.description %}
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.5;">
+                    {{ (story.description[:150] + '...') if story.description|length > 150 else story.description }}
+                </p>
+                {% endif %}
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #eee;">
+                    <div style="font-size: 0.8rem; color: #999;">
+                        <div>{{ story.feed_name }}</div>
+                        <div>{{ story.published_date[:10] if story.published_date else 'Unknown date' }}</div>
+                    </div>
+                    <button onclick="markAsUnread({{ story.id }})" class="btn" style="background: #2196f3; font-size: 0.85rem; padding: 6px 12px;">
+                        Mark Unread
+                    </button>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <div style="text-align: center; padding: 60px 20px; background: white; border-radius: 8px;">
+        <h3 style="color: #999; font-size: 1.5rem; margin-bottom: 10px;">📭 No Read Articles</h3>
+        <p style="color: #999;">Articles you mark as read will appear here.</p>
+        <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #3498db; margin-top: 20px;">Go to Headlines</a>
+    </div>
+{% endif %}
+
+<script>
+function markAsUnread(articleId) {
+    fetch('/api/mark_as_unread', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ article_id: articleId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Remove the article card from view
+            const card = document.querySelector(`[data-article-id="${articleId}"]`);
+            if (card) {
+                card.style.transition = 'opacity 0.3s, transform 0.3s';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                setTimeout(() => card.remove(), 300);
+            }
+            
+            // Show success message
+            showNotification('Article marked as unread', 'success');
+        } else {
+            showNotification('Error: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Failed to mark article as unread', 'error');
+    });
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background: ${type === 'success' ? '#27ae60' : '#e74c3c'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+</script>
+
+<style>
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+</style>
+{% endblock %}

@@ -9,7 +9,8 @@
         {% if not digest_generated %}
         <button onclick="generateWeeklyDigest()" class="btn" style="background: #28a745;">🤖 Generate This Week's Digest</button>
         {% endif %}
-        <button onclick="exportDigestScript()" class="btn">📝 Export Podcast Script</button>
+        <button onclick="generateElevenLabsPodcast()" class="btn" style="background: #9b59b6;">🎙️ Generate Podcast</button>
+        <button onclick="exportDigestScript()" class="btn">📝 Export Script</button>
     </div>
 </div>
 
@@ -158,28 +159,28 @@ async function exportDigestScript() {
     
     button.disabled = true;
     button.textContent = '⏳ Exporting...';
-    statusDiv.innerHTML = '<div class="alert alert-success">📝 Generating podcast script...</div>';
+    statusDiv.innerHTML = '<div class="alert alert-success">📝 Generating ElevenLabs TTS script...</div>';
     
     try {
         const response = await fetch('/api/export_digest_script', { method: 'POST' });
         const data = await response.json();
         
         if (data.success) {
-            // Create and download the script file
-            const blob = new Blob([data.script], { type: 'text/markdown' });
+            // Create and download the script file formatted for ElevenLabs
+            const blob = new Blob([data.script], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `wireless-monitor-digest-${new Date().toISOString().split('T')[0]}.md`;
+            a.download = `wireless-monitor-digest-elevenlabs-${new Date().toISOString().split('T')[0]}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
             
-            statusDiv.innerHTML = `<div class="alert alert-success">✅ Podcast script exported with ${data.article_count} articles!</div>`;
+            statusDiv.innerHTML = `<div class="alert alert-success">✅ ElevenLabs TTS script exported with ${data.article_count} articles! Ready to upload to ElevenLabs.</div>`;
             setTimeout(() => {
                 statusDiv.innerHTML = '';
-            }, 3000);
+            }, 5000);
         } else {
             statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
         }
@@ -187,7 +188,44 @@ async function exportDigestScript() {
         statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
     } finally {
         button.disabled = false;
-        button.textContent = '📝 Export Podcast Script';
+        button.textContent = '📝 Export Script';
+    }
+}
+
+async function generateElevenLabsPodcast() {
+    const statusDiv = document.getElementById('digest-status');
+    const button = event.target;
+    
+    button.disabled = true;
+    button.textContent = '⏳ Generating...';
+    statusDiv.innerHTML = '<div class="alert alert-success">🎙️ Generating podcast with ElevenLabs AI... This may take 1-2 minutes.</div>';
+    
+    try {
+        const response = await fetch('/api/generate_elevenlabs_podcast', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    ✅ Podcast generated successfully with ${data.article_count} articles!<br>
+                    📊 Audio size: ${(data.audio_size / 1024 / 1024).toFixed(2)} MB<br>
+                    <a href="/api/download_podcast/${data.filename}" class="btn" style="margin-top: 10px; background: #27ae60;">
+                        ⬇️ Download Podcast
+                    </a>
+                </div>
+            `;
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+        }
+    } catch (error) {
+        statusDiv.innerHTML = `<div class="alert alert-error">❌ Network error: ${error.message}</div>`;
+    } finally {
+        button.disabled = false;
+        button.textContent = '🎙️ Generate Podcast';
     }
 }
 

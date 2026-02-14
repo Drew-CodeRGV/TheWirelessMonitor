@@ -1,0 +1,17 @@
+[Unit]
+Description=Gmail Newsletter Monitor
+After=network.target wireless-monitor.service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/WirelessSignal
+ExecStart=/usr/bin/python3 /home/pi/WirelessSignal/gmail_api_newsletter_monitor.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+StandardInput=null
+
+[Install]
+WantedBy=multi-user.target

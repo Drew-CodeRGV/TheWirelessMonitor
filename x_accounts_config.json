@@ -1,0 +1,36 @@
+{
+  "description": "Configure which public X accounts to monitor for wireless/tech news",
+  "following_accounts": [
+    "TechCrunch",
+    "WIRED",
+    "TheVerge",
+    "engadget",
+    "arstechnica",
+    "RCRWireless",
+    "FierceWireless",
+    "IEEE",
+    "Qualcomm",
+    "Ericsson",
+    "Nokia",
+    "Samsung",
+    "Cisco",
+    "TMobile",
+    "Verizon"
+  ],
+  "followers_accounts": [
+    "5GTechnologyWorld",
+    "WirelessWeek",
+    "MobileWorldLive",
+    "LightReading",
+    "TelecomTV",
+    "NetworkWorld",
+    "SDxCentral",
+    "FierceTelecom"
+  ],
+  "notes": [
+    "These are public accounts - no personal data exposed",
+    "Add/remove accounts as needed",
+    "Only Bearer Token required (app-only authentication)",
+    "No access to your personal timeline or account"
+  ]
+}

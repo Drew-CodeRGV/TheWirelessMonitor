@@ -4,41 +4,67 @@
 
 {% block content %}
 {% if view_mode == 'reader' %}
-    <!-- Reader mode content (keeping existing) -->
-    <div class="reader-layout">
-        <!-- Feeds Pane -->
-        <div class="feeds-pane">
-            <h3>📡 RSS Feeds</h3>
-            <ul class="feed-list">
-                <li class="feed-item active">All Items ({{ total_articles }})</li>
-                <li class="feed-item">Starred Items</li>
-                <li class="feed-item">Shared Items</li>
-            </ul>
-        </div>
-        
-        <!-- Articles List Pane -->
-        <div class="articles-pane">
-            <h3>📰 Headlines ({{ stories|length }})</h3>
-            {% if stories %}
-                {% for story in stories %}
-                <div class="article-list-item" onclick="selectArticle({{ loop.index0 }})">
-                    <h4>{{ story.title }}</h4>
-                    <div class="snippet">{{ (story.description[:120] + '...') if story.description and story.description|length > 120 else (story.description or 'No preview available') }}</div>
-                    <div class="meta">
-                        <span>{{ story.feed_name }}</span>
-                        <span>{{ story.published_date[:10] }}</span>
-                    </div>
+    <!-- Google Reader Style -->
+    <div class="reader-page-header">
+        <h2>📰 Latest Wireless Technology Headlines</h2>
+        <div class="subtitle">{{ stories|length }} articles from the last 7 days</div>
+    </div>
+    
+    <div class="reader-toolbar">
+        <button class="reader-toolbar-btn" onclick="markAllAsRead()">✓ Mark all as read</button>
+        <button class="reader-toolbar-btn" onclick="fetchNow()">🔄 Refresh</button>
+        <div class="reader-toolbar-separator"></div>
+        <span style="color: #666; font-size: 13px; margin-right: 8px;">Sort by:</span>
+        <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='score') }}" 
+           class="reader-toolbar-btn {% if sort_by == 'score' %}active{% endif %}">
+            ⭐ Score
+        </a>
+        <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='date') }}" 
+           class="reader-toolbar-btn {% if sort_by == 'date' %}active{% endif %}">
+            📅 Date
+        </a>
+        <div class="reader-toolbar-separator"></div>
+        {% if not show_all and total_articles > relevant_articles %}
+            <a href="{{ url_for('index', view=view_mode, show_all='true', sort=sort_by) }}" class="reader-toolbar-btn">Show all ({{ total_articles }})</a>
+        {% elif show_all %}
+            <a href="{{ url_for('index', view=view_mode, sort=sort_by) }}" class="reader-toolbar-btn active">Showing all</a>
+        {% endif %}
+        <div class="reader-toolbar-separator"></div>
+        <a href="{{ url_for('read_articles', view=view_mode) }}" class="reader-toolbar-btn">📚 Read Articles</a>
+    </div>
+    
+    <div class="reader-article-list">
+        {% if stories %}
+            {% for story in stories %}
+            <div class="reader-article-item {% if not story.read_status %}unread{% endif %}">
+                <h3><a href="{{ story.url }}" target="_blank" onclick="markAsRead({{ story.id }})">{{ story.title }}</a></h3>
+                <div class="reader-article-snippet">
+                    {{ (story.description[:200] + '...') if story.description and story.description|length > 200 else (story.description or 'No preview available') }}
                 </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        
-        <!-- Article Preview Pane -->
-        <div class="article-preview">
-            <div id="article-content">
-                <h2>Select an article to preview</h2>
+                <div class="reader-article-meta">
+                    <span class="reader-feed-name">{{ story.feed_name }}</span>
+                    <span>•</span>
+                    <span>{{ story.published_date[:10] if story.published_date else 'Unknown date' }}</span>
+                    {% if story.relevance_score %}
+                    <span>•</span>
+                    <span style="color: {% if story.relevance_score > 0.5 %}#27ae60{% elif story.relevance_score > 0.3 %}#f39c12{% else %}#999{% endif %};">
+                        Score: {{ "%.2f"|format(story.relevance_score) }}
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="reader-article-actions">
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); shareArticle({{ story.id }})">📤 Share</button>
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); addToDigest({{ story.id }})">📋 Digest</button>
+                    <button class="reader-action-btn" onclick="event.stopPropagation(); markAsRead({{ story.id }})">✓ Read</button>
+                </div>
             </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <div class="reader-empty-state">
+                <h3>No articles found</h3>
+                <p>Try refreshing or check back later for new content.</p>
+            </div>
+        {% endif %}
     </div>
 
 {% else %}
@@ -47,6 +73,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
         <h2>📰 Latest Wireless Technology Headlines</h2>
         <div style="display: flex; gap: 10px;">
+            <a href="{{ url_for('read_articles', view=view_mode) }}" class="btn" style="background: #9b59b6;">📚 Read Articles</a>
             {% if not show_all and total_articles > relevant_articles %}
                 <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
             {% elif show_all %}
@@ -54,6 +81,7 @@
             {% elif total_articles > relevant_articles %}
                 <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
             {% endif %}
+            <button onclick="markAllAsRead()" class="btn" style="background: #e74c3c;">✓ Mark All Read</button>
             <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
         </div>
     </div>
@@ -106,6 +134,7 @@
                         <a href="{{ stories[0].url }}" target="_blank" class="btn">Read More</a>
                         <button onclick="shareArticle({{ stories[0].id }})" class="btn" style="background: #3498db; color: white;" title="Share this article on social media">📤 Share</button>
                         <button onclick="addToDigest({{ stories[0].id }})" class="btn" style="background: #f39c12; color: white;" title="Add to weekly digest">📋 Add to Digest</button>
+                        <button onclick="markAsRead({{ stories[0].id }})" class="btn" style="background: #27ae60; color: white;" title="Mark as read">✓ Read</button>
                     </div>
                 </article>
                 {% endif %}
@@ -134,6 +163,7 @@
                         <a href="{{ stories[1].url }}" target="_blank" class="btn" style="font-size: 0.9rem; padding: 8px 16px;">Read More</a>
                         <button onclick="shareArticle({{ stories[1].id }})" class="btn" style="background: #3498db; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Share this article">📤 Share</button>
                         <button onclick="addToDigest({{ stories[1].id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Add to digest">📋 Digest</button>
+                        <button onclick="markAsRead({{ stories[1].id }})" class="btn" style="background: #27ae60; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Mark as read">✓ Read</button>
                     </div>
                 </article>
                 {% endif %}
@@ -168,6 +198,7 @@
                                 <div style="display: flex; gap: 4px;">
                                     <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
                                     <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                                    <button onclick="markAsRead({{ story.id }})" class="btn" style="background: #27ae60; color: white; font-size: 0.7rem; padding: 4px 8px;">✓</button>
                                 </div>
                             </article>
                             {% endif %}
@@ -195,6 +226,7 @@
                                 <div style="display: flex; gap: 4px;">
                                     <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
                                     <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                                    <button onclick="markAsRead({{ story.id }})" class="btn" style="background: #27ae60; color: white; font-size: 0.7rem; padding: 4px 8px;">✓</button>
                                 </div>
                             </article>
                             {% endif %}
@@ -203,6 +235,82 @@
                 </div>
             </div>
         </div>
+
+        {% if x_timeline_enabled %}
+        <!-- X (TWITTER) TIMELINE SECTION -->
+        <div style="background: linear-gradient(135deg, #1da1f2, #0d8bd9); border-radius: 12px; padding: 40px; margin: 50px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: white; font-size: 1.8rem; margin: 0;">
+                    𝕏 Top Stories from Your Network
+                </h2>
+                <button onclick="refreshXTimeline()" class="btn" style="background: white; color: #1da1f2;">
+                    🔄 Refresh
+                </button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <!-- Following Section -->
+                <div>
+                    <h3 style="color: white; font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px;">
+                        📡 From People You Follow
+                    </h3>
+                    <div id="x-following-stories" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Followers Section -->
+                <div>
+                    <h3 style="color: white; font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px;">
+                        👥 From Your Followers
+                    </h3>
+                    <div id="x-followers-stories" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="x-mode-indicator" style="margin-top: 20px; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+            </div>
+            
+            <!-- SHARED ARTICLES FROM X -->
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.2);">
+                <h3 style="color: white; font-size: 1.5rem; margin-bottom: 25px; text-align: center;">
+                    📰 Shared Articles from Your Network
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <!-- Following Articles -->
+                    <div>
+                        <h4 style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 15px;">
+                            From People You Follow
+                        </h4>
+                        <div id="x-following-articles" style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                                Loading articles...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Followers Articles -->
+                    <div>
+                        <h4 style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 15px;">
+                            From Your Followers
+                        </h4>
+                        <div id="x-followers-articles" style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                                Loading articles...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         <!-- EVENT COVERAGE ROW - Full Width Bar Below Main Layout -->
         {% set event_articles = [] %}
@@ -297,6 +405,7 @@
                             </span>
                             <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
                             <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
+                                    <button onclick="markAsRead({{ story.id }})" class="btn" style="background: #27ae60; color: white; font-size: 0.7rem; padding: 4px 8px;">✓</button>
                         </div>
                     </div>
                 </article>
@@ -407,9 +516,305 @@
             button.textContent = '🔄 Fetch Now';
         }
     }
+
+    // Load X timeline when page loads
+    {% if x_timeline_enabled %}
+    document.addEventListener('DOMContentLoaded', function() {
+        loadXTimeline();
+    });
+    {% endif %}
+
+    async function loadXTimeline() {
+        try {
+            const response = await fetch('/api/x_timeline');
+            const data = await response.json();
+            
+            if (data.success) {
+                displayXStories('x-following-stories', data.following);
+                displayXStories('x-followers-stories', data.followers);
+                displayXArticles('x-following-articles', data.following);
+                displayXArticles('x-followers-articles', data.followers);
+                
+                // Show mode indicator
+                const modeIndicator = document.getElementById('x-mode-indicator');
+                if (data.mode === 'mock') {
+                    modeIndicator.innerHTML = '⚠️ Using demo data - Add X API credentials to see your real timeline';
+                } else {
+                    modeIndicator.innerHTML = '✅ Connected to your X account';
+                }
+            } else {
+                showXError('x-following-stories');
+                showXError('x-followers-stories');
+                showXError('x-following-articles');
+                showXError('x-followers-articles');
+            }
+        } catch (error) {
+            console.error('Error loading X timeline:', error);
+            showXError('x-following-stories');
+            showXError('x-followers-stories');
+            showXError('x-following-articles');
+            showXError('x-followers-articles');
+        }
+    }
+
+    function displayXStories(containerId, stories) {
+        const container = document.getElementById(containerId);
+        
+        if (!stories || stories.length === 0) {
+            container.innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                    No stories found
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = stories.map(story => `
+            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #1da1f2; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: 12px;">
+                        ${story.display_name.charAt(0)}
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #2c3e50;">${story.display_name}</div>
+                        <div style="font-size: 0.85rem; color: #666;">@${story.username}</div>
+                    </div>
+                </div>
+                <p style="color: #2c3e50; margin-bottom: 12px; line-height: 1.5;">
+                    ${story.text}
+                </p>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #eee;">
+                    <div style="display: flex; gap: 15px; font-size: 0.85rem; color: #666;">
+                        <span>❤️ ${story.likes}</span>
+                        <span>🔄 ${story.retweets}</span>
+                        <span>💬 ${story.replies}</span>
+                    </div>
+                    ${story.url ? `<a href="${story.url}" target="_blank" class="btn" style="font-size: 0.8rem; padding: 6px 12px;">Read Article</a>` : ''}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function displayXArticles(containerId, stories) {
+        const container = document.getElementById(containerId);
+        
+        // Filter stories that have URLs
+        const articlesWithUrls = stories.filter(story => story.url);
+        
+        if (!articlesWithUrls || articlesWithUrls.length === 0) {
+            container.innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                    No articles shared
+                </div>
+            `;
+            return;
+        }
+        
+        // Take top 3
+        const topArticles = articlesWithUrls.slice(0, 3);
+        
+        container.innerHTML = topArticles.map(story => {
+            // Extract domain from URL
+            let domain = '';
+            try {
+                domain = new URL(story.url).hostname.replace('www.', '');
+            } catch (e) {
+                domain = 'External Link';
+            }
+            
+            return `
+                <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                    <div style="padding: 15px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div style="width: 30px; height: 30px; border-radius: 50%; background: #1da1f2; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; margin-right: 10px;">
+                                ${story.display_name.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.9rem; color: #2c3e50;">${story.display_name}</div>
+                                <div style="font-size: 0.75rem; color: #999;">${domain}</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: #2c3e50; line-height: 1.3;">
+                            <a href="${story.url}" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                                ${extractTitleFromTweet(story.text)}
+                            </a>
+                        </h4>
+                        
+                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px; line-height: 1.4;">
+                            ${truncateText(story.text, 100)}
+                        </p>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee;">
+                            <div style="display: flex; gap: 12px; font-size: 0.75rem; color: #999;">
+                                <span>❤️ ${story.likes}</span>
+                                <span>🔄 ${story.retweets}</span>
+                            </div>
+                            <a href="${story.url}" target="_blank" class="btn" style="font-size: 0.75rem; padding: 5px 10px; background: #1da1f2; color: white;">
+                                Read →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function extractTitleFromTweet(text) {
+        // Try to extract a title from the tweet text
+        // Remove URLs
+        let title = text.replace(/https?:\/\/[^\s]+/g, '').trim();
+        // Take first sentence or first 60 characters
+        const firstSentence = title.split(/[.!?]/)[0];
+        if (firstSentence.length > 10 && firstSentence.length < 100) {
+            return firstSentence;
+        }
+        return title.substring(0, 60) + (title.length > 60 ? '...' : '');
+    }
+
+    function truncateText(text, maxLength) {
+        // Remove URLs from text
+        let cleaned = text.replace(/https?:\/\/[^\s]+/g, '').trim();
+        if (cleaned.length <= maxLength) return cleaned;
+        return cleaned.substring(0, maxLength) + '...';
+    }
+
+    function showXError(containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = `
+            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; color: white;">
+                ❌ Error loading stories
+            </div>
+        `;
+    }
+
+    async function refreshXTimeline() {
+        const button = event.target;
+        button.disabled = true;
+        button.textContent = '⏳ Loading...';
+        
+        await loadXTimeline();
+        
+        button.disabled = false;
+        button.textContent = '🔄 Refresh';
+        showNotification('X timeline refreshed', 'success');
+    }
+
+    async function markAsRead(articleId) {
+        try {
+            const response = await fetch('/api/mark_as_read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ article_id: articleId })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Find and fade out the article
+                const article = document.querySelector(`[data-article-id="${articleId}"]`)?.closest('article');
+                if (article) {
+                    article.style.transition = 'opacity 0.3s, transform 0.3s';
+                    article.style.opacity = '0';
+                    article.style.transform = 'scale(0.95)';
+                    setTimeout(() => article.remove(), 300);
+                }
+                showNotification('Article marked as read', 'success');
+            } else {
+                showNotification('Error: ' + data.error, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Failed to mark article as read', 'error');
+        }
+    }
+
+    async function markAllAsRead() {
+        // Get all visible article IDs
+        const articleElements = document.querySelectorAll('[data-article-id]');
+        const articleIds = Array.from(articleElements).map(el => parseInt(el.getAttribute('data-article-id')));
+        
+        if (articleIds.length === 0) {
+            showNotification('No articles to mark as read', 'info');
+            return;
+        }
+        
+        if (!confirm(`Mark all ${articleIds.length} articles as read?`)) {
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/mark_all_as_read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ article_ids: articleIds })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                showNotification(`Marked ${articleIds.length} articles as read`, 'success');
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                showNotification('Error: ' + data.error, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Failed to mark articles as read', 'error');
+        }
+    }
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideIn 0.3s ease-out;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
     </script>
 
     <style>
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+
     .nyancat-loader {
         width: 40px;
         height: 20px;

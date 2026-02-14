@@ -1,0 +1,16 @@
+[Unit]
+Description=Wireless Monitor Web Application
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/WirelessSignal
+ExecStart=/usr/bin/python3 /home/pi/WirelessSignal/app/main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
