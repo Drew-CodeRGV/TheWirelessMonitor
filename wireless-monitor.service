@@ -1,5 +1,5 @@
 [Unit]
-Description=The Wireless Monitor - RSS News Aggregation Service
+Description=The Signal - RSS News Aggregation Service
 After=network.target
 Wants=network.target
 

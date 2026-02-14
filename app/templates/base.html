@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}The Wireless Monitor{% endblock %}</title>
+    <title>{% block title %}The Signal{% endblock %}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
         
         * { 
             margin: 0; 
@@ -13,12 +13,28 @@
             box-sizing: border-box; 
         }
         
+        :root {
+            --primary-bg: #f5f5f0;
+            --secondary-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent-blue: #2563eb;
+            --accent-purple: #7c3aed;
+            --accent-green: #059669;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --gradient-1: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-2: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 16px;
             line-height: 1.6;
-            color: #2c3e50;
-            background: #ffffff;
+            color: var(--text-primary);
+            background: var(--primary-bg);
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
         }
         
         .container {
@@ -27,13 +43,18 @@
             padding: 0 20px;
         }
         
-        /* ===== NEWSPAPER MODE (NY MAG STYLE) ===== */
+        /* ===== MODERN TECH NEWSPAPER MODE ===== */
         
-        /* Header - Newspaper */
+        /* Header - Futuristic */
         .header {
-            background: #ffffff;
-            border-bottom: 1px solid #e1e5e9;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color);
             padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .header-content {
@@ -43,24 +64,31 @@
         }
         
         .header h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
-            font-weight: 800;
-            color: #000;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            text-transform: uppercase;
         }
         
         .header .tagline {
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
             font-weight: 400;
             margin-top: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
         }
         
-        /* Navigation - Newspaper */
+        /* Navigation - Tech Style */
         .nav {
-            background: #000;
+            background: var(--secondary-bg);
             padding: 0;
+            border-bottom: 1px solid var(--border-color);
         }
         
         .nav ul {
@@ -68,26 +96,44 @@
             display: flex;
             justify-content: flex-start;
             gap: 0;
+            overflow-x: auto;
         }
         
         .nav a {
-            color: white;
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
             padding: 15px 25px;
             display: block;
-            transition: all 0.2s ease;
-            border-right: 1px solid #333;
+            transition: all 0.3s ease;
+            border-right: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-2);
+            transition: width 0.3s ease;
         }
         
         .nav a:hover {
-            background: #333;
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.05);
         }
         
-        /* Main Content - Newspaper Grid */
+        .nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main Content - Dark Mode */
         .main-content {
-            background: white;
+            background: transparent;
             padding: 40px 0;
         }
         
@@ -101,6 +147,18 @@
         .featured-article {
             grid-column: 1;
             grid-row: 1 / 3;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .featured-article:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
         }
         
         .event-news-column {
@@ -109,27 +167,28 @@
         }
         
         .featured-article h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 15px;
-            color: #000;
+            color: var(--text-primary);
         }
         
         .featured-article .article-meta {
-            font-size: 0.85rem;
-            color: #666;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
         }
         
         .featured-article p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
         }
         
         .secondary-articles {
@@ -139,99 +198,130 @@
         }
         
         .article-card {
-            border-bottom: 1px solid #e1e5e9;
-            padding-bottom: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
-        .article-card:last-child {
-            border-bottom: none;
+        .article-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+            transform: translateY(-2px);
         }
         
         .article-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
             font-weight: 600;
             line-height: 1.3;
-            margin-bottom: 8px;
-            color: #000;
+            margin-bottom: 10px;
+            color: var(--text-primary);
         }
         
         .article-card h3 a {
-            color: #000;
+            color: var(--text-primary);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
         
         .article-card h3 a:hover {
-            color: #e52d27;
+            color: var(--accent-blue);
         }
         
         .article-card .article-meta {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 8px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
+            font-family: 'JetBrains Mono', monospace;
         }
         
         .article-card p {
             font-size: 0.9rem;
-            line-height: 1.5;
-            color: #555;
+            line-height: 1.6;
+            color: var(--text-secondary);
         }
         
         .feed-source {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 8px;
+            background: #eff6ff;
+            padding: 4px 10px;
+            border-radius: 4px;
             font-size: 0.7rem;
             font-weight: 600;
-            color: #495057;
+            color: var(--accent-blue);
+            border: 1px solid #dbeafe;
         }
         
         .relevance-score {
             display: inline-block;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 4px;
             font-size: 0.7rem;
             font-weight: 600;
+            border: 1px solid var(--border-color);
         }
         
         /* ===== READER MODE (GOOGLE READER STYLE) ===== */
         
         .reader-mode {
             background: #f5f5f5;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
         }
         
+        /* Google Reader White/Gray Header */
         .reader-mode .header {
-            background: #d73027;
-            border-bottom: 1px solid #b71c1c;
-            padding: 8px 0;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ccc;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .reader-mode .header .container {
+            padding: 0;
+        }
+        
+        .reader-mode .header-content {
+            padding: 10px 16px;
         }
         
         .reader-mode .header h1 {
             font-family: Arial, sans-serif;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
+            font-size: 22px;
+            font-weight: normal;
+            color: #dd4b39;
             letter-spacing: 0;
+            text-transform: none;
+            background: none;
+            -webkit-text-fill-color: #dd4b39;
         }
         
         .reader-mode .header .tagline {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.75rem;
-            margin-top: 2px;
+            display: none;
         }
         
+        .reader-mode .logo-title a {
+            gap: 8px;
+        }
+        
+        .reader-mode .logo-title a > div:first-child {
+            display: none; /* Hide icon in reader mode */
+        }
+        
+        /* Reader Mode Navigation */
         .reader-mode .nav {
-            background: #f1f1f1;
-            border-bottom: 1px solid #ddd;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ccc;
             padding: 0;
         }
         
@@ -241,11 +331,16 @@
             font-size: 13px;
             padding: 8px 16px;
             border-right: 1px solid #ddd;
+            font-family: Arial, sans-serif;
+        }
+        
+        .reader-mode .nav a::after {
+            display: none;
         }
         
         .reader-mode .nav a:hover {
             background: #e8e8e8;
-            color: #d73027;
+            color: #dd4b39;
         }
         
         .reader-mode .main-content {
@@ -259,10 +354,172 @@
             padding: 0;
         }
         
+        /* Three-Column Google Reader Layout */
+        .reader-layout {
+            display: flex;
+            height: calc(100vh - 120px);
+            background: white;
+            position: relative;
+        }
+        
+        /* Left Sidebar - Feeds/Folders */
+        .feeds-pane {
+            width: 250px;
+            min-width: 150px;
+            max-width: 400px;
+            background: #f9f9f9;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+            padding: 12px 0;
+            position: relative;
+        }
+        
+        /* Middle Column - Article List */
+        .articles-pane {
+            width: 350px;
+            min-width: 250px;
+            max-width: 600px;
+            background: white;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Right Column - Article Content */
+        .content-pane {
+            flex: 1;
+            background: white;
+            overflow-y: auto;
+            padding: 20px 24px;
+        }
+        
+        /* Resize Handles */
+        .resize-handle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            cursor: col-resize;
+            background: transparent;
+            z-index: 10;
+        }
+        
+        .resize-handle:hover {
+            background: #4285f4;
+        }
+        
+        .resize-handle:active {
+            background: #1a73e8;
+        }
+        
+        .feeds-pane h3 {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            padding: 8px 16px 4px 16px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Folder Styles */
+        .feed-folder {
+            margin: 4px 0;
+        }
+        
+        .folder-header {
+            padding: 6px 16px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.1s ease;
+        }
+        
+        .folder-header:hover {
+            background: #e8e8e8;
+        }
+        
+        .folder-icon {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .folder-icon.collapsed::before {
+            content: '▶';
+        }
+        
+        .folder-icon.expanded::before {
+            content: '▼';
+        }
+        
+        .folder-name {
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .folder-unread-count {
+            font-size: 11px;
+            color: #999;
+            font-weight: bold;
+        }
+        
+        .folder-feeds {
+            display: none;
+        }
+        
+        .folder-feeds.expanded {
+            display: block;
+        }
+        
+        .feed-item {
+            padding: 6px 16px 6px 36px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.1s ease;
+        }
+        
+        .feed-item:hover {
+            background: #e8e8e8;
+        }
+        
+        .feed-item.active {
+            background: #4285f4;
+            color: white;
+        }
+        
+        .feed-item .unread-count {
+            font-size: 11px;
+            color: #999;
+            font-weight: bold;
+        }
+        
+        .feed-item.active .unread-count {
+            color: white;
+        }
+        
+        /* Middle Column - Article List */
+        .articles-pane {
+            width: 350px;
+            min-width: 250px;
+            max-width: 600px;
+            background: white;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+            position: relative;
+        }
+        
         /* Google Reader Article List */
         .reader-article-list {
             background: white;
-            border: 1px solid #ddd;
             margin: 0;
         }
         
@@ -280,7 +537,6 @@
         
         .reader-article-item.unread {
             background: #f9f9f9;
-            font-weight: bold;
         }
         
         .reader-article-item.unread::before {
@@ -293,6 +549,10 @@
             background: #4285f4;
         }
         
+        .reader-article-item.selected {
+            background: #fffbcc;
+        }
+        
         .reader-article-item h3 {
             font-family: Arial, sans-serif;
             font-size: 14px;
@@ -300,6 +560,10 @@
             line-height: 1.4;
             margin: 0 0 4px 0;
             color: #1155cc;
+        }
+        
+        .reader-article-item.unread h3 {
+            font-weight: bold;
         }
         
         .reader-article-item h3 a {
@@ -336,33 +600,39 @@
             font-weight: normal;
         }
         
-        .reader-article-actions {
-            display: none;
-            position: absolute;
-            right: 16px;
-            top: 12px;
-            gap: 4px;
+        /* Right Column - Article Content */
+        .content-pane {
+            flex: 1;
+            background: white;
+            overflow-y: auto;
+            padding: 20px 24px;
         }
         
-        .reader-article-item:hover .reader-article-actions {
-            display: flex;
-        }
-        
-        .reader-action-btn {
-            background: #f1f1f1;
-            border: 1px solid #ddd;
-            border-radius: 2px;
-            padding: 4px 8px;
-            font-size: 11px;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.1s ease;
-        }
-        
-        .reader-action-btn:hover {
-            background: #e8e8e8;
-            border-color: #ccc;
+        .content-pane h1 {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
             color: #333;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+        }
+        
+        .content-pane .article-meta {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .content-pane .article-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .content-pane .article-content p {
+            margin: 0 0 12px 0;
         }
         
         /* Google Reader Toolbar */
@@ -445,41 +715,40 @@
             color: #999;
         }
         
-        /* Buttons */
+        /* Buttons - Futuristic */
         .btn {
             display: inline-block;
             padding: 10px 20px;
-            background: #e52d27;
-            color: white;
+            background: var(--secondary-bg);
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: 4px;
-            border: none;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             transition: all 0.2s ease;
-            /* Cross-browser compatibility */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            box-sizing: border-box;
-            vertical-align: middle;
-            white-space: nowrap;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
         
         .btn:hover {
-            background: #c62828;
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
             text-decoration: none;
         }
         
         .btn:focus {
-            outline: 2px solid #e52d27;
+            outline: 2px solid var(--accent-blue);
             outline-offset: 2px;
+        }
+        
+        .btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
         }
         
         .reader-mode .btn {
@@ -503,36 +772,22 @@
             outline-offset: 1px;
         }
         
-        /* View Mode Toggle */
+        /* View Mode Toggle - Futuristic */
         .view-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0,0,0,0.8);
-            border-radius: 20px;
-            padding: 6px;
+            display: none; /* Hide the fixed toggle since we have it in header */
         }
         
-        .view-toggle button {
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
+        .header-view-toggle {
+            display: flex;
+            gap: 8px;
         }
         
-        .view-toggle button.active {
-            background: white;
-            color: #333;
+        .header-view-toggle .btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
         }
         
-        /* Forms */
+        /* Forms - Dark Mode */
         .form-group {
             margin-bottom: 20px;
         }
@@ -541,62 +796,67 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 0.9rem;
         }
         
         .form-group input, 
         .form-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         
         .form-group input:focus, 
         .form-group textarea:focus {
             outline: none;
-            border-color: #e52d27;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
         }
         
-        /* Alerts */
+        /* Alerts - Modern */
         .alert {
-            padding: 12px 16px;
+            padding: 16px 20px;
             margin-bottom: 20px;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: 500;
             font-size: 0.9rem;
+            border-left: 4px solid;
         }
         
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border-color: var(--accent-green);
         }
         
         .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: #ef4444;
         }
         
         .alert-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
         }
         
-        /* Footer */
+        /* Footer - Dark */
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #666;
+            padding: 30px 20px;
+            color: var(--text-secondary);
             font-size: 0.85rem;
-            background: #f8f9fa;
-            border-top: 1px solid #e1e5e9;
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
         }
         
         .reader-mode .footer {
@@ -831,28 +1091,23 @@
     </script>
 </head>
 <body class="{% if view_mode == 'reader' %}reader-mode{% endif %}">
-    <!-- View Mode Toggle -->
-    <div class="view-toggle">
-        <button onclick="switchView('newspaper')" class="{% if view_mode != 'reader' %}active{% endif %}">📰 Newspaper</button>
-        <button onclick="switchView('reader')" class="{% if view_mode == 'reader' %}active{% endif %}">📖 Reader</button>
-    </div>
 
     <div class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo-title">
                     <a href="{{ url_for('index', view=view_mode) }}" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px;">
-                        <!-- WirelessNerd Logo -->
-                        <img src="https://i0.wp.com/wirelessnerd.net/wp-content/uploads/2019/03/cropped-wn-sm_logo-500sq.png?fit=150%2C150&ssl=1" 
-                             alt="WirelessNerd Logo" 
-                             style="width: 50px; height: 50px; border-radius: 8px;">
+                        <!-- Signal Icon -->
+                        <div style="width: 50px; height: 50px; background: var(--gradient-2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);">
+                            📡
+                        </div>
                         <div>
-                            <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: #000; letter-spacing: -0.5px; margin: 0;">THE WIRELESS MONITOR</h1>
-                            <div class="tagline" style="font-size: 0.9rem; color: #666; font-weight: 400; margin-top: 5px;">Your Source for Wi-Fi & Wireless Technology News</div>
+                            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -1px; margin: 0; text-transform: uppercase;">THE SIGNAL</h1>
+                            <div class="tagline" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; margin-top: 5px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">WIRELESS TECH // REAL-TIME INTEL</div>
                         </div>
                     </a>
                 </div>
-                <div class="view-toggle">
+                <div class="header-view-toggle">
                     {% set current_args = request.args.to_dict() %}
                     {% set _ = current_args.pop('view', None) %}
                     
@@ -860,25 +1115,21 @@
                     {% if request.endpoint == 'event_detail' %}
                         {% set event_id = request.view_args.get('event_id') %}
                         <a href="{{ url_for(request.endpoint, event_id=event_id, view='newspaper', **current_args) }}" 
-                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
-                           style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
+                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}">
                             📰 Newspaper
                         </a>
                         <a href="{{ url_for(request.endpoint, event_id=event_id, view='reader', **current_args) }}" 
-                           class="btn {% if view_mode == 'reader' %}active{% endif %}"
-                           style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
+                           class="btn {% if view_mode == 'reader' %}active{% endif %}">
                             📖 Reader
                         </a>
                     {% else %}
                         {# Standard routes without parameters #}
                         <a href="{{ url_for(request.endpoint, view='newspaper', **current_args) }}" 
-                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}" 
-                           style="margin-right: 10px; {% if view_mode == 'newspaper' %}background: #000; color: white;{% endif %}">
+                           class="btn {% if view_mode == 'newspaper' %}active{% endif %}">
                             📰 Newspaper
                         </a>
                         <a href="{{ url_for(request.endpoint, view='reader', **current_args) }}" 
-                           class="btn {% if view_mode == 'reader' %}active{% endif %}"
-                           style="{% if view_mode == 'reader' %}background: #000; color: white;{% endif %}">
+                           class="btn {% if view_mode == 'reader' %}active{% endif %}">
                             📖 Reader
                         </a>
                     {% endif %}
@@ -920,7 +1171,7 @@
     
     <div class="footer">
         <div class="container">
-            <p>&copy; 2025 The Wireless Monitor - Streamlined Edition</p>
+            <p>&copy; 2025 The Signal // Powered by Real-Time Intelligence</p>
         </div>
     </div>
     

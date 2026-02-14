@@ -1,4 +1,4 @@
-# The Wireless Monitor - Streamlined Edition
+# The Signal - Streamlined Edition
 
 A simplified, efficient RSS news aggregation system for Wi-Fi and wireless technology news. Single service, minimal dependencies, maximum reliability.
 
@@ -204,5 +204,5 @@ MIT License - see LICENSE file for details
 
 ---
 
-**The Wireless Monitor - Streamlined Edition**  
+**The Signal - Streamlined Edition**  
 *Simple. Fast. Reliable.*

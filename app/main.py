@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Wireless Monitor - Simplified Single Service
+The Signal - Simplified Single Service
 All functionality in one streamlined application
 """
 
@@ -1785,6 +1785,94 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/fetch_article_content/<int:article_id>')
+        def fetch_article_content(article_id):
+            """Fetch full article content from URL"""
+            try:
+                conn = self.get_db_connection()
+                article = conn.execute('SELECT * FROM articles WHERE id = ?', (article_id,)).fetchone()
+                conn.close()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                url = article['url']
+                
+                # Check if it's a Google News article
+                is_google_news = 'news.google.com' in url
+                
+                # Fetch the article content
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                }
+                
+                response = requests.get(url, headers=headers, timeout=10)
+                response.raise_for_status()
+                
+                # Parse the HTML
+                soup = BeautifulSoup(response.content, 'html.parser')
+                
+                # Remove script and style elements
+                for script in soup(['script', 'style', 'nav', 'header', 'footer', 'aside']):
+                    script.decompose()
+                
+                # Try to find the main content
+                content = None
+                
+                # Common article content selectors
+                selectors = [
+                    'article',
+                    '[role="main"]',
+                    '.article-content',
+                    '.post-content',
+                    '.entry-content',
+                    '.content',
+                    'main',
+                    '#content',
+                    '.story-body',
+                ]
+                
+                for selector in selectors:
+                    content_elem = soup.select_one(selector)
+                    if content_elem:
+                        content = content_elem
+                        break
+                
+                # If no specific content found, try to get all paragraphs
+                if not content:
+                    paragraphs = soup.find_all('p')
+                    if paragraphs:
+                        content = soup.new_tag('div')
+                        for p in paragraphs:
+                            content.append(p)
+                
+                if content:
+                    # Clean up the content
+                    content_html = str(content)
+                    
+                    return jsonify({
+                        'success': True,
+                        'content': content_html,
+                        'title': article['title'],
+                        'url': url,
+                        'is_google_news': is_google_news
+                    })
+                else:
+                    return jsonify({
+                        'success': False,
+                        'error': 'Could not extract article content',
+                        'fallback': article['description']
+                    })
+                
+            except requests.exceptions.RequestException as e:
+                return jsonify({
+                    'success': False,
+                    'error': f'Failed to fetch article: {str(e)}',
+                    'fallback': article.get('description', '') if article else ''
+                })
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
         @self.app.route('/api/get_social_config')
         def get_social_config():
             """Get social media configuration for sharing popup"""
@@ -3462,7 +3550,7 @@ class WirelessMonitor:
         """Generate social media share content"""
         try:
             # Get attribution from social config
-            attribution = f"via @{social_config['username']}" if social_config['username'] else "via The Wireless Monitor"
+            attribution = f"via @{social_config['username']}" if social_config['username'] else "via The Signal"
             
             # Platform-specific content generation
             platform = social_config['platform']
@@ -3564,7 +3652,7 @@ class WirelessMonitor:
                 'content': article['title'],
                 'share_url': article['url'],
                 'platform': social_config['platform'],
-                'attribution': 'via The Wireless Monitor',
+                'attribution': 'via The Signal',
                 'title': article['title'],
                 'description': article['description'][:300] if article['description'] else '',
                 'url': article['url']
@@ -4271,7 +4359,7 @@ signal strength issue creative solution"""
         script_lines = []
         
         # Opening with natural pauses
-        script_lines.append("Welcome to The Wireless Monitor Weekly Digest!<break time=\"0.8s\" />")
+        script_lines.append("Welcome to The Signal Weekly Digest!<break time=\"0.8s\" />")
         script_lines.append(f"This is the week of {week_start}.<break time=\"1.0s\" />")
         script_lines.append("")
         script_lines.append("I'm bringing you the most important wireless technology news from the past week.<break time=\"1.2s\" />")
@@ -4337,11 +4425,11 @@ signal strength issue creative solution"""
         
         # Closing with emphasis and pauses
         script_lines.append("<break time=\"1.0s\" />")
-        script_lines.append("And that wraps up this week's Wireless Monitor digest.<break time=\"0.8s\" />")
+        script_lines.append("And that wraps up this week's Signal digest.<break time=\"0.8s\" />")
         script_lines.append("")
         script_lines.append("Thanks for listening!<break time=\"0.6s\" />")
         script_lines.append("")
-        script_lines.append("For more wireless technology news,<break time=\"0.4s\" /> visit The Wireless Monitor dot com.<break time=\"1.0s\" />")
+        script_lines.append("For more wireless technology news,<break time=\"0.4s\" /> visit The Signal dot com.<break time=\"1.0s\" />")
         script_lines.append("")
         script_lines.append("Until next week...<break time=\"0.6s\" /> keep your signals strong!<break time=\"1.0s\" />")
         
@@ -6904,7 +6992,7 @@ signal strength issue creative solution"""
         scheduler_thread = threading.Thread(target=self.run_scheduler, daemon=True)
         scheduler_thread.start()
         
-        logger.info(f"Starting The Wireless Monitor on {host}:{port}")
+        logger.info(f"Starting The Signal on {host}:{port}")
         
         try:
             self.app.run(host=host, port=port, debug=True, threaded=True)

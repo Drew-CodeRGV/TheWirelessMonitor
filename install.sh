@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🚀 Installing The Wireless Monitor - Streamlined Edition"
+echo "🚀 Installing The Signal - Streamlined Edition"
 
 # Colors for output
 RED='\033[0;31m'
@@ -131,7 +131,7 @@ fi
 
 # Display completion info
 echo ""
-print_success "🎉 The Wireless Monitor - Streamlined Edition installed!"
+print_success "🎉 The Signal - Streamlined Edition installed!"
 echo ""
 echo "📋 Installation Summary:"
 echo "   • Architecture: Single Python service"
