@@ -1876,6 +1876,30 @@ class WirelessMonitor:
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
         
+        @self.app.route('/api/generate_ai_summary/<int:article_id>', methods=['POST'])
+        def generate_ai_summary_endpoint(article_id):
+            """Generate AI summary for an article"""
+            try:
+                conn = self.get_db_connection()
+                article = conn.execute('SELECT * FROM articles WHERE id = ?', (article_id,)).fetchone()
+                conn.close()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                if not self.check_ollama_available():
+                    return jsonify({'success': False, 'error': 'AI service not available. Install Ollama and pull phi3 model.'})
+                
+                summary = self.generate_ai_summary(article['title'], article['description'])
+                
+                if summary:
+                    return jsonify({'success': True, 'summary': summary})
+                else:
+                    return jsonify({'success': False, 'error': 'Failed to generate summary'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
         @self.app.route('/api/get_social_config')
         def get_social_config():
             """Get social media configuration for sharing popup"""
@@ -3688,9 +3712,12 @@ class WirelessMonitor:
         return insights_data
     
     def generate_ai_insights(self, articles):
-        """Generate AI insights from articles using pattern analysis"""
+        """Generate AI insights from articles using Ollama AI and pattern analysis"""
         if not articles:
             return self.get_default_insights()
+        
+        # Try to use Ollama for enhanced insights
+        use_ai = self.check_ollama_available()
         
         # Analyze articles for patterns and trends
         insights = {
@@ -3698,7 +3725,8 @@ class WirelessMonitor:
             'whats_now': [],
             'whats_next': [],
             'generated_at': datetime.now().isoformat(),
-            'articles_analyzed': len(articles)
+            'articles_analyzed': len(articles),
+            'ai_enhanced': use_ai
         }
         
         # Keywords for different categories
@@ -3740,10 +3768,17 @@ class WirelessMonitor:
             else:
                 timeline = 'whats_now'  # Default
             
+            # Generate AI summary if available
+            summary = article['description'][:200] + '...' if len(article['description']) > 200 else article['description']
+            if use_ai and len(article['description']) > 100:
+                ai_summary = self.generate_ai_summary(article['title'], article['description'])
+                if ai_summary:
+                    summary = ai_summary
+            
             # Create insight entry
             insight = {
                 'title': article['title'],
-                'summary': article['description'][:200] + '...' if len(article['description']) > 200 else article['description'],
+                'summary': summary,
                 'category': category,
                 'source': article['feed_name'],
                 'url': article['url'],
@@ -3760,7 +3795,90 @@ class WirelessMonitor:
         # Add trend analysis
         insights['trends'] = self.analyze_trends(articles)
         
+        # Add AI-generated industry analysis if available
+        if use_ai and len(articles) > 5:
+            insights['ai_analysis'] = self.generate_industry_analysis(articles[:10])
+        
         return insights
+    
+    def check_ollama_available(self):
+        """Check if Ollama is available and has models"""
+        try:
+            import subprocess
+            result = subprocess.run(['ollama', 'list'], 
+                                  capture_output=True, text=True, timeout=3)
+            return result.returncode == 0 and len(result.stdout.strip().split('\n')) > 1
+        except:
+            return False
+    
+    def generate_ai_summary(self, title, description):
+        """Generate AI-powered summary using Ollama"""
+        try:
+            import ollama
+            
+            prompt = f"""Summarize this tech news article in 1-2 concise sentences focusing on the key technical details and business impact:
+
+Title: {title}
+Content: {description[:500]}
+
+Summary:"""
+            
+            response = ollama.generate(
+                model='phi3',  # Lightweight model
+                prompt=prompt,
+                options={
+                    'temperature': 0.3,
+                    'num_predict': 100
+                }
+            )
+            
+            summary = response['response'].strip()
+            if len(summary) > 20 and len(summary) < 300:
+                return summary
+            return None
+            
+        except Exception as e:
+            logger.debug(f"AI summary generation failed: {e}")
+            return None
+    
+    def generate_industry_analysis(self, articles):
+        """Generate AI-powered industry analysis from top articles"""
+        try:
+            import ollama
+            
+            # Prepare article summaries
+            article_text = "\n".join([
+                f"- {article['title']}: {article['description'][:150]}"
+                for article in articles[:10]
+            ])
+            
+            prompt = f"""Based on these recent wireless technology news articles, provide a brief industry analysis covering:
+1. Main trends (1-2 sentences)
+2. Key players and technologies (1-2 sentences)
+3. Market implications (1-2 sentences)
+
+Recent Articles:
+{article_text}
+
+Analysis:"""
+            
+            response = ollama.generate(
+                model='phi3',
+                prompt=prompt,
+                options={
+                    'temperature': 0.5,
+                    'num_predict': 200
+                }
+            )
+            
+            analysis = response['response'].strip()
+            if len(analysis) > 50:
+                return analysis
+            return None
+            
+        except Exception as e:
+            logger.debug(f"AI industry analysis failed: {e}")
+            return None
     
     def analyze_trends(self, articles):
         """Analyze trending topics and technologies"""
@@ -6682,69 +6800,65 @@ signal strength issue creative solution"""
         
         ai_status = {}
         
-        # Check Python AI/ML packages
-        packages = {
-            'stable_diffusion': 'diffusers',
-            'transformers': 'transformers',
-            'pytorch': 'torch',
-            'torchvision': 'torchvision',
-            'accelerate': 'accelerate',
-            'safetensors': 'safetensors'
-        }
+        # Check Ollama Python package
+        try:
+            version = importlib.metadata.version('ollama')
+            ai_status['ollama_client'] = {
+                'available': True,
+                'version': f'v{version}',
+                'package': 'ollama'
+            }
+        except importlib.metadata.PackageNotFoundError:
+            ai_status['ollama_client'] = {
+                'available': False,
+                'version': 'Not installed',
+                'package': 'ollama'
+            }
+        except Exception as e:
+            ai_status['ollama_client'] = {
+                'available': False,
+                'version': f'Error: {str(e)}',
+                'package': 'ollama'
+            }
         
-        for display_name, package_name in packages.items():
-            try:
-                version = importlib.metadata.version(package_name)
-                ai_status[display_name] = {
-                    'available': True,
-                    'version': f'v{version}',
-                    'package': package_name
-                }
-            except importlib.metadata.PackageNotFoundError:
-                ai_status[display_name] = {
-                    'available': False,
-                    'version': 'Not installed',
-                    'package': package_name
-                }
-            except Exception as e:
-                ai_status[display_name] = {
-                    'available': False,
-                    'version': f'Error: {str(e)}',
-                    'package': package_name
-                }
-        
-        # Check Ollama models
+        # Check Ollama service and models
         try:
             result = subprocess.run(['ollama', 'list'], 
                                   capture_output=True, text=True, timeout=5)
             if result.returncode == 0:
-                # Parse ollama list output to find llama2
-                if 'llama2' in result.stdout:
-                    ai_status['ollama_llama2'] = {
+                models_found = []
+                for line in result.stdout.split('\n')[1:]:  # Skip header
+                    if line.strip():
+                        model_name = line.split()[0]
+                        if model_name:
+                            models_found.append(model_name)
+                
+                if models_found:
+                    ai_status['ollama_service'] = {
                         'available': True,
-                        'version': 'Installed',
+                        'version': f'{len(models_found)} model(s): {", ".join(models_found[:3])}',
                         'package': 'ollama'
                     }
                 else:
-                    ai_status['ollama_llama2'] = {
+                    ai_status['ollama_service'] = {
                         'available': False,
-                        'version': 'Not pulled',
+                        'version': 'No models installed',
                         'package': 'ollama'
                     }
             else:
-                ai_status['ollama_llama2'] = {
+                ai_status['ollama_service'] = {
                     'available': False,
-                    'version': 'Ollama not running',
+                    'version': 'Service not running',
                     'package': 'ollama'
                 }
         except FileNotFoundError:
-            ai_status['ollama_llama2'] = {
+            ai_status['ollama_service'] = {
                 'available': False,
                 'version': 'Ollama not installed',
                 'package': 'ollama'
             }
         except Exception as e:
-            ai_status['ollama_llama2'] = {
+            ai_status['ollama_service'] = {
                 'available': False,
                 'version': f'Error: {str(e)}',
                 'package': 'ollama'
@@ -6759,48 +6873,37 @@ signal strength issue creative solution"""
         try:
             import subprocess
             
-            # Update pip packages
-            packages_to_update = [
-                'diffusers',
-                'transformers', 
-                'torch',
-                'torchvision',
-                'accelerate',
-                'safetensors'
-            ]
-            
-            for package in packages_to_update:
-                try:
-                    logger.info(f"Updating {package}...")
-                    result = subprocess.run([
-                        'pip3', 'install', '--upgrade', package
-                    ], capture_output=True, text=True, timeout=300)
-                    
-                    if result.returncode == 0:
-                        results.append(f"✅ {package} updated successfully")
-                    else:
-                        results.append(f"❌ {package} update failed: {result.stderr}")
-                        
-                except subprocess.TimeoutExpired:
-                    results.append(f"⏰ {package} update timed out")
-                except Exception as e:
-                    results.append(f"❌ {package} update error: {str(e)}")
-            
-            # Update Ollama models if available
+            # Update Ollama Python client
             try:
-                result = subprocess.run(['ollama', 'pull', 'llama2'], 
-                                      capture_output=True, text=True, timeout=600)
+                logger.info("Updating ollama Python package...")
+                result = subprocess.run([
+                    'pip3', 'install', '--upgrade', 'ollama'
+                ], capture_output=True, text=True, timeout=300)
+                
                 if result.returncode == 0:
-                    results.append("✅ Ollama llama2 model updated")
+                    results.append("✅ Ollama Python client updated successfully")
                 else:
-                    results.append("❌ Ollama model update failed")
-            except:
-                results.append("ℹ️ Ollama not available for model updates")
+                    results.append(f"❌ Ollama client update failed: {result.stderr}")
+            except Exception as e:
+                results.append(f"❌ Ollama client update error: {str(e)}")
             
-            # Clear model cache to force reload
-            if hasattr(self, '_sd_pipeline'):
-                delattr(self, '_sd_pipeline')
-                results.append("🔄 Stable Diffusion pipeline cache cleared")
+            # Update/Pull Ollama models
+            models_to_pull = ['phi3', 'mistral']  # Lightweight models for CPU
+            
+            for model in models_to_pull:
+                try:
+                    logger.info(f"Pulling Ollama model: {model}...")
+                    result = subprocess.run(['ollama', 'pull', model], 
+                                          capture_output=True, text=True, timeout=600)
+                    if result.returncode == 0:
+                        results.append(f"✅ Ollama {model} model updated")
+                    else:
+                        results.append(f"❌ Ollama {model} model update failed")
+                except FileNotFoundError:
+                    results.append("❌ Ollama not installed - install from https://ollama.ai")
+                    break
+                except Exception as e:
+                    results.append(f"❌ Ollama {model} update error: {str(e)}")
             
             logger.info(f"AI model update completed: {len(results)} operations")
             return results
