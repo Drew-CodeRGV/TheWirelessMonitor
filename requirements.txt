@@ -10,3 +10,6 @@ psutil==5.9.6
 aiohttp==3.9.1
 # Lightweight AI for article insights
 ollama>=0.1.0
+# Authentication
+Flask-Login==0.6.3
+Werkzeug==3.0.1

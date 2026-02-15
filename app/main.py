@@ -22,7 +22,9 @@ PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # Lightweight web framework
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import feedparser
 from bs4 import BeautifulSoup
@@ -62,6 +64,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# User class for Flask-Login
+class User(UserMixin):
+    def __init__(self, id, username, email=None):
+        self.id = id
+        self.username = username
+        self.email = email
+
 class WirelessMonitor:
     def __init__(self):
         # Get the directory where this script is located
@@ -77,9 +86,24 @@ class WirelessMonitor:
         # Disable template caching for development
         self.app.jinja_env.auto_reload = True
         self.app.config['TEMPLATES_AUTO_RELOAD'] = True
-        self.app.secret_key = 'wireless-monitor-secret-key'
+        self.app.secret_key = 'wireless-monitor-secret-key-change-in-production'
         self.db_path = 'data/wireless_monitor.db'
         self.running = True
+        
+        # Setup Flask-Login
+        self.login_manager = LoginManager()
+        self.login_manager.init_app(self.app)
+        self.login_manager.login_view = 'login'
+        self.login_manager.login_message = 'Please log in to access this page.'
+        
+        @self.login_manager.user_loader
+        def load_user(user_id):
+            conn = self.get_db_connection()
+            user_data = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+            conn.close()
+            if user_data:
+                return User(user_data['id'], user_data['username'], user_data['email'])
+            return None
         
         # Wi-Fi keywords for relevance scoring
         self.wifi_keywords = [
@@ -309,6 +333,31 @@ class WirelessMonitor:
                 FOREIGN KEY (article_id) REFERENCES articles (id)
             )
         ''')
+        
+        # Users table for authentication
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                email TEXT UNIQUE,
+                google_id TEXT UNIQUE,
+                is_admin INTEGER DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_login TIMESTAMP
+            )
+        ''')
+        
+        # Create default user if no users exist
+        existing_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()
+        if existing_users['count'] == 0:
+            from werkzeug.security import generate_password_hash
+            default_password_hash = generate_password_hash('Admin$123#')
+            conn.execute('''
+                INSERT INTO users (username, password_hash, email, is_admin)
+                VALUES (?, ?, ?, ?)
+            ''', ('drew', default_password_hash, 'drew@thesignal.local', 1))
+            logger.info("Created default user: drew")
         
         # Add default social media platforms if they don't exist
         default_platforms = ['Twitter', 'LinkedIn', 'Facebook', 'Mastodon', 'Instagram']
@@ -618,7 +667,45 @@ class WirelessMonitor:
     def setup_routes(self):
         """Setup Flask routes"""
         
+        # Authentication routes
+        @self.app.route('/login', methods=['GET', 'POST'])
+        def login():
+            if current_user.is_authenticated:
+                return redirect(url_for('index'))
+            
+            if request.method == 'POST':
+                username = request.form.get('username')
+                password = request.form.get('password')
+                
+                conn = self.get_db_connection()
+                user_data = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+                conn.close()
+                
+                if user_data and check_password_hash(user_data['password_hash'], password):
+                    user = User(user_data['id'], user_data['username'], user_data['email'])
+                    login_user(user, remember=True)
+                    
+                    # Update last login
+                    conn = self.get_db_connection()
+                    conn.execute('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?', (user_data['id'],))
+                    conn.commit()
+                    conn.close()
+                    
+                    next_page = request.args.get('next')
+                    return redirect(next_page if next_page else url_for('index'))
+                else:
+                    flash('Invalid username or password', 'error')
+            
+            return render_template('login.html')
+        
+        @self.app.route('/logout')
+        @login_required
+        def logout():
+            logout_user()
+            return redirect(url_for('login'))
+        
         @self.app.route('/')
+        @login_required
         def index():
             conn = self.get_db_connection()
             

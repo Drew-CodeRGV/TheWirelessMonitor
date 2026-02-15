@@ -6308,3 +6308,5 @@ connector: <aiohttp.connector.TCPConnector object at 0x00000162F6119BE0>
 2026-02-14 23:56:40,738 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:40] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
 2026-02-14 23:56:57,268 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:57] "GET /?view=newspaper HTTP/1.1" 200 -
 2026-02-14 23:57:05,337 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:57:05] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-15 01:46:11,818 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-15 01:46:14,299 - werkzeug - INFO -  * Restarting with stat
