@@ -8,12 +8,12 @@ Wants=network-online.target
 Type=simple
 User=ubuntu
 Group=ubuntu
-WorkingDirectory=/home/ubuntu/wireless-monitor
+WorkingDirectory=/home/ubuntu/WirelessSignal
 Environment="PATH=/usr/bin:/usr/local/bin"
 Environment="PYTHONUNBUFFERED=1"
 
 # Main process
-ExecStart=/usr/bin/python3 /home/ubuntu/wireless-monitor/app/main.py
+ExecStart=/home/ubuntu/WirelessSignal/venv/bin/python /home/ubuntu/WirelessSignal/app/main.py
 
 # Restart policy
 Restart=always
@@ -39,7 +39,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/home/ubuntu/wireless-monitor/data /home/ubuntu/wireless-monitor/logs
+ReadWritePaths=/home/ubuntu/WirelessSignal/data /home/ubuntu/WirelessSignal/logs
 
 # Graceful shutdown
 TimeoutStopSec=30
