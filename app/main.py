@@ -2131,6 +2131,15 @@ class WirelessMonitor:
             
             conn = self.get_db_connection()
             
+            # Get events with open CFP
+            cfp_events = conn.execute('''
+                SELECT * FROM industry_events 
+                WHERE active = 1 
+                AND cfp_status = 'open'
+                AND date(end_date) >= date('now')
+                ORDER BY start_date
+            ''').fetchall()
+            
             # Get active events (upcoming or currently happening)
             current_events = conn.execute('''
                 SELECT * FROM industry_events 
@@ -2140,7 +2149,7 @@ class WirelessMonitor:
             ''').fetchall()
             
             conn.close()
-            return render_template('events.html', events=current_events, view_mode=view_mode)
+            return render_template('events.html', events=current_events, cfp_events=cfp_events, view_mode=view_mode)
         
         @self.app.route('/event/<int:event_id>')
         def event_detail(event_id):
