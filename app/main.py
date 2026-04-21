@@ -750,8 +750,7 @@ class WirelessMonitor:
                 WHERE DATE(published_date) >= DATE('now', '-{} days')
                 ORDER BY published_date DESC
                 LIMIT 200
-            LIMIT 100
-    '''.format(days)).fetchall()
+            '''.format(days)).fetchall()
             
             # Clean title for better matching
             clean_title = self._clean_title_for_matching(title)
