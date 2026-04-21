@@ -1,29 +1,50 @@
 [Unit]
-Description=The Wireless Monitor - RSS News Aggregation Service
+Description=The Signal - Wireless Monitor
+Documentation=https://github.com/yourusername/wireless-monitor
 After=network.target
-Wants=network.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-User=wifi
-Group=wifi
-WorkingDirectory=/home/wifi/wireless_monitor
-ExecStart=/usr/bin/python3 /home/wifi/wireless_monitor/app/main.py
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/wireless-monitor
+Environment="PATH=/usr/bin:/usr/local/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+# Main process
+ExecStart=/usr/bin/python3 /home/ubuntu/wireless-monitor/app/main.py
+
+# Restart policy
 Restart=always
 RestartSec=10
+StartLimitInterval=200
+StartLimitBurst=5
+
+# Watchdog - restart if no response for 5 minutes
+WatchdogSec=300
+
+# Resource limits
+MemoryLimit=512M
+MemoryMax=768M
+CPUQuota=50%
+
+# Logging
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=wireless-monitor
 
-# Environment variables
-Environment=PYTHONPATH=/home/wifi/wireless_monitor
-Environment=FLASK_ENV=production
-
-# Security settings
+# Security
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
-ReadWritePaths=/home/wifi/wireless_monitor
+ProtectHome=true
+ReadWritePaths=/home/ubuntu/wireless-monitor/data /home/ubuntu/wireless-monitor/logs
+
+# Graceful shutdown
+TimeoutStopSec=30
+KillMode=mixed
+KillSignal=SIGTERM
 
 [Install]
 WantedBy=multi-user.target

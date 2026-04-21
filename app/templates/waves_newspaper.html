@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waves: The Wireless Podcast - News Engine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+        }
+    .waves-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+    }
+    
+    .waves-main {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .waves-header {
+        border-bottom: 3px solid #2c3e50;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .waves-title {
+        font-family: 'Georgia', serif;
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 0;
+    }
+    
+    .waves-tagline {
+        font-style: italic;
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+    
+    .waves-filters {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .waves-filter-btn {
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .waves-filter-btn:hover {
+        background: #ecf0f1;
+    }
+    
+    .waves-filter-btn.active {
+        background: #3498db;
+        color: white;
+        border-color: #3498db;
+    }
+    
+    .story-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s;
+    }
+    
+    .story-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .story-card.read {
+        opacity: 0.6;
+    }
+    
+    .story-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 12px;
+    }
+    
+    .story-category {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .category-new { background: #e74c3c; color: white; }
+    .category-now { background: #3498db; color: white; }
+    .category-next { background: #9b59b6; color: white; }
+    .category-weird { background: #f39c12; color: white; }
+    
+    .story-title {
+        font-size: 1.4em;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 8px 0;
+        line-height: 1.3;
+    }
+    
+    .story-title a {
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .story-title a:hover {
+        color: #3498db;
+    }
+    
+    .story-meta {
+        display: flex;
+        gap: 15px;
+        font-size: 0.9em;
+        color: #7f8c8d;
+        margin-bottom: 12px;
+    }
+    
+    .story-score {
+        background: #2ecc71;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    
+    .story-synopsis {
+        color: #34495e;
+        line-height: 1.6;
+        margin: 12px 0;
+    }
+    
+    .story-deep-dive {
+        background: #ecf0f1;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 12px 0;
+        display: none;
+    }
+    
+    .story-deep-dive.expanded {
+        display: block;
+    }
+    
+    .crossover-tag {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        margin-top: 8px;
+    }
+    
+    .crossover-wireless-tech {
+        background: #3498db;
+        color: white;
+    }
+    
+    .crossover-tech-wireless {
+        background: #e67e22;
+        color: white;
+    }
+    
+    .story-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .story-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: all 0.2s;
+    }
+    
+    .btn-cutsheet {
+        background: #2ecc71;
+        color: white;
+    }
+    
+    .btn-cutsheet:hover {
+        background: #27ae60;
+    }
+    
+    .btn-read {
+        background: #95a5a6;
+        color: white;
+    }
+    
+    .btn-expand {
+        background: #3498db;
+        color: white;
+    }
+    
+    .btn-feedback {
+        background: transparent;
+        border: 1px solid #ddd;
+        font-size: 1.2em;
+        padding: 4px 12px;
+    }
+    
+    .btn-feedback:hover {
+        background: #ecf0f1;
+    }
+    
+    .cutsheet-panel {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        position: sticky;
+        top: 20px;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
+    
+    .cutsheet-title {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 8px;
+    }
+    
+    .cutsheet-item {
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+    }
+    
+    .cutsheet-item-title {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 4px;
+    }
+    
+    .cutsheet-item-segment {
+        color: #7f8c8d;
+        font-size: 0.85em;
+    }
+    
+    .fetch-btn {
+        background: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+    
+    .fetch-btn:hover {
+        background: #2980b9;
+    }
+    
+    .waves-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+    }
+    
+    .tab-btn {
+        padding: 10px 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 1em;
+        color: #7f8c8d;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+    }
+    
+    .tab-btn:hover {
+        color: #2c3e50;
+    }
+    
+    .tab-btn.active {
+        color: #3498db;
+        border-bottom-color: #3498db;
+        font-weight: 600;
+    }
+    
+    .social-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75em;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    
+    .badge-x {
+        background: #1DA1F2;
+        color: white;
+    }
+    
+    .badge-linkedin {
+        background: #0077B5;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<div class="waves-container">
+    <div class="waves-main">
+        <div class="waves-header">
+            <h1 class="waves-title">🌊 Waves</h1>
+            <p class="waves-tagline">The Wireless Podcast News Engine</p>
+        </div>
+        
+        <button class="fetch-btn" onclick="fetchSources()">🔄 Fetch Latest Stories</button>
+        <button class="fetch-btn" onclick="fetchSocial()" style="background: #9b59b6;">📱 Fetch Social Media</button>
+        
+        <div class="waves-tabs">
+            <button class="tab-btn active" onclick="switchTab('all')">All Stories</button>
+            <button class="tab-btn" onclick="switchTab('social')">Social Media</button>
+            <button class="tab-btn" onclick="switchTab('news')">News & RSS</button>
+        </div>
+        
+        <div class="waves-filters">
+            <button class="waves-filter-btn {% if not current_category %}active{% endif %}" 
+                    onclick="filterCategory('')">All Stories</button>
+            {% for cat in categories %}
+            <button class="waves-filter-btn {% if current_category == cat %}active{% endif %}" 
+                    onclick="filterCategory('{{ cat }}')">{{ cat }}</button>
+            {% endfor %}
+            
+            <label style="margin-left: auto;">
+                <input type="checkbox" {% if hide_read %}checked{% endif %} onchange="toggleHideRead(this.checked)">
+                Hide Read
+            </label>
+        </div>
+        
+        <div id="stories-container">
+            {% if stories %}
+                {% for story in stories %}
+                <div class="story-card {% if story.read_status %}read{% endif %}" data-story-id="{{ story.id }}" data-source-type="{{ story.source_type }}">
+                    <div class="story-header">
+                        <div>
+                            {% if story.category %}
+                            <span class="story-category category-{{ story.category.lower().replace("'", '').replace(' ', '-') }}">
+                                {{ story.category }}
+                            </span>
+                            {% endif %}
+                            <h2 class="story-title">
+                                <a href="{{ story.url }}" target="_blank">{{ story.title }}</a>
+                            </h2>
+                            <div class="story-meta">
+                                <span class="story-score">Score: {{ story.total_score|int }}</span>
+                                <span>{{ story.source }}</span>
+                                {% if story.source_type == 'x_twitter' %}
+                                <span class="social-badge badge-x">𝕏</span>
+                                {% elif story.source_type == 'linkedin' %}
+                                <span class="social-badge badge-linkedin">in</span>
+                                {% endif %}
+                                <span>{{ story.published_date[:10] if story.published_date else 'Recent' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if story.synopsis %}
+                    <div class="story-synopsis">
+                        <strong>Synopsis:</strong> {{ story.synopsis }}
+                    </div>
+                    {% else %}
+                    <div class="story-synopsis">
+                        {{ story.snippet[:300] }}...
+                    </div>
+                    {% endif %}
+                    
+                    {% if story.deep_dive %}
+                    <div class="story-deep-dive" id="deep-dive-{{ story.id }}">
+                        <strong>Deep Dive:</strong><br>
+                        {{ story.deep_dive }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if story.crossover_connection %}
+                    <div class="crossover-tag crossover-{{ story.crossover_direction }}">
+                        {{ story.crossover_direction }}: {{ story.crossover_connection[:100] }}...
+                    </div>
+                    {% endif %}
+                    
+                    <div class="story-actions">
+                        <button class="story-btn btn-cutsheet" onclick="addToCutsheet({{ story.id }}, '{{ story.category }}')">
+                            ➕ Add to Cutsheet
+                        </button>
+                        {% if story.deep_dive %}
+                        <button class="story-btn btn-expand" onclick="toggleDeepDive({{ story.id }})">
+                            📖 Deep Dive
+                        </button>
+                        {% endif %}
+                        <button class="story-btn btn-read" onclick="markAsRead({{ story.id }})">
+                            ✓ Mark Read
+                        </button>
+                        <button class="story-btn btn-feedback" onclick="giveFeedback({{ story.id }}, 1)" title="Relevant">
+                            👍
+                        </button>
+                        <button class="story-btn btn-feedback" onclick="giveFeedback({{ story.id }}, -1)" title="Not Relevant">
+                            👎
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="text-align: center; padding: 40px; color: #7f8c8d;">
+                    <p style="font-size: 1.2em;">No stories yet. Click "Fetch Latest Stories" to begin.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="cutsheet-panel">
+        <h3 class="cutsheet-title">📋 Podcast Cutsheet</h3>
+        <div id="cutsheet-container">
+            {% if cutsheet %}
+                {% for item in cutsheet %}
+                <div class="cutsheet-item">
+                    <div class="cutsheet-item-title">{{ item.title[:60] }}...</div>
+                    <div class="cutsheet-item-segment">{{ item.segment }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #7f8c8d; font-size: 0.9em;">No stories in cutsheet yet. Add stories using the "Add to Cutsheet" button.</p>
+            {% endif %}
+        </div>
+        
+        <a href="/waves/podcast" class="story-btn btn-cutsheet" style="display: block; text-align: center; margin-top: 20px; text-decoration: none;">
+            🎙️ Generate Podcast Script
+        </a>
+    </div>
+</div>
+
+<script>
+function filterCategory(category) {
+    const url = new URL(window.location);
+    if (category) {
+        url.searchParams.set('category', category);
+    } else {
+        url.searchParams.delete('category');
+    }
+    window.location = url;
+}
+
+function toggleHideRead(hide) {
+    const url = new URL(window.location);
+    url.searchParams.set('hide_read', hide);
+    window.location = url;
+}
+
+function toggleDeepDive(storyId) {
+    const element = document.getElementById('deep-dive-' + storyId);
+    element.classList.toggle('expanded');
+}
+
+async function addToCutsheet(storyId, segment) {
+    try {
+        const response = await fetch('/api/waves/add_to_cutsheet', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({story_id: storyId, segment: segment})
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            alert('✓ Added to cutsheet!');
+            location.reload();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to add to cutsheet');
+    }
+}
+
+async function markAsRead(storyId) {
+    try {
+        const response = await fetch('/api/waves/mark_read', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({story_id: storyId})
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            const card = document.querySelector(`[data-story-id="${storyId}"]`);
+            card.classList.add('read');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function giveFeedback(storyId, value) {
+    try {
+        const response = await fetch('/api/waves/feedback', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({story_id: storyId, value: value})
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            // Store in localStorage for learning
+            const feedback = JSON.parse(localStorage.getItem('waves_feedback') || '{}');
+            feedback[storyId] = value;
+            localStorage.setItem('waves_feedback', JSON.stringify(feedback));
+            
+            alert(value > 0 ? '👍 Thanks for the feedback!' : '👎 Feedback recorded');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function fetchSources() {
+    const btn = event.target;
+    btn.disabled = true;
+    btn.textContent = '⏳ Fetching...';
+    
+    try {
+        const response = await fetch('/api/waves/fetch_sources', {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            alert(`✓ Fetched ${data.stories_added} new stories!`);
+            location.reload();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch stories');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '🔄 Fetch Latest Stories';
+    }
+}
+
+async function fetchSocial() {
+    const btn = event.target;
+    btn.disabled = true;
+    btn.textContent = '⏳ Fetching Social...';
+    
+    try {
+        const response = await fetch('/api/waves/fetch_social', {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            const breakdown = data.breakdown;
+            alert(`✓ Fetched ${data.stories_added} social posts!\n\n𝕏 Twitter: ${breakdown.x}\nLinkedIn: ${breakdown.linkedin}`);
+            location.reload();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch social media');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '📱 Fetch Social Media';
+    }
+}
+
+function switchTab(tab) {
+    // Update active tab button
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filter stories
+    const stories = document.querySelectorAll('.story-card');
+    stories.forEach(story => {
+        const sourceType = story.dataset.sourceType;
+        
+        if (tab === 'all') {
+            story.style.display = 'block';
+        } else if (tab === 'social') {
+            story.style.display = (sourceType === 'x_twitter' || sourceType === 'linkedin') ? 'block' : 'none';
+        } else if (tab === 'news') {
+            story.style.display = (sourceType !== 'x_twitter' && sourceType !== 'linkedin') ? 'block' : 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>

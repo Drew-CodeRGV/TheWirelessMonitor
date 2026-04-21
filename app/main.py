@@ -98,10 +98,17 @@ class WirelessMonitor:
         self.init_database()
         
         # Initialize enhancements AFTER database is ready
-        from enhancements import (
-            RateLimiter, EnhancedImageScraper, SocialMediaMonitor,
-            WildWiFiCurator, SocialEventDiscoverer
-        )
+        try:
+            from app.enhancements import (
+                RateLimiter, EnhancedImageScraper, SocialMediaMonitor,
+                WildWiFiCurator, SocialEventDiscoverer
+            )
+        except ImportError:
+            # Try without app prefix for direct execution
+            from enhancements import (
+                RateLimiter, EnhancedImageScraper, SocialMediaMonitor,
+                WildWiFiCurator, SocialEventDiscoverer
+            )
         
         self.rate_limiter = RateLimiter(self.db_path)
         self.enhanced_image_scraper = EnhancedImageScraper()
@@ -203,6 +210,55 @@ class WirelessMonitor:
             conn.execute('ALTER TABLE articles ADD COLUMN image_url TEXT')
         except sqlite3.OperationalError:
             pass  # Column already exists
+        
+        # Add Waves integration columns
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN waves_score REAL DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN engagement_score REAL DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN cross_source_count INTEGER DEFAULT 1')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN source_type TEXT DEFAULT "rss"')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN crossover_type TEXT')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN crossover_description TEXT')
+        except sqlite3.OperationalError:
+            pass
+        
+        try:
+            conn.execute('ALTER TABLE articles ADD COLUMN category TEXT')
+        except sqlite3.OperationalError:
+            pass
+        
+        # X/Twitter lists table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS x_lists (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                list_id TEXT UNIQUE NOT NULL,
+                list_name TEXT NOT NULL,
+                list_owner TEXT NOT NULL,
+                enabled INTEGER DEFAULT 1,
+                last_fetched TIMESTAMP,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
         
         # System settings table
         conn.execute('''
@@ -615,8 +671,500 @@ class WirelessMonitor:
         conn.execute('PRAGMA temp_store=memory')
         return conn
     
+    def detect_duplicate_articles(self, title: str, url: str, days: int = 7) -> Optional[int]:
+        """
+        Detect if an article is a duplicate based on title similarity and URL
+        Returns article_id if duplicate found, None otherwise
+        
+        This is KEY for scoring - articles covered by multiple sources should merge
+        """
+        conn = self.get_db_connection()
+        
+        try:
+            # Check exact URL match first
+            existing = conn.execute('''
+                SELECT id FROM articles 
+                WHERE url = ? 
+                AND DATE(published_date) >= DATE('now', '-{} days')
+            '''.format(days), (url,)).fetchone()
+            
+            if existing:
+                logger.info(f"Exact URL match found for: {title}")
+                return existing['id']
+            
+            # Check for similar titles (80% similarity threshold - slightly lower to catch more)
+            from difflib import SequenceMatcher
+            
+            recent_articles = conn.execute('''
+                SELECT id, title, url FROM articles
+                WHERE DATE(published_date) >= DATE('now', '-{} days')
+                ORDER BY published_date DESC
+                LIMIT 200
+            LIMIT 100
+    '''.format(days)).fetchall()
+            
+            # Clean title for better matching
+            clean_title = self._clean_title_for_matching(title)
+            
+            for article in recent_articles:
+                clean_existing = self._clean_title_for_matching(article['title'])
+                
+                # Calculate similarity
+                similarity = SequenceMatcher(None, clean_title, clean_existing).ratio()
+                
+                if similarity >= 0.80:  # 80% threshold
+                    logger.info(f"Duplicate detected ({similarity:.0%}): '{title}' matches '{article['title']}'")
+                    return article['id']
+                
+                # Also check if one title contains the other (for shortened versions)
+                if len(clean_title) > 20 and len(clean_existing) > 20:
+                    if clean_title in clean_existing or clean_existing in clean_title:
+                        logger.info(f"Substring match: '{title}' matches '{article['title']}'")
+                        return article['id']
+            
+            return None
+            
+        finally:
+            conn.close()
+    
+    def _clean_title_for_matching(self, title: str) -> str:
+        """Clean title for better duplicate matching"""
+        import re
+        
+        # Convert to lowercase
+        clean = title.lower()
+        
+        # Remove common prefixes/suffixes
+        prefixes = ['breaking:', 'exclusive:', 'report:', 'analysis:', 'opinion:', 'news:']
+        for prefix in prefixes:
+            if clean.startswith(prefix):
+                clean = clean[len(prefix):].strip()
+        
+        # Remove source attributions at end
+        clean = re.sub(r'\s*[-–—]\s*[^-–—]+$', '', clean)
+        
+        # Remove extra whitespace
+        clean = ' '.join(clean.split())
+        
+        return clean
+    
+    def merge_duplicate_scores(self, original_id: int, duplicate_data: dict):
+        """Merge scores from duplicate article into original"""
+        conn = self.get_db_connection()
+        
+        try:
+            # Increment cross-source count
+            conn.execute('''
+                UPDATE articles 
+                SET cross_source_count = cross_source_count + 1,
+                    engagement_score = COALESCE(engagement_score, 0) + COALESCE(?, 0)
+                WHERE id = ?
+            ''', (duplicate_data.get('engagement_score', 0), original_id))
+            
+            conn.commit()
+            
+            # Recalculate Waves score
+            self.calculate_waves_score(original_id, conn)
+            
+            logger.info(f"Merged duplicate into article {original_id}, increased cross-source count")
+            
+        finally:
+            conn.close()
+    
+    def calculate_waves_score(self, article_id: int, conn=None) -> float:
+        """
+        Calculate Waves score for an article based on:
+        1. Cross-source coverage (most important - same story from multiple outlets)
+        2. Topic buzz (how many articles about the same topic)
+        3. Source authority (quality of sources covering it)
+        4. Recency boost (newer = higher)
+        """
+        should_close = False
+        if conn is None:
+            conn = self.get_db_connection()
+            should_close = True
+        
+        try:
+            article = conn.execute(
+                'SELECT id, title, description, cross_source_count, engagement_score, relevance_score, published_date, feed_id FROM articles WHERE id = ?',
+                (article_id,)
+            ).fetchone()
+            
+            if not article:
+                return 0.0
+            
+            score = 0.0
+            similar_count = 0  # Initialize here
+            
+            # 1. CROSS-SOURCE COVERAGE (0-50 points) - MOST IMPORTANT
+            # Articles covered by multiple sources are inherently more important
+            cross_source_count = article['cross_source_count'] or 1
+            if cross_source_count >= 5:
+                score += 50  # 5+ sources = maximum importance
+            elif cross_source_count >= 3:
+                score += 40  # 3-4 sources = very important
+            elif cross_source_count >= 2:
+                score += 25  # 2 sources = important
+            else:
+                score += 5   # Single source = baseline
+            
+            # 2. TOPIC BUZZ (0-30 points) - How many articles about similar topics
+            try:
+                # Extract key topics from title
+                title_words = set(article['title'].lower().split())
+                # Remove common words
+                stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'been', 'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can'}
+                key_words = title_words - stop_words
+                
+                if len(key_words) >= 2:
+                    # Count articles with similar topics in last 3 days
+                    recent_articles = conn.execute('''
+                        SELECT title FROM articles 
+                        WHERE id != ? 
+                        AND DATE(published_date) >= DATE('now', '-3 days')
+                        LIMIT 100
+                    ''', (article_id,)).fetchall()
+                    
+                    for other in recent_articles:
+                        other_words = set(other['title'].lower().split()) - stop_words
+                        # If 2+ key words match, it's about the same topic
+                        overlap = len(key_words & other_words)
+                        if overlap >= 2:
+                            similar_count += 1
+                    
+                    # Score based on topic buzz
+                    if similar_count >= 10:
+                        score += 30  # Hot topic
+                    elif similar_count >= 5:
+                        score += 20  # Trending topic
+                    elif similar_count >= 2:
+                        score += 10  # Discussed topic
+            except Exception as e:
+                logger.debug(f"Error calculating topic buzz: {e}")
+            
+            # 3. SOURCE AUTHORITY (0-15 points) - Quality of source
+            try:
+                feed_name = conn.execute('SELECT name FROM rss_feeds WHERE id = ?', (article['feed_id'],)).fetchone()
+                if feed_name:
+                    feed_lower = feed_name['name'].lower()
+                    # Tier 1: Industry authorities
+                    if any(x in feed_lower for x in ['fierce', 'rcr', 'light reading', 'mobile world']):
+                        score += 15
+                    # Tier 2: Major tech outlets
+                    elif any(x in feed_lower for x in ['techcrunch', 'verge', 'ars technica', 'wired', 'engadget']):
+                        score += 10
+                    # Tier 3: General tech
+                    elif any(x in feed_lower for x in ['ieee', 'zdnet', 'network world']):
+                        score += 8
+                    # Tier 4: Aggregators
+                    else:
+                        score += 5
+            except Exception as e:
+                logger.debug(f"Error calculating source authority: {e}")
+                score += 5  # Default
+            
+            # 4. RECENCY BOOST (0-10 points) - Newer articles get boost
+            try:
+                if article['published_date']:
+                    from datetime import datetime
+                    pub_date = datetime.fromisoformat(article['published_date'].replace('Z', '+00:00'))
+                    age_hours = (datetime.now() - pub_date).total_seconds() / 3600
+                    
+                    if age_hours < 6:
+                        score += 10  # Last 6 hours
+                    elif age_hours < 24:
+                        score += 7   # Last 24 hours
+                    elif age_hours < 48:
+                        score += 4   # Last 2 days
+                    elif age_hours < 72:
+                        score += 2   # Last 3 days
+            except Exception as e:
+                logger.debug(f"Error calculating recency: {e}")
+            
+            # 5. ENGAGEMENT BONUS (0-10 points) - Social signals
+            try:
+                engagement = article['engagement_score'] or 0
+                if engagement > 100:
+                    score += 10
+                elif engagement > 50:
+                    score += 7
+                elif engagement > 20:
+                    score += 4
+                elif engagement > 5:
+                    score += 2
+            except Exception as e:
+                logger.debug(f"Error calculating engagement: {e}")
+            
+            # 6. RELEVANCE BONUS (0-10 points) - WiFi/wireless keywords
+            try:
+                relevance = article['relevance_score'] or 0
+                if relevance > 0.7:
+                    score += 10
+                elif relevance > 0.5:
+                    score += 7
+                elif relevance > 0.3:
+                    score += 4
+                elif relevance > 0.1:
+                    score += 2
+            except Exception as e:
+                logger.debug(f"Error calculating relevance: {e}")
+            
+            # Total possible: 125 points
+            # Scale to 0-100 for easier interpretation
+            final_score = min(score * 0.8, 100)  # 0.8 multiplier to scale 125 to ~100
+            
+            # Update article score
+            conn.execute('''
+                UPDATE articles 
+                SET waves_score = ?
+                WHERE id = ?
+            ''', (final_score, article_id))
+            conn.commit()
+            
+            logger.debug(f"Article {article_id}: cross_source={cross_source_count}, topic_buzz={similar_count}, final_score={final_score:.1f}")
+            
+            return final_score
+            
+        except Exception as e:
+            logger.error(f"Error calculating waves score for article {article_id}: {e}")
+            return 0.0
+        finally:
+            if should_close:
+                conn.close()
+    
+    def categorize_article(self, title: str, description: str = "") -> str:
+        """Categorize article into: What's New, What's Now, What's Next, News of the Weird"""
+        text = f"{title} {description}".lower()
+        
+        # What's New: M&A, acquisitions, product launches, breaking news
+        new_keywords = [
+            'acquisition', 'merger', 'acquires', 'launches', 'announces',
+            'unveils', 'introduces', 'releases', 'breaking', 'just announced'
+        ]
+        
+        # What's Now: trending, discussions, current debates
+        now_keywords = [
+            'trending', 'debate', 'discussion', 'controversy', 'viral',
+            'everyone is talking', 'hot topic', 'industry buzz'
+        ]
+        
+        # What's Next: future tech, standards, regulatory pipeline
+        next_keywords = [
+            'wifi 7', 'wifi7', '6g', 'future', 'upcoming', 'roadmap',
+            'next generation', 'emerging', 'spectrum auction', 'regulatory',
+            'standards', 'draft', 'proposal'
+        ]
+        
+        # News of the Weird: quirky, unusual, creative applications
+        weird_keywords = [
+            'unusual', 'bizarre', 'weird', 'quirky', 'creative', 'unexpected',
+            'surprising', 'odd', 'strange', 'hilarious', 'funny'
+        ]
+        
+        # Score each category
+        scores = {
+            "What's New": sum(1 for kw in new_keywords if kw in text),
+            "What's Now": sum(1 for kw in now_keywords if kw in text),
+            "What's Next": sum(1 for kw in next_keywords if kw in text),
+            "News of the Weird": sum(1 for kw in weird_keywords if kw in text)
+        }
+        
+        # Return category with highest score, default to What's Now
+        if max(scores.values()) == 0:
+            return "What's Now"
+        
+        return max(scores, key=scores.get)
+    
+    def detect_events_from_social(self) -> List[Dict]:
+        """
+        Automatically detect industry events from social media buzz
+        Looks for hashtags, repeated mentions, and patterns
+        """
+        conn = self.get_db_connection()
+        
+        try:
+            # Get recent articles and social posts
+            recent_content = conn.execute('''
+                SELECT title, description, published_date, source_type
+                FROM articles
+                WHERE DATE(published_date) >= DATE('now', '-14 days')
+                ORDER BY published_date DESC
+                LIMIT 500
+            ''').fetchall()
+            
+            # Extract potential event indicators
+            import re
+            from collections import Counter
+            
+            event_patterns = {
+                'hashtags': re.compile(r'#(\w+(?:20\d{2})?)', re.IGNORECASE),
+                'at_mentions': re.compile(r'@(\w+)', re.IGNORECASE),
+                'event_keywords': re.compile(r'\b(conference|summit|expo|show|forum|congress|symposium|convention|meetup)\b', re.IGNORECASE)
+            }
+            
+            hashtag_counts = Counter()
+            event_mentions = Counter()
+            event_contexts = {}
+            
+            for content in recent_content:
+                text = f"{content['title']} {content['description'] or ''}"
+                
+                # Extract hashtags
+                hashtags = event_patterns['hashtags'].findall(text)
+                for tag in hashtags:
+                    # Filter for event-like hashtags (contains year or event keywords)
+                    if any(keyword in tag.lower() for keyword in ['2024', '2025', '2026', 'conf', 'summit', 'expo', 'show']):
+                        hashtag_counts[tag] += 1
+                        if tag not in event_contexts:
+                            event_contexts[tag] = []
+                        event_contexts[tag].append({
+                            'title': content['title'],
+                            'date': content['published_date'],
+                            'source': content['source_type']
+                        })
+                
+                # Extract event mentions
+                event_keywords = event_patterns['event_keywords'].findall(text)
+                if event_keywords:
+                    # Try to extract event name (words before/after event keyword)
+                    words = text.split()
+                    for i, word in enumerate(words):
+                        if word.lower() in ['conference', 'summit', 'expo', 'show', 'forum']:
+                            # Get surrounding words as potential event name
+                            start = max(0, i-3)
+                            end = min(len(words), i+2)
+                            event_name = ' '.join(words[start:end])
+                            event_mentions[event_name] += 1
+            
+            # Create event records for high-confidence detections
+            detected_events = []
+            
+            for hashtag, count in hashtag_counts.most_common(20):
+                if count >= 3:  # Minimum 3 mentions
+                    # Calculate confidence based on mention count and recency
+                    confidence = min(count / 10.0, 1.0)
+                    
+                    # Try to extract date from hashtag or context
+                    year_match = re.search(r'20\d{2}', hashtag)
+                    year = year_match.group(0) if year_match else None
+                    
+                    # Check if event already exists
+                    existing = conn.execute('''
+                        SELECT id FROM industry_events 
+                        WHERE name LIKE ? OR hashtags LIKE ?
+                    ''', (f'%{hashtag}%', f'%{hashtag}%')).fetchone()
+                    
+                    if not existing:
+                        # Create new event
+                        conn.execute('''
+                            INSERT INTO industry_events (
+                                name, hashtags, confidence_score, 
+                                discovered_from_social, social_mention_count, active
+                            ) VALUES (?, ?, ?, 1, ?, 1)
+                        ''', (hashtag, f'#{hashtag}', confidence, count))
+                        
+                        event_id = conn.lastrowid
+                        logger.info(f"Auto-detected event: {hashtag} ({count} mentions, {confidence:.0%} confidence)")
+                    else:
+                        event_id = existing['id']
+                        # Update mention count
+                        conn.execute('''
+                            UPDATE industry_events 
+                            SET social_mention_count = ?,
+                                confidence_score = ?,
+                                updated_at = CURRENT_TIMESTAMP
+                            WHERE id = ?
+                        ''', (count, confidence, event_id))
+                    
+                    detected_events.append({
+                        'id': event_id,
+                        'name': hashtag,
+                        'mention_count': count,
+                        'confidence_score': confidence,
+                        'contexts': event_contexts.get(hashtag, [])[:5]
+                    })
+            
+            conn.commit()
+            return detected_events
+            
+        except Exception as e:
+            logger.error(f"Error detecting events from social: {e}")
+            return []
+        finally:
+            conn.close()
+    
+    def detect_crossover(self, title: str, description: str = "") -> tuple:
+        """
+        Detect tech crossover connections
+        Returns: (crossover_type, crossover_description) or (None, None)
+        """
+        text = f"{title} {description}".lower()
+        
+        # Wireless → Tech patterns
+        wireless_to_tech = {
+            'AI/ML': ['ai', 'machine learning', 'artificial intelligence', 'neural network'],
+            'IoT': ['iot', 'internet of things', 'smart home', 'smart city', 'connected devices'],
+            'AR/VR': ['augmented reality', 'virtual reality', 'ar', 'vr', 'metaverse', 'xr'],
+            'Autonomous': ['autonomous', 'self-driving', 'driverless', 'robotics'],
+            'Cloud': ['cloud computing', 'edge computing', 'data center'],
+            'Healthcare': ['telemedicine', 'remote health', 'medical devices', 'health monitoring']
+        }
+        
+        # Tech → Wireless patterns
+        tech_to_wireless = {
+            'Chip Shortage': ['chip shortage', 'semiconductor', 'silicon', 'supply chain'],
+            'AI Compute': ['ai compute', 'gpu', 'processing power', 'compute demand'],
+            'Tariffs': ['tariff', 'trade war', 'import tax', 'trade policy'],
+            'Energy': ['power consumption', 'energy efficiency', 'battery', 'green tech'],
+            'Regulation': ['regulation', 'policy', 'fcc', 'government', 'compliance']
+        }
+        
+        # Check Wireless → Tech
+        for tech_area, keywords in wireless_to_tech.items():
+            if any(kw in text for kw in keywords):
+                return ('wireless-to-tech', f"How wireless enables {tech_area}")
+        
+        # Check Tech → Wireless
+        for tech_area, keywords in tech_to_wireless.items():
+            if any(kw in text for kw in keywords):
+                return ('tech-to-wireless', f"How {tech_area} impacts wireless")
+        
+        return (None, None)
+    
     def setup_routes(self):
         """Setup Flask routes"""
+        @self.app.route('/health')
+        def health_check():
+            """Health check endpoint for monitoring"""
+            try:
+                # Check database
+                conn = self.get_db_connection()
+                conn.execute('SELECT 1').fetchone()
+                conn.close()
+                
+                # Check memory if psutil available
+                memory_percent = 0
+                disk_percent = 0
+                if psutil:
+                    memory_percent = psutil.virtual_memory().percent
+                    disk_percent = psutil.disk_usage('/').percent
+                
+                status = {
+                    'status': 'healthy',
+                    'database': 'ok',
+                    'memory_usage': f'{memory_percent:.1f}%' if memory_percent else 'N/A',
+                    'disk_usage': f'{disk_percent:.1f}%' if disk_percent else 'N/A',
+                    'timestamp': datetime.now().isoformat()
+                }
+                
+                if memory_percent > 90 or disk_percent > 90:
+                    status['status'] = 'warning'
+                
+                return jsonify(status)
+            except Exception as e:
+                return jsonify({'status': 'unhealthy', 'error': str(e)}), 500
+        
+
         
         @self.app.route('/')
         def index():
@@ -627,6 +1175,8 @@ class WirelessMonitor:
             show_all = request.args.get('show_all', 'false').lower() == 'true'
             hide_read = request.args.get('hide_read', 'true').lower() == 'true'
             sort_by = request.args.get('sort', 'score')  # 'score' or 'date'
+            best_of_best = request.args.get('best', 'false').lower() == 'true'
+            use_modern = request.args.get('modern', 'true').lower() == 'true'  # New modern UI by default
             
             # Get current date for filtering
             today = datetime.now().strftime('%Y-%m-%d')
@@ -636,12 +1186,64 @@ class WirelessMonitor:
             
             # Build sort order
             if sort_by == 'date':
-                order_by = 'ORDER BY a.published_date DESC, a.relevance_score DESC'
+                order_by = 'ORDER BY a.published_date DESC, a.waves_score DESC, a.relevance_score DESC'
             else:  # default to score
-                order_by = 'ORDER BY a.relevance_score DESC, a.published_date DESC'
+                order_by = 'ORDER BY a.waves_score DESC, a.relevance_score DESC, a.published_date DESC'
+            
+            # Calculate Waves scores for recent articles if not already calculated
+            recent_articles = conn.execute('''
+                SELECT id, title, description, waves_score, category, crossover_type
+                FROM articles 
+                WHERE DATE(published_date) >= DATE('now', '-7 days')
+                AND (waves_score IS NULL OR waves_score = 0 OR category IS NULL)
+                LIMIT 100
+            ''').fetchall()
+            
+            for article in recent_articles:
+                # Calculate Waves score
+                self.calculate_waves_score(article['id'], conn)
+                
+                # Categorize if not already done
+                if not article['category']:
+                    category = self.categorize_article(article['title'], article['description'] or '')
+                    conn.execute('UPDATE articles SET category = ? WHERE id = ?', (category, article['id']))
+                
+                # Detect crossover if not already done
+                if not article['crossover_type']:
+                    crossover_type, crossover_desc = self.detect_crossover(article['title'], article['description'] or '')
+                    if crossover_type:
+                        conn.execute('''
+                            UPDATE articles 
+                            SET crossover_type = ?, crossover_description = ?
+                            WHERE id = ?
+                        ''', (crossover_type, crossover_desc, article['id']))
+            
+            conn.commit()
+            
+            # Detect events from social media
+            detected_events = self.detect_events_from_social()
+            
+            # Build best-of-best filter (top 20% by Waves score)
+            best_filter = ''
+            if best_of_best:
+                # Get the 80th percentile score
+                percentile_score = conn.execute('''
+                    SELECT waves_score FROM articles
+                    WHERE DATE(published_date) >= DATE('now', '-7 days')
+                    AND waves_score > 0
+                    ORDER BY waves_score DESC
+                    LIMIT 1 OFFSET (
+                        SELECT COUNT(*) * 0.2 FROM articles
+                        WHERE DATE(published_date) >= DATE('now', '-7 days')
+                        AND waves_score > 0
+                    )
+                ''').fetchone()
+                
+                if percentile_score:
+                    best_filter = f'AND a.waves_score >= {percentile_score[0]}'
             
             if show_all:
-                # Show all articles from the last 5 days regardless of relevance, plus active event articles
+                # Show all articles from the last 7 days regardless of relevance, plus active event articles
                 stories_raw = conn.execute(f'''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
@@ -656,11 +1258,12 @@ class WirelessMonitor:
                         )
                     WHERE (DATE(a.published_date) >= DATE('now', '-7 days') OR ie.name IS NOT NULL)
                     {read_filter}
+                    {best_filter}
                     {order_by}
                     LIMIT 100
                 ''').fetchall()
             else:
-                # Get top articles from last 5 days plus active event articles
+                # Get top articles from last 7 days plus active event articles
                 top_stories_raw = conn.execute(f'''
                     SELECT a.*, f.name as feed_name, f.url as feed_url,
                            ie.name as event_name, ie.id as event_id, ea.relevance_score as event_relevance
@@ -675,11 +1278,12 @@ class WirelessMonitor:
                         )
                     WHERE (DATE(a.published_date) >= DATE('now', '-7 days') AND a.relevance_score > 0.05) OR ie.name IS NOT NULL
                     {read_filter}
+                    {best_filter}
                     {order_by}
                     LIMIT 50
                 ''').fetchall()
                 
-                # Use the top stories directly (already from 5 days)
+                # Use the top stories directly (already from 7 days)
                 stories_raw = top_stories_raw
             
             # Convert Row objects to dictionaries for JSON serialization
@@ -695,16 +1299,16 @@ class WirelessMonitor:
                         story_dict['created_at'] = story_dict['created_at'].isoformat()
                 stories.append(story_dict)
             
-            # Get total article count for the last 5 days for Show All button
+            # Get total article count for the last 7 days for Show All button
             total_articles = conn.execute('''
                 SELECT COUNT(*) FROM articles 
-                WHERE DATE(published_date) >= DATE('now', '-5 days')
+                WHERE DATE(published_date) >= DATE('now', '-7 days')
             ''').fetchone()[0]
             
             # Get count of relevant articles for comparison
             relevant_articles = conn.execute('''
                 SELECT COUNT(*) FROM articles 
-                WHERE DATE(published_date) >= DATE('now', '-5 days') AND relevance_score > 0.2
+                WHERE DATE(published_date) >= DATE('now', '-7 days') AND relevance_score > 0.2
             ''').fetchone()[0]
             
             # Get X timeline setting
@@ -715,16 +1319,22 @@ class WirelessMonitor:
             x_timeline_enabled = x_timeline_enabled['value'] == 'true' if x_timeline_enabled else False
             
             conn.close()
-            return render_template('index.html', 
+            
+            # Choose template based on modern flag
+            template = 'index_modern.html' if use_modern else 'index.html'
+            
+            return render_template(template, 
                                  stories=stories, 
                                  date=today, 
                                  view_mode=view_mode, 
                                  show_all=show_all, 
                                  hide_read=hide_read,
                                  sort_by=sort_by,
+                                 best_of_best=best_of_best,
                                  total_articles=total_articles,
                                  relevant_articles=relevant_articles,
-                                 x_timeline_enabled=x_timeline_enabled)
+                                 x_timeline_enabled=x_timeline_enabled,
+                                 detected_events=detected_events)
         
         @self.app.route('/read_articles')
         def read_articles():
@@ -1066,9 +1676,157 @@ class WirelessMonitor:
         def fetch_social_media_now():
             """Manually trigger social media fetch"""
             try:
-                threading.Thread(target=self.fetch_social_media, daemon=True).start()
-                return jsonify({'success': True, 'message': 'Social media fetch started'})
+                # Fetch from all active social accounts
+                results = self.social_media_monitor.fetch_all_active_accounts()
+                
+                return jsonify({
+                    'success': True,
+                    'results': results
+                })
             except Exception as e:
+                logger.error(f"Error fetching social media: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        # X/TWITTER LIST MANAGEMENT ROUTES
+        
+        @self.app.route('/admin/x_lists')
+        def manage_x_lists():
+            """Manage X/Twitter lists for monitoring"""
+            conn = self.get_db_connection()
+            
+            # Get all configured lists
+            lists = conn.execute('''
+                SELECT * FROM x_lists 
+                ORDER BY enabled DESC, list_name
+            ''').fetchall()
+            
+            conn.close()
+            view_mode = request.args.get('view', 'newspaper')
+            return render_template('x_lists.html', lists=lists, view_mode=view_mode)
+        
+        @self.app.route('/api/x_lists/add', methods=['POST'])
+        def add_x_list():
+            """Add a new X/Twitter list to monitor"""
+            try:
+                list_url = request.form.get('list_url', '').strip()
+                
+                if not list_url:
+                    return jsonify({'success': False, 'error': 'List URL required'})
+                
+                # Parse list URL to extract owner and list name
+                # Format: https://twitter.com/i/lists/1234567890
+                # or: https://x.com/username/lists/listname
+                import re
+                
+                # Try numeric ID format first
+                id_match = re.search(r'/lists/(\d+)', list_url)
+                if id_match:
+                    list_id = id_match.group(1)
+                    list_name = f"List {list_id}"
+                    list_owner = "unknown"
+                else:
+                    # Try username/listname format
+                    name_match = re.search(r'/([\w]+)/lists/([\w-]+)', list_url)
+                    if name_match:
+                        list_owner = name_match.group(1)
+                        list_name = name_match.group(2)
+                        list_id = f"{list_owner}/{list_name}"
+                    else:
+                        return jsonify({'success': False, 'error': 'Invalid list URL format'})
+                
+                conn = self.get_db_connection()
+                
+                try:
+                    conn.execute('''
+                        INSERT INTO x_lists (list_id, list_name, list_owner, enabled)
+                        VALUES (?, ?, ?, 1)
+                    ''', (list_id, list_name, list_owner))
+                    conn.commit()
+                    
+                    return jsonify({
+                        'success': True,
+                        'message': f'Added list: {list_name}'
+                    })
+                    
+                except sqlite3.IntegrityError:
+                    return jsonify({'success': False, 'error': 'List already exists'})
+                finally:
+                    conn.close()
+                    
+            except Exception as e:
+                logger.error(f"Error adding X list: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/x_lists/<int:list_id>/toggle', methods=['POST'])
+        def toggle_x_list(list_id):
+            """Toggle X list enabled status"""
+            try:
+                conn = self.get_db_connection()
+                conn.execute('''
+                    UPDATE x_lists 
+                    SET enabled = 1 - enabled 
+                    WHERE id = ?
+                ''', (list_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/x_lists/<int:list_id>/delete', methods=['POST'])
+        def delete_x_list(list_id):
+            """Delete an X list"""
+            try:
+                conn = self.get_db_connection()
+                conn.execute('DELETE FROM x_lists WHERE id = ?', (list_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/x_lists/fetch_now', methods=['POST'])
+        def fetch_x_lists_now():
+            """Fetch posts from all enabled X lists"""
+            try:
+                conn = self.get_db_connection()
+                lists = conn.execute('''
+                    SELECT * FROM x_lists WHERE enabled = 1
+                ''').fetchall()
+                conn.close()
+                
+                total_posts = 0
+                for list_row in lists:
+                    # TODO: Implement X list fetching via x_timeline.py
+                    # For now, just log
+                    logger.info(f"Would fetch from list: {list_row['list_name']}")
+                
+                return jsonify({
+                    'success': True,
+                    'lists_fetched': len(lists),
+                    'posts_added': total_posts
+                })
+                
+            except Exception as e:
+                logger.error(f"Error fetching X lists: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/events/detect', methods=['POST'])
+        def detect_events_api():
+            """API endpoint to trigger event detection"""
+            try:
+                detected_events = self.detect_events_from_social()
+                
+                return jsonify({
+                    'success': True,
+                    'events_detected': len(detected_events),
+                    'events': detected_events
+                })
+                
+            except Exception as e:
+                logger.error(f"Error detecting events: {e}")
                 return jsonify({'success': False, 'error': str(e)})
         
         @self.app.route('/api/wild_wifi/curate_now', methods=['POST'])
@@ -2419,6 +3177,238 @@ class WirelessMonitor:
                                  digest_generated=digest_status is not None,
                                  view_mode=view_mode)
         
+        # ============================================
+        # WAVES PODCAST ENGINE ROUTES
+        # ============================================
+        
+        @self.app.route('/waves')
+        def waves_newspaper():
+            """Waves: Interactive HTML Newspaper view"""
+            try:
+                from waves_engine import WavesEngine
+                
+                days = int(request.args.get('days', 7))
+                category = request.args.get('category', '')
+                hide_read = request.args.get('hide_read', 'false').lower() == 'true'
+                
+                engine = WavesEngine(self.db_path)
+                
+                # Get stories
+                stories = engine.get_stories(days=days, category=category if category else None)
+                
+                # Filter read if requested
+                if hide_read:
+                    stories = [s for s in stories if s['read_status'] == 0]
+                
+                # Get cutsheet
+                cutsheet = engine.get_cutsheet()
+                
+                # Get categories for filter
+                categories = list(set(s['category'] for s in stories if s['category']))
+                
+                return render_template('waves_newspaper.html',
+                                     stories=stories,
+                                     cutsheet=cutsheet,
+                                     categories=categories,
+                                     current_category=category,
+                                     days=days,
+                                     hide_read=hide_read)
+            except Exception as e:
+                logger.error(f"Error in waves_newspaper: {e}", exc_info=True)
+                return f"Error loading Waves: {str(e)}", 500
+        
+        @self.app.route('/waves/newsletter')
+        def waves_newsletter():
+            """Generate Waves newsletter digest"""
+            from waves_engine import WavesEngine, WavesAnalyzer
+            
+            engine = WavesEngine(self.db_path)
+            analyzer = WavesAnalyzer(self.db_path)
+            
+            # Get this week's stories
+            stories = engine.get_stories(days=7, min_score=20)
+            
+            # Get weekly theme
+            theme = analyzer.identify_weekly_theme(stories)
+            
+            # Get top stories by category
+            stories_by_category = {}
+            for category in ["What's New", "What's Now", "What's Next", "News of the Weird"]:
+                cat_stories = [s for s in stories if s['category'] == category]
+                stories_by_category[category] = sorted(cat_stories, key=lambda x: x['total_score'], reverse=True)[:5]
+            
+            return render_template('waves_newsletter.html',
+                                 stories_by_category=stories_by_category,
+                                 theme=theme,
+                                 week_start=datetime.now().date() - timedelta(days=datetime.now().weekday()))
+        
+        @self.app.route('/waves/podcast')
+        def waves_podcast_script():
+            """Generate Waves podcast script"""
+            from waves_engine import WavesEngine, WavesAnalyzer
+            
+            engine = WavesEngine(self.db_path)
+            analyzer = WavesAnalyzer(self.db_path)
+            
+            # Get cutsheet stories
+            cutsheet = engine.get_cutsheet()
+            
+            if not cutsheet:
+                # If no cutsheet, use top stories
+                stories = engine.get_stories(days=7, min_score=30, limit=15)
+                cutsheet = stories
+            
+            # Get weekly theme
+            all_stories = engine.get_stories(days=7)
+            theme = analyzer.identify_weekly_theme(all_stories)
+            
+            # Group by segment
+            segments = {
+                "What's New": [],
+                "What's Now": [],
+                "What's Next": [],
+                "News of the Weird": []
+            }
+            
+            for story in cutsheet:
+                category = story.get('category', "What's Now")
+                if category in segments:
+                    segments[category].append(story)
+            
+            return render_template('waves_podcast_script.html',
+                                 segments=segments,
+                                 theme=theme,
+                                 cutsheet=cutsheet)
+        
+        @self.app.route('/api/waves/add_to_cutsheet', methods=['POST'])
+        def waves_add_to_cutsheet():
+            """Add story to podcast cutsheet"""
+            from waves_engine import WavesEngine
+            
+            try:
+                data = request.get_json()
+                story_id = data.get('story_id')
+                segment = data.get('segment', "What's Now")
+                notes = data.get('notes', '')
+                
+                engine = WavesEngine(self.db_path)
+                success = engine.add_to_cutsheet(story_id, segment, notes)
+                
+                return jsonify({'success': success})
+            except Exception as e:
+                logger.error(f"Error adding to cutsheet: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/waves/mark_read', methods=['POST'])
+        def waves_mark_read():
+            """Mark story as read"""
+            try:
+                data = request.get_json()
+                story_id = data.get('story_id')
+                
+                conn = self.get_db_connection()
+                conn.execute('UPDATE waves_stories SET read_status = 1 WHERE id = ?', (story_id,))
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error marking story as read: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/waves/feedback', methods=['POST'])
+        def waves_feedback():
+            """Store user feedback on story relevancy"""
+            try:
+                data = request.get_json()
+                story_id = data.get('story_id')
+                feedback_value = data.get('value')  # 1 for thumbs up, -1 for thumbs down
+                
+                conn = self.get_db_connection()
+                conn.execute('''
+                    INSERT INTO waves_feedback (story_id, feedback_type, feedback_value)
+                    VALUES (?, 'relevancy', ?)
+                ''', (story_id, feedback_value))
+                
+                # Update story's relevancy feedback counter
+                conn.execute('''
+                    UPDATE waves_stories 
+                    SET relevancy_feedback = relevancy_feedback + ?
+                    WHERE id = ?
+                ''', (feedback_value, story_id))
+                
+                conn.commit()
+                conn.close()
+                
+                return jsonify({'success': True})
+            except Exception as e:
+                logger.error(f"Error storing feedback: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/waves/fetch_sources', methods=['POST'])
+        def waves_fetch_sources():
+            """Manually trigger source fetching"""
+            from waves_engine import WavesSourceMonitor
+            
+            try:
+                monitor = WavesSourceMonitor(self.db_path)
+                
+                # Fetch from key sources
+                sources = [
+                    ('https://wifinowglobal.com/feed/', 'Wi-Fi Now'),
+                    ('https://www.fiercewireless.com/rss/xml', 'FierceWireless'),
+                    ('https://www.rcrwireless.com/feed', 'RCR Wireless'),
+                ]
+                
+                total_stories = 0
+                for feed_url, source_name in sources:
+                    count = monitor.fetch_from_rss(feed_url, source_name)
+                    total_stories += count
+                
+                # Also do some web searches
+                search_queries = ['WiFi 7', '5G wireless', 'spectrum auction', 'wireless security']
+                for query in search_queries:
+                    count = monitor.search_news(query)
+                    total_stories += count
+                
+                return jsonify({
+                    'success': True,
+                    'stories_added': total_stories
+                })
+            except Exception as e:
+                logger.error(f"Error fetching sources: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/waves/fetch_social', methods=['POST'])
+        def waves_fetch_social():
+            """Fetch from social media sources"""
+            import asyncio
+            from waves_engine import WavesSocialMonitor
+            
+            try:
+                monitor = WavesSocialMonitor(self.db_path)
+                
+                # Run async fetch
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                results = loop.run_until_complete(monitor.fetch_all_social())
+                loop.close()
+                
+                total = results['x'] + results['linkedin']
+                
+                return jsonify({
+                    'success': True,
+                    'stories_added': total,
+                    'breakdown': results
+                })
+            except Exception as e:
+                logger.error(f"Error fetching social: {e}")
+                return jsonify({'success': False, 'error': str(e)})
+        
+        # ============================================
+        # END WAVES ROUTES
+        # ============================================
+        
         @self.app.route('/wild_wifi')
         def wild_wifi():
             """Wild Wi-Fi stories page"""
@@ -2932,6 +3922,18 @@ class WirelessMonitor:
                     
                     # Only store articles with some relevance
                     if relevance_score > 0.05:  # Lower threshold to capture more articles
+                        # CHECK FOR DUPLICATES FIRST
+                        duplicate_id = self.detect_duplicate_articles(title, entry.link, days=7)
+                        
+                        if duplicate_id:
+                            # This is a duplicate - merge the scores
+                            logger.info(f"📊 Merging duplicate: {title[:50]}... into article {duplicate_id}")
+                            self.merge_duplicate_scores(duplicate_id, {
+                                'engagement_score': 0,  # Could extract from entry if available
+                                'feed_name': feed['name']
+                            })
+                            continue  # Skip to next entry
+                        
                         # Store article first, then generate image automatically
                         cursor = conn.execute('''
                             INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords)
@@ -2941,26 +3943,70 @@ class WirelessMonitor:
                         article_id = cursor.lastrowid
                         total_new_articles += 1
                         
-                        # Generate image automatically (using same connection to avoid locks)
-                        try:
-                            logger.info(f"🎨 Auto-generating image for: {title[:50]}...")
-                            article_dict = {
-                                'id': article_id,
-                                'title': title,
-                                'description': description,
-                                'url': entry.link
-                            }
-                            
-                            # Use the same connection to avoid database locks
-                            image_url = self.get_or_create_article_image_sync(article_dict, conn)
-                            if image_url:
-                                conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', (image_url, article_id))
-                                logger.info(f"✅ Auto-generated image for article {article_id}: {image_url}")
-                            else:
-                                logger.warning(f"❌ No image generated for article {article_id}")
-                                
-                        except Exception as img_error:
-                            logger.error(f"Error generating image for article {article_id}: {img_error}")
+                        # PERFORMANCE: Disabled auto image generation (too slow)
+
+                        
+                        # Images will be generated on-demand when viewing articles
+
+                        
+                        # Uncomment below to re-enable:
+
+                        
+                        # # Generate image automatically (using same connection to avoid locks)
+
+                        
+                        # try:
+
+                        
+                        # logger.info(f"🎨 Auto-generating image for: {title[:50]}...")
+
+                        
+                        # article_dict = {
+
+                        
+                        # 'id': article_id,
+
+                        
+                        # 'title': title,
+
+                        
+                        # 'description': description,
+
+                        
+                        # 'url': entry.link
+
+                        
+                        # }
+
+
+                        
+                        # # Use the same connection to avoid database locks
+
+                        
+                        # image_url = self.get_or_create_article_image_sync(article_dict, conn)
+
+                        
+                        # if image_url:
+
+                        
+                        # conn.execute('UPDATE articles SET image_url = ? WHERE id = ?', (image_url, article_id))
+
+                        
+                        # logger.info(f"✅ Auto-generated image for article {article_id}: {image_url}")
+
+                        
+                        # else:
+
+                        
+                        # logger.warning(f"❌ No image generated for article {article_id}")
+
+
+                        
+                        # except Exception as img_error:
+
+                        
+                        # logger.error(f"Error generating image for article {article_id}: {img_error}")
+
                 
                 # Update last fetched time
                 conn.execute('UPDATE rss_feeds SET last_fetched = CURRENT_TIMESTAMP WHERE id = ?', (feed['id'],))
@@ -4165,6 +5211,7 @@ signal strength issue creative solution"""
     def _process_search_results(self, conn, results, search_term):
         """Process search results and save to database"""
         import re
+        from difflib import SequenceMatcher
         
         stories_saved = 0
         
@@ -4178,12 +5225,31 @@ signal strength issue creative solution"""
                 if not title or not url or not url.startswith('http'):
                     continue
                 
-                # Check if story already exists
+                # Check if story already exists by URL
                 existing = conn.execute('''
                     SELECT id FROM wild_wifi_stories WHERE source_url = ?
                 ''', (url,)).fetchone()
                 
                 if existing:
+                    continue
+                
+                # Check for similar titles (prevent duplicates with different URLs)
+                similar_stories = conn.execute('''
+                    SELECT id, title, story FROM wild_wifi_stories 
+                    WHERE approved = 1 AND ignored = 0
+                    ORDER BY created_at DESC
+                    LIMIT 100
+                ''').fetchall()
+                
+                is_duplicate = False
+                for existing_story in similar_stories:
+                    title_similarity = SequenceMatcher(None, title.lower(), existing_story['title'].lower()).ratio()
+                    if title_similarity >= 0.85:
+                        logger.info(f"Skipping duplicate story (title similarity: {title_similarity:.2f}): {title}")
+                        is_duplicate = True
+                        break
+                
+                if is_duplicate:
                     continue
                 
                 # Extract location from snippet (if present)
@@ -6658,7 +7724,7 @@ signal strength issue creative solution"""
     def setup_scheduler(self):
         """Setup background task scheduler"""
         # Schedule RSS fetching every 6 hours
-        schedule.every(6).hours.do(self.fetch_rss_feeds)
+        schedule.every(12).hours.do(self.fetch_rss_feeds)  # Optimized: reduced from 6h
         
         # Schedule cleanup daily at 2 AM
         schedule.every().day.at("02:00").do(self.cleanup_old_articles)
@@ -6667,16 +7733,16 @@ signal strength issue creative solution"""
         schedule.every().tuesday.at("08:00").do(self.auto_generate_weekly_digest)
         
         # ENHANCEMENT: Schedule social media fetching every 6 hours
-        schedule.every(6).hours.do(self.fetch_social_media)
+        schedule.every(24).hours.do(self.fetch_social_media)  # Reduced from 6h
         
         # ENHANCEMENT: Schedule Wild Wi-Fi curation every 8 hours
-        schedule.every(8).hours.do(self.curate_wild_wifi)
+        schedule.every(24).hours.do(self.curate_wild_wifi)  # Reduced from 8h
         
         # ENHANCEMENT: Schedule Wild Wi-Fi story search every 12 hours
-        schedule.every(12).hours.do(self.auto_search_wild_wifi_stories)
+        schedule.every(48).hours.do(self.auto_search_wild_wifi_stories)  # Reduced from 12h
         
         # ENHANCEMENT: Schedule event discovery every 6 hours
-        schedule.every(6).hours.do(self.discover_social_events)
+        schedule.every(24).hours.do(self.discover_social_events)  # Reduced from 6h
         
         # Setup automatic AI model updates
         self.setup_auto_model_updates()

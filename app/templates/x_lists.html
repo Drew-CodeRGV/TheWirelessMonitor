@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}X/Twitter Lists - The Signal{% endblock %}
+
+{% block content %}
+<style>
+    .lists-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .page-header {
+        margin-bottom: 40px;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .page-header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+    
+    .add-list-form {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border: 1px solid #e5e5e5;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+    }
+    
+    .form-group {
+        flex: 1;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+    
+    .form-group input:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+    
+    .lists-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+    }
+    
+    .list-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        border: 1px solid #e5e5e5;
+        transition: all 0.2s ease;
+    }
+    
+    .list-card:hover {
+        border-color: #3b82f6;
+        box-shadow: 0 4px 12px rgba(59,130,246,0.1);
+    }
+    
+    .list-card.disabled {
+        opacity: 0.6;
+        background: #f9f9f9;
+    }
+    
+    .list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 15px;
+    }
+    
+    .list-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: #1a1a1a;
+    }
+    
+    .list-info .owner {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .list-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .list-status.enabled {
+        background: #d1fae5;
+        color: #065f46;
+    }
+    
+    .list-status.disabled {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+    
+    .list-meta {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .list-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .list-actions button {
+        flex: 1;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-toggle {
+        background: #3b82f6;
+        color: white;
+    }
+    
+    .btn-toggle:hover {
+        background: #2563eb;
+    }
+    
+    .btn-delete {
+        background: #ef4444;
+        color: white;
+    }
+    
+    .btn-delete:hover {
+        background: #dc2626;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #666;
+    }
+</style>
+
+<div class="lists-container">
+    <div class="page-header">
+        <h2>𝕏 Twitter Lists</h2>
+        <p>Monitor curated lists of wireless industry experts and companies</p>
+    </div>
+    
+    <div class="add-list-form">
+        <h3 style="margin-bottom: 20px;">Add New List</h3>
+        <form id="addListForm" onsubmit="addList(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="list_url">List URL</label>
+                    <input type="text" 
+                           id="list_url" 
+                           name="list_url" 
+                           placeholder="https://twitter.com/i/lists/1234567890 or https://x.com/username/lists/listname"
+                           required>
+                </div>
+                <button type="submit" class="btn" style="padding: 12px 24px;">Add List</button>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.85rem; color: #666;">
+                💡 Tip: Find lists at twitter.com/username/lists or use the numeric list ID
+            </p>
+        </form>
+    </div>
+    
+    {% if lists %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3>Configured Lists ({{ lists|length }})</h3>
+        <button onclick="fetchAllLists()" class="btn" style="background: #10b981;">🔄 Fetch All Lists</button>
+    </div>
+    
+    <div class="lists-grid">
+        {% for list in lists %}
+        <div class="list-card {% if not list.enabled %}disabled{% endif %}">
+            <div class="list-header">
+                <div class="list-info">
+                    <h3>{{ list.list_name }}</h3>
+                    <div class="owner">@{{ list.list_owner }}</div>
+                </div>
+                <span class="list-status {% if list.enabled %}enabled{% else %}disabled{% endif %}">
+                    {% if list.enabled %}Active{% else %}Disabled{% endif %}
+                </span>
+            </div>
+            
+            <div class="list-meta">
+                <span>📋 ID: {{ list.list_id }}</span>
+                {% if list.last_fetched %}
+                <span>🕐 Last: {{ list.last_fetched[:16] }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="list-actions">
+                <button class="btn-toggle" onclick="toggleList({{ list.id }})">
+                    {% if list.enabled %}Disable{% else %}Enable{% endif %}
+                </button>
+                <button class="btn-delete" onclick="deleteList({{ list.id }})">Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No Lists Configured</h3>
+        <p>Add your first X/Twitter list above to start monitoring wireless industry conversations</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+async function addList(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const button = form.querySelector('button[type="submit"]');
+    
+    button.disabled = true;
+    button.textContent = 'Adding...';
+    
+    try {
+        const response = await fetch('/api/x_lists/add', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showNotification(data.message, 'success');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showNotification(data.error, 'error');
+            button.disabled = false;
+            button.textContent = 'Add List';
+        }
+    } catch (error) {
+        showNotification('Error adding list: ' + error.message, 'error');
+        button.disabled = false;
+        button.textContent = 'Add List';
+    }
+}
+
+async function toggleList(listId) {
+    try {
+        const response = await fetch(`/api/x_lists/${listId}/toggle`, {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            location.reload();
+        } else {
+            showNotification(data.error, 'error');
+        }
+    } catch (error) {
+        showNotification('Error toggling list: ' + error.message, 'error');
+    }
+}
+
+async function deleteList(listId) {
+    if (!confirm('Are you sure you want to delete this list?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/x_lists/${listId}/delete`, {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showNotification('List deleted', 'success');
+            setTimeout(() => location.reload(), 500);
+        } else {
+            showNotification(data.error, 'error');
+        }
+    } catch (error) {
+        showNotification('Error deleting list: ' + error.message, 'error');
+    }
+}
+
+async function fetchAllLists() {
+    const button = event.target;
+    button.disabled = true;
+    button.textContent = '⏳ Fetching...';
+    
+    try {
+        const response = await fetch('/api/x_lists/fetch_now', {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showNotification(`Fetched ${data.lists_fetched} lists, added ${data.posts_added} posts`, 'success');
+            button.textContent = '✅ Done!';
+            setTimeout(() => {
+                button.disabled = false;
+                button.textContent = '🔄 Fetch All Lists';
+            }, 2000);
+        } else {
+            showNotification(data.error, 'error');
+            button.disabled = false;
+            button.textContent = '🔄 Fetch All Lists';
+        }
+    } catch (error) {
+        showNotification('Error fetching lists: ' + error.message, 'error');
+        button.disabled = false;
+        button.textContent = '🔄 Fetch All Lists';
+    }
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+</script>
+{% endblock %}

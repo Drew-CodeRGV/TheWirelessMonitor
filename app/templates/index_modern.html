@@ -1,0 +1,546 @@
+{% extends "base.html" %}
+
+{% block title %}The Signal - Wireless Industry Intelligence{% endblock %}
+
+{% block content %}
+<style>
+    /* Modern Tech-Focused Design */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+    
+    :root {
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-600: #4b5563;
+        --gray-900: #111827;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--gray-900);
+        background: var(--gray-50);
+    }
+    
+    h1, h2, h3, h4 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+    }
+    
+    /* Main Layout */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 24px;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 24px;
+    }
+    
+    @media (max-width: 1200px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+        }
+        .sidebar {
+            order: -1;
+        }
+    }
+    
+    /* Toolbar */
+    .toolbar {
+        background: white;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid var(--gray-200);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .toolbar-left {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--gray-600);
+    }
+    
+    .filter-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+    
+    .filter-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    
+    /* Article Cards */
+    .article-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+        border: 1px solid var(--gray-200);
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .article-card:hover {
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+        transform: translateY(-2px);
+    }
+    
+    .article-header {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .article-source-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+    
+    .source-rss { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .source-x { background: linear-gradient(135deg, #1da1f2, #0c8bd9); }
+    .source-linkedin { background: linear-gradient(135deg, #0077b5, #005885); }
+    
+    .article-content {
+        flex: 1;
+    }
+    
+    .article-title {
+        font-size: 1.125rem;
+        line-height: 1.4;
+        max-width: 65ch;
+        font-weight: 600;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+    }
+    
+    .article-title a {
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .article-title a:hover {
+        color: var(--primary);
+    }
+    
+    .article-snippet {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        max-width: 70ch;
+        color: var(--gray-600);
+        margin-bottom: 12px;
+    }
+    
+    .article-meta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 0.8125rem;
+        color: var(--gray-600);
+    }
+    
+    /* Badges */
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }
+    
+    .score-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .score-high { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .score-medium { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .score-low { background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); }
+    
+    .category-badge {
+        background: var(--gray-100);
+        color: var(--gray-700);
+    }
+    
+    .crossover-badge {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+    }
+    
+    .event-badge {
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        color: white;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        position: sticky;
+        top: 24px;
+        height: fit-content;
+    }
+    
+    .sidebar-section {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        border: 1px solid var(--gray-200);
+    }
+    
+    .sidebar-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--gray-600);
+        margin-bottom: 16px;
+    }
+    
+    .event-item {
+        padding: 12px;
+        border-radius: 8px;
+        background: var(--gray-50);
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .event-item:hover {
+        background: var(--primary);
+        color: white;
+    }
+    
+    .event-name {
+        font-weight: 600;
+        font-size: 0.9375rem;
+        margin-bottom: 4px;
+    }
+    
+    .event-meta {
+        font-size: 0.8125rem;
+        opacity: 0.8;
+    }
+    
+    .event-buzz {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+        font-size: 0.75rem;
+    }
+    
+    .buzz-indicator {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    /* Stats */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .stat-card {
+        padding: 16px;
+        border-radius: 8px;
+        background: var(--gray-50);
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gray-900);
+    }
+    
+    .stat-label {
+        font-size: 0.8125rem;
+        color: var(--gray-600);
+        margin-top: 4px;
+    }
+    
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--gray-600);
+    }
+    
+    .empty-state h3 {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+        color: var(--gray-900);
+    }
+</style>
+
+<div class="main-grid">
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <button class="filter-btn active" data-filter="all">All Sources</button>
+                <button class="filter-btn" data-filter="rss">📰 News</button>
+                <button class="filter-btn" data-filter="x">𝕏 Twitter</button>
+                <button class="filter-btn" data-filter="linkedin">in LinkedIn</button>
+                <button class="filter-btn" data-filter="best">🏆 Best</button>
+            </div>
+            <div class="toolbar-right">
+                <button onclick="fetchAll()" class="btn" style="padding: 8px 16px; font-size: 0.875rem;">
+                    🔄 Refresh All
+                </button>
+            </div>
+        </div>
+        
+        <!-- Articles Feed -->
+        <div id="articlesFeed">
+            {% if stories %}
+                {% for story in stories %}
+                <div class="article-card" data-source="{{ story.source_type or 'rss' }}" data-score="{{ story.waves_score or 0 }}">
+                    <div class="article-header">
+                        <div class="article-source-icon source-{{ story.source_type or 'rss' }}">
+                            {% if story.source_type == 'x_twitter' %}
+                                𝕏
+                            {% elif story.source_type == 'linkedin' %}
+                                in
+                            {% else %}
+                                📰
+                            {% endif %}
+                        </div>
+                        <div class="article-content">
+                            <h3 class="article-title">
+                                <a href="{{ story.url }}" target="_blank">{{ story.title }}</a>
+                            </h3>
+                            {% if story.description %}
+                            <p class="article-snippet">{{ story.description[:200] }}{% if story.description|length > 200 %}...{% endif %}</p>
+                            {% endif %}
+                            <div class="article-meta">
+                                <span>{{ story.feed_name }}</span>
+                                <span>•</span>
+                                <span>{{ story.published_date[:10] if story.published_date else 'Recent' }}</span>
+                                
+                                {% if story.waves_score and story.waves_score > 0 %}
+                                <span class="badge score-badge {% if story.waves_score >= 80 %}score-high{% elif story.waves_score >= 50 %}score-medium{% else %}score-low{% endif %}">
+                                    🌊 {{ "%.0f"|format(story.waves_score) }}
+                                </span>
+                                {% endif %}
+                                
+                                {% if story.category %}
+                                <span class="badge category-badge">{{ story.category }}</span>
+                                {% endif %}
+                                
+                                {% if story.crossover_type %}
+                                <span class="badge crossover-badge" title="{{ story.crossover_description }}">
+                                    {% if story.crossover_type == 'wireless-to-tech' %}📡→💻{% else %}💻→📡{% endif %}
+                                </span>
+                                {% endif %}
+                                
+                                {% if story.event_name %}
+                                <span class="badge event-badge">🎪 {{ story.event_name }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="empty-state">
+                <h3>No Articles Yet</h3>
+                <p>Click "Refresh All" to fetch the latest wireless industry news</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Stats -->
+        <div class="sidebar-section">
+            <div class="sidebar-title">Today's Stats</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">{{ stories|length }}</div>
+                    <div class="stat-label">Articles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ detected_events|length if detected_events else 0 }}</div>
+                    <div class="stat-label">Events</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trending Events -->
+        <div class="sidebar-section">
+            <div class="sidebar-title">🔥 Trending Events</div>
+            {% if detected_events %}
+                {% for event in detected_events[:5] %}
+                <div class="event-item" onclick="filterByEvent('{{ event.name }}')">
+                    <div class="event-name">{{ event.name }}</div>
+                    <div class="event-meta">
+                        {% if event.start_date %}{{ event.start_date }}{% endif %}
+                        {% if event.location %} • {{ event.location }}{% endif %}
+                    </div>
+                    <div class="event-buzz">
+                        <div class="buzz-indicator">
+                            <span>💬</span>
+                            <span>{{ event.mention_count }} mentions</span>
+                        </div>
+                        <div class="buzz-indicator">
+                            <span>📊</span>
+                            <span>{{ "%.0f"|format(event.confidence_score * 100) }}% confidence</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <p style="color: var(--gray-600); font-size: 0.875rem;">No trending events detected yet</p>
+            {% endif %}
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="sidebar-section">
+            <div class="sidebar-title">Quick Actions</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a href="{{ url_for('manage_x_lists', view=view_mode) }}" class="btn" style="width: 100%; text-align: center; padding: 10px;">
+                    𝕏 Manage Lists
+                </a>
+                <a href="{{ url_for('manage_feeds', view=view_mode) }}" class="btn" style="width: 100%; text-align: center; padding: 10px;">
+                    📡 RSS Feeds
+                </a>
+                <a href="{{ url_for('events', view=view_mode) }}" class="btn" style="width: 100%; text-align: center; padding: 10px;">
+                    🎪 All Events
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Filter functionality
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Update active state
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.dataset.filter;
+        const articles = document.querySelectorAll('.article-card');
+        
+        articles.forEach(article => {
+            const source = article.dataset.source;
+            const score = parseFloat(article.dataset.score);
+            
+            if (filter === 'all') {
+                article.style.display = 'block';
+            } else if (filter === 'best') {
+                article.style.display = score >= 80 ? 'block' : 'none';
+            } else {
+                article.style.display = source === filter ? 'block' : 'none';
+            }
+        });
+    });
+});
+
+function filterByEvent(eventName) {
+    const articles = document.querySelectorAll('.article-card');
+    articles.forEach(article => {
+        const badges = article.querySelectorAll('.event-badge');
+        let hasEvent = false;
+        badges.forEach(badge => {
+            if (badge.textContent.includes(eventName)) {
+                hasEvent = true;
+            }
+        });
+        article.style.display = hasEvent ? 'block' : 'none';
+    });
+    
+    // Update filter button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+}
+
+async function fetchAll() {
+    const button = event.target;
+    button.disabled = true;
+    button.textContent = '⏳ Fetching...';
+    
+    try {
+        // Fetch RSS
+        await fetch('/api/fetch_now', { method: 'POST' });
+        
+        // Fetch X lists
+        await fetch('/api/x_lists/fetch_now', { method: 'POST' });
+        
+        // Detect events
+        await fetch('/api/events/detect', { method: 'POST' });
+        
+        showNotification('All sources refreshed!', 'success');
+        setTimeout(() => location.reload(), 1500);
+    } catch (error) {
+        showNotification('Error refreshing: ' + error.message, 'error');
+        button.disabled = false;
+        button.textContent = '🔄 Refresh All';
+    }
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+</script>
+{% endblock %}
