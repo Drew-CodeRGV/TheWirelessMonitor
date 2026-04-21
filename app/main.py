@@ -4089,11 +4089,36 @@ class WirelessMonitor:
                     # Extract article data
                     title = entry.get('title', 'No Title')
                     
+                    # Extract image from RSS feed if available
+                    image_url = None
+                    
+                    # Try multiple ways to get image from RSS feed
+                    if hasattr(entry, 'media_content') and entry.media_content:
+                        # Media RSS
+                        image_url = entry.media_content[0].get('url') if isinstance(entry.media_content, list) else entry.media_content.get('url')
+                    elif hasattr(entry, 'media_thumbnail') and entry.media_thumbnail:
+                        # Media thumbnail
+                        image_url = entry.media_thumbnail[0].get('url') if isinstance(entry.media_thumbnail, list) else entry.media_thumbnail.get('url')
+                    elif hasattr(entry, 'enclosures') and entry.enclosures:
+                        # Enclosures (podcasts, images)
+                        for enclosure in entry.enclosures:
+                            if enclosure.get('type', '').startswith('image/'):
+                                image_url = enclosure.get('href') or enclosure.get('url')
+                                break
+                    
+                    # Try to extract image from description HTML
+                    if not image_url:
+                        description_html = entry.get('summary', entry.get('description', ''))
+                        if description_html:
+                            soup = BeautifulSoup(description_html, 'html.parser')
+                            img_tag = soup.find('img')
+                            if img_tag and img_tag.get('src'):
+                                image_url = img_tag.get('src')
+                    
                     # Clean up description/summary - remove HTML tags
                     description = entry.get('summary', entry.get('description', ''))
                     if description:
                         # Remove HTML tags and decode entities
-                        from bs4 import BeautifulSoup
                         soup = BeautifulSoup(description, 'html.parser')
                         description = soup.get_text().strip()
                         # Remove extra whitespace
@@ -4136,16 +4161,20 @@ class WirelessMonitor:
                             })
                             continue  # Skip to next entry
                         
-                        # Store article first, then generate image automatically
+                        # Store article first with image if found in RSS
                         cursor = conn.execute('''
-                            INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                        ''', (feed['id'], title, entry.link, description, content, published_date, relevance_score, keywords_str))
+                            INSERT INTO articles (feed_id, title, url, description, content, published_date, relevance_score, wifi_keywords, image_url)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ''', (feed['id'], title, entry.link, description, content, published_date, relevance_score, keywords_str, image_url))
                         
                         article_id = cursor.lastrowid
                         total_new_articles += 1
                         
-                        # PERFORMANCE: Disabled auto image generation (too slow)
+                        # If no image in RSS, try to scrape from article page (async/background)
+                        if not image_url:
+                            logger.info(f"📸 No RSS image for article {article_id}, will scrape on-demand")
+                        else:
+                            logger.info(f"✅ Found RSS image for article {article_id}: {image_url}")
 
                         
                         # Images will be generated on-demand when viewing articles
