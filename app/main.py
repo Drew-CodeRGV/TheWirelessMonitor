@@ -1264,7 +1264,7 @@ class WirelessMonitor:
             hide_read = request.args.get('hide_read', 'true').lower() == 'true'
             sort_by = request.args.get('sort', 'score')  # 'score' or 'date'
             best_of_best = request.args.get('best', 'false').lower() == 'true'
-            use_modern = request.args.get('modern', 'true').lower() == 'true'  # New modern UI by default
+            use_modern = request.args.get('modern', 'false').lower() == 'true'  # Use classic UI by default
             
             # Get current date for filtering
             today = datetime.now().strftime('%Y-%m-%d')

@@ -1170,5 +1170,13 @@
         animation: pulse 0.6s;
     }
     </style>
+    
+    <script>
+    // Auto-refresh every 5 minutes
+    setInterval(function() {
+        console.log('Auto-refreshing page...');
+        window.location.reload();
+    }, 300000); // 300000ms = 5 minutes
+    </script>
 {% endif %}
 {% endblock %}
