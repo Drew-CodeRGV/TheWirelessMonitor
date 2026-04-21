@@ -16,6 +16,7 @@ import hashlib
 from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse, unquote
+from typing import Optional
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
