@@ -342,18 +342,18 @@
 {% else %}
     <!-- NEWSPAPER MODE - Al Jazeera Style Layout -->
     
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;">
-        <h2>📰 Latest Wireless Technology Headlines</h2>
-        <div style="display: flex; gap: 10px;">
-            <a href="{{ url_for('read_articles', view=view_mode) }}" class="btn" style="background: #9b59b6;">📚 Read Articles</a>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 12px 20px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 3px;">
+        <h2 style="font-size: 1.2rem; font-weight: 600; margin: 0;">📰 Latest Wireless Technology Headlines</h2>
+        <div style="display: flex; gap: 8px;">
+            <a href="{{ url_for('read_articles', view=view_mode) }}" class="btn">📚 Read Articles</a>
             {% if not show_all and total_articles > relevant_articles %}
-                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn">📋 Show All ({{ total_articles }})</a>
             {% elif show_all %}
-                <a href="{{ url_for('index', view=view_mode) }}" class="btn" style="background: #f39c12;">🎯 Show Relevant Only ({{ relevant_articles }})</a>
+                <a href="{{ url_for('index', view=view_mode) }}" class="btn">🎯 Show Relevant ({{ relevant_articles }})</a>
             {% elif total_articles > relevant_articles %}
-                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn" style="background: #27ae60;">📋 Show All ({{ total_articles }})</a>
+                <a href="{{ url_for('index', view=view_mode, show_all='true') }}" class="btn">📋 Show All ({{ total_articles }})</a>
             {% endif %}
-            <button onclick="markAllAsRead()" class="btn" style="background: #e74c3c;">✓ Mark All Read</button>
+            <button onclick="markAllAsRead()" class="btn">✓ Mark All Read</button>
             <button onclick="fetchNow()" class="btn">🔄 Fetch Now</button>
         </div>
     </div>
@@ -378,49 +378,49 @@
 
     {% if stories %}
         <!-- AL JAZEERA LAYOUT: Hero Left (50%) + Two Right Columns (25% each) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
             
             <!-- LEFT SIDE: Hero Stories (50%) -->
             <div>
                 <!-- Main Hero Story -->
                 {% if stories[0] %}
-                <article style="margin-bottom: 40px;">
-                    <div style="position: relative; margin-bottom: 20px;">
+                <article style="margin-bottom: 30px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: all 0.2s ease;">
+                    <div style="position: relative; margin-bottom: 15px;">
                         {% if stories[0].image_url %}
                             <img src="{{ stories[0].image_url }}" alt="{{ stories[0].title }}" 
-                                 style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;">
+                                 style="width: 100%; height: 300px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border);">
                         {% else %}
-                            <div data-article-id="{{ stories[0].id }}" class="image-placeholder" style="width: 100%; height: 350px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px;" 
+                            <div data-article-id="{{ stories[0].id }}" class="image-placeholder" style="width: 100%; height: 300px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; border: 1px solid var(--border);" 
                                  onclick="generateArticleImage({{ stories[0].id }}, this)">
-                                <span style="color: #666;">📸 Generate Image</span>
+                                <span style="color: #666; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">📸 Generate Image</span>
                             </div>
                         {% endif %}
                         <!-- Waves Score Badge -->
                         {% if stories[0].waves_score and stories[0].waves_score > 0 %}
-                        <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #e52d27 0%, #b31217 100%); color: white; padding: 12px 20px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-                            <div style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 2px;">WAVES SCORE</div>
-                            <div style="font-size: 1.8rem; line-height: 1;">{{ "%.0f"|format(stories[0].waves_score) }}</div>
+                        <div style="position: absolute; top: 10px; right: 10px; background: var(--accent-orange); color: var(--bg-primary); padding: 6px 12px; border-radius: 3px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">
+                            {{ "%.0f"|format(stories[0].waves_score) }}
                         </div>
                         {% endif %}
                     </div>
-                    <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 15px; line-height: 1.2;">
-                        <a href="{{ stories[0].url }}" target="_blank" style="color: #000; text-decoration: none;">{{ stories[0].title }}</a>
+                    <h1 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 12px; line-height: 1.3;">
+                        <a href="{{ stories[0].url }}" target="_blank" style="color: var(--text-primary); text-decoration: none;">{{ stories[0].title }}</a>
                     </h1>
                     {% if stories[0].description %}
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">{{ stories[0].description[:200] }}...</p>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">{{ stories[0].description[:200] }}...</p>
                     {% endif %}
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                        <span style="color: #999; font-size: 0.9rem;">{{ stories[0].feed_name }}</span>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+                        <span style="color: var(--text-secondary); font-size: 0.85rem; font-family: 'IBM Plex Mono', monospace;">{{ stories[0].feed_name }}</span>
                         {% if stories[0].cross_source_count and stories[0].cross_source_count > 1 %}
-                        <span style="background: #27ae60; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">
+                        <span style="background: var(--accent-orange); color: var(--bg-primary); padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: 600; font-family: 'IBM Plex Mono', monospace;">
                             🔥 {{ stories[0].cross_source_count }} sources
                         </span>
                         {% endif %}
-                        <div style="flex: 1;"></div>
+                    </div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                         <a href="{{ stories[0].url }}" target="_blank" class="btn">Read More</a>
-                        <button onclick="shareArticle({{ stories[0].id }})" class="btn" style="background: #3498db; color: white;" title="Share this article on social media">📤 Share</button>
-                        <button onclick="addToDigest({{ stories[0].id }})" class="btn" style="background: #f39c12; color: white;" title="Add to weekly digest">📋 Add to Digest</button>
-                        <button onclick="markAsRead({{ stories[0].id }})" class="btn" style="background: #27ae60; color: white;" title="Mark as read">✓ Read</button>
+                        <button onclick="shareArticle({{ stories[0].id }})" class="btn" title="Share this article">📤 Share</button>
+                        <button onclick="addToDigest({{ stories[0].id }})" class="btn" title="Add to weekly digest">📋 Digest</button>
+                        <button onclick="markAsRead({{ stories[0].id }})" class="btn" title="Mark as read">✓ Read</button>
                     </div>
                 </article>
                 {% endif %}

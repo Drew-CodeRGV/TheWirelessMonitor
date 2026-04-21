@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}The Signal{% endblock %}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
         
         * { 
             margin: 0; 
@@ -14,25 +14,22 @@
         }
         
         :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #fafafa;
-            --card-bg: #ffffff;
-            --accent-red: #c41e3a;
-            --accent-blue: #2563eb;
-            --accent-green: #059669;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --text-meta: #999999;
-            --border-color: #e5e5e5;
-            --border-dark: #cccccc;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f6ef;
+            --bg-hover: #fffef8;
+            --accent-orange: #ff6600;
+            --accent-blue: #0066cc;
+            --text-primary: #000000;
+            --text-secondary: #828282;
+            --border: #e6e6df;
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
             color: var(--text-primary);
-            background: var(--primary-bg);
+            background: var(--bg-secondary);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -45,41 +42,40 @@
         
         /* ===== MODERN TECH NEWSPAPER MODE ===== */
         
-        /* Header - Newspaper Masthead */
+        /* Header - Minimal Orange Bar */
         .header {
-            background: var(--primary-bg);
-            border-bottom: 4px double var(--border-dark);
-            padding: 30px 0 20px 0;
+            background: var(--accent-orange);
+            border-bottom: none;
+            padding: 8px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
+            border-bottom: none;
+            padding-bottom: 0;
         }
         
         .header h1 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            letter-spacing: -1px;
-            text-transform: uppercase;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-primary);
+            letter-spacing: 0;
+            text-transform: none;
         }
         
         .header .tagline {
             font-size: 0.75rem;
-            color: var(--text-meta);
-            font-weight: 400;
-            margin-top: 5px;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-top: 2px;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
         
@@ -130,10 +126,10 @@
             width: 100%;
         }
         
-        /* Main Content - Dark Mode */
+        /* Main Content - Clean Background */
         .main-content {
-            background: transparent;
-            padding: 40px 0;
+            background: var(--bg-secondary);
+            padding: 20px 0;
         }
         
         .articles-grid {
@@ -714,40 +710,38 @@
             color: #999;
         }
         
-        /* Buttons - Futuristic */
+        /* Buttons - Minimal HN Style */
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            background: var(--secondary-bg);
-            color: var(--text-primary);
+            padding: 6px 12px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            border: 1px solid var(--border);
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 500;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
             transition: all 0.2s ease;
         }
         
         .btn:hover {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            border-color: var(--accent-orange);
             text-decoration: none;
         }
         
         .btn:focus {
-            outline: 2px solid var(--accent-blue);
+            outline: 2px solid var(--accent-orange);
             outline-offset: 2px;
         }
         
         .btn.active {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            border-color: var(--accent-orange);
         }
         
         .reader-mode .btn {
