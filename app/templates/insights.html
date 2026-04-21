@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Industry Insights - The Wireless Monitor{% endblock %}
+{% block title %}Industry Insights - The Signal{% endblock %}
 
 {% block content %}
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: {% if view_mode == 'reader' %}0{% else %}35px{% endif %}; {% if view_mode == 'reader' %}padding: 15px 20px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin: 0 -40px 0 -40px;{% endif %}">
@@ -113,9 +113,23 @@
         <strong>Analysis Summary:</strong> 
         Analyzed {{ insights.articles_analyzed }} articles from the past 7 days • 
         Last updated: {{ insights.generated_at[:16] }} • 
+        {% if insights.ai_enhanced %}
+        <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85rem;">🤖 AI Enhanced</span> • 
+        {% endif %}
         Focus areas: Standards, Adoption, Market Trends, Enterprise Readiness, Technical Shifts, Security, M&A
     </p>
 </div>
+
+<!-- AI Industry Analysis -->
+{% if insights.ai_analysis %}
+<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 10px; margin-top: 30px;">
+    <h3 style="margin-bottom: 15px; color: white; display: flex; align-items: center; gap: 10px;">
+        🤖 AI Industry Analysis
+        <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px;">Powered by Ollama</span>
+    </h3>
+    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; line-height: 1.6; white-space: pre-wrap;">{{ insights.ai_analysis }}</div>
+</div>
+{% endif %}
 
 <script>
 async function refreshInsights() {

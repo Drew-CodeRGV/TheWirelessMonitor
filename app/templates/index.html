@@ -4,68 +4,340 @@
 
 {% block content %}
 {% if view_mode == 'reader' %}
-    <!-- Google Reader Style -->
-    <div class="reader-page-header">
-        <h2>📰 Latest Wireless Technology Headlines</h2>
-        <div class="subtitle">{{ stories|length }} articles from the last 7 days</div>
-    </div>
-    
-    <div class="reader-toolbar">
-        <button class="reader-toolbar-btn" onclick="markAllAsRead()">✓ Mark all as read</button>
-        <button class="reader-toolbar-btn" onclick="fetchNow()">🔄 Refresh</button>
-        <div class="reader-toolbar-separator"></div>
-        <span style="color: #666; font-size: 13px; margin-right: 8px;">Sort by:</span>
-        <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='score') }}" 
-           class="reader-toolbar-btn {% if sort_by == 'score' %}active{% endif %}">
-            ⭐ Score
-        </a>
-        <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='date') }}" 
-           class="reader-toolbar-btn {% if sort_by == 'date' %}active{% endif %}">
-            📅 Date
-        </a>
-        <div class="reader-toolbar-separator"></div>
-        {% if not show_all and total_articles > relevant_articles %}
-            <a href="{{ url_for('index', view=view_mode, show_all='true', sort=sort_by) }}" class="reader-toolbar-btn">Show all ({{ total_articles }})</a>
-        {% elif show_all %}
-            <a href="{{ url_for('index', view=view_mode, sort=sort_by) }}" class="reader-toolbar-btn active">Showing all</a>
-        {% endif %}
-        <div class="reader-toolbar-separator"></div>
-        <a href="{{ url_for('read_articles', view=view_mode) }}" class="reader-toolbar-btn">📚 Read Articles</a>
-    </div>
-    
-    <div class="reader-article-list">
-        {% if stories %}
-            {% for story in stories %}
-            <div class="reader-article-item {% if not story.read_status %}unread{% endif %}">
-                <h3><a href="{{ story.url }}" target="_blank" onclick="markAsRead({{ story.id }})">{{ story.title }}</a></h3>
-                <div class="reader-article-snippet">
-                    {{ (story.description[:200] + '...') if story.description and story.description|length > 200 else (story.description or 'No preview available') }}
+    <!-- Google Reader Style Three-Column Layout -->
+    <div class="reader-layout">
+        <!-- Left Sidebar - Feeds/Folders -->
+        <div class="feeds-pane" id="feeds-pane">
+            <h3>Subscriptions</h3>
+            
+            <!-- All Items -->
+            <div class="feed-item active" onclick="filterArticles('all', this)" data-filter="all">
+                <span>📰 All Items</span>
+                <span class="unread-count">{{ stories|length }}</span>
+            </div>
+            
+            <!-- Folders -->
+            <div class="feed-folder">
+                <div class="folder-header" onclick="toggleFolder(this)">
+                    <span class="folder-icon expanded"></span>
+                    <span class="folder-name">📁 Technology News</span>
+                    <span class="folder-unread-count">{{ stories|length }}</span>
                 </div>
-                <div class="reader-article-meta">
-                    <span class="reader-feed-name">{{ story.feed_name }}</span>
-                    <span>•</span>
-                    <span>{{ story.published_date[:10] if story.published_date else 'Unknown date' }}</span>
-                    {% if story.relevance_score %}
-                    <span>•</span>
-                    <span style="color: {% if story.relevance_score > 0.5 %}#27ae60{% elif story.relevance_score > 0.3 %}#f39c12{% else %}#999{% endif %};">
-                        Score: {{ "%.2f"|format(story.relevance_score) }}
-                    </span>
-                    {% endif %}
-                </div>
-                <div class="reader-article-actions">
-                    <button class="reader-action-btn" onclick="event.stopPropagation(); shareArticle({{ story.id }})">📤 Share</button>
-                    <button class="reader-action-btn" onclick="event.stopPropagation(); addToDigest({{ story.id }})">📋 Digest</button>
-                    <button class="reader-action-btn" onclick="event.stopPropagation(); markAsRead({{ story.id }})">✓ Read</button>
+                <div class="folder-feeds expanded">
+                    {% set feed_names = [] %}
+                    {% for story in stories %}
+                        {% if story.feed_name not in feed_names %}
+                            {% set _ = feed_names.append(story.feed_name) %}
+                            <div class="feed-item" onclick="filterArticles('{{ story.feed_name }}', this)" data-filter="{{ story.feed_name }}">
+                                <span>{{ story.feed_name }}</span>
+                                <span class="unread-count">{{ stories|selectattr('feed_name', 'equalto', story.feed_name)|list|length }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
-        {% else %}
-            <div class="reader-empty-state">
-                <h3>No articles found</h3>
-                <p>Try refreshing or check back later for new content.</p>
+            
+            <!-- Read Articles -->
+            <div class="feed-item" onclick="window.location.href='{{ url_for('read_articles', view=view_mode) }}'">
+                <span>📚 Read Articles</span>
             </div>
-        {% endif %}
+            
+            <div class="resize-handle" id="feeds-resize"></div>
+        </div>
+        
+        <!-- Middle Column - Article List -->
+        <div class="articles-pane" id="articles-pane">
+            <div class="reader-toolbar">
+                <button class="reader-toolbar-btn" onclick="markAllAsRead()">✓ Mark all as read</button>
+                <button class="reader-toolbar-btn" onclick="fetchNow()">🔄 Refresh</button>
+                <div class="reader-toolbar-separator"></div>
+                <span style="color: #666; font-size: 13px; margin-right: 8px;">Sort:</span>
+                <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='score') }}" 
+                   class="reader-toolbar-btn {% if sort_by == 'score' %}active{% endif %}">
+                    Score
+                </a>
+                <a href="{{ url_for('index', view=view_mode, show_all=show_all, hide_read=hide_read, sort='date') }}" 
+                   class="reader-toolbar-btn {% if sort_by == 'date' %}active{% endif %}">
+                    Date
+                </a>
+            </div>
+            
+            <div class="reader-article-list" id="article-list">
+                {% if stories %}
+                    {% for story in stories %}
+                    <div class="reader-article-item {% if not story.read_status %}unread{% endif %}" 
+                         data-feed="{{ story.feed_name }}"
+                         data-article-id="{{ story.id }}"
+                         data-title="{{ story.title }}"
+                         data-url="{{ story.url }}"
+                         data-snippet="{{ (story.description[:300]) if story.description else '' }}"
+                         data-feed-name="{{ story.feed_name }}"
+                         data-date="{{ story.published_date[:10] if story.published_date else 'Unknown' }}"
+                         onclick="selectArticleFromData(this)">
+                        <h3><a href="{{ story.url }}" target="_blank" onclick="event.stopPropagation(); markAsRead({{ story.id }})">{{ story.title }}</a></h3>
+                        <div class="reader-article-snippet">
+                            {{ (story.description[:150] + '...') if story.description and story.description|length > 150 else (story.description or 'No preview available') }}
+                        </div>
+                        <div class="reader-article-meta">
+                            <span class="reader-feed-name">{{ story.feed_name }}</span>
+                            <span>•</span>
+                            <span>{{ story.published_date[:10] if story.published_date else 'Unknown date' }}</span>
+                            {% if story.relevance_score %}
+                            <span>•</span>
+                            <span style="color: {% if story.relevance_score > 0.5 %}#27ae60{% elif story.relevance_score > 0.3 %}#f39c12{% else %}#999{% endif %};">
+                                {{ "%.0f"|format(story.relevance_score * 100) }}%
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="reader-empty-state">
+                        <h3>No articles found</h3>
+                        <p>Try refreshing or check back later for new content.</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="resize-handle" id="articles-resize"></div>
+        </div>
+        
+        <!-- Right Column - Article Content -->
+        <div class="content-pane" id="article-content">
+            <div style="text-align: center; padding: 60px 20px; color: #999;">
+                <h3 style="font-size: 18px; color: #666; margin-bottom: 8px;">Select an article to read</h3>
+                <p style="font-size: 13px;">Click on any article from the list to view its content here</p>
+            </div>
+        </div>
     </div>
+    
+    <script>
+    // Folder toggle
+    function toggleFolder(element) {
+        const icon = element.querySelector('.folder-icon');
+        const feeds = element.parentElement.querySelector('.folder-feeds');
+        
+        if (icon.classList.contains('expanded')) {
+            icon.classList.remove('expanded');
+            icon.classList.add('collapsed');
+            feeds.classList.remove('expanded');
+        } else {
+            icon.classList.add('expanded');
+            icon.classList.remove('collapsed');
+            feeds.classList.add('expanded');
+        }
+    }
+    
+    // Filter articles by feed
+    function filterArticles(feedName, clickedElement) {
+        const articles = document.querySelectorAll('.reader-article-item');
+        const feedItems = document.querySelectorAll('.feed-item');
+        
+        // Update active feed
+        feedItems.forEach(item => item.classList.remove('active'));
+        if (clickedElement) {
+            clickedElement.classList.add('active');
+        }
+        
+        // Filter articles
+        articles.forEach(article => {
+            if (feedName === 'all' || article.dataset.feed === feedName) {
+                article.style.display = 'block';
+            } else {
+                article.style.display = 'none';
+            }
+        });
+        
+        // Clear article content pane
+        var emptyHtml = '<div style="text-align: center; padding: 60px 20px; color: #999;">';
+        emptyHtml += '<h3 style="font-size: 18px; color: #666; margin-bottom: 8px;">Select an article to read</h3>';
+        emptyHtml += '<p style="font-size: 13px;">Click on any article from the list to view its content here</p>';
+        emptyHtml += '</div>';
+        document.getElementById('article-content').innerHTML = emptyHtml;
+    }
+    
+    // Wrapper function to read data from element attributes
+    function selectArticleFromData(element) {
+        const articleId = element.dataset.articleId;
+        const title = element.dataset.title;
+        const url = element.dataset.url;
+        const snippet = element.dataset.snippet;
+        const feedName = element.dataset.feedName;
+        const date = element.dataset.date;
+        
+        selectArticle(element, articleId, title, url, snippet, feedName, date);
+    }
+    
+    // Select and display article
+    async function selectArticle(element, articleId, title, url, snippet, feedName, date) {
+        // Remove selected class from all articles
+        document.querySelectorAll('.reader-article-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked article
+        element.classList.add('selected');
+        
+        // Show loading state
+        const contentPane = document.getElementById('article-content');
+        var loadingHtml = '<div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; margin-bottom: 16px;">';
+        loadingHtml += '<h1 style="margin-bottom: 8px;">' + title + '</h1>';
+        loadingHtml += '<div class="article-meta">';
+        loadingHtml += '<span class="reader-feed-name">' + feedName + '</span>';
+        loadingHtml += '<span>•</span>';
+        loadingHtml += '<span>' + date + '</span>';
+        loadingHtml += '<span>•</span>';
+        loadingHtml += '<a href="' + url + '" target="_blank" style="color: #4285f4; text-decoration: none;">Open in new tab ↗</a>';
+        loadingHtml += '</div>';
+        loadingHtml += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
+        loadingHtml += '<button onclick="shareArticle(' + articleId + ')" class="btn">📤 Share</button>';
+        loadingHtml += '<button onclick="addToDigest(' + articleId + ')" class="btn">📋 Add to Digest</button>';
+        loadingHtml += '<button onclick="markAsRead(' + articleId + ')" class="btn">✓ Mark as Read</button>';
+        loadingHtml += '</div>';
+        loadingHtml += '</div>';
+        loadingHtml += '<div style="padding: 20px; text-align: center; color: #999;">';
+        loadingHtml += '<p>Loading article content...</p>';
+        loadingHtml += '</div>';
+        contentPane.innerHTML = loadingHtml;
+        
+        // Fetch article content
+        try {
+            const response = await fetch('/api/fetch_article_content/' + articleId);
+            const data = await response.json();
+            
+            if (data.success) {
+                // Display the fetched content
+                const isGoogleNews = data.is_google_news;
+                var successHtml = '<div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; margin-bottom: 16px;">';
+                successHtml += '<h1 style="margin-bottom: 8px;">' + title + '</h1>';
+                successHtml += '<div class="article-meta">';
+                successHtml += '<span class="reader-feed-name">' + feedName + '</span>';
+                successHtml += '<span>•</span>';
+                successHtml += '<span>' + date + '</span>';
+                successHtml += '<span>•</span>';
+                successHtml += '<a href="' + url + '" target="_blank" style="color: #4285f4; text-decoration: none;">Open in new tab ↗</a>';
+                successHtml += '</div>';
+                if (isGoogleNews) {
+                    successHtml += '<div style="margin-top: 8px; padding: 8px 12px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 13px; color: #856404;">';
+                    successHtml += '<strong>Note:</strong> This is a Google News article. ';
+                    successHtml += '<a href="' + url + '" target="_blank" style="color: #856404; text-decoration: underline;">Click here to read the full article on the original site</a>.';
+                    successHtml += '</div>';
+                }
+                successHtml += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
+                successHtml += '<button onclick="shareArticle(' + articleId + ')" class="btn">📤 Share</button>';
+                successHtml += '<button onclick="addToDigest(' + articleId + ')" class="btn">📋 Add to Digest</button>';
+                successHtml += '<button onclick="markAsRead(' + articleId + ')" class="btn">✓ Mark as Read</button>';
+                successHtml += '</div>';
+                successHtml += '</div>';
+                successHtml += '<div class="article-content" style="line-height: 1.8; font-size: 15px; color: #333;">';
+                successHtml += data.content;
+                successHtml += '</div>';
+                contentPane.innerHTML = successHtml;
+            } else {
+                // Fallback to snippet if content fetch fails
+                var fallbackHtml = '<div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; margin-bottom: 16px;">';
+                fallbackHtml += '<h1 style="margin-bottom: 8px;">' + title + '</h1>';
+                fallbackHtml += '<div class="article-meta">';
+                fallbackHtml += '<span class="reader-feed-name">' + feedName + '</span>';
+                fallbackHtml += '<span>•</span><span>' + date + '</span><span>•</span>';
+                fallbackHtml += '<a href="' + url + '" target="_blank" style="color: #4285f4; text-decoration: none;">Open in new tab ↗</a>';
+                fallbackHtml += '</div>';
+                fallbackHtml += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
+                fallbackHtml += '<button onclick="shareArticle(' + articleId + ')" class="btn">📤 Share</button>';
+                fallbackHtml += '<button onclick="addToDigest(' + articleId + ')" class="btn">📋 Add to Digest</button>';
+                fallbackHtml += '<button onclick="markAsRead(' + articleId + ')" class="btn">✓ Mark as Read</button>';
+                fallbackHtml += '</div></div>';
+                fallbackHtml += '<div style="padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #ddd;">';
+                fallbackHtml += '<p style="color: #666; margin-bottom: 16px; line-height: 1.6;">' + snippet + '</p>';
+                fallbackHtml += '<p style="color: #999; font-size: 13px; margin-bottom: 16px;">';
+                fallbackHtml += '<em>Note: Full article content could not be loaded. ' + (data.error || 'The website may block content extraction.') + '</em>';
+                fallbackHtml += '</p>';
+                fallbackHtml += '<a href="' + url + '" target="_blank" class="btn" style="display: inline-block;">Read Full Article on Original Site →</a>';
+                fallbackHtml += '</div>';
+                contentPane.innerHTML = fallbackHtml;
+            }
+        } catch (error) {
+            // Error fallback
+            var errorHtml = '<div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; margin-bottom: 16px;">';
+            errorHtml += '<h1 style="margin-bottom: 8px;">' + title + '</h1>';
+            errorHtml += '<div class="article-meta">';
+            errorHtml += '<span class="reader-feed-name">' + feedName + '</span>';
+            errorHtml += '<span>•</span><span>' + date + '</span><span>•</span>';
+            errorHtml += '<a href="' + url + '" target="_blank" style="color: #4285f4; text-decoration: none;">Open in new tab ↗</a>';
+            errorHtml += '</div>';
+            errorHtml += '<div style="margin-top: 12px; display: flex; gap: 8px;">';
+            errorHtml += '<button onclick="shareArticle(' + articleId + ')" class="btn">📤 Share</button>';
+            errorHtml += '<button onclick="addToDigest(' + articleId + ')" class="btn">📋 Add to Digest</button>';
+            errorHtml += '<button onclick="markAsRead(' + articleId + ')" class="btn">✓ Mark as Read</button>';
+            errorHtml += '</div></div>';
+            errorHtml += '<div style="padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #ddd;">';
+            errorHtml += '<p style="color: #666; margin-bottom: 16px; line-height: 1.6;">' + snippet + '</p>';
+            errorHtml += '<p style="color: #999; font-size: 13px; margin-bottom: 16px;"><em>Note: Could not load article content.</em></p>';
+            errorHtml += '<a href="' + url + '" target="_blank" class="btn" style="display: inline-block;">Read Full Article on Original Site →</a>';
+            errorHtml += '</div>';
+            contentPane.innerHTML = errorHtml;
+        }
+        
+        // Mark as read
+        markAsRead(articleId);
+    }
+    
+    function handleIframeError(iframe, url, snippet) {
+        // This function is no longer needed but kept for compatibility
+    }
+    
+    // Resizable panes
+    document.addEventListener('DOMContentLoaded', function() {
+        let isResizing = false;
+        let currentHandle = null;
+        
+        const feedsResize = document.getElementById('feeds-resize');
+        const articlesResize = document.getElementById('articles-resize');
+        
+        if (feedsResize) {
+            feedsResize.addEventListener('mousedown', function(e) {
+                isResizing = true;
+                currentHandle = 'feeds';
+                document.body.style.cursor = 'col-resize';
+                e.preventDefault();
+            });
+        }
+        
+        if (articlesResize) {
+            articlesResize.addEventListener('mousedown', function(e) {
+                isResizing = true;
+                currentHandle = 'articles';
+                document.body.style.cursor = 'col-resize';
+                e.preventDefault();
+            });
+        }
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isResizing) return;
+            
+            if (currentHandle === 'feeds') {
+                const feedsPane = document.getElementById('feeds-pane');
+                const newWidth = e.clientX;
+                if (newWidth >= 150 && newWidth <= 400) {
+                    feedsPane.style.width = newWidth + 'px';
+                }
+            } else if (currentHandle === 'articles') {
+                const articlesPane = document.getElementById('articles-pane');
+                const feedsPane = document.getElementById('feeds-pane');
+                const newWidth = e.clientX - feedsPane.offsetWidth;
+                if (newWidth >= 250 && newWidth <= 600) {
+                    articlesPane.style.width = newWidth + 'px';
+                }
+            }
+        });
+        
+        document.addEventListener('mouseup', function() {
+            isResizing = false;
+            currentHandle = null;
+            document.body.style.cursor = 'default';
+        });
+    });
+    </script>
 
 {% else %}
     <!-- NEWSPAPER MODE - Al Jazeera Style Layout -->

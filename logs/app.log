@@ -4478,3 +4478,1835 @@ connector: <aiohttp.connector.TCPConnector object at 0x00000162F6119BE0>
 2026-02-14 10:29:28,656 - __main__ - INFO - Fetching feed: Google News: network security
 2026-02-14 10:29:29,721 - __main__ - INFO - RSS fetch completed: 1 new articles
 2026-02-14 10:48:42,050 - werkzeug - INFO -  * Detected change in 'D:\\Kiro\\WirelessSignal\\gmail_api_newsletter_monitor.py', reloading
+2026-02-14 11:52:00,636 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 11:52:00,640 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 11:52:28,833 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 11:52:28,835 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 11:52:29,207 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 11:52:29,307 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 11:52:29,309 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 11:52:29,309 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 11:52:29,310 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-14 11:52:29,318 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 11:52:29,349 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 11:52:29,359 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 11:52:29,364 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 11:52:29,447 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 11:52:29,447 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 11:52:29,453 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 11:52:29,906 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 11:52:30,250 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 11:52:30,712 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 11:52:30,977 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 11:52:30,979 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 11:52:31,463 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 11:52:31,633 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 11:52:31,636 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 11:52:31,640 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 11:52:31,643 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-14 11:52:31,645 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 11:52:31,712 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 11:52:31,741 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 11:52:32,392 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 11:52:36,122 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 11:52:36,687 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 11:52:36,986 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 11:52:38,062 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 11:52:38,850 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 11:52:39,667 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 11:52:40,493 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 11:52:40,715 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 11:52:41,632 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 11:52:42,122 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 11:52:42,707 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 11:52:43,512 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 11:52:44,381 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 11:52:45,239 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 11:52:46,220 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 11:52:47,091 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 11:52:47,791 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 11:52:48,619 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 11:52:49,564 - __main__ - INFO - 🎨 Auto-generating image for: GigaDevice GD32VW553-UNIFI – A $2+ WiFi 6 and Blue...
+2026-02-14 11:52:49,565 - __main__ - INFO - 🔍 Enhanced scraping from article: GigaDevice GD32VW553-UNIFI – A $2+ WiFi 6 and Bluetooth 5.2 ...
+2026-02-14 11:52:50,271 - __main__ - WARNING - ❌ Enhanced scraper found no image for: GigaDevice GD32VW553-UNIFI – A $2+ WiFi 6 and Blue...
+2026-02-14 11:52:50,272 - __main__ - WARNING - ❌ No image generated for article 431
+2026-02-14 11:52:50,274 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 11:52:50,731 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 11:52:51,836 - __main__ - INFO - RSS fetch completed: 1 new articles
+2026-02-14 11:52:51,839 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 11:52:52,058 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 11:52:52,331 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 11:52:53,242 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 11:52:53,531 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 11:52:54,056 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 11:52:54,769 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 11:52:55,326 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 11:52:55,728 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 11:52:56,151 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 11:52:56,301 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 11:52:57,161 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 11:52:57,430 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 11:52:57,647 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 11:52:58,091 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 11:52:58,477 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 11:52:58,925 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 11:52:59,391 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 11:52:59,812 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 11:53:00,263 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 11:53:00,655 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 11:53:01,149 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 11:53:01,544 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 11:53:02,040 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 11:58:04,291 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:04] "GET / HTTP/1.1" 200 -
+2026-02-14 11:58:04,748 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: SPECTRUM LAUNCHES INVINCIBLE WIFI™, INTEGRATING WIFI 7 WITH ...
+2026-02-14 11:58:04,749 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMi8wFBVV95cUxPaDhsaW9vUzQzcnFsOHVnaG9paXo0eFotQmFjWXZjVHJYZm16U3BaWldManlGZ09uclJFSjRldFlyME5tdktxSkE5azlBbHB5QWowazJZQ0stWUlzQmJYZU9obGxEWnppUi15dFhqcFFZRWxmdmxtQzRiQUwxNG1ZRUVQOVpTX3NLUHg0NGsyTXFOeURXSTJEdFJrcUYzVWdUZFVwWmFuVXZMc1Y2V0RkV2hMOFRnWGlVcTVPbXVsREJ1a2EybVlkaS1Gc1JibW4xSjhkdVpjMVlDa25nWndXRFRadjNnRWU3a2JJejBBRDdiUWM?oc=5
+2026-02-14 11:58:04,751 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMi8wFBVV95cUxPaDhsaW9vUzQzcnFsOHVnaG9paXo0eFotQmFjWXZjVHJYZm16U3BaWldManlGZ09uclJFSjRldFlyME5tdktxSkE5azlBbHB5QWowazJZQ0stWUlzQmJYZU9obGxEWnppUi15dFhqcFFZRWxmdmxtQzRiQUwxNG1ZRUVQOVpTX3NLUHg0NGsyTXFOeURXSTJEdFJrcUYzVWdUZFVwWmFuVXZMc1Y2V0RkV2hMOFRnWGlVcTVPbXVsREJ1a2EybVlkaS1Gc1JibW4xSjhkdVpjMVlDa25nWndXRFRadjNnRWU3a2JJejBBRDdiUWM?oc=5
+2026-02-14 11:58:04,751 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:04,754 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: GBS 2026: Fastest 5G Rollout, Indigenous 4G Stack; India Is ...
+2026-02-14 11:58:04,755 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMikAJBVV95cUxNdW9hZUlVeklIcTB6MFFGUm1IQWlGVXdaQVYzM1ZZRGlNak0wZWVlNy1qa001YkI5ekprWFRsQWNJVFpLV1ItVlREYjlmWDk4MUdvak1JbWFxcGowT2NoRnlVak9FOGFEMkVVWEJXY2ZlR3JvQU1OV0hwV2pVMTZXRXpaMXVhVDdsY3ZqY3JDcURMVXdiQ3VCM3ZXUEpCQjdNUWFkU0hBWkVxZzhaa3ZhSldQVXc1ejFHYjVHbElIQlk4d0cyeHlRd0JTNmFwbmNOOGJSZkFVVGc0bm1Ebnl5UnlraHZXUTgyRUxSam8yQ3V2aWliZzZSYlA1RE92Qno5T3lVcHlBN0tycXc5dGo4eNIBlgJBVV95cUxPSE5obEhOUU95VW0yRnpmamE1Um45MTM3OV9NZmxqY0xjQ2U0bUdLZUFpRXJyNkJEemtrTGJHdllzLUVlTEd3WTE5QkdJSnJiMi1sOF9EWEd5WElBNk5nSExVTHh1OENDTTh4Qy1KZlU5T2MxWTZvUGFpYVAtNkY2dnZ4SWx1VVFna01UcmFKQkhOU1oyVms1TldjWEwtWm5JR1BLYXM4NnVFZEFHRWRXazM3Sl9QRWxOOHZnVmlGaW1maGRZMXhtSlNWQ2M4cDV2VHZmdkZNYklEU3FyV2d0NjhHM3lZaTlCTEFWVnZ0WERTYVo3UVRBTTNtQUYtRk1CY0FLblhSWURETTJGVnktRDB2MzhVQQ?oc=5
+2026-02-14 11:58:04,755 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMikAJBVV95cUxNdW9hZUlVeklIcTB6MFFGUm1IQWlGVXdaQVYzM1ZZRGlNak0wZWVlNy1qa001YkI5ekprWFRsQWNJVFpLV1ItVlREYjlmWDk4MUdvak1JbWFxcGowT2NoRnlVak9FOGFEMkVVWEJXY2ZlR3JvQU1OV0hwV2pVMTZXRXpaMXVhVDdsY3ZqY3JDcURMVXdiQ3VCM3ZXUEpCQjdNUWFkU0hBWkVxZzhaa3ZhSldQVXc1ejFHYjVHbElIQlk4d0cyeHlRd0JTNmFwbmNOOGJSZkFVVGc0bm1Ebnl5UnlraHZXUTgyRUxSam8yQ3V2aWliZzZSYlA1RE92Qno5T3lVcHlBN0tycXc5dGo4eNIBlgJBVV95cUxPSE5obEhOUU95VW0yRnpmamE1Um45MTM3OV9NZmxqY0xjQ2U0bUdLZUFpRXJyNkJEemtrTGJHdllzLUVlTEd3WTE5QkdJSnJiMi1sOF9EWEd5WElBNk5nSExVTHh1OENDTTh4Qy1KZlU5T2MxWTZvUGFpYVAtNkY2dnZ4SWx1VVFna01UcmFKQkhOU1oyVms1TldjWEwtWm5JR1BLYXM4NnVFZEFHRWRXazM3Sl9QRWxOOHZnVmlGaW1maGRZMXhtSlNWQ2M4cDV2VHZmdkZNYklEU3FyV2d0NjhHM3lZaTlCTEFWVnZ0WERTYVo3UVRBTTNtQUYtRk1CY0FLblhSWURETTJGVnktRDB2MzhVQQ?oc=5
+2026-02-14 11:58:04,755 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:04,760 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Chip-Based Radar Boosts Next-Gen Wireless Networks - Mirage ...
+2026-02-14 11:58:04,761 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: WiFi vs 5G: Test shows major differences in battery drain - ...
+2026-02-14 11:58:04,761 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMigwFBVV95cUxNRTJkRWE4M1RpWGcxY1VmblVjWGZQaWlxaDhnNmhhbDNSUGttTmFpck1TX09YOUFCbFg3NFdoY3ZZQzRsQTVSVnlCZHJTRnNtVkxMd2xnOUktMnBuOHlwSTN4aUtMcVlRTV9neWppeE5tX3R5ZHZDcEg2aGsxT040bjJVQQ?oc=5
+2026-02-14 11:58:04,761 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiowFBVV95cUxPYUh0MlhobENtX3JoRHMzLU8tYlFuMGNGbkZiMGtVNHhVQUFPQWdrVndqQU5kLVVwSFJfNWNmc1J1UzBlM0F5NU5mbnFkNFNqekVZY1JzZWRMOG4yemZabmx6ZVMxVUVLLWx6Zk9OdW80VzhhSTVWR1FTcDc0dGVIem9lb1dpaFVQeFBhZXg5emhEQlkwZkFrUDBzTGY2bW1WcDhr?oc=5
+2026-02-14 11:58:04,763 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMiowFBVV95cUxPYUh0MlhobENtX3JoRHMzLU8tYlFuMGNGbkZiMGtVNHhVQUFPQWdrVndqQU5kLVVwSFJfNWNmc1J1UzBlM0F5NU5mbnFkNFNqekVZY1JzZWRMOG4yemZabmx6ZVMxVUVLLWx6Zk9OdW80VzhhSTVWR1FTcDc0dGVIem9lb1dpaFVQeFBhZXg5emhEQlkwZkFrUDBzTGY2bW1WcDhr?oc=5
+2026-02-14 11:58:04,763 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:04,762 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMigwFBVV95cUxNRTJkRWE4M1RpWGcxY1VmblVjWGZQaWlxaDhnNmhhbDNSUGttTmFpck1TX09YOUFCbFg3NFdoY3ZZQzRsQTVSVnlCZHJTRnNtVkxMd2xnOUktMnBuOHlwSTN4aUtMcVlRTV9neWppeE5tX3R5ZHZDcEg2aGsxT040bjJVQQ?oc=5
+2026-02-14 11:58:04,762 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: iPhone 18 Pro may offer satellite-enabled 5G, thanks to Appl...
+2026-02-14 11:58:04,762 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: ASUS ROG STRIX GS-BE18000 review: A Next Gen WiFi7 router? -...
+2026-02-14 11:58:04,767 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiqgFBVV95cUxQb25mTlJkcUlmT3lpUlZvSXFGZ0hPZ1hCSE1iR0J3SU50ZTNtUnE5SXVNNVJKSVZWLVgtbkZlZXVVZFd6ZVBCREF0WGdBRTdoRGZMc0FaSVhiV1BMZEh6VkZ5UldLRFZwYnNVV1FvV1c1TmdlalF0eWpSQ280cDZzaXdXelc5WmFlNFFFZEJqUnBTYy0tcERRaGpZbUFrOWd1Z1p0UjhQbVRDUQ?oc=5
+2026-02-14 11:58:04,767 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:04,768 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMigwFBVV95cUxObEZydFA4Y0NBa3Zqc1puZmE2cEwyb3hpQlVyS29WNGdKcm5UdDJrOGZJS2FxbkNtTWJKY1BMZVNFcXJpendiYXM3SzZsVFM2TXZOR2UyREJjeG5yOTk2cDdMOGJPVjVpRDBPRGNJOExhTWxIb2d5YjhRYmxZVFkyblFIZw?oc=5
+2026-02-14 11:58:04,771 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMigwFBVV95cUxObEZydFA4Y0NBa3Zqc1puZmE2cEwyb3hpQlVyS29WNGdKcm5UdDJrOGZJS2FxbkNtTWJKY1BMZVNFcXJpendiYXM3SzZsVFM2TXZOR2UyREJjeG5yOTk2cDdMOGJPVjVpRDBPRGNJOExhTWxIb2d5YjhRYmxZVFkyblFIZw?oc=5
+2026-02-14 11:58:04,772 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:04,769 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMiqgFBVV95cUxQb25mTlJkcUlmT3lpUlZvSXFGZ0hPZ1hCSE1iR0J3SU50ZTNtUnE5SXVNNVJKSVZWLVgtbkZlZXVVZFd6ZVBCREF0WGdBRTdoRGZMc0FaSVhiV1BMZEh6VkZ5UldLRFZwYnNVV1FvV1c1TmdlalF0eWpSQ280cDZzaXdXelc5WmFlNFFFZEJqUnBTYy0tcERRaGpZbUFrOWd1Z1p0UjhQbVRDUQ?oc=5
+2026-02-14 11:58:04,774 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:08,375 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:08,376 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:08,535 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:08,529 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:08,624 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:08,637 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:08,981 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:09,127 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:09,302 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:09,347 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:09,415 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:09,425 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:09,509 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:09,519 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:09,530 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:09,562 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:09,592 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi router, network router, internet router
+2026-02-14 11:58:09,610 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:09,629 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi router, wireless network, wifi signal
+2026-02-14 11:58:09,637 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:09,669 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop
+2026-02-14 11:58:09,685 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:09,701 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop
+2026-02-14 11:58:09,703 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:09,714 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:09,736 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:09,754 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:09,754 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop
+2026-02-14 11:58:09,790 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:09,816 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:09,818 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:09,873 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:09,885 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:09] "POST /api/generate_article_image/407 HTTP/1.1" 200 -
+2026-02-14 11:58:09,898 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:09,906 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:09,918 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=800&h=600&fit=crop
+2026-02-14 11:58:09,958 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:09,959 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:09,977 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:09,988 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:09,994 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:09] "POST /api/generate_article_image/335 HTTP/1.1" 200 -
+2026-02-14 11:58:09,995 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:10,001 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi router, wireless network, wifi signal
+2026-02-14 11:58:10,025 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:10,023 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:10,024 - __main__ - INFO - 🔍 Searching for images with smart keywords: 5g tower, 5g network, cellular tower
+2026-02-14 11:58:10,014 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:10,028 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Monetizing 5G ecosystems with intelligence - Fierce Network...
+2026-02-14 11:58:10,039 - __main__ - INFO - ✅ Found tech-specific image for '5g': https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop
+2026-02-14 11:58:10,046 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:10,062 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:10,063 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMihAFBVV95cUxOV3d1Ny1FWlJUT0RpNGZHSjFxTHFBWjYxeU5Wd1hVT1lGdUIwMkVRSl8wN0U3dk11S201S3JRbm1MazluenE4QUhINHhkV19yUTA5d2xmNlZZUXdTVmF3N0ZfNDN2N1RCcTNOZmhHOGdYcWh5M1Z6T0VfS191cFhzbEM1dHM?oc=5
+2026-02-14 11:58:10,064 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:10,066 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:10,071 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:10,072 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMihAFBVV95cUxOV3d1Ny1FWlJUT0RpNGZHSjFxTHFBWjYxeU5Wd1hVT1lGdUIwMkVRSl8wN0U3dk11S201S3JRbm1MazluenE4QUhINHhkV19yUTA5d2xmNlZZUXdTVmF3N0ZfNDN2N1RCcTNOZmhHOGdYcWh5M1Z6T0VfS191cFhzbEM1dHM?oc=5
+2026-02-14 11:58:10,075 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:10,079 - __main__ - INFO - 🔍 Searching for images with smart keywords: wireless technology, wifi antenna, wireless signal
+2026-02-14 11:58:10,076 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:10,079 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Cone of light: Notre Dame team develops a new terahertz ante...
+2026-02-14 11:58:10,078 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:10,076 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:10] "POST /api/generate_article_image/406 HTTP/1.1" 200 -
+2026-02-14 11:58:10,080 - __main__ - INFO - ✅ Found tech-specific image for 'wireless': https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:10,080 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=600&fit=crop
+2026-02-14 11:58:10,081 - __main__ - INFO - 🔍 Searching for images with smart keywords: communication satellite, space satellite, satellite dish
+2026-02-14 11:58:10,081 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiogFBVV95cUxQYjZodEc4UURSYlZ0ckNPaFNyWXU1WG12di11SUg4dU1yUHBpSDZKVjFGeVdRc2U0dWY2WV9xajc5ZDBubGhEMXNEWk1oa2syeXpJQlVuSnRiQ1VGbmFWTnpVaUw0TFlfQmF4VnlSeWJqeWEybDlhYXhxMkFncWdVdjl1ZnQ3QWZuckZWWkVmXzhQNjdiNGhvS0VXYzBLQ0V5WlE?oc=5
+2026-02-14 11:58:10,091 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:10] "POST /api/generate_article_image/409 HTTP/1.1" 200 -
+2026-02-14 11:58:10,092 - __main__ - INFO - ✅ Found brand-specific image for 'apple': https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop
+2026-02-14 11:58:10,094 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMiogFBVV95cUxQYjZodEc4UURSYlZ0ckNPaFNyWXU1WG12di11SUg4dU1yUHBpSDZKVjFGeVdRc2U0dWY2WV9xajc5ZDBubGhEMXNEWk1oa2syeXpJQlVuSnRiQ1VGbmFWTnpVaUw0TFlfQmF4VnlSeWJqeWEybDlhYXhxMkFncWdVdjl1ZnQ3QWZuckZWWkVmXzhQNjdiNGhvS0VXYzBLQ0V5WlE?oc=5
+2026-02-14 11:58:10,097 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 11:58:10,099 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:10,108 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop
+2026-02-14 11:58:10,110 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:10] "POST /api/generate_article_image/340 HTTP/1.1" 200 -
+2026-02-14 11:58:10,112 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 11:58:10,113 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:10] "POST /api/generate_article_image/353 HTTP/1.1" 200 -
+2026-02-14 11:58:12,812 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:12,818 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:12,847 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 11:58:12,853 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 11:58:12,852 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:12,877 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 11:58:12,963 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:13,002 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 11:58:13,008 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:13,022 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 11:58:13,025 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:13,027 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 11:58:13,028 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:13,029 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 11:58:13,030 - __main__ - INFO - 🔍 Searching for images with smart keywords: intel processor, computer chip, cpu
+2026-02-14 11:58:13,030 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi antenna, cellular antenna, radio antenna
+2026-02-14 11:58:13,030 - __main__ - INFO - ✅ Found brand-specific image for 'intel': https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop
+2026-02-14 11:58:13,031 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:13,038 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 11:58:13,039 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:13] "POST /api/generate_article_image/338 HTTP/1.1" 200 -
+2026-02-14 11:58:13,040 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop
+2026-02-14 11:58:13,041 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:13] "POST /api/generate_article_image/337 HTTP/1.1" 200 -
+2026-02-14 11:58:18,049 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:18] "GET /read_articles?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:58:18,966 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:18] "GET /events?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:58:21,257 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:21] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:58:24,008 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:24] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:58:24,039 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:24] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 11:58:40,159 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:40] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:58:59,896 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:58:59] "GET /weekly_digest?view=newspaper HTTP/1.1" 200 -
+2026-02-14 11:59:01,941 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 11:59:01] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:04:19,654 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:04:19] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:04:20,416 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:04:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:05:19,792 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 12:05:20,761 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:05:23,239 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:05:23,242 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:05:24,074 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:05:24,300 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:05:24,302 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:05:24,303 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:05:24,309 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:05:24,310 - __main__ - INFO - Starting The Wireless Monitor on 0.0.0.0:8080
+2026-02-14 12:05:24,326 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:05:24,334 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:05:24,336 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:05:24,371 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:05:24,388 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:05:25,000 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:05:25,609 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:05:26,162 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:05:26,713 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 12:05:27,305 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:05:29,722 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:05:29,731 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:05:30,287 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:05:30,398 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:05:30,401 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:05:30,406 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:05:30,414 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:05:30,417 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:05:30,434 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:05:30,444 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:05:30,446 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:05:30,500 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:05:30,522 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:05:31,045 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:05:31,588 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:05:31,673 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 12:05:32,308 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:05:34,119 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:05:34,129 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:05:34,884 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:05:35,040 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:05:35,042 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:05:35,048 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:05:35,046 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:05:35,066 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:05:35,089 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:05:35,112 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:05:35,129 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:05:35,162 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:05:35,184 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:05:35,606 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:05:35,923 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:05:36,434 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:05:38,258 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:05:38,890 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:05:40,485 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:05:42,002 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:05:43,639 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:05:45,134 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:05:46,537 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:05:47,224 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:05:48,699 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:05:54,572 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:05:55,495 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:05:57,113 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:05:58,886 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:06:00,515 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:06:01,662 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:06:02,881 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:06:04,414 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:06:05,900 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:06:07,361 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:06:08,898 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:06:10,447 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:06:57,551 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:06:57,554 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:06:58,005 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:06:58,116 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:06:58,117 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:06:58,118 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:06:58,121 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:06:58,124 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:06:58,145 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:06:58,155 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:06:58,155 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:06:58,226 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:06:58,226 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:06:58,237 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:06:58,742 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:06:59,148 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:06:59,664 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:06:59,989 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:06:59,991 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:07:00,481 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:07:00,673 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:07:00,678 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:07:00,679 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:07:00,681 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:07:00,695 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:07:00,739 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:07:00,781 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:07:01,540 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:07:02,047 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:07:02,791 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:07:03,625 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:07:05,211 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:07:05,732 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:07:06,448 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:07:07,471 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:07:07,738 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:07:08,939 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:07:09,286 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:07:09,499 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:07:10,068 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:07:10,614 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:07:11,108 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:07:11,535 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:07:11,942 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:07:12,400 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:07:12,825 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:07:13,285 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:07:13,713 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:07:14,101 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:07:14,175 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:07:14,375 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:07:14,650 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:07:15,659 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:07:15,907 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:07:16,448 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:07:17,054 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:07:18,019 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:07:18,464 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:07:18,940 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:07:19,103 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:07:19,971 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:07:20,202 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:07:20,397 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:07:21,016 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:07:21,460 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:07:21,852 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:07:22,076 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:07:22] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:07:22,323 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:07:22,747 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:07:23,193 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:07:23,619 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:07:24,067 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:07:24,551 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:07:24,946 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:07:34,980 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:07:34] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:07:39,597 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:07:39] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:14:08,097 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:14:08,102 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:14:08,496 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:14:08,597 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:14:08,599 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:14:08,599 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:14:08,601 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:14:08,609 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:14:08,651 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:14:08,666 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:14:08,667 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:14:08,692 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:14:08,692 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:14:08,694 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:14:09,243 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:14:09,549 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:14:09,953 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:14:10,121 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:14:10,123 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:14:10,562 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:14:10,674 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:14:10,676 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:14:10,679 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:14:10,681 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:14:10,685 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:14:10,816 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:14:10,847 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:14:12,615 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:14:15,712 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:14:16,866 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:14:17,979 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:14:19,230 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:14:20,553 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:14:21,815 - __main__ - INFO - 🎨 Auto-generating image for: Exclusive: EU, Vietnam to agree to boost work on m...
+2026-02-14 12:14:21,818 - __main__ - INFO - 🔍 Enhanced scraping from article: Exclusive: EU, Vietnam to agree to boost work on minerals, c...
+2026-02-14 12:14:22,603 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Exclusive: EU, Vietnam to agree to boost work on m...
+2026-02-14 12:14:22,605 - __main__ - WARNING - ❌ No image generated for article 432
+2026-02-14 12:14:22,610 - __main__ - INFO - 🎨 Auto-generating image for: 5G SA, AI Demands, and Network Resilience Will Dom...
+2026-02-14 12:14:22,610 - __main__ - INFO - 🔍 Enhanced scraping from article: 5G SA, AI Demands, and Network Resilience Will Dominate the ...
+2026-02-14 12:14:22,884 - __main__ - WARNING - ❌ Enhanced scraper found no image for: 5G SA, AI Demands, and Network Resilience Will Dom...
+2026-02-14 12:14:22,885 - __main__ - WARNING - ❌ No image generated for article 433
+2026-02-14 12:14:22,885 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:14:24,253 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:14:24,541 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:14:25,450 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:14:25,790 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:14:26,307 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:14:27,111 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:14:27,945 - __main__ - INFO - 🎨 Auto-generating image for: Tech Group Says Seamless, Widespread Connectivity ...
+2026-02-14 12:14:27,945 - __main__ - INFO - 🔍 Enhanced scraping from article: Tech Group Says Seamless, Widespread Connectivity more Impor...
+2026-02-14 12:14:28,203 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Tech Group Says Seamless, Widespread Connectivity ...
+2026-02-14 12:14:28,204 - __main__ - WARNING - ❌ No image generated for article 434
+2026-02-14 12:14:28,205 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:14:29,200 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:14:30,049 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:14:30,898 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:14:31,688 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:14:32,482 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:14:33,382 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:14:33,829 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:14:34,744 - __main__ - INFO - RSS fetch completed: 3 new articles
+2026-02-14 12:14:34,825 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:14:35,011 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:14:35,292 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:14:36,306 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:14:36,581 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:14:37,126 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:14:37,806 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:14:38,591 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:14:39,036 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:14:39,546 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:14:39,726 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:14:40,160 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:14:40,438 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:14:40,632 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:14:41,117 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:14:41,567 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:14:41,965 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:14:42,416 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:14:42,839 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:14:43,328 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:14:43,763 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:14:44,187 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:14:44,621 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:14:45,045 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:15:11,943 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:15:11] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:19:00,121 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:19:00,128 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:19:00,496 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:19:00,600 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:19:00,602 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:19:00,602 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:19:00,604 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:19:00,637 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:19:00,667 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:19:00,677 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:19:00,678 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:19:00,687 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:19:00,688 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:19:00,691 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:19:01,267 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:19:01,674 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:19:02,114 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:19:02,358 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:19:02,364 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:19:02,888 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:19:03,020 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:19:03,022 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:19:03,026 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:19:03,038 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:19:03,038 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:19:03,124 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:19:03,131 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:19:05,180 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:19:05,633 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:19:06,982 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:19:08,110 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:19:08,130 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:19:09,546 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:19:10,747 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:19:12,347 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:19:12,747 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:19:13,884 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:19:14,532 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:19:14,833 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:19:15,831 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:19:17,028 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:19:18,301 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:19:19,286 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:19:20,067 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:19:21,004 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:19:22,030 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:19:22,932 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:19:23,369 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:19:24,170 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:19:24,259 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:19:24,496 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:19:24,766 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:19:25,784 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:19:26,013 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:19:26,580 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:19:27,322 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:19:28,119 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:19:28,689 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:19:29,228 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:19:29,444 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:19:30,364 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:19:30,635 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:19:30,914 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:19:31,351 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:19:31,825 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:19:32,323 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:19:32,736 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:19:33,170 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:19:33,628 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:19:34,093 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:19:34,604 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:19:35,052 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:19:35,467 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:20:24,647 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:20:24] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 12:24:47,071 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:24:47] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:28:46,829 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:28:46,835 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:28:47,262 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:28:47,368 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:28:47,369 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:28:47,371 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:28:47,374 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:28:47,392 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:28:47,429 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:28:47,459 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:28:47,463 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:28:47,463 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:28:47,466 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:28:47,472 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:28:48,161 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:28:48,549 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:28:48,938 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:28:48,978 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:28:48,984 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:28:49,505 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:28:49,631 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:28:49,635 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:28:49,642 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:28:49,648 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:28:49,651 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:28:49,722 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:28:49,736 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:28:50,888 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:28:52,491 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:28:53,124 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:28:53,881 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:28:54,716 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:28:55,026 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:28:56,421 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:28:57,929 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:28:58,428 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:28:59,708 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:29:00,169 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:29:00,940 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:29:02,136 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:29:03,214 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:29:04,488 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:29:05,626 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:29:06,751 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:29:07,619 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:29:08,543 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:29:09,237 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:29:09,680 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:29:10,550 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:29:10,637 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:29:10,832 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:29:11,107 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:29:12,145 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:29:12,423 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:29:12,976 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:29:13,437 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:29:14,081 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:29:14,522 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:29:14,916 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:29:15,066 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:29:15,910 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:29:16,168 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:29:16,379 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:29:16,828 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:29:17,297 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:29:17,820 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:29:18,270 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:29:18,810 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:29:19,292 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:29:19,682 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:29:20,155 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:29:20,594 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:29:21,115 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:31:49,776 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:31:49] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:31:54,993 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:31:54] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:31:58,507 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:31:58] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:31:58,693 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:31:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:33:31,970 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:33:31,976 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:33:32,376 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:33:32,485 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:33:32,485 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:33:32,486 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:33:32,487 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:33:32,495 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:33:32,513 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:33:32,523 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:33:32,523 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:33:32,562 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:33:32,563 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:33:32,566 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:33:33,180 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:33:33,509 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:33:33,838 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:33:34,082 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:33:34,084 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:33:34,471 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:33:34,577 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:33:34,580 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:33:34,581 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:33:34,585 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:33:34,594 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:33:34,649 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:33:34,657 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:33:35,765 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:33:36,661 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:33:37,578 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:33:38,306 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:33:39,127 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:33:39,628 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:33:39,962 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:33:41,461 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:33:41,860 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:33:43,530 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:33:44,027 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:33:44,690 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:33:45,932 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:33:47,377 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:33:48,606 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:33:49,627 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:33:50,603 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:33:51,566 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:33:52,430 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:33:53,173 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:33:53,623 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:33:54,450 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:33:54,542 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:33:54,805 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:33:55,183 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:33:56,329 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:33:56,548 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:33:57,152 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:33:57,947 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:33:58,768 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:33:59,246 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:33:59,634 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:33:59,835 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:34:00,472 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:34:00,746 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:34:01,023 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:34:01,462 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:34:01,939 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:34:02,396 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:34:02,876 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:34:03,336 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:34:03,743 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:34:04,180 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:34:04,654 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:34:05,096 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:34:05,477 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:36:09,048 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:36:09] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:39:05,431 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:39:05,437 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:39:05,837 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:39:05,955 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:39:05,956 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:39:05,957 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:39:05,960 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:39:05,970 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:39:05,992 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:39:06,010 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:39:06,012 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:39:06,038 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:39:06,039 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:39:06,041 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:39:06,792 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:39:07,174 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:39:07,619 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:39:07,831 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:39:07,834 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:39:08,245 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:39:08,343 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:39:08,345 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:39:08,346 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:39:08,347 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:39:08,349 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:39:08,398 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:39:08,408 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:39:09,260 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:39:10,076 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:39:11,067 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:39:11,938 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:39:12,857 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:39:13,388 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:39:13,829 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:39:14,957 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:39:15,399 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:39:17,847 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:39:18,495 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:39:19,339 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:39:20,630 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:39:21,965 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:39:23,043 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:39:24,206 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:39:25,299 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:39:26,321 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:39:27,336 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:39:28,123 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:39:28,556 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:39:29,432 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:39:29,500 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:39:29,688 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:39:29,995 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:39:31,060 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:39:31,308 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:39:31,936 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:39:32,618 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:39:33,590 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:39:33,993 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:39:34,507 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:39:34,671 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:39:35,490 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:39:35,726 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:39:35,946 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:39:36,400 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:39:36,884 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:39:37,319 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:39:37,790 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:39:38,175 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:39:38,598 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:39:39,021 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:39:39,503 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:39:40,001 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:39:40,401 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:42:38,429 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:42:38] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:42:41,437 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:42:41] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:42:41,617 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:42:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:43:59,644 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:43:59,649 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:44:00,058 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:44:00,165 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:44:00,166 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:44:00,167 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:44:00,168 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:44:00,181 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:44:00,195 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:44:00,211 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:44:00,211 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:44:00,250 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:44:00,250 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:44:00,253 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:44:00,874 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:44:01,263 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:44:01,653 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:44:01,956 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:44:01,960 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:44:02,417 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:44:02,536 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:44:02,540 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:44:02,545 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:44:02,547 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:44:02,542 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:44:02,590 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:44:02,601 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:44:03,895 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:44:04,534 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:44:05,281 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:44:05,981 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:44:06,611 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:44:07,590 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:44:07,832 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:44:09,441 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:44:09,812 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:44:11,363 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:44:11,917 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:44:12,729 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:44:13,931 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:44:15,278 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:44:16,431 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:44:17,436 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:44:18,607 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:44:19,694 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:44:20,725 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:44:21,491 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:44:21,964 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:44:22,774 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:44:22,846 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:44:23,076 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:44:23,414 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:44:24,385 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:44:24,628 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:44:25,165 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:44:25,868 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:44:26,525 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:44:26,697 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:44:26] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:44:26,863 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:44:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:44:27,054 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:44:27,475 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:44:27,747 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:44:28,616 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:44:28,876 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:44:29,145 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:44:29,651 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:44:30,131 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:44:30,579 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:44:30,966 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:44:31,335 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:44:31,808 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:44:32,197 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:44:32,601 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:44:33,037 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:44:33,496 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:46:13,277 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 12:46:14,101 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:46:16,655 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:46:16,662 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:46:17,340 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:46:17,529 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:46:17,530 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:46:17,530 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:46:17,542 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:46:17,549 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:46:17,585 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:46:17,606 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:46:17,607 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:46:17,641 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:46:17,666 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:46:18,371 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:46:18,652 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:46:19,029 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:46:20,150 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:46:20,746 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:46:21,788 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:46:22,773 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:46:23,716 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:46:24,590 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:46:25,474 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:46:25,675 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:46:26,583 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:46:26,914 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:46:27,389 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:46:28,389 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:46:29,227 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:46:30,187 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:46:31,134 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:46:32,015 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:46:32,934 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:46:33,739 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:46:34,680 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:46:35,242 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:46:36,462 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:47:12,420 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:47:12,423 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:47:12,836 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:47:12,955 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:47:12,958 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:47:12,959 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:47:12,962 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:47:12,969 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:47:12,988 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:47:12,998 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:47:12,999 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:47:13,047 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:47:13,047 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:47:13,053 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:47:13,519 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:47:13,815 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:47:14,144 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:47:14,417 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:47:14,419 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:47:14,778 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:47:14,880 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:47:14,881 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:47:14,884 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:47:14,888 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:47:14,895 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:47:14,942 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:47:14,957 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:47:15,649 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:47:16,224 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:47:17,517 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:47:18,694 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:47:19,631 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:47:19,929 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:47:20,223 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:47:20,731 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:47:21,001 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:47:22,023 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:47:22,528 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:47:22,869 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:47:24,168 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:47:25,227 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:47:26,112 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:47:26,892 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:47:27,658 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:47:28,486 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:47:29,280 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:47:30,077 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:47:30,929 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:47:31,678 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:47:31,701 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:47:31,972 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:47:32,305 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:47:33,778 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:47:34,179 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:47:34,893 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:47:35,624 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:47:36,846 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:47:37,318 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:47:37,713 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:47:37,864 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:47:38,291 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:47:38,592 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:47:38,814 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:47:39,308 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:47:39,806 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:47:40,257 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:47:40,687 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:47:41,111 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:47:41,501 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:47:41,911 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:47:42,433 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:47:42,874 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:47:43,413 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:47:55,828 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:47:55] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:47:56,869 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:47:56] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:47:57,012 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:47:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:48:06,421 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:48:06] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:48:07,526 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:48:07] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:48:07,647 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:48:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:49:10,305 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:49:10] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:49:12,642 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:49:12] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:49:12,792 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:49:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:49:48,755 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:49:48,759 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:49:49,172 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:49:49,280 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:49:49,280 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:49:49,281 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:49:49,283 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:49:49,297 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:49:49,314 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:49:49,320 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:49:49,320 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:49:49,352 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:49:49,353 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:49:49,357 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:49:49,984 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:49:50,377 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:49:50,800 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:49:51,008 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:49:51,010 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:49:51,451 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:49:51,602 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:49:51,604 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:49:51,608 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:49:51,611 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:49:51,616 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:49:51,684 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:49:51,706 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:49:52,696 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:49:53,564 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:49:54,528 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:49:55,440 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:49:56,377 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:49:56,670 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:49:57,519 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:49:58,654 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:49:59,075 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:50:00,509 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:50:01,027 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:50:01,852 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:50:03,347 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:50:04,421 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:50:05,614 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:50:06,637 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:50:07,775 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:50:08,750 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:50:09,632 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:50:10,515 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:50:10,972 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:50:11,351 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:50:11] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:50:11,508 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:50:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:50:11,785 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:50:11,813 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:50:12,007 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:50:12,288 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:50:13,426 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:50:13,697 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:50:14,247 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:50:14,911 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:50:15,612 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:50:16,119 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:50:16,557 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:50:16,714 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:50:18,647 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:50:18,903 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:50:19,102 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:50:19,558 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:50:20,037 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:50:20,530 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:50:21,071 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:50:21,473 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:50:21,958 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:50:22,416 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:50:22,901 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:50:23,326 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:50:23,762 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:50:26,884 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:50:26] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:50:27,280 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:50:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 12:51:55,005 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:51:55,012 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:51:55,417 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:51:55,555 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:51:55,556 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:51:55,559 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:51:55,557 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:51:55,569 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:51:55,593 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 12:51:55,601 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 12:51:55,605 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 12:51:55,640 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 12:51:55,642 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 12:51:55,646 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 12:51:56,237 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:51:56,538 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:51:56,958 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:51:57,176 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 12:51:57,178 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 12:51:57,582 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 12:51:57,685 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 12:51:57,687 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 12:51:57,688 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 12:51:57,689 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 12:51:57,694 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 12:51:57,750 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 12:51:57,761 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 12:51:58,478 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:51:58,946 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:52:00,060 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:52:01,339 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:52:02,604 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:52:02,769 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 12:52:03,496 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:52:04,520 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:52:04,737 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:52:05,870 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:52:06,264 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:52:07,172 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:52:08,367 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:52:09,926 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:52:11,018 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:52:12,148 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:52:13,379 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:52:14,391 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:52:15,528 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:52:16,544 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:52:17,013 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:52:17,923 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:52:17,993 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 12:52:18,169 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 12:52:18,443 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 12:52:19,478 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 12:52:19,760 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 12:52:20,303 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 12:52:21,046 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 12:52:21,791 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 12:52:22,233 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 12:52:22,715 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 12:52:22,868 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 12:52:23,704 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 12:52:23,963 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 12:52:24,184 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 12:52:24,639 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 12:52:25,077 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 12:52:25,515 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 12:52:25,978 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 12:52:26,358 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 12:52:26,783 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 12:52:27,209 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 12:52:27,638 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 12:52:28,079 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 12:52:28,511 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 12:59:21,260 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:59:21] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:59:22,999 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:59:22] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 12:59:23,237 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 12:59:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 13:17:17,717 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 13:17:17] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 13:17:17,957 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 13:17:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 13:17:20,622 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 13:17:20] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 13:17:20,874 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 13:17:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 13:39:42,504 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 13:39:42] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 13:39:43,560 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 13:39:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 13:39:57,692 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 13:39:57] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 13:43:45,449 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 13:43:45,451 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 13:43:45,858 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 13:43:45,972 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 13:43:45,974 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 13:43:45,979 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 13:43:45,976 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 13:43:45,996 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 13:43:46,026 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 13:43:46,037 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 13:43:46,038 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 13:43:46,067 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 13:43:46,069 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 13:43:46,072 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 13:43:46,929 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 13:43:47,275 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 13:43:47,567 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 13:43:47,570 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 13:43:47,886 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 13:43:47,949 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 13:43:48,062 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 13:43:48,063 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 13:43:48,065 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 13:43:48,067 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 13:43:48,067 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 13:43:48,124 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 13:43:48,139 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 13:43:49,595 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 13:43:50,477 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 13:43:51,913 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 13:43:53,064 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 13:43:53,099 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 13:43:53,927 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 13:43:55,305 - __main__ - INFO - 🎨 Auto-generating image for: iPhone 18 Pro Tipped For Game-Changing Satellite 5...
+2026-02-14 13:43:55,306 - __main__ - INFO - 🔍 Enhanced scraping from article: iPhone 18 Pro Tipped For Game-Changing Satellite 5G: No More...
+2026-02-14 13:43:56,792 - __main__ - WARNING - ❌ Enhanced scraper found no image for: iPhone 18 Pro Tipped For Game-Changing Satellite 5...
+2026-02-14 13:43:56,796 - __main__ - WARNING - ❌ No image generated for article 435
+2026-02-14 13:43:56,798 - __main__ - INFO - 🎨 Auto-generating image for: Samsung Galaxy F70e vs Samsung Galaxy A07 5G: Whic...
+2026-02-14 13:43:56,799 - __main__ - INFO - 🔍 Enhanced scraping from article: Samsung Galaxy F70e vs Samsung Galaxy A07 5G: Which is the b...
+2026-02-14 13:43:57,183 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Samsung Galaxy F70e vs Samsung Galaxy A07 5G: Whic...
+2026-02-14 13:43:57,183 - __main__ - WARNING - ❌ No image generated for article 436
+2026-02-14 13:43:57,184 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 13:43:58,662 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 13:43:59,094 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 13:44:00,584 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 13:44:01,055 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 13:44:01,994 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 13:44:03,342 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 13:44:04,573 - __main__ - INFO - 🎨 Auto-generating image for: SynaXG and Tech Mahindra partner to advance AI-nat...
+2026-02-14 13:44:04,574 - __main__ - INFO - 🔍 Enhanced scraping from article: SynaXG and Tech Mahindra partner to advance AI-native, 6G-re...
+2026-02-14 13:44:05,356 - __main__ - WARNING - ❌ Enhanced scraper found no image for: SynaXG and Tech Mahindra partner to advance AI-nat...
+2026-02-14 13:44:05,357 - __main__ - WARNING - ❌ No image generated for article 437
+2026-02-14 13:44:05,361 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 13:44:06,666 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 13:44:07,867 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 13:44:08,822 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 13:44:09,674 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 13:44:10,541 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 13:44:11,874 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 13:44:12,640 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 13:44:13,709 - __main__ - INFO - RSS fetch completed: 3 new articles
+2026-02-14 13:44:13,797 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 13:44:14,009 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 13:44:14,329 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 13:44:15,988 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 13:44:16,456 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 13:44:17,136 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 13:44:18,017 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 13:44:19,006 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 13:44:19,785 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 13:44:20,770 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 13:44:21,064 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 13:44:21,943 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 13:44:22,244 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 13:44:22,507 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 13:44:23,171 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 13:44:23,739 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 13:44:24,224 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 13:44:24,710 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 13:44:25,343 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 13:44:25,876 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 13:44:26,531 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 13:44:27,148 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 13:44:27,977 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 13:44:28,778 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 15:00:02,337 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:02] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 15:00:02,563 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 15:00:16,708 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:16] "GET /api/fetch_article_content/409 HTTP/1.1" 200 -
+2026-02-14 15:00:22,446 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:22] "GET /api/fetch_article_content/405 HTTP/1.1" 200 -
+2026-02-14 15:00:29,210 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:29] "GET /api/fetch_article_content/409 HTTP/1.1" 200 -
+2026-02-14 15:00:34,545 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:34] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:00:34,607 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: iPhone 18 Pro Tipped For Game-Changing Satellite 5G: No More...
+2026-02-14 15:00:34,608 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiwAFBVV95cUxNYTdmNlhjeUFXbmxraWtaZXRHSlBIby1fdlNTX1RzY3lvWjlpczcyWkZZUDg4R045N0tpMlNpMXBaUXRDNENLQU5oaDZoWm1hY3NKcU9TSzlqRk5ZZHp3UUIxaWczUkVmREpxUFU4LVkyeUFfN01zOHY5d0JkLVlmamtWMkNfTWJldWFUY2x5MFZxVThWd040bzM1OEpIcVNKbFo2QmNfYXN1M2VybThLeTVmRkNydHpMQjF6bUhJdTE?oc=5
+2026-02-14 15:00:34,608 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMiwAFBVV95cUxNYTdmNlhjeUFXbmxraWtaZXRHSlBIby1fdlNTX1RzY3lvWjlpczcyWkZZUDg4R045N0tpMlNpMXBaUXRDNENLQU5oaDZoWm1hY3NKcU9TSzlqRk5ZZHp3UUIxaWczUkVmREpxUFU4LVkyeUFfN01zOHY5d0JkLVlmamtWMkNfTWJldWFUY2x5MFZxVThWd040bzM1OEpIcVNKbFo2QmNfYXN1M2VybThLeTVmRkNydHpMQjF6bUhJdTE?oc=5
+2026-02-14 15:00:34,608 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 15:00:34,613 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Samsung Galaxy F70e vs Samsung Galaxy A07 5G: Which is the b...
+2026-02-14 15:00:34,613 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMivAFBVV95cUxQamZjenRKMDY2eFNNY2lWOGZEMjhucGVoVWlrcFF1RThJMG9yUHFqNjlnTEFsY1BNcE8yMDh2dEF4eTdpMVV2THdXTmJxVnN0SllqUWFMeXNUZEptNmUtNUFUVlA4UmM2Z2k1bEdDNl9fenA5bGpyNlZienNjYjdfUDk4NnJiZTFoNVVNeVhEcHVHTnV4VUdJYzQ3X3hVaWljRlA3ZkUyRjlEY3VrMkQzRGZPT3N6WFNpenQ4Qw?oc=5
+2026-02-14 15:00:34,614 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMivAFBVV95cUxQamZjenRKMDY2eFNNY2lWOGZEMjhucGVoVWlrcFF1RThJMG9yUHFqNjlnTEFsY1BNcE8yMDh2dEF4eTdpMVV2THdXTmJxVnN0SllqUWFMeXNUZEptNmUtNUFUVlA4UmM2Z2k1bEdDNl9fenA5bGpyNlZienNjYjdfUDk4NnJiZTFoNVVNeVhEcHVHTnV4VUdJYzQ3X3hVaWljRlA3ZkUyRjlEY3VrMkQzRGZPT3N6WFNpenQ4Qw?oc=5
+2026-02-14 15:00:34,614 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 15:00:36,680 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 15:00:36,686 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 15:00:36,693 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 15:00:36,699 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 15:00:36,714 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 15:00:36,719 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 15:00:36,827 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 15:00:36,845 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 15:00:36,865 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 15:00:36,873 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 15:00:36,879 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 15:00:36,883 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 15:00:36,884 - __main__ - INFO - 🔍 Searching for images with smart keywords: samsung galaxy, samsung phone, smartphone
+2026-02-14 15:00:36,889 - __main__ - INFO - ✅ Found tech-specific image for 'smartphone': https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop
+2026-02-14 15:00:36,888 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 15:00:36,892 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 15:00:36,893 - __main__ - INFO - 🔍 Searching for images with smart keywords: communication satellite, space satellite, satellite dish
+2026-02-14 15:00:36,894 - __main__ - INFO - ✅ Found enhanced Unsplash image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2026-02-14 15:00:36,897 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop
+2026-02-14 15:00:36,898 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2026-02-14 15:00:36,900 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:36] "POST /api/generate_article_image/436 HTTP/1.1" 200 -
+2026-02-14 15:00:36,901 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:36] "POST /api/generate_article_image/435 HTTP/1.1" 200 -
+2026-02-14 15:00:51,209 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:51] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-14 15:00:54,451 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:54] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:00:57,453 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:57] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:00:57,503 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:00:57] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 15:01:03,044 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:01:03] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:01:16,914 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:01:16] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:05:27,669 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:27] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:05:27,740 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:27] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 15:05:43,138 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:43] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:05:43,206 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:43] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 15:05:49,060 - __main__ - INFO - Updating diffusers...
+2026-02-14 15:05:50,062 - __main__ - INFO - Updating transformers...
+2026-02-14 15:05:50,861 - __main__ - INFO - Updating torch...
+2026-02-14 15:05:51,590 - __main__ - INFO - Updating torchvision...
+2026-02-14 15:05:52,320 - __main__ - INFO - Updating accelerate...
+2026-02-14 15:05:53,267 - __main__ - INFO - Updating safetensors...
+2026-02-14 15:05:54,450 - __main__ - INFO - AI model update completed: 7 operations
+2026-02-14 15:05:54,451 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:54] "POST /api/update_ai_models HTTP/1.1" 200 -
+2026-02-14 15:05:59,063 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:59] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:05:59,111 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:05:59] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 15:07:04,908 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:04] "GET /insights?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:07:21,641 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:21] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:07:27,289 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:27] "GET /admin?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:07:27,345 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:27] "GET /api/get_setting/x_timeline_enabled HTTP/1.1" 200 -
+2026-02-14 15:07:33,443 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:33] "GET /feeds?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:07:45,319 - __main__ - WARNING - Auto-removed unreachable RSS feed: Event Content: Tech Industry News - Network error: HTTPSConnectionPool(host='event-content-generated', port=443): Max retries exceeded with url: /tech-industry-news (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7e2aa6f975f0>: Failed to resolve 'event-content-generated' ([Errno -3] Temporary failure in name resolution)"))
+2026-02-14 15:07:45,320 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:07:45] "GET /api/verify_feed/37 HTTP/1.1" 200 -
+2026-02-14 15:08:03,712 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 15:08:03] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 15:08:23,790 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:08:24,486 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:08:26,241 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:08:26,245 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:08:26,909 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:08:26,995 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:08:26,997 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:08:26,998 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:08:27,001 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:08:27,006 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:08:27,019 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:08:27,035 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:08:27,036 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:08:27,067 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:08:27,079 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:08:27,569 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:08:27,839 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:08:28,194 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:08:30,391 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:08:34,561 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:08:35,849 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:08:36,732 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:08:37,609 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:08:38,522 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:08:39,605 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:08:39,941 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:08:42,323 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:08:43,070 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:08:45,002 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:08:45,016 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:08:45,566 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:08:45,694 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:08:45,697 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:08:45,701 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:08:45,703 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:08:45,709 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:08:45,730 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:08:45,744 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:08:45,750 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:08:45,794 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:08:45,810 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:08:46,239 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:08:46,479 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:08:46,747 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:08:48,867 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:08:49,429 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:08:50,338 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:08:51,192 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:08:51,910 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:08:52,371 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:08:53,508 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:08:54,066 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:08:55,042 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:08:55,573 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:08:56,408 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:08:57,291 - __main__ - INFO - 🎨 Auto-generating image for: Netgear’s £529 hotspot tested — WiFi 7 speed witho...
+2026-02-14 15:08:57,293 - __main__ - INFO - 🔍 Enhanced scraping from article: Netgear’s £529 hotspot tested — WiFi 7 speed without killing...
+2026-02-14 15:08:57,976 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Netgear’s £529 hotspot tested — WiFi 7 speed witho...
+2026-02-14 15:08:57,976 - __main__ - WARNING - ❌ No image generated for article 438
+2026-02-14 15:08:57,977 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:09:07,752 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:09:07,757 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:09:08,106 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:09:08,206 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:09:08,208 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:09:08,209 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:09:08,218 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:09:08,223 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:09:08,253 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:09:08,281 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:09:08,282 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:09:08,298 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 15:09:08,299 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 15:09:08,302 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:09:08,721 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:09:08,999 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:09:09,300 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:09:09,594 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:09:09,596 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:09:09,974 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:09:10,079 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:09:10,081 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:09:10,083 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:09:10,085 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:09:10,093 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:09:10,141 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:09:10,162 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:09:10,694 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:09:11,087 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:09:12,139 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:09:13,053 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:09:13,868 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:09:14,314 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:09:14,860 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:09:15,051 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:09:15,112 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 15:09:16,308 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:09:16,820 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:09:17,121 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:09:17,733 - __main__ - INFO - 🎨 Auto-generating image for: Netgear’s £529 hotspot tested — WiFi 7 speed witho...
+2026-02-14 15:09:17,736 - __main__ - INFO - 🔍 Enhanced scraping from article: Netgear’s £529 hotspot tested — WiFi 7 speed without killing...
+2026-02-14 15:09:18,525 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Netgear’s £529 hotspot tested — WiFi 7 speed witho...
+2026-02-14 15:09:18,526 - __main__ - WARNING - ❌ No image generated for article 438
+2026-02-14 15:09:18,526 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:09:19,113 - __main__ - INFO - 🎨 Auto-generating image for: The standards chair now steering how 6G serves pub...
+2026-02-14 15:09:19,113 - __main__ - INFO - 🔍 Enhanced scraping from article: The standards chair now steering how 6G serves public safety...
+2026-02-14 15:09:19,343 - __main__ - WARNING - ❌ Enhanced scraper found no image for: The standards chair now steering how 6G serves pub...
+2026-02-14 15:09:19,344 - __main__ - WARNING - ❌ No image generated for article 439
+2026-02-14 15:09:19,347 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:09:20,297 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:09:21,132 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:09:22,045 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 15:09:22,958 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 15:09:23,896 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 15:09:24,851 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 15:09:25,386 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 15:09:26,360 - __main__ - INFO - RSS fetch completed: 2 new articles
+2026-02-14 15:09:26,372 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:09:26,594 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:09:26,884 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:09:28,098 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:09:28,525 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:09:29,130 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:09:29,717 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:09:30,434 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:09:30,952 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:09:31,551 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:09:31,771 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:09:34,300 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:09:34,650 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:09:34,905 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:09:35,412 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:09:35,877 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:09:36,514 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:09:37,021 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:09:37,531 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 15:09:38,007 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 15:09:38,460 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 15:09:38,940 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 15:09:39,401 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 15:09:39,891 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 15:12:29,521 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:12:30,064 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:12:31,814 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:12:31,818 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:12:32,271 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:12:32,382 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:12:32,386 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:12:32,389 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:12:32,392 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:12:32,396 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:12:32,423 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:12:32,438 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:12:32,439 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:12:32,470 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:12:32,480 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:12:33,112 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:12:33,417 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:12:33,842 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:12:35,287 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:12:35,810 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:12:36,407 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:12:37,129 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:12:37,950 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:12:38,860 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:12:39,808 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:12:40,062 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:12:40,736 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:12:41,064 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:12:41,633 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:12:42,557 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:12:43,620 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:12:44,894 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:12:45,926 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:12:46,131 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:12:46,759 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:12:49,305 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:12:49,309 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:12:49,916 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:12:50,053 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:12:50,055 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:12:50,057 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:12:50,064 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:12:50,070 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:12:50,085 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:12:50,115 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:12:50,116 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:12:50,154 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:12:50,170 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:12:50,566 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:12:50,885 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:12:51,195 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:12:52,877 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:12:53,725 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:12:54,712 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:12:55,622 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:12:56,848 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:12:57,337 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:12:57,771 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:12:57,967 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:12:58,807 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:12:59,079 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:12:59,420 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:13:00,437 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:13:01,470 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:13:01,951 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:13:02,376 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:13:03,259 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 15:13:04,490 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 15:13:05,592 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 15:13:06,669 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 15:13:07,281 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 15:13:08,252 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 15:13:25,674 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:13:26,707 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:13:28,498 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:13:28,515 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:13:29,187 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:13:29,310 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:13:29,311 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:13:29,312 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:13:29,317 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:13:29,327 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:13:29,342 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:13:29,352 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:13:29,353 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:13:29,384 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:13:29,397 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:13:29,908 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:13:30,434 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:13:30,992 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:13:32,878 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:13:33,411 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:13:34,418 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:13:35,043 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:13:36,806 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:13:37,954 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:13:38,717 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:13:39,127 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:13:41,620 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:13:42,039 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:13:42,358 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:13:42,976 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:13:43,436 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:13:43,957 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:13:44,530 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:13:45,100 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 15:13:45,725 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 15:13:46,602 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 15:13:47,457 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 15:13:49,108 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 15:13:50,528 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 15:14:18,213 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-14 15:14:18,898 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 15:14:21,166 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 15:14:21,168 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 15:14:22,348 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 15:14:22,560 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 15:14:22,563 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 15:14:22,564 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 15:14:22,567 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 15:14:22,569 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 15:14:22,595 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 15:14:22,621 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 15:14:22,622 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 15:14:22,654 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 15:14:22,670 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 15:14:23,233 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 15:14:23,676 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 15:14:24,227 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 15:14:26,638 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 15:14:27,470 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 15:14:28,606 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 15:14:29,428 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 15:14:30,869 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 15:14:31,447 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 15:14:32,264 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 15:14:32,915 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 15:14:34,657 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 15:14:35,316 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 15:14:35,750 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 15:14:36,424 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 15:14:37,119 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 15:14:37,956 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 15:14:38,564 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 15:14:39,179 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 15:14:39,659 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 15:14:40,094 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 15:14:40,791 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 15:14:41,485 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 15:14:42,589 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 21:09:08,332 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 21:09:08,336 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 21:09:08,856 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 21:09:09,150 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 21:09:09,516 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 21:09:11,784 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 21:09:16,437 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 21:09:17,771 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 21:09:18,479 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 21:09:19,691 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 21:09:20,569 - __main__ - INFO - 🎨 Auto-generating image for: Galaxy A07 5G debuts with 6,000mAh battery, 120Hz ...
+2026-02-14 21:09:20,570 - __main__ - INFO - 🔍 Enhanced scraping from article: Galaxy A07 5G debuts with 6,000mAh battery, 120Hz display - ...
+2026-02-14 21:09:20,571 - enhancements - ERROR - Error scraping image from https://news.google.com/rss/articles/CBMimwFBVV95cUxNcWV1bnRlcnF0Vk9ZX1ZHMmRkME5hLUtDSEZoV3p3OEhxR3V6NUFrRWxRcjY2ZWNvTVhfcTZycHgyT3N6cGVFN3pGODgzQmkxY3ItcmVKWWp1RE1zeF81bHdzYkxDMEt2VHk1WmhTcGVoT3dCeWRGbzY1SkRnaXVDODNPZV9OVXdqTExybE9VeGYtd19KVUVrbzFCb9IBlwFBVV95cUxPQzREaXl3NjBBbDN5OGFvVjFmTmI2dk44Q0hXbnZ2TEF1MnNFNUY4UXhieExOOTFGbnRnZjRFQV9VQ2Z1UDFPVjQ0ZVJhMXk5MkZDYUhna2pNQnI3bC10NVhmUW9fOEdQR1VIWDFaQnJ5RTR2UHZwZEZLdjZUS2lENHgyQ24wNkxxN1gzUWVWT2ktTkJITVVZ?oc=5: Timeout context manager should be used inside a task
+2026-02-14 21:09:20,572 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Galaxy A07 5G debuts with 6,000mAh battery, 120Hz ...
+2026-02-14 21:09:20,572 - __main__ - WARNING - ❌ No image generated for article 440
+2026-02-14 21:09:20,573 - __main__ - INFO - 🎨 Auto-generating image for: In Russia, they began testing a stratospheric 5G p...
+2026-02-14 21:09:20,573 - __main__ - INFO - 🔍 Enhanced scraping from article: In Russia, they began testing a stratospheric 5G platform to...
+2026-02-14 21:09:20,574 - enhancements - ERROR - Error scraping image from https://news.google.com/rss/articles/CBMixwFBVV95cUxOeWdfS2o4ZG02UWtKNTFKaEJOd1V6Y1E4UEtmbHY5QkRUX3BuMElscW1fQ3llbzRDcGZzVGsxVEVlVWJZU0hiUEM1MmFWbzFVY2tkeVBiaWFqeF94OHdKU3BSN0U1SHZkUmdlLTNjU24za2JhR3NLT0pkaGFrQ1VpWUhpMGRPX2RMR2ZfRm8zT1ZaSkNOZkViSURxcG1FLXhFVmp2RTlrUVgwZVpxY09sWVBBVXVpSURDVEZlOFdMd3k1b1NYVDVv0gHLAUFVX3lxTFBueE5fZi1WaVFXV3dmVXp6RkEyYm5iMDZkTjBxdHpkc0dES2tORDJVR1dvNndydWJQSmpOUXZiWG9SbkJDb1JkYTZJQ0cxbWVnejN0ZjFMbnppUjYzZW14cWU1eVEwTXF2aXRSSC1LVGVMSXBTMGIwVXY0NG8wZXRPbUZCVU9pNW81WC03eTFlcmZLWjktVDlwX3I5T1hheXNOdlQ4LTJiNTVjR29rQlVfSHZ6WGl6X2lkUDNfSUZiejI4S1g2YzJtSVJZ?oc=5: Timeout context manager should be used inside a task
+2026-02-14 21:09:20,574 - __main__ - WARNING - ❌ Enhanced scraper found no image for: In Russia, they began testing a stratospheric 5G p...
+2026-02-14 21:09:20,574 - __main__ - WARNING - ❌ No image generated for article 441
+2026-02-14 21:09:20,575 - __main__ - INFO - 🎨 Auto-generating image for: RTX BBN Technologies leads multi-team effort to de...
+2026-02-14 21:09:20,575 - __main__ - INFO - 🔍 Enhanced scraping from article: RTX BBN Technologies leads multi-team effort to demonstrate ...
+2026-02-14 21:09:20,575 - enhancements - ERROR - Error scraping image from https://news.google.com/rss/articles/CBMixwFBVV95cUxNemg5eFFXZllacFg3dnM1aE1RSFozeWZYVXhiVFFLYnJVdGdUQnZsdS1ScUE3NWhSOTk1UzV2V1RnN3dzcjBRZ0V5LVl4bHh4Ry1QRXN2Ym0tdXVTZmVELVBvTnNORUlMOHAzZl93bHdTODFxTkppZzZBQzFjWUFJZnlnRzdmWUV0dGhjUEt6a1hkVWxiUklfMEw3QXlGQjFWdmJWS3AwbFBSNXQ2cHpsYXBKclZ4VFhocExPdkludDR3TFp3R2dR?oc=5: Timeout context manager should be used inside a task
+2026-02-14 21:09:20,576 - __main__ - WARNING - ❌ Enhanced scraper found no image for: RTX BBN Technologies leads multi-team effort to de...
+2026-02-14 21:09:20,576 - __main__ - WARNING - ❌ No image generated for article 442
+2026-02-14 21:09:20,576 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 21:09:21,597 - __main__ - INFO - 🎨 Auto-generating image for: Spectrum’s Invincible WiFi Ensures You’re Always C...
+2026-02-14 21:09:21,597 - __main__ - INFO - 🔍 Enhanced scraping from article: Spectrum’s Invincible WiFi Ensures You’re Always Connected—N...
+2026-02-14 21:09:21,598 - enhancements - ERROR - Error scraping image from https://news.google.com/rss/articles/CBMipAFBVV95cUxQdk1Qa1Bhem9zYTNFZWJ4UGhmMGNyVlJqQ3Y0ZHFWaGpLOGl5Mnc4U2xBWVA3WmNqU2tKZ3RpTTFMY0VaVlphbmtkSy1KaWU4cUJieXRjTlZkODB4OUtvbV9FYzVwSEZGZElPQ2pSaDIxWFVWVmtvcEpoSGpNUk1fa19VcW9ZV2FaYnRaQUZKVzBSSFkyUkN1ZTF5MDZlbDFQa2NGOQ?oc=5: Timeout context manager should be used inside a task
+2026-02-14 21:09:21,599 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Spectrum’s Invincible WiFi Ensures You’re Always C...
+2026-02-14 21:09:21,600 - __main__ - WARNING - ❌ No image generated for article 443
+2026-02-14 21:09:21,605 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 21:09:21,976 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 21:09:22,955 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 21:09:23,296 - __main__ - INFO - 🎨 Auto-generating image for: Why Amazon's Echo Hub became my favorite way to co...
+2026-02-14 21:09:23,296 - __main__ - INFO - 🔍 Enhanced scraping from article: Why Amazon's Echo Hub became my favorite way to control my s...
+2026-02-14 21:09:23,297 - enhancements - ERROR - Error scraping image from https://www.zdnet.com/article/amazon-echo-hub-review/: Timeout context manager should be used inside a task
+2026-02-14 21:09:23,298 - __main__ - WARNING - ❌ Enhanced scraper found no image for: Why Amazon's Echo Hub became my favorite way to co...
+2026-02-14 21:09:23,298 - __main__ - WARNING - ❌ No image generated for article 444
+2026-02-14 21:09:23,302 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 21:09:24,087 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 21:09:25,086 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 21:09:25,995 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 21:09:26,940 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 21:09:27,921 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 21:09:28,952 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 21:09:29,881 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 21:09:30,899 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 21:09:31,809 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 21:09:32,516 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 21:09:33,517 - __main__ - INFO - RSS fetch completed: 5 new articles
+2026-02-14 21:09:33,548 - __main__ - INFO - Starting social media fetch...
+2026-02-14 21:09:33,549 - __main__ - ERROR - Error fetching social media: name 'asyncio' is not defined
+2026-02-14 21:09:33,549 - __main__ - INFO - Starting social event discovery...
+2026-02-14 21:09:33,549 - __main__ - ERROR - Error discovering social events: name 'asyncio' is not defined
+2026-02-14 21:14:22,674 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 21:14:22,677 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 21:14:23,147 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 21:14:23,401 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 21:14:23,747 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 21:14:24,974 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 21:14:25,497 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 21:14:26,142 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 21:14:26,826 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 21:14:27,510 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 21:14:28,510 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 21:14:29,454 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 21:14:29,720 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 21:14:30,639 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 21:14:31,019 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 21:14:31,617 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 21:14:32,671 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 21:14:33,591 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 21:14:34,575 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 21:14:35,581 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 21:14:36,650 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 21:14:37,668 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 21:14:38,628 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 21:14:39,649 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 21:14:40,236 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 21:14:41,181 - __main__ - INFO - RSS fetch completed: 0 new articles
+2026-02-14 21:14:41,183 - __main__ - INFO - Starting social media fetch...
+2026-02-14 21:14:41,184 - __main__ - ERROR - Error fetching social media: name 'asyncio' is not defined
+2026-02-14 21:14:41,184 - __main__ - INFO - Starting social event discovery...
+2026-02-14 21:14:41,184 - __main__ - ERROR - Error discovering social events: name 'asyncio' is not defined
+2026-02-14 23:09:33,584 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 23:09:33,595 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 23:09:33,602 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 23:09:33,603 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 23:14:41,222 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 23:14:41,228 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 23:14:41,235 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 23:14:41,235 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 23:44:46,037 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 23:44:46,051 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 23:44:46,781 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 23:44:46,908 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 23:44:46,909 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 23:44:46,916 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 23:44:46,922 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 23:44:46,923 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 23:44:46,948 - enhancements - INFO - Updated scores for 13 Wild Wi-Fi stories
+2026-02-14 23:44:46,959 - enhancements - INFO - Featured 0 Wild Wi-Fi stories
+2026-02-14 23:44:46,968 - __main__ - INFO - Wild Wi-Fi curation complete
+2026-02-14 23:44:47,011 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.5.241:8080
+2026-02-14 23:44:47,021 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-14 23:44:47,044 - werkzeug - INFO -  * Restarting with stat
+2026-02-14 23:44:47,981 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 23:44:48,781 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 23:44:49,446 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 23:44:50,322 - __main__ - INFO - Cleared placeholder events - system will now detect events dynamically
+2026-02-14 23:44:50,329 - __main__ - INFO - Database initialized with enhancement tables
+2026-02-14 23:44:51,470 - enhancements - INFO - Initialized mock social media clients
+2026-02-14 23:44:51,756 - __main__ - INFO - Scheduled automatic AI model updates for Sundays at 3 AM
+2026-02-14 23:44:51,760 - __main__ - INFO - Starting RSS feed fetch...
+2026-02-14 23:44:51,762 - __main__ - INFO - Fetching feed: Ars Technica Technology
+2026-02-14 23:44:51,767 - __main__ - INFO - Starting Wild Wi-Fi curation...
+2026-02-14 23:44:51,769 - __main__ - INFO - Starting The Signal on 0.0.0.0:8080
+2026-02-14 23:44:51,844 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 23:44:51,877 - werkzeug - INFO -  * Debugger PIN: 798-380-897
+2026-02-14 23:44:51,913 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 23:44:56,800 - __main__ - ERROR - Error curating Wild Wi-Fi stories: database is locked
+2026-02-14 23:44:56,835 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 23:44:58,686 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 23:45:00,187 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 23:45:03,228 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 23:45:04,727 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 23:45:06,003 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 23:45:06,434 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 23:45:08,594 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 23:45:09,338 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 23:45:10,129 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 23:45:12,346 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 23:45:13,930 - __main__ - INFO - 🎨 Auto-generating image for: GBS 2026: Digital highways to 6G leadership, Jyoti...
+2026-02-14 23:45:14,000 - __main__ - INFO - 🔍 Enhanced scraping from article: GBS 2026: Digital highways to 6G leadership, Jyotiraditya M....
+2026-02-14 23:45:17,259 - __main__ - WARNING - ❌ Enhanced scraper found no image for: GBS 2026: Digital highways to 6G leadership, Jyoti...
+2026-02-14 23:45:17,263 - __main__ - WARNING - ❌ No image generated for article 445
+2026-02-14 23:45:17,273 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 23:45:19,508 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 23:45:20,646 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 23:45:21,884 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 23:45:22,876 - __main__ - ERROR - Error fetching feed Ars Technica Technology: database is locked
+2026-02-14 23:45:22,917 - __main__ - INFO - Fetching feed: TechCrunch
+2026-02-14 23:45:23,211 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 23:45:24,029 - __main__ - ERROR - Error fetching feed TechCrunch: database is locked
+2026-02-14 23:45:24,033 - __main__ - INFO - Fetching feed: RCR Wireless News
+2026-02-14 23:45:24,656 - __main__ - ERROR - Error fetching feed RCR Wireless News: database is locked
+2026-02-14 23:45:24,661 - __main__ - INFO - Fetching feed: Engadget
+2026-02-14 23:45:24,771 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 23:45:26,250 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 23:45:27,045 - __main__ - ERROR - Error fetching feed Engadget: database is locked
+2026-02-14 23:45:27,046 - __main__ - INFO - Fetching feed: Wired Technology
+2026-02-14 23:45:27,532 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 23:45:27,880 - __main__ - ERROR - Error fetching feed Wired Technology: database is locked
+2026-02-14 23:45:27,881 - __main__ - INFO - Fetching feed: Wi-Fi Alliance
+2026-02-14 23:45:29,287 - __main__ - ERROR - Error fetching feed Wi-Fi Alliance: database is locked
+2026-02-14 23:45:29,295 - __main__ - INFO - Fetching feed: Wireless Week
+2026-02-14 23:45:29,368 - __main__ - INFO - RSS fetch completed: 1 new articles
+2026-02-14 23:45:30,180 - __main__ - ERROR - Error fetching feed Wireless Week: database is locked
+2026-02-14 23:45:30,181 - __main__ - INFO - Fetching feed: Light Reading
+2026-02-14 23:45:31,502 - __main__ - ERROR - Error fetching feed Light Reading: database is locked
+2026-02-14 23:45:31,505 - __main__ - INFO - Fetching feed: Google News: 5G
+2026-02-14 23:45:32,547 - __main__ - ERROR - Error fetching feed Google News: 5G: database is locked
+2026-02-14 23:45:32,550 - __main__ - INFO - Fetching feed: Google News: WiFi 8
+2026-02-14 23:45:33,585 - __main__ - ERROR - Error fetching feed Google News: WiFi 8: database is locked
+2026-02-14 23:45:33,585 - __main__ - INFO - Fetching feed: FierceWireless
+2026-02-14 23:45:33,951 - __main__ - ERROR - Error fetching feed FierceWireless: database is locked
+2026-02-14 23:45:33,952 - __main__ - INFO - Fetching feed: Mobile World Live
+2026-02-14 23:45:35,210 - __main__ - ERROR - Error fetching feed Mobile World Live: database is locked
+2026-02-14 23:45:35,212 - __main__ - INFO - Fetching feed: ZDNet Networking
+2026-02-14 23:45:35,750 - __main__ - ERROR - Error fetching feed ZDNet Networking: database is locked
+2026-02-14 23:45:35,755 - __main__ - INFO - Fetching feed: Network World
+2026-02-14 23:45:36,241 - __main__ - ERROR - Error fetching feed Network World: database is locked
+2026-02-14 23:45:36,242 - __main__ - INFO - Fetching feed: Google News: WiFi 7
+2026-02-14 23:45:37,319 - __main__ - ERROR - Error fetching feed Google News: WiFi 7: database is locked
+2026-02-14 23:45:37,323 - __main__ - INFO - Fetching feed: Google News: 6G
+2026-02-14 23:45:38,375 - __main__ - ERROR - Error fetching feed Google News: 6G: database is locked
+2026-02-14 23:45:38,379 - __main__ - INFO - Fetching feed: Google News: satellite internet
+2026-02-14 23:45:39,414 - __main__ - ERROR - Error fetching feed Google News: satellite internet: database is locked
+2026-02-14 23:45:39,418 - __main__ - INFO - Fetching feed: Google News: private 5G
+2026-02-14 23:45:40,421 - __main__ - ERROR - Error fetching feed Google News: private 5G: database is locked
+2026-02-14 23:45:40,429 - __main__ - INFO - Fetching feed: Google News: eero
+2026-02-14 23:45:41,358 - __main__ - ERROR - Error fetching feed Google News: eero: database is locked
+2026-02-14 23:45:41,360 - __main__ - INFO - Fetching feed: Google News: Cisco Wireless
+2026-02-14 23:45:42,435 - __main__ - ERROR - Error fetching feed Google News: Cisco Wireless: database is locked
+2026-02-14 23:45:42,439 - __main__ - INFO - Fetching feed: Google News: Ubiquiti WiFi
+2026-02-14 23:45:43,420 - __main__ - ERROR - Error fetching feed Google News: Ubiquiti WiFi: database is locked
+2026-02-14 23:45:43,422 - __main__ - INFO - Fetching feed: Google News: Unifi WiFi
+2026-02-14 23:45:44,440 - __main__ - ERROR - Error fetching feed Google News: Unifi WiFi: database is locked
+2026-02-14 23:45:44,445 - __main__ - INFO - Fetching feed: 9to5Mac
+2026-02-14 23:45:45,656 - __main__ - ERROR - Error fetching feed 9to5Mac: database is locked
+2026-02-14 23:45:45,657 - __main__ - INFO - Fetching feed: Google News: network security
+2026-02-14 23:45:46,779 - __main__ - ERROR - Error fetching feed Google News: network security: database is locked
+2026-02-14 23:56:28,861 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:28] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 23:56:29,038 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: In Russia, they began testing a stratospheric 5G platform to...
+2026-02-14 23:56:29,039 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMixwFBVV95cUxOeWdfS2o4ZG02UWtKNTFKaEJOd1V6Y1E4UEtmbHY5QkRUX3BuMElscW1fQ3llbzRDcGZzVGsxVEVlVWJZU0hiUEM1MmFWbzFVY2tkeVBiaWFqeF94OHdKU3BSN0U1SHZkUmdlLTNjU24za2JhR3NLT0pkaGFrQ1VpWUhpMGRPX2RMR2ZfRm8zT1ZaSkNOZkViSURxcG1FLXhFVmp2RTlrUVgwZVpxY09sWVBBVXVpSURDVEZlOFdMd3k1b1NYVDVv0gHLAUFVX3lxTFBueE5fZi1WaVFXV3dmVXp6RkEyYm5iMDZkTjBxdHpkc0dES2tORDJVR1dvNndydWJQSmpOUXZiWG9SbkJDb1JkYTZJQ0cxbWVnejN0ZjFMbnppUjYzZW14cWU1eVEwTXF2aXRSSC1LVGVMSXBTMGIwVXY0NG8wZXRPbUZCVU9pNW81WC03eTFlcmZLWjktVDlwX3I5T1hheXNOdlQ4LTJiNTVjR29rQlVfSHZ6WGl6X2lkUDNfSUZiejI4S1g2YzJtSVJZ?oc=5
+2026-02-14 23:56:29,039 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMixwFBVV95cUxOeWdfS2o4ZG02UWtKNTFKaEJOd1V6Y1E4UEtmbHY5QkRUX3BuMElscW1fQ3llbzRDcGZzVGsxVEVlVWJZU0hiUEM1MmFWbzFVY2tkeVBiaWFqeF94OHdKU3BSN0U1SHZkUmdlLTNjU24za2JhR3NLT0pkaGFrQ1VpWUhpMGRPX2RMR2ZfRm8zT1ZaSkNOZkViSURxcG1FLXhFVmp2RTlrUVgwZVpxY09sWVBBVXVpSURDVEZlOFdMd3k1b1NYVDVv0gHLAUFVX3lxTFBueE5fZi1WaVFXV3dmVXp6RkEyYm5iMDZkTjBxdHpkc0dES2tORDJVR1dvNndydWJQSmpOUXZiWG9SbkJDb1JkYTZJQ0cxbWVnejN0ZjFMbnppUjYzZW14cWU1eVEwTXF2aXRSSC1LVGVMSXBTMGIwVXY0NG8wZXRPbUZCVU9pNW81WC03eTFlcmZLWjktVDlwX3I5T1hheXNOdlQ4LTJiNTVjR29rQlVfSHZ6WGl6X2lkUDNfSUZiejI4S1g2YzJtSVJZ?oc=5
+2026-02-14 23:56:29,039 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 23:56:29,063 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: GBS 2026: Digital highways to 6G leadership, Jyotiraditya M....
+2026-02-14 23:56:29,064 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMi6gFBVV95cUxPcTRGcDZoVndfbDFPQVhjYnByRmRMdmQwck8tcVpCaGhRSHJWOWNJdkIteGJTRGMwR1FUUFdOLUMtWTBVNnFhczFTaUZtczF2eFR5LXJOUmtvczVXSVhpOWNrM3RmY1A5RmRKcy1VOXBaZ2JEWmdTYjdGZ0JiT0g0ekdUdXhjQ3lDa25USEUwU2lQR3hTRG9BbjJOU243dHlzbk1kRjI3cFRmZm5JdkhQdnNDZG9KZnhUOG9CTnE2VFBLVVVidFJxdW9hZGtSeDZ1dGVwcFdVZndoRXJnMy02TWREYmtyNnJOMkHSAe8BQVVfeXFMT3o0R3VEWjROLVYtRy1rOGNrSmZGVm5mSVc5clRzNGlhRVAwWTdWU2c5UGVCR1dMQVVMcks2U1ZtWGdNNGJaVmFYaGlxUXdOVnpVd29aN2JfekF0NFFrV2pMWnhZbm5WMW5DTHBnVkNjYk5KbmVDTTBTMVVuWjd1NDlFcnVTMHg3QkNZbk5BNmhEOGxFQlkwNWNCaUpGZVd5YUxtMVBKNVhNdUV4VlFjNlpCR2x1YS10X2RtZ19lLXYzVjczU1JiRk94YWVpRnVKbXdMRGxVSUZhd2pVSmVNSFZteVpOcTZNRkw1cjlTc00?oc=5
+2026-02-14 23:56:29,064 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMi6gFBVV95cUxPcTRGcDZoVndfbDFPQVhjYnByRmRMdmQwck8tcVpCaGhRSHJWOWNJdkIteGJTRGMwR1FUUFdOLUMtWTBVNnFhczFTaUZtczF2eFR5LXJOUmtvczVXSVhpOWNrM3RmY1A5RmRKcy1VOXBaZ2JEWmdTYjdGZ0JiT0g0ekdUdXhjQ3lDa25USEUwU2lQR3hTRG9BbjJOU243dHlzbk1kRjI3cFRmZm5JdkhQdnNDZG9KZnhUOG9CTnE2VFBLVVVidFJxdW9hZGtSeDZ1dGVwcFdVZndoRXJnMy02TWREYmtyNnJOMkHSAe8BQVVfeXFMT3o0R3VEWjROLVYtRy1rOGNrSmZGVm5mSVc5clRzNGlhRVAwWTdWU2c5UGVCR1dMQVVMcks2U1ZtWGdNNGJaVmFYaGlxUXdOVnpVd29aN2JfekF0NFFrV2pMWnhZbm5WMW5DTHBnVkNjYk5KbmVDTTBTMVVuWjd1NDlFcnVTMHg3QkNZbk5BNmhEOGxFQlkwNWNCaUpGZVd5YUxtMVBKNVhNdUV4VlFjNlpCR2x1YS10X2RtZ19lLXYzVjczU1JiRk94YWVpRnVKbXdMRGxVSUZhd2pVSmVNSFZteVpOcTZNRkw1cjlTc00?oc=5
+2026-02-14 23:56:29,064 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 23:56:29,071 - __main__ - INFO - 🔍 Ultra-aggressive scraping from article: Netgear’s £529 hotspot tested — WiFi 7 speed without killing...
+2026-02-14 23:56:29,072 - __main__ - WARNING - Skipping Google News URL resolution: https://news.google.com/rss/articles/CBMiiAFBVV95cUxQR3VxTGd2Yl9aUnJsdjNjc0Y5MzFCWEVEdVRkWlR4d0U2eDlYRURiTDFpTjZCYy03cG0zSm9peGt2aE5JUDNybXZXWGRQLXpBNlQ1ZWdqRld6RDA4TTVESHZ0NHlhdE9LOFhFSFVsbkpHMzFiYWtGd3V5R013Wkk2b2g5WkhRanJx?oc=5
+2026-02-14 23:56:29,072 - __main__ - INFO - 🔍 ULTRA-AGGRESSIVE scraping from: https://news.google.com/rss/articles/CBMiiAFBVV95cUxQR3VxTGd2Yl9aUnJsdjNjc0Y5MzFCWEVEdVRkWlR4d0U2eDlYRURiTDFpTjZCYy03cG0zSm9peGt2aE5JUDNybXZXWGRQLXpBNlQ1ZWdqRld6RDA4TTVESHZ0NHlhdE9LOFhFSFVsbkpHMzFiYWtGd3V5R013Wkk2b2g5WkhRanJx?oc=5
+2026-02-14 23:56:29,072 - __main__ - INFO - 🔄 Attempt 1 with User Agent 1
+2026-02-14 23:56:29,657 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-14 23:56:31,817 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 23:56:31,820 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 23:56:31,825 - __main__ - INFO - ✅ Successfully loaded page with User Agent 1
+2026-02-14 23:56:31,825 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 23:56:31,826 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 23:56:31,827 - __main__ - INFO - 🔍 PHASE 1: Trying standard metadata...
+2026-02-14 23:56:31,870 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 23:56:31,876 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 23:56:31,893 - __main__ - INFO - 🔍 PHASE 2: Trying article-specific selectors...
+2026-02-14 23:56:32,080 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 23:56:32,087 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 23:56:32,093 - __main__ - INFO - 🔍 PHASE 3: Analyzing content areas...
+2026-02-14 23:56:32,161 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 23:56:32,166 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 23:56:32,177 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 23:56:32,180 - __main__ - INFO - 🔍 Searching for images with smart keywords: wifi router, wireless network, wifi signal
+2026-02-14 23:56:32,180 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 23:56:32,182 - __main__ - INFO - 🔍 PHASE 4: Aggressive image hunting...
+2026-02-14 23:56:32,184 - __main__ - INFO - ✅ Found tech-specific image for 'wifi': https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2026-02-14 23:56:32,186 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 23:56:32,189 - __main__ - INFO - 🔍 PHASE 5: Last resort - any reasonable image...
+2026-02-14 23:56:32,191 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 23:56:32,193 - __main__ - WARNING - ❌ No images found on article page after exhaustive search
+2026-02-14 23:56:32,194 - __main__ - INFO - 🔍 Searching for images with smart keywords: 6g technology, future wireless, next generation
+2026-02-14 23:56:32,194 - __main__ - INFO - 🔍 Searching for images with smart keywords: 5g tower, 5g network, cellular tower
+2026-02-14 23:56:32,195 - __main__ - INFO - ✅ Found tech-specific image for '5g': https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 23:56:32,195 - __main__ - INFO - ✅ Found tech-specific image for 'technology': https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop
+2026-02-14 23:56:32,203 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop
+2026-02-14 23:56:32,205 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:32] "POST /api/generate_article_image/438 HTTP/1.1" 200 -
+2026-02-14 23:56:32,206 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop
+2026-02-14 23:56:32,207 - __main__ - INFO - ✅ Successfully scraped and stored image: https://images.unsplash.com/photo-1551808525-51a94da548ce?w=800&h=600&fit=crop
+2026-02-14 23:56:32,209 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:32] "POST /api/generate_article_image/441 HTTP/1.1" 200 -
+2026-02-14 23:56:32,209 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:32] "POST /api/generate_article_image/445 HTTP/1.1" 200 -
+2026-02-14 23:56:40,738 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:40] "GET /wild_wifi?view=newspaper HTTP/1.1" 200 -
+2026-02-14 23:56:57,268 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:56:57] "GET /?view=newspaper HTTP/1.1" 200 -
+2026-02-14 23:57:05,337 - werkzeug - INFO - 192.168.5.147 - - [14/Feb/2026 23:57:05] "GET /?view=reader HTTP/1.1" 200 -
+2026-02-15 01:46:11,818 - werkzeug - INFO -  * Detected change in '/home/drew/Kiro/TheWirelessMonitor/app/main.py', reloading
+2026-02-15 01:46:14,299 - werkzeug - INFO -  * Restarting with stat

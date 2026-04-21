@@ -1,0 +1,82 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║  📋 AWS CONSOLE SETUP REQUIRED                                             ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Your IAM user needs permissions, but can't create them via CLI.
+You need to use the AWS Console (web interface).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: CREATE POLICY (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open: https://console.aws.amazon.com/iam/home#/policies
+
+2. Click "Create policy" button (blue button, top right)
+
+3. Click the "JSON" tab
+
+4. Delete everything and paste this:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lightsail:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+5. Click "Next" button
+
+6. Policy name: LightsailDeploymentPolicy
+
+7. Click "Create policy" button
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: ATTACH TO USER (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open: https://console.aws.amazon.com/iam/home#/users/drew-signal
+
+2. Click "Add permissions" button
+
+3. Select "Attach policies directly"
+
+4. Search for: LightsailDeploymentPolicy
+
+5. Check the box next to it
+
+6. Click "Add permissions" button
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: TEST (30 seconds)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run this command:
+  aws lightsail get-regions
+
+You should see a list of AWS regions (us-east-1, us-west-2, etc.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 4: DEPLOY! 🚀
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ./deploy_to_lightsail.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 Detailed guide: CONSOLE_POLICY_SETUP.md
+
+⚠️  NOTE: You need to be logged into AWS Console with an account that has
+   IAM permissions (admin or root account). The 'drew-signal' user doesn't
+   have permission to create policies.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Wireless Monitor - Simplified Single Service
+The Signal - Simplified Single Service
 All functionality in one streamlined application
 """
 
@@ -22,7 +22,9 @@ PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # Lightweight web framework
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import feedparser
 from bs4 import BeautifulSoup
@@ -62,6 +64,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# User class for Flask-Login
+class User(UserMixin):
+    def __init__(self, id, username, email=None):
+        self.id = id
+        self.username = username
+        self.email = email
+
 class WirelessMonitor:
     def __init__(self):
         # Get the directory where this script is located
@@ -77,9 +86,24 @@ class WirelessMonitor:
         # Disable template caching for development
         self.app.jinja_env.auto_reload = True
         self.app.config['TEMPLATES_AUTO_RELOAD'] = True
-        self.app.secret_key = 'wireless-monitor-secret-key'
+        self.app.secret_key = 'wireless-monitor-secret-key-change-in-production'
         self.db_path = 'data/wireless_monitor.db'
         self.running = True
+        
+        # Setup Flask-Login
+        self.login_manager = LoginManager()
+        self.login_manager.init_app(self.app)
+        self.login_manager.login_view = 'login'
+        self.login_manager.login_message = 'Please log in to access this page.'
+        
+        @self.login_manager.user_loader
+        def load_user(user_id):
+            conn = self.get_db_connection()
+            user_data = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+            conn.close()
+            if user_data:
+                return User(user_data['id'], user_data['username'], user_data['email'])
+            return None
         
         # Wi-Fi keywords for relevance scoring
         self.wifi_keywords = [
@@ -365,6 +389,31 @@ class WirelessMonitor:
                 FOREIGN KEY (article_id) REFERENCES articles (id)
             )
         ''')
+        
+        # Users table for authentication
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                email TEXT UNIQUE,
+                google_id TEXT UNIQUE,
+                is_admin INTEGER DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_login TIMESTAMP
+            )
+        ''')
+        
+        # Create default user if no users exist
+        existing_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()
+        if existing_users['count'] == 0:
+            from werkzeug.security import generate_password_hash
+            default_password_hash = generate_password_hash('Admin$123#')
+            conn.execute('''
+                INSERT INTO users (username, password_hash, email, is_admin)
+                VALUES (?, ?, ?, ?)
+            ''', ('drew', default_password_hash, 'drew@thesignal.local', 1))
+            logger.info("Created default user: drew")
         
         # Add default social media platforms if they don't exist
         default_platforms = ['Twitter', 'LinkedIn', 'Facebook', 'Mastodon', 'Instagram']
@@ -1166,7 +1215,45 @@ class WirelessMonitor:
         
 
         
+        # Authentication routes
+        @self.app.route('/login', methods=['GET', 'POST'])
+        def login():
+            if current_user.is_authenticated:
+                return redirect(url_for('index'))
+            
+            if request.method == 'POST':
+                username = request.form.get('username')
+                password = request.form.get('password')
+                
+                conn = self.get_db_connection()
+                user_data = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+                conn.close()
+                
+                if user_data and check_password_hash(user_data['password_hash'], password):
+                    user = User(user_data['id'], user_data['username'], user_data['email'])
+                    login_user(user, remember=True)
+                    
+                    # Update last login
+                    conn = self.get_db_connection()
+                    conn.execute('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?', (user_data['id'],))
+                    conn.commit()
+                    conn.close()
+                    
+                    next_page = request.args.get('next')
+                    return redirect(next_page if next_page else url_for('index'))
+                else:
+                    flash('Invalid username or password', 'error')
+            
+            return render_template('login.html')
+        
+        @self.app.route('/logout')
+        @login_required
+        def logout():
+            logout_user()
+            return redirect(url_for('login'))
+        
         @self.app.route('/')
+        @login_required
         def index():
             conn = self.get_db_connection()
             
@@ -1576,9 +1663,12 @@ class WirelessMonitor:
                     'uptime': time.time() - self.start_time if hasattr(self, 'start_time') else 0
                 }
             
+            # Get AI model status
+            ai_status = self.get_ai_model_status()
+            
             view_mode = request.args.get('view', 'newspaper')
             conn.close()
-            return render_template('admin.html', stats=stats, system_info=system_info, view_mode=view_mode)
+            return render_template('admin.html', stats=stats, system_info=system_info, ai_status=ai_status, view_mode=view_mode)
         
         # ENHANCEMENT ROUTES
         
@@ -2539,6 +2629,118 @@ class WirelessMonitor:
                 conn.close()
                 
                 return jsonify({'success': True, 'message': 'Article marked as unread'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/fetch_article_content/<int:article_id>')
+        def fetch_article_content(article_id):
+            """Fetch full article content from URL"""
+            try:
+                conn = self.get_db_connection()
+                article = conn.execute('SELECT * FROM articles WHERE id = ?', (article_id,)).fetchone()
+                conn.close()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                url = article['url']
+                
+                # Check if it's a Google News article
+                is_google_news = 'news.google.com' in url
+                
+                # Fetch the article content
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                }
+                
+                response = requests.get(url, headers=headers, timeout=10)
+                response.raise_for_status()
+                
+                # Parse the HTML
+                soup = BeautifulSoup(response.content, 'html.parser')
+                
+                # Remove script and style elements
+                for script in soup(['script', 'style', 'nav', 'header', 'footer', 'aside']):
+                    script.decompose()
+                
+                # Try to find the main content
+                content = None
+                
+                # Common article content selectors
+                selectors = [
+                    'article',
+                    '[role="main"]',
+                    '.article-content',
+                    '.post-content',
+                    '.entry-content',
+                    '.content',
+                    'main',
+                    '#content',
+                    '.story-body',
+                ]
+                
+                for selector in selectors:
+                    content_elem = soup.select_one(selector)
+                    if content_elem:
+                        content = content_elem
+                        break
+                
+                # If no specific content found, try to get all paragraphs
+                if not content:
+                    paragraphs = soup.find_all('p')
+                    if paragraphs:
+                        content = soup.new_tag('div')
+                        for p in paragraphs:
+                            content.append(p)
+                
+                if content:
+                    # Clean up the content
+                    content_html = str(content)
+                    
+                    return jsonify({
+                        'success': True,
+                        'content': content_html,
+                        'title': article['title'],
+                        'url': url,
+                        'is_google_news': is_google_news
+                    })
+                else:
+                    return jsonify({
+                        'success': False,
+                        'error': 'Could not extract article content',
+                        'fallback': article['description']
+                    })
+                
+            except requests.exceptions.RequestException as e:
+                return jsonify({
+                    'success': False,
+                    'error': f'Failed to fetch article: {str(e)}',
+                    'fallback': article.get('description', '') if article else ''
+                })
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/generate_ai_summary/<int:article_id>', methods=['POST'])
+        def generate_ai_summary_endpoint(article_id):
+            """Generate AI summary for an article"""
+            try:
+                conn = self.get_db_connection()
+                article = conn.execute('SELECT * FROM articles WHERE id = ?', (article_id,)).fetchone()
+                conn.close()
+                
+                if not article:
+                    return jsonify({'success': False, 'error': 'Article not found'})
+                
+                if not self.check_ollama_available():
+                    return jsonify({'success': False, 'error': 'AI service not available. Install Ollama and pull phi3 model.'})
+                
+                summary = self.generate_ai_summary(article['title'], article['description'])
+                
+                if summary:
+                    return jsonify({'success': True, 'summary': summary})
+                else:
+                    return jsonify({'success': False, 'error': 'Failed to generate summary'})
                 
             except Exception as e:
                 return jsonify({'success': False, 'error': str(e)})
@@ -4508,7 +4710,7 @@ class WirelessMonitor:
         """Generate social media share content"""
         try:
             # Get attribution from social config
-            attribution = f"via @{social_config['username']}" if social_config['username'] else "via The Wireless Monitor"
+            attribution = f"via @{social_config['username']}" if social_config['username'] else "via The Signal"
             
             # Platform-specific content generation
             platform = social_config['platform']
@@ -4610,7 +4812,7 @@ class WirelessMonitor:
                 'content': article['title'],
                 'share_url': article['url'],
                 'platform': social_config['platform'],
-                'attribution': 'via The Wireless Monitor',
+                'attribution': 'via The Signal',
                 'title': article['title'],
                 'description': article['description'][:300] if article['description'] else '',
                 'url': article['url']
@@ -4643,9 +4845,12 @@ class WirelessMonitor:
         return insights_data
     
     def generate_ai_insights(self, articles):
-        """Generate AI insights from articles using pattern analysis"""
+        """Generate AI insights from articles using Ollama AI and pattern analysis"""
         if not articles:
             return self.get_default_insights()
+        
+        # Try to use Ollama for enhanced insights
+        use_ai = self.check_ollama_available()
         
         # Analyze articles for patterns and trends
         insights = {
@@ -4653,7 +4858,8 @@ class WirelessMonitor:
             'whats_now': [],
             'whats_next': [],
             'generated_at': datetime.now().isoformat(),
-            'articles_analyzed': len(articles)
+            'articles_analyzed': len(articles),
+            'ai_enhanced': use_ai
         }
         
         # Keywords for different categories
@@ -4695,10 +4901,17 @@ class WirelessMonitor:
             else:
                 timeline = 'whats_now'  # Default
             
+            # Generate AI summary if available
+            summary = article['description'][:200] + '...' if len(article['description']) > 200 else article['description']
+            if use_ai and len(article['description']) > 100:
+                ai_summary = self.generate_ai_summary(article['title'], article['description'])
+                if ai_summary:
+                    summary = ai_summary
+            
             # Create insight entry
             insight = {
                 'title': article['title'],
-                'summary': article['description'][:200] + '...' if len(article['description']) > 200 else article['description'],
+                'summary': summary,
                 'category': category,
                 'source': article['feed_name'],
                 'url': article['url'],
@@ -4715,7 +4928,90 @@ class WirelessMonitor:
         # Add trend analysis
         insights['trends'] = self.analyze_trends(articles)
         
+        # Add AI-generated industry analysis if available
+        if use_ai and len(articles) > 5:
+            insights['ai_analysis'] = self.generate_industry_analysis(articles[:10])
+        
         return insights
+    
+    def check_ollama_available(self):
+        """Check if Ollama is available and has models"""
+        try:
+            import subprocess
+            result = subprocess.run(['ollama', 'list'], 
+                                  capture_output=True, text=True, timeout=3)
+            return result.returncode == 0 and len(result.stdout.strip().split('\n')) > 1
+        except:
+            return False
+    
+    def generate_ai_summary(self, title, description):
+        """Generate AI-powered summary using Ollama"""
+        try:
+            import ollama
+            
+            prompt = f"""Summarize this tech news article in 1-2 concise sentences focusing on the key technical details and business impact:
+
+Title: {title}
+Content: {description[:500]}
+
+Summary:"""
+            
+            response = ollama.generate(
+                model='phi3',  # Lightweight model
+                prompt=prompt,
+                options={
+                    'temperature': 0.3,
+                    'num_predict': 100
+                }
+            )
+            
+            summary = response['response'].strip()
+            if len(summary) > 20 and len(summary) < 300:
+                return summary
+            return None
+            
+        except Exception as e:
+            logger.debug(f"AI summary generation failed: {e}")
+            return None
+    
+    def generate_industry_analysis(self, articles):
+        """Generate AI-powered industry analysis from top articles"""
+        try:
+            import ollama
+            
+            # Prepare article summaries
+            article_text = "\n".join([
+                f"- {article['title']}: {article['description'][:150]}"
+                for article in articles[:10]
+            ])
+            
+            prompt = f"""Based on these recent wireless technology news articles, provide a brief industry analysis covering:
+1. Main trends (1-2 sentences)
+2. Key players and technologies (1-2 sentences)
+3. Market implications (1-2 sentences)
+
+Recent Articles:
+{article_text}
+
+Analysis:"""
+            
+            response = ollama.generate(
+                model='phi3',
+                prompt=prompt,
+                options={
+                    'temperature': 0.5,
+                    'num_predict': 200
+                }
+            )
+            
+            analysis = response['response'].strip()
+            if len(analysis) > 50:
+                return analysis
+            return None
+            
+        except Exception as e:
+            logger.debug(f"AI industry analysis failed: {e}")
+            return None
     
     def analyze_trends(self, articles):
         """Analyze trending topics and technologies"""
@@ -5337,7 +5633,7 @@ signal strength issue creative solution"""
         script_lines = []
         
         # Opening with natural pauses
-        script_lines.append("Welcome to The Wireless Monitor Weekly Digest!<break time=\"0.8s\" />")
+        script_lines.append("Welcome to The Signal Weekly Digest!<break time=\"0.8s\" />")
         script_lines.append(f"This is the week of {week_start}.<break time=\"1.0s\" />")
         script_lines.append("")
         script_lines.append("I'm bringing you the most important wireless technology news from the past week.<break time=\"1.2s\" />")
@@ -5403,11 +5699,11 @@ signal strength issue creative solution"""
         
         # Closing with emphasis and pauses
         script_lines.append("<break time=\"1.0s\" />")
-        script_lines.append("And that wraps up this week's Wireless Monitor digest.<break time=\"0.8s\" />")
+        script_lines.append("And that wraps up this week's Signal digest.<break time=\"0.8s\" />")
         script_lines.append("")
         script_lines.append("Thanks for listening!<break time=\"0.6s\" />")
         script_lines.append("")
-        script_lines.append("For more wireless technology news,<break time=\"0.4s\" /> visit The Wireless Monitor dot com.<break time=\"1.0s\" />")
+        script_lines.append("For more wireless technology news,<break time=\"0.4s\" /> visit The Signal dot com.<break time=\"1.0s\" />")
         script_lines.append("")
         script_lines.append("Until next week...<break time=\"0.6s\" /> keep your signals strong!<break time=\"1.0s\" />")
         
@@ -7650,6 +7946,79 @@ signal strength issue creative solution"""
     
     # AI model status functions removed - using scraping-only approach
     
+    def get_ai_model_status(self):
+        """Get status and version information for AI models"""
+        import subprocess
+        import importlib.metadata
+        
+        ai_status = {}
+        
+        # Check Ollama Python package
+        try:
+            version = importlib.metadata.version('ollama')
+            ai_status['ollama_client'] = {
+                'available': True,
+                'version': f'v{version}',
+                'package': 'ollama'
+            }
+        except importlib.metadata.PackageNotFoundError:
+            ai_status['ollama_client'] = {
+                'available': False,
+                'version': 'Not installed',
+                'package': 'ollama'
+            }
+        except Exception as e:
+            ai_status['ollama_client'] = {
+                'available': False,
+                'version': f'Error: {str(e)}',
+                'package': 'ollama'
+            }
+        
+        # Check Ollama service and models
+        try:
+            result = subprocess.run(['ollama', 'list'], 
+                                  capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                models_found = []
+                for line in result.stdout.split('\n')[1:]:  # Skip header
+                    if line.strip():
+                        model_name = line.split()[0]
+                        if model_name:
+                            models_found.append(model_name)
+                
+                if models_found:
+                    ai_status['ollama_service'] = {
+                        'available': True,
+                        'version': f'{len(models_found)} model(s): {", ".join(models_found[:3])}',
+                        'package': 'ollama'
+                    }
+                else:
+                    ai_status['ollama_service'] = {
+                        'available': False,
+                        'version': 'No models installed',
+                        'package': 'ollama'
+                    }
+            else:
+                ai_status['ollama_service'] = {
+                    'available': False,
+                    'version': 'Service not running',
+                    'package': 'ollama'
+                }
+        except FileNotFoundError:
+            ai_status['ollama_service'] = {
+                'available': False,
+                'version': 'Ollama not installed',
+                'package': 'ollama'
+            }
+        except Exception as e:
+            ai_status['ollama_service'] = {
+                'available': False,
+                'version': f'Error: {str(e)}',
+                'package': 'ollama'
+            }
+        
+        return ai_status
+    
     def update_ai_models(self):
         """Update AI models to latest versions"""
         results = []
@@ -7657,48 +8026,37 @@ signal strength issue creative solution"""
         try:
             import subprocess
             
-            # Update pip packages
-            packages_to_update = [
-                'diffusers',
-                'transformers', 
-                'torch',
-                'torchvision',
-                'accelerate',
-                'safetensors'
-            ]
-            
-            for package in packages_to_update:
-                try:
-                    logger.info(f"Updating {package}...")
-                    result = subprocess.run([
-                        'pip3', 'install', '--upgrade', package
-                    ], capture_output=True, text=True, timeout=300)
-                    
-                    if result.returncode == 0:
-                        results.append(f"✅ {package} updated successfully")
-                    else:
-                        results.append(f"❌ {package} update failed: {result.stderr}")
-                        
-                except subprocess.TimeoutExpired:
-                    results.append(f"⏰ {package} update timed out")
-                except Exception as e:
-                    results.append(f"❌ {package} update error: {str(e)}")
-            
-            # Update Ollama models if available
+            # Update Ollama Python client
             try:
-                result = subprocess.run(['ollama', 'pull', 'llama2'], 
-                                      capture_output=True, text=True, timeout=600)
+                logger.info("Updating ollama Python package...")
+                result = subprocess.run([
+                    'pip3', 'install', '--upgrade', 'ollama'
+                ], capture_output=True, text=True, timeout=300)
+                
                 if result.returncode == 0:
-                    results.append("✅ Ollama llama2 model updated")
+                    results.append("✅ Ollama Python client updated successfully")
                 else:
-                    results.append("❌ Ollama model update failed")
-            except:
-                results.append("ℹ️ Ollama not available for model updates")
+                    results.append(f"❌ Ollama client update failed: {result.stderr}")
+            except Exception as e:
+                results.append(f"❌ Ollama client update error: {str(e)}")
             
-            # Clear model cache to force reload
-            if hasattr(self, '_sd_pipeline'):
-                delattr(self, '_sd_pipeline')
-                results.append("🔄 Stable Diffusion pipeline cache cleared")
+            # Update/Pull Ollama models
+            models_to_pull = ['phi3', 'mistral']  # Lightweight models for CPU
+            
+            for model in models_to_pull:
+                try:
+                    logger.info(f"Pulling Ollama model: {model}...")
+                    result = subprocess.run(['ollama', 'pull', model], 
+                                          capture_output=True, text=True, timeout=600)
+                    if result.returncode == 0:
+                        results.append(f"✅ Ollama {model} model updated")
+                    else:
+                        results.append(f"❌ Ollama {model} model update failed")
+                except FileNotFoundError:
+                    results.append("❌ Ollama not installed - install from https://ollama.ai")
+                    break
+                except Exception as e:
+                    results.append(f"❌ Ollama {model} update error: {str(e)}")
             
             logger.info(f"AI model update completed: {len(results)} operations")
             return results
@@ -7970,7 +8328,7 @@ signal strength issue creative solution"""
         scheduler_thread = threading.Thread(target=self.run_scheduler, daemon=True)
         scheduler_thread.start()
         
-        logger.info(f"Starting The Wireless Monitor on {host}:{port}")
+        logger.info(f"Starting The Signal on {host}:{port}")
         
         try:
             self.app.run(host=host, port=port, debug=True, threaded=True)
