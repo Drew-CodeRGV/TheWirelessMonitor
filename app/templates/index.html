@@ -395,6 +395,13 @@
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
                         {% endif %}
+                        <!-- Waves Score Badge -->
+                        {% if stories[0].waves_score and stories[0].waves_score > 0 %}
+                        <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #e52d27 0%, #b31217 100%); color: white; padding: 12px 20px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                            <div style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 2px;">WAVES SCORE</div>
+                            <div style="font-size: 1.8rem; line-height: 1;">{{ "%.0f"|format(stories[0].waves_score) }}</div>
+                        </div>
+                        {% endif %}
                     </div>
                     <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 15px; line-height: 1.2;">
                         <a href="{{ stories[0].url }}" target="_blank" style="color: #000; text-decoration: none;">{{ stories[0].title }}</a>
@@ -402,7 +409,14 @@
                     {% if stories[0].description %}
                         <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">{{ stories[0].description[:200] }}...</p>
                     {% endif %}
-                    <div style="display: flex; gap: 10px;">
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <span style="color: #999; font-size: 0.9rem;">{{ stories[0].feed_name }}</span>
+                        {% if stories[0].cross_source_count and stories[0].cross_source_count > 1 %}
+                        <span style="background: #27ae60; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">
+                            🔥 {{ stories[0].cross_source_count }} sources
+                        </span>
+                        {% endif %}
+                        <div style="flex: 1;"></div>
                         <a href="{{ stories[0].url }}" target="_blank" class="btn">Read More</a>
                         <button onclick="shareArticle({{ stories[0].id }})" class="btn" style="background: #3498db; color: white;" title="Share this article on social media">📤 Share</button>
                         <button onclick="addToDigest({{ stories[0].id }})" class="btn" style="background: #f39c12; color: white;" title="Add to weekly digest">📋 Add to Digest</button>
@@ -424,6 +438,13 @@
                                 <span style="color: #666;">📸 Generate Image</span>
                             </div>
                         {% endif %}
+                        <!-- Waves Score Badge -->
+                        {% if stories[1].waves_score and stories[1].waves_score > 0 %}
+                        <div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #e52d27 0%, #b31217 100%); color: white; padding: 8px 14px; border-radius: 6px; font-weight: bold; box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                            <div style="font-size: 0.65rem; opacity: 0.9;">SCORE</div>
+                            <div style="font-size: 1.4rem; line-height: 1;">{{ "%.0f"|format(stories[1].waves_score) }}</div>
+                        </div>
+                        {% endif %}
                     </div>
                     <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">
                         <a href="{{ stories[1].url }}" target="_blank" style="color: #000; text-decoration: none;">{{ stories[1].title }}</a>
@@ -431,7 +452,14 @@
                     {% if stories[1].description %}
                         <p style="color: #666; margin-bottom: 15px;">{{ stories[1].description[:150] }}...</p>
                     {% endif %}
-                    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                    <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: center; flex-wrap: wrap;">
+                        <span style="color: #999; font-size: 0.85rem;">{{ stories[1].feed_name }}</span>
+                        {% if stories[1].cross_source_count and stories[1].cross_source_count > 1 %}
+                        <span style="background: #27ae60; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                            🔥 {{ stories[1].cross_source_count }} sources
+                        </span>
+                        {% endif %}
+                        <div style="flex: 1;"></div>
                         <a href="{{ stories[1].url }}" target="_blank" class="btn" style="font-size: 0.9rem; padding: 8px 16px;">Read More</a>
                         <button onclick="shareArticle({{ stories[1].id }})" class="btn" style="background: #3498db; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Share this article">📤 Share</button>
                         <button onclick="addToDigest({{ stories[1].id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.9rem; padding: 8px 16px;" title="Add to digest">📋 Digest</button>
@@ -454,19 +482,33 @@
                         {% for story in stories[2:8] %}
                             {% if not story.event_name %}
                             <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
-                                {% if story.image_url %}
-                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                         style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
-                                {% else %}
-                                    <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
-                                         onclick="generateArticleImage({{ story.id }}, this)">
-                                        <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                <div style="position: relative;">
+                                    {% if story.image_url %}
+                                        <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                             style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
+                                    {% else %}
+                                        <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
+                                             onclick="generateArticleImage({{ story.id }}, this)">
+                                            <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                        </div>
+                                    {% endif %}
+                                    {% if story.waves_score and story.waves_score > 0 %}
+                                    <div style="position: absolute; top: 5px; right: 5px; background: linear-gradient(135deg, #e52d27 0%, #b31217 100%); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+                                        {{ "%.0f"|format(story.waves_score) }}
                                     </div>
-                                {% endif %}
+                                    {% endif %}
+                                </div>
                                 <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
                                     <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
                                 </h4>
-                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">
+                                    {{ story.feed_name }}
+                                    {% if story.cross_source_count and story.cross_source_count > 1 %}
+                                    <span style="background: #27ae60; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; font-weight: 600; margin-left: 5px;">
+                                        🔥 {{ story.cross_source_count }}
+                                    </span>
+                                    {% endif %}
+                                </p>
                                 <div style="display: flex; gap: 4px;">
                                     <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
                                     <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
@@ -482,19 +524,33 @@
                         {% for story in stories[8:13] %}
                             {% if not story.event_name %}
                             <article style="margin-bottom: 20px; padding-bottom: 15px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
-                                {% if story.image_url %}
-                                    <img src="{{ story.image_url }}" alt="{{ story.title }}" 
-                                         style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
-                                {% else %}
-                                    <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
-                                         onclick="generateArticleImage({{ story.id }}, this)">
-                                        <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                <div style="position: relative;">
+                                    {% if story.image_url %}
+                                        <img src="{{ story.image_url }}" alt="{{ story.title }}" 
+                                             style="width: 100%; height: 80px; object-fit: cover; margin-bottom: 10px; border-radius: 4px;">
+                                    {% else %}
+                                        <div data-article-id="{{ story.id }}" class="image-placeholder" style="width: 100%; height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 10px; border-radius: 4px;" 
+                                             onclick="generateArticleImage({{ story.id }}, this)">
+                                            <span style="color: #666; font-size: 0.8rem;">📸</span>
+                                        </div>
+                                    {% endif %}
+                                    {% if story.waves_score and story.waves_score > 0 %}
+                                    <div style="position: absolute; top: 5px; right: 5px; background: linear-gradient(135deg, #e52d27 0%, #b31217 100%); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+                                        {{ "%.0f"|format(story.waves_score) }}
                                     </div>
-                                {% endif %}
+                                    {% endif %}
+                                </div>
                                 <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">
                                     <a href="{{ story.url }}" target="_blank" style="color: #000; text-decoration: none;">{{ story.title }}</a>
                                 </h4>
-                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">{{ story.feed_name }} • {{ story.published_date[:10] }}</p>
+                                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">
+                                    {{ story.feed_name }}
+                                    {% if story.cross_source_count and story.cross_source_count > 1 %}
+                                    <span style="background: #27ae60; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; font-weight: 600; margin-left: 5px;">
+                                        🔥 {{ story.cross_source_count }}
+                                    </span>
+                                    {% endif %}
+                                </p>
                                 <div style="display: flex; gap: 4px;">
                                     <button onclick="shareArticle({{ story.id }})" class="btn" style="background: #3498db; color: white; font-size: 0.7rem; padding: 4px 8px;">📤</button>
                                     <button onclick="addToDigest({{ story.id }})" class="btn" style="background: #f39c12; color: white; font-size: 0.7rem; padding: 4px 8px;">📋</button>
